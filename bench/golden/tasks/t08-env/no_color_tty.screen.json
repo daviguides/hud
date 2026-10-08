@@ -1,0 +1,24 @@
+[
+ [
+  {
+   "text": "error",
+   "fg": "default",
+   "bg": "default",
+   "bold": true,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": " ok plain                                                                                      ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ]
+]

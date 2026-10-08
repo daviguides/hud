@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "terminal": {
+    "cols": 100,
+    "rows": 40
+  },
+  "tasks": [
+    {
+      "id": "t01-table",
+      "title": "Styled table with header, alignment and a title",
+      "ref": "reference/python/tasks/t01_table.py",
+      "statement": "Print a table titled \"Build report\" with four columns: Crate (left aligned), Version (centered), Downloads (right aligned) and Status (left aligned), and five rows of data. Every column header is shown. Use the crate's table facility; the output must be exactly the target below.",
+      "runs": [
+        {
+          "name": "main",
+          "stream": "pipe",
+          "env": {
+            "NO_COLOR": "1",
+            "COLUMNS": "100",
+            "TERM": "xterm-256color"
+          },
+          "check": "bytes"
+        }
+      ]
+    },
+    {
+      "id": "t02-panel",
+      "title": "Titled panel containing wrapped text",
+      "ref": "reference/python/tasks/t02_panel.py",
+      "statement": "Print the paragraph given in the target inside a panel titled \"Notice\". The panel spans the full terminal width and the text wraps inside it. The text is: hud renders terminal output that reads at a glance. Tables, panels, trees and progress share one width model, so wide characters such as 日本語 and emoji keep every border aligned on any terminal.",
+      "runs": [
+        {
+          "name": "main",
+          "stream": "pipe",
+          "env": {
+            "NO_COLOR": "1",
+            "COLUMNS": "100",
+            "TERM": "xterm-256color"
+          },
+          "check": "bytes"
+        }
+      ]
+    },
+    {
+      "id": "t03-progress",
+      "title": "Multi-task progress that finishes",
+      "ref": "reference/python/tasks/t03_progress.py",
+      "statement": "Show three progress tasks at once: \"fetch index\" (3 steps), \"download crates\" (120 steps) and \"verify\" (12 steps). Each line shows the description, a 30 cell wide bar, the percentage and the completed/total counts. Advance every task to completion in a loop and exit. The check reads the final screen of a 100 column terminal after the program exits; it must equal the target.",
+      "runs": [
+        {
+          "name": "main",
+          "stream": "tty",
+          "env": {
+            "NO_COLOR": "1",
+            "TERM": "xterm-256color"
+          },
+          "check": "screen"
+        }
+      ]
+    },
+    {
+      "id": "t04-tree",
+      "title": "Tree of a directory-like structure",
+      "ref": "reference/python/tasks/t04_tree.py",
+      "statement": "Print the directory-like tree shown in the target: a root \"hud/\" with the children src/ (lib.rs, console.rs, width.rs), tests/ (golden.rs), Cargo.toml and README.md.",
+      "runs": [
+        {
+          "name": "main",
+          "stream": "pipe",
+          "env": {
+            "NO_COLOR": "1",
+            "COLUMNS": "100",
+            "TERM": "xterm-256color"
+          },
+          "check": "bytes"
+        }
+      ]
+    },
+    {
+      "id": "t05-error",
+      "title": "Formatted error with a cause chain",
+      "ref": "reference/python/tasks/t05_error.py",
+      "statement": "Print an error report: a panel titled \"Error\" spanning the full width, containing the message \"could not read config\", a blank line, \"Caused by:\" followed by the numbered causes (\"No such file or directory (os error 2)\" and \"path: /etc/hud/config.toml\") indented four spaces, a blank line, and the hint \"run again with --verbose for details\". Build it from the crate's facilities; the output must equal the target.",
+      "runs": [
+        {
+          "name": "main",
+          "stream": "pipe",
+          "env": {
+            "NO_COLOR": "1",
+            "COLUMNS": "100",
+            "TERM": "xterm-256color"
+          },
+          "check": "bytes"
+        }
+      ]
+    },
+    {
+      "id": "t06-markup",
+      "title": "Inline markup with nested styles",
+      "ref": "reference/python/tasks/t06_markup.py",
+      "statement": "Print three lines with inline styles. Line 1: \"Deploy\" in bold, \"ok\" in green, \"3.2s\" in italic yellow. Line 2: \"outer inner deep outer\" where the whole line is bold, \"inner deep\" is also italic and \"deep\" is also underlined. Line 3: \" FAIL \" in bold red on white background, then \"retry\" struck through, then plain \" in 5s\". The check compares the final screen of a 100 column truecolor terminal cell by cell (character, color, bold, italic, underline, strikethrough). No automatic highlighting of numbers or other tokens: only the styles stated here.",
+      "runs": [
+        {
+          "name": "main",
+          "stream": "tty",
+          "env": {
+            "TERM": "xterm-256color",
+            "COLORTERM": "truecolor"
+          },
+          "check": "screen"
+        }
+      ]
+    },
+    {
+      "id": "t07-pipe",
+      "title": "Output to a pipe (no TTY)",
+      "ref": "reference/python/tasks/t07_pipe.py",
+      "statement": "Print the same table as the target, but styled: header in bold cyan, status \"ok\" green, \"warn\" yellow, \"fail\" red. The program runs with stdout redirected to a file (not a terminal) and TERM=xterm-256color, COLORTERM=truecolor in the environment. The captured bytes must contain no escape byte at all and equal the target.",
+      "runs": [
+        {
+          "name": "main",
+          "stream": "pipe",
+          "env": {
+            "COLUMNS": "100",
+            "TERM": "xterm-256color",
+            "COLORTERM": "truecolor"
+          },
+          "check": "bytes"
+        }
+      ]
+    },
+    {
+      "id": "t08-env",
+      "title": "NO_COLOR and FORCE_COLOR honored",
+      "ref": "reference/python/tasks/t08_env.py",
+      "statement": "Print the single line \"error ok plain\" where \"error\" is bold red and \"ok\" is green. The same unchanged program is run three ways and each result must equal its target: (a) on a terminal with NO_COLOR=1 (no colors; bold is allowed to remain), (b) piped with FORCE_COLOR=1 and COLORTERM=truecolor (colors present), (c) piped with neither variable (plain text, no escape bytes). No automatic highlighting of numbers or other tokens: only the styles stated here.",
+      "runs": [
+        {
+          "name": "no_color_tty",
+          "stream": "tty",
+          "env": {
+            "NO_COLOR": "1",
+            "TERM": "xterm-256color",
+            "COLORTERM": "truecolor"
+          },
+          "check": "screen"
+        },
+        {
+          "name": "force_color_pipe",
+          "stream": "pipe",
+          "env": {
+            "FORCE_COLOR": "1",
+            "COLUMNS": "100",
+            "TERM": "xterm-256color",
+            "COLORTERM": "truecolor"
+          },
+          "check": "screen"
+        },
+        {
+          "name": "plain_pipe",
+          "stream": "pipe",
+          "env": {
+            "COLUMNS": "100",
+            "TERM": "xterm-256color",
+            "COLORTERM": "truecolor"
+          },
+          "check": "bytes"
+        }
+      ]
+    }
+  ]
+}

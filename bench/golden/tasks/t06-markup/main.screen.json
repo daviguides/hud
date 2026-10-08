@@ -1,0 +1,138 @@
+[
+ [
+  {
+   "text": "Deploy",
+   "fg": "default",
+   "bg": "default",
+   "bold": true,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": " ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": "ok",
+   "fg": "green",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": " in ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": "3.2s",
+   "fg": "yellow",
+   "bg": "default",
+   "bold": false,
+   "italic": true,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ],
+ [
+  {
+   "text": "outer ",
+   "fg": "default",
+   "bg": "default",
+   "bold": true,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": "inner ",
+   "fg": "default",
+   "bg": "default",
+   "bold": true,
+   "italic": true,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": "deep",
+   "fg": "default",
+   "bg": "default",
+   "bold": true,
+   "italic": true,
+   "underline": true,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": " outer",
+   "fg": "default",
+   "bg": "default",
+   "bold": true,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ],
+ [
+  {
+   "text": " FAIL ",
+   "fg": "red",
+   "bg": "white",
+   "bold": true,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": " ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": "retry",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": true,
+   "reverse": false
+  },
+  {
+   "text": " in 5s                                                                                  ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ]
+]
