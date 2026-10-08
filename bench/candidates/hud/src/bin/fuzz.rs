@@ -1,12 +1,13 @@
 // fuzz [--seed S] [--count N]   (bench/scripts/fuzz.py drives it)
 // Zero-panic check: N seeded random inputs per feature (style parse, markup parse and render,
-// width and segmentation, capability resolution, table rendering), plus a few properties that must hold on every
+// width and segmentation, capability resolution, table, panel and tree rendering), plus a few properties that must hold on every
 // input. Prints one JSON line per feature and exits 1 on any panic or violated property.
 use std::panic::{self, AssertUnwindSafe};
 
 use hud::{
-    BoxStyle, Column, ColorSystem, Console, EnvSnapshot, Justify, Overflow, StreamInfo, Style,
-    Table, Text, cell_width, clusters, escape, fold, pad, resolve, truncate,
+    Align, Body, BoxStyle, Column, ColorSystem, Console, EnvSnapshot, Justify, Overflow, Padding,
+    Panel, Renderable, StreamInfo, Style, Table, Text, Tree, cell_width, clusters, escape, fold,
+    pad, resolve, truncate,
 };
 use serde_json::json;
 
@@ -129,7 +130,7 @@ fn markup_case(rng: &mut Rng, input: &str) -> Option<String> {
     None
 }
 
-fn table_case(rng: &mut Rng, input: &str) -> Option<String> {
+fn random_table(rng: &mut Rng, input: &str) -> Table {
     let boxes = [
         BoxStyle::Ascii,
         BoxStyle::Rounded,
@@ -170,6 +171,11 @@ fn table_case(rng: &mut Rng, input: &str) -> Option<String> {
         let cells = rng.below(columns + 2);
         table.add_row((0..cells).map(|_| random_string(rng)));
     }
+    table
+}
+
+fn table_case(rng: &mut Rng, input: &str) -> Option<String> {
+    let table = random_table(rng, input);
     let console = console(rng);
     let width = usize::from(console.capabilities().width);
     let plain = console.render_to_plain(&table);
@@ -187,6 +193,117 @@ fn table_case(rng: &mut Rng, input: &str) -> Option<String> {
         .map(cell_width)
         .collect();
     (widths.len() > 1).then(|| format!("lines of different widths {widths:?} in a table that fits: {plain:?}"))
+}
+
+const BOXES: [BoxStyle; 8] = [
+    BoxStyle::Ascii,
+    BoxStyle::Rounded,
+    BoxStyle::Simple,
+    BoxStyle::Heavy,
+    BoxStyle::Double,
+    BoxStyle::Minimal,
+    BoxStyle::Square,
+    BoxStyle::HeavyHead,
+];
+
+const STYLES: &[&str] = &["", "red", "bold green on blue", "#ff8800", "dim", "underline2", "not bold"];
+
+fn random_style(rng: &mut Rng) -> Style {
+    Style::parse(rng.pick(STYLES)).unwrap_or_default()
+}
+
+fn random_tree(rng: &mut Rng, depth: usize, nodes: &mut usize) -> Tree {
+    *nodes += 1;
+    let mut tree = Tree::new(random_string(rng));
+    if rng.chance(25) {
+        tree = tree.guide_style(random_style(rng));
+    }
+    if depth < 4 {
+        for _ in 0..rng.below(4) {
+            tree = tree.child(random_tree(rng, depth + 1, nodes));
+        }
+    }
+    tree
+}
+
+fn random_body(rng: &mut Rng, depth: usize) -> Body {
+    match rng.below(if depth >= 2 { 3 } else { 6 }) {
+        0 | 1 => Body::from(random_string(rng)),
+        2 => {
+            let text = Text::new(random_string(rng));
+            Body::from(text_options(rng, text))
+        }
+        3 => Body::from(random_table(rng, "t")),
+        4 => Body::from(random_tree(rng, 2, &mut 0)),
+        _ => Body::from(random_panel(rng, depth + 1)),
+    }
+}
+
+fn random_panel(rng: &mut Rng, depth: usize) -> Panel {
+    let mut panel = Panel::new(random_body(rng, depth))
+        .box_style(BOXES[rng.below(8)])
+        .expand(rng.chance(50))
+        .padding(match rng.below(3) {
+            0 => Padding::from(rng.below(3)),
+            1 => Padding::from((rng.below(3), rng.below(4))),
+            _ => Padding::from((rng.below(3), rng.below(4), rng.below(3), rng.below(4))),
+        })
+        .title_align([Align::Left, Align::Center, Align::Right][rng.below(3)])
+        .subtitle_align([Align::Left, Align::Center, Align::Right][rng.below(3)])
+        .border_style(random_style(rng));
+    if rng.chance(60) {
+        panel = panel.title(random_string(rng));
+    }
+    if rng.chance(40) {
+        panel = panel.subtitle(random_string(rng));
+    }
+    panel
+}
+
+fn panel_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let panel = random_panel(rng, 0);
+    let console = console(rng);
+    let width = usize::from(console.capabilities().width);
+    let plain = console.render_to_plain(&panel);
+    for line in plain.split('\n') {
+        if cell_width(line) > width {
+            return Some(format!("a printed line is {} cells wide at width {width}: {line:?}", cell_width(line)));
+        }
+    }
+    let ansi = console.render_to_string(&panel);
+    if !console.capabilities().emits_escapes() && ansi != plain {
+        return Some("a console that shows nothing wrote escape sequences".to_string());
+    }
+    let wide = Console::builder().width(2000).plain().build();
+    let plain = wide.render_to_plain(&panel);
+    let widths: std::collections::BTreeSet<usize> = plain
+        .strip_suffix('\n')
+        .unwrap_or(&plain)
+        .split('\n')
+        .map(cell_width)
+        .collect();
+    let _ = panel.measure(width);
+    (widths.len() > 1).then(|| format!("panel lines of different widths {widths:?}: {plain:?}"))
+}
+
+fn tree_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let mut nodes = 0;
+    let tree = random_tree(rng, 0, &mut nodes);
+    let console = console(rng);
+    let width = usize::from(console.capabilities().width);
+    let plain = console.render_to_plain(&tree);
+    for line in plain.split('\n') {
+        if cell_width(line) > width {
+            return Some(format!("a printed line is {} cells wide at width {width}: {line:?}", cell_width(line)));
+        }
+    }
+    let ansi = console.render_to_string(&tree);
+    if !console.capabilities().emits_escapes() && ansi != plain {
+        return Some("a console that shows nothing wrote escape sequences".to_string());
+    }
+    let lines = plain.matches('\n').count();
+    let _ = tree.measure(width);
+    (width > 0 && lines < nodes).then(|| format!("{nodes} nodes printed on {lines} lines: {plain:?}"))
 }
 
 fn strip_controls(text: &str) -> String {
@@ -266,12 +383,14 @@ fn main() {
     let seed: u64 = get("--seed").map_or(20_261_008, |v| v.parse().unwrap());
     let count: usize = get("--count").map_or(5000, |v| v.parse().unwrap());
     panic::set_hook(Box::new(|_| {}));
-    let cases: [(&str, Case); 5] = [
+    let cases: [(&str, Case); 7] = [
         ("style", style_case),
         ("markup", markup_case),
         ("width", width_case),
         ("capability", capability_case),
         ("table", table_case),
+        ("panel", panel_case),
+        ("tree", tree_case),
     ];
     let mut ok = true;
     for (feature, case) in cases {

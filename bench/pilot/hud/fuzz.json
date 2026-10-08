@@ -36,6 +36,18 @@
    "panics": 0,
    "violations": 0,
    "first": null
+  },
+  "panel": {
+   "inputs": 80000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "tree": {
+   "inputs": 80000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
   }
  },
  "pass": true
