@@ -194,7 +194,7 @@ fn join(like: &Text, pieces: &[Text]) -> Text {
 
 /// Replaces each tab with a space and pads up to the next tab stop, the padding taking the
 /// style of the spans that reach the tab.
-fn expand_tabs(line: &mut Text, tab_size: usize) {
+pub(crate) fn expand_tabs(line: &mut Text, tab_size: usize) {
     let tab_size = tab_size.max(1);
     let offsets: Vec<usize> = line
         .plain
@@ -274,7 +274,7 @@ pub(crate) fn set_cell_size(text: &str, total: usize) -> String {
 }
 
 /// Crops a line to `max_width` by the overflow setting; with `pad`, pads a shorter line to it.
-fn truncate(line: &mut Text, max_width: usize, overflow: Overflow, pad: bool) {
+pub(crate) fn truncate(line: &mut Text, max_width: usize, overflow: Overflow, pad: bool) {
     if overflow == Overflow::Ignore {
         return;
     }
@@ -295,7 +295,7 @@ fn truncate(line: &mut Text, max_width: usize, overflow: Overflow, pad: bool) {
     }
 }
 
-fn pad_left(line: &mut Text, count: usize) {
+pub(crate) fn pad_left(line: &mut Text, count: usize) {
     if count == 0 {
         return;
     }
@@ -308,7 +308,7 @@ fn pad_left(line: &mut Text, count: usize) {
     }
 }
 
-fn pad_right(line: &mut Text, count: usize) {
+pub(crate) fn pad_right(line: &mut Text, count: usize) {
     line.plain.extend(core::iter::repeat_n(' ', count));
 }
 

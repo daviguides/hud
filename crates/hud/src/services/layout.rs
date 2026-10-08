@@ -3,7 +3,7 @@
 
 use hud_width::cell_width;
 
-use crate::model::{Column, Text};
+use crate::model::{Column, Measure, Renderable, Text};
 
 /// Cells of padding the table puts on each side of a cell.
 pub(crate) const PADDING: i64 = 1;
@@ -16,7 +16,7 @@ pub(crate) struct Measurement {
 }
 
 impl Measurement {
-    fn normalize(self) -> Measurement {
+    pub(crate) fn normalize(self) -> Measurement {
         let min = self.min.max(0).min(self.max);
         Measurement {
             min: min.max(0),
@@ -24,19 +24,49 @@ impl Measurement {
         }
     }
 
-    fn with_maximum(self, width: i64) -> Measurement {
+    pub(crate) fn with_maximum(self, width: i64) -> Measurement {
         Measurement {
             min: self.min.min(width),
             max: self.max.min(width),
         }
     }
 
-    fn with_minimum(self, width: i64) -> Measurement {
+    pub(crate) fn with_minimum(self, width: i64) -> Measurement {
         let width = width.max(0);
         Measurement {
             min: self.min.max(width),
             max: self.max.max(width),
         }
+    }
+}
+
+impl Measurement {
+    /// A measurement as the public type.
+    pub(crate) fn measure(self) -> Measure {
+        Measure {
+            min: self.min.max(0) as usize,
+            max: self.max.max(0) as usize,
+        }
+    }
+}
+
+/// What `renderable` asks for within `max_width` cells, kept sane: no wider than the room, the
+/// minimum no more than the maximum, and nothing at all when there is no room.
+pub(crate) fn measure_renderable(renderable: &dyn Renderable, max_width: i64) -> Measurement {
+    if max_width < 1 {
+        return Measurement { min: 0, max: 0 };
+    }
+    let asked = renderable.measure(max_width as usize);
+    let measured = Measurement {
+        min: asked.min as i64,
+        max: asked.max as i64,
+    }
+    .normalize()
+    .with_maximum(max_width);
+    if measured.max < 1 {
+        Measurement { min: 0, max: 0 }
+    } else {
+        measured.normalize()
     }
 }
 
@@ -80,7 +110,7 @@ fn widest_line(text: &str) -> usize {
 }
 
 /// The measurement of the text itself: its longest word to its longest line.
-fn measure_text(text: &Text) -> Measurement {
+pub(crate) fn measure_text(text: &Text) -> Measurement {
     let plain = text.plain();
     let widest = widest_line(plain);
     let longest_word = plain

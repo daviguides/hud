@@ -9,9 +9,9 @@ pub use console::{Console, ConsoleBuilder, capabilities};
 pub use hud_width as width;
 pub use hud_width::{cell_width, cell_width_of_cluster, clusters, fold, pad, truncate};
 pub use model::{
-    Attribute, BoxStyle, Capabilities, Color, ColorSystem, Column, EnvSnapshot, Justify,
-    MarkupError, Overflow, Renderable, Segment, Span, Stream, StreamInfo, Style, StyleError, Table,
-    Text,
+    Align, Attribute, Body, BoxStyle, Capabilities, Color, ColorSystem, Column, EnvSnapshot,
+    Justify, MarkupError, Measure, Overflow, Padding, Panel, Renderable, Segment, Span, Stream,
+    StreamInfo, Style, StyleError, Table, Text, Tree,
 };
 pub use services::markup::escape;
 pub use services::resolve::resolve;

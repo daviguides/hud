@@ -1,11 +1,12 @@
 //! A table spec to styled runs: cell text laid out in its column, the borders drawn around.
 
 use super::frame::{
-    BOTTOM, FOOT, HEAD, HEAD_ROW, MID, ROW, TOP, adjust_line, box_rows, rule, run, split_lines,
+    BOTTOM, FOOT, HEAD, HEAD_ROW, MID, ROW, TOP, adjust_line, box_rows, markup_text, rule, run,
+    split_lines,
 };
-use super::layout::{PADDING, column_widths};
+use super::layout::{Measurement, PADDING, column_widths, measure_column};
 use super::render::render_text;
-use crate::model::{Column, Justify, Overflow, Segment, Style, Table, Text};
+use crate::model::{Column, Justify, Measure, Overflow, Segment, Style, Table, Text};
 
 /// Text that is printable ASCII: one cell per byte, nothing to wrap or expand.
 fn is_plain_ascii(text: &str) -> bool {
@@ -48,7 +49,7 @@ fn content_lines(text: &Text, inner: usize) -> Vec<Vec<Segment>> {
         };
         return vec![vec![run(placed, &text.style)]];
     }
-    split_lines(render_text(text, inner), inner, &Style::new())
+    split_lines(render_text(text, inner), inner, Some(&Style::new()))
 }
 
 /// The lines of one cell: its text with a cell of padding on each side, in `base` over the whole
@@ -74,14 +75,10 @@ fn cell_lines(text: &Text, width: usize, base: &Style) -> Vec<Vec<Segment>> {
                     segment.style = base.combine(&segment.style);
                 }
             }
-            adjust_line(&mut full, width, base);
+            adjust_line(&mut full, width, base, true);
             full
         })
         .collect()
-}
-
-fn markup_text(markup: &str) -> Text {
-    Text::from_markup(markup).unwrap_or_else(|_| Text::new(markup))
 }
 
 fn cell_text(markup: &str, column: &Column) -> Text {
@@ -100,15 +97,9 @@ fn annotation(markup: &str, style: Style, width: usize) -> Vec<Segment> {
     render_text(&text, width)
 }
 
-/// Renders `table` for a console `width` cells wide: title, rows with their borders, caption.
-pub(crate) fn render_table(table: &Table, width: usize) -> Vec<Segment> {
-    let null = Style::new();
-    let newline = || run("\n", &Style::new());
-    if table.columns.is_empty() {
-        return vec![newline()];
-    }
-    let count = table.columns.len();
-    let texts: Vec<Vec<Text>> = table
+/// The header and the cells of each column as text, ready to be measured and laid out.
+fn table_texts(table: &Table) -> Vec<Vec<Text>> {
+    table
         .columns
         .iter()
         .enumerate()
@@ -121,7 +112,38 @@ pub(crate) fn render_table(table: &Table, width: usize) -> Vec<Segment> {
             }
             cells
         })
-        .collect();
+        .collect()
+}
+
+/// The widths a table asks for when no more than `max_width` cells are available: the columns
+/// at their narrowest and at the width they settle on, with the borders added.
+pub(crate) fn measure_table(table: &Table, max_width: usize) -> Measure {
+    if table.columns.is_empty() {
+        return Measure { min: 0, max: 0 };
+    }
+    let count = table.columns.len();
+    let extra = 2 + count as i64 - 1;
+    let texts = table_texts(table);
+    let widths = column_widths(&table.columns, &texts, max_width as i64 - extra);
+    let settled: i64 = widths.iter().sum::<usize>() as i64;
+    let (mut min, mut max) = (extra, extra);
+    for (column, cells) in table.columns.iter().zip(&texts) {
+        let measured = measure_column(column, cells, settled);
+        min += measured.min;
+        max += measured.max;
+    }
+    Measurement { min, max }.measure()
+}
+
+/// Renders `table` for a console `width` cells wide: title, rows with their borders, caption.
+pub(crate) fn render_table(table: &Table, width: usize) -> Vec<Segment> {
+    let null = Style::new();
+    let newline = || run("\n", &Style::new());
+    if table.columns.is_empty() {
+        return vec![newline()];
+    }
+    let count = table.columns.len();
+    let texts = table_texts(table);
 
     let extra = 2 + count - 1;
     let available = width as i64 - extra as i64;

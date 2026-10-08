@@ -6,10 +6,15 @@ use std::io;
 use std::sync::OnceLock;
 
 use crate::integrations::{self, Probe, SystemProbe};
-use crate::model::{Capabilities, ColorSystem, Renderable, Segment, Stream, Table, Text};
+use crate::model::{
+    Capabilities, ColorSystem, Measure, Panel, Renderable, Segment, Stream, Table, Text, Tree,
+};
+use crate::services::layout::measure_text;
+use crate::services::panel::{measure_panel, render_panel};
 use crate::services::render::{crop_lines, render_text, render_text_ending, to_ansi, to_plain};
 use crate::services::resolve::resolve;
-use crate::services::table::render_table;
+use crate::services::table::{measure_table, render_table};
+use crate::services::tree::{measure_tree, render_tree};
 
 /// Resolves capabilities through a [`Probe`] and remembers the answer per stream.
 pub(crate) struct Resolver<P> {
@@ -185,20 +190,49 @@ impl Renderable for Text {
     fn render(&self, width: usize) -> Vec<Segment> {
         render_text(self, width)
     }
+
+    fn measure(&self, _max_width: usize) -> Measure {
+        measure_text(self).measure()
+    }
 }
 
 impl Renderable for Table {
     fn render(&self, width: usize) -> Vec<Segment> {
         render_table(self, width)
     }
+
+    fn measure(&self, max_width: usize) -> Measure {
+        measure_table(self, max_width)
+    }
+}
+
+impl Renderable for Panel {
+    fn render(&self, width: usize) -> Vec<Segment> {
+        render_panel(self, width)
+    }
+
+    fn measure(&self, max_width: usize) -> Measure {
+        measure_panel(self, max_width)
+    }
+}
+
+impl Renderable for Tree {
+    fn render(&self, width: usize) -> Vec<Segment> {
+        render_tree(self, width)
+    }
+
+    fn measure(&self, max_width: usize) -> Measure {
+        measure_tree(self, max_width)
+    }
 }
 
 impl Renderable for str {
     fn render(&self, width: usize) -> Vec<Segment> {
-        match Text::from_markup(self) {
-            Ok(text) => render_text(&text, width),
-            Err(_) => render_text(&Text::new(self), width),
-        }
+        markup_or_plain(self).render(width)
+    }
+
+    fn measure(&self, max_width: usize) -> Measure {
+        markup_or_plain(self).measure(max_width)
     }
 }
 
@@ -206,12 +240,25 @@ impl Renderable for String {
     fn render(&self, width: usize) -> Vec<Segment> {
         self.as_str().render(width)
     }
+
+    fn measure(&self, max_width: usize) -> Measure {
+        self.as_str().measure(max_width)
+    }
 }
 
 impl<T: Renderable + ?Sized> Renderable for &T {
     fn render(&self, width: usize) -> Vec<Segment> {
         (**self).render(width)
     }
+
+    fn measure(&self, max_width: usize) -> Measure {
+        (**self).measure(max_width)
+    }
+}
+
+/// Markup read as text; markup that does not parse is printed as it is.
+fn markup_or_plain(markup: &str) -> Text {
+    Text::from_markup(markup).unwrap_or_else(|_| Text::new(markup))
 }
 
 /// Renders for the standard output profile, without the trailing newline `print` adds, so
@@ -233,6 +280,31 @@ impl fmt::Display for Table {
         let ansi = to_ansi(&crop_lines(render_table(self, width), width), &caps);
         f.write_str(ansi.strip_suffix('\n').unwrap_or(&ansi))
     }
+}
+
+/// Renders for the standard output profile without the final newline, like [`Table`].
+impl fmt::Display for Panel {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        display_block(f, &render_panel(self, display_width()))
+    }
+}
+
+/// Renders for the standard output profile without the final newline, like [`Table`].
+impl fmt::Display for Tree {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        display_block(f, &render_tree(self, display_width()))
+    }
+}
+
+fn display_width() -> usize {
+    usize::from(capabilities(Stream::Stdout).width)
+}
+
+fn display_block(f: &mut fmt::Formatter<'_>, segments: &[Segment]) -> fmt::Result {
+    let caps = capabilities(Stream::Stdout);
+    let width = usize::from(caps.width);
+    let ansi = to_ansi(&crop_lines(segments.to_vec(), width), &caps);
+    f.write_str(ansi.strip_suffix('\n').unwrap_or(&ansi))
 }
 
 /// Used by the `println!` macros: prints markup, newline included.

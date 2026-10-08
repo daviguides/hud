@@ -4,7 +4,7 @@
 use hud_width::cell_width;
 
 use super::measure::set_cell_size;
-use crate::model::{BoxStyle, Segment, Style};
+use crate::model::{BoxStyle, Segment, Style, Text};
 
 /// The eight rows of a box: top, header, under the header, body, between rows, above the
 /// footer, footer and bottom, each as left, horizontal (or filler), divider and right.
@@ -115,11 +115,13 @@ pub(crate) fn run(text: impl Into<String>, style: &Style) -> Segment {
     }
 }
 
-/// Pads or crops one line of runs to exactly `width` cells; padding takes `style`.
-pub(crate) fn adjust_line(line: &mut Vec<Segment>, width: usize, style: &Style) {
+/// Crops one line of runs to `width` cells; with `pad`, pads a shorter line to it using `style`.
+pub(crate) fn adjust_line(line: &mut Vec<Segment>, width: usize, style: &Style, pad: bool) {
     let length: usize = line.iter().map(|s| cell_width(&s.text)).sum();
     if length < width {
-        line.push(run(" ".repeat(width - length), style));
+        if pad {
+            line.push(run(" ".repeat(width - length), style));
+        }
     } else if length > width {
         let mut used = 0;
         let mut cropped = Vec::with_capacity(line.len());
@@ -140,9 +142,22 @@ pub(crate) fn adjust_line(line: &mut Vec<Segment>, width: usize, style: &Style) 
     }
 }
 
-/// Splits runs at newlines into lines of runs, each adjusted to exactly `width` cells: shorter
-/// lines are padded with `style`, longer ones cropped. A final line with no newline counts.
-pub(crate) fn split_lines(segments: Vec<Segment>, width: usize, style: &Style) -> Vec<Vec<Segment>> {
+/// Markup read as text; markup that does not parse is printed as it is.
+pub(crate) fn markup_text(markup: &str) -> Text {
+    Text::from_markup(markup).unwrap_or_else(|_| Text::new(markup))
+}
+
+/// Splits runs at newlines into lines of runs, each cropped to `width` cells; with a `pad` style,
+/// shorter lines are padded to exactly `width`. A final line with no newline counts.
+pub(crate) fn split_lines(
+    segments: Vec<Segment>,
+    width: usize,
+    pad: Option<&Style>,
+) -> Vec<Vec<Segment>> {
+    let (style, pad) = match pad {
+        Some(style) => (style.clone(), true),
+        None => (Style::new(), false),
+    };
     let mut lines = Vec::new();
     let mut line: Vec<Segment> = Vec::new();
     for segment in segments {
@@ -160,14 +175,14 @@ pub(crate) fn split_lines(segments: Vec<Segment>, width: usize, style: &Style) -
                 line.push(run(piece, &segment.style));
             }
             if newline {
-                adjust_line(&mut line, width, style);
+                adjust_line(&mut line, width, &style, pad);
                 lines.push(core::mem::take(&mut line));
             }
             rest = tail;
         }
     }
     if !line.is_empty() {
-        adjust_line(&mut line, width, style);
+        adjust_line(&mut line, width, &style, pad);
         lines.push(line);
     }
     lines
