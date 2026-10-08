@@ -2,7 +2,7 @@ name: ci
 
 on:
   push:
-    branches: [main]
+    branches: [main, "parallel/**"]
   pull_request:
 
 env:
@@ -40,6 +40,23 @@ jobs:
         run: |
           rustup target add wasm32-unknown-unknown
           cargo build -p hud-width --target wasm32-unknown-unknown
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - run: cargo clippy -p hud-width -p hud --all-targets -- -D warnings
+      - run: cargo test --workspace
+
+  windows-msrv:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85.0
+      - run: cargo test -p hud-width -p hud
 
   msrv:
     runs-on: ubuntu-latest
