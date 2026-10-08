@@ -1,8 +1,10 @@
 use core::fmt;
 use std::sync::Arc;
 
+use super::capabilities::Capabilities;
+use super::node::Node;
 use super::padding::Padding;
-use super::segment::Renderable;
+use super::segment::{Measure, Renderable, Segment};
 use super::style::Style;
 use super::table::{BoxStyle, Table};
 use super::text::Text;
@@ -106,6 +108,30 @@ impl Body {
             Arc::clone(&text) as Arc<dyn Renderable + Send + Sync>,
             Some(text),
         )
+    }
+}
+
+/// A body is itself a renderable: it renders, measures and describes itself as the value it
+/// holds, so one made from text, a table or a layout can be printed on its own.
+impl Renderable for Body {
+    fn render(&self, width: usize) -> Vec<Segment> {
+        self.0.render(width)
+    }
+
+    fn render_with(&self, width: usize, caps: &Capabilities) -> Vec<Segment> {
+        self.0.render_with(width, caps)
+    }
+
+    fn render_region(&self, width: usize, height: usize, caps: &Capabilities) -> Vec<Segment> {
+        self.0.render_region(width, height, caps)
+    }
+
+    fn measure(&self, max_width: usize) -> Measure {
+        self.0.measure(max_width)
+    }
+
+    fn node(&self) -> Node {
+        self.0.node()
     }
 }
 
