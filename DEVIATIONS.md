@@ -169,6 +169,35 @@ the same rule as D-021 for text, so a table never fails to print because of one 
 
 - Remove when: never; same decision as D-021.
 
+### D-033: what `Panel` and `Tree` do not do yet
+
+Not claimed in v0.4, because no case, task or workload needs it. `Panel`: a panel `style`, a
+`width` or `height`, and the ASCII box substitution when the terminal is not UTF-8 (hud has no
+encoding detection). `Tree`: `hide_root`, `expanded` (collapsed branches), a per-node `style`,
+labels that are not markup strings (panels, tables or any renderable as a label), the highlight of
+labels, and the ASCII guides for a non-UTF-8 terminal. A panel or tree built in hud ignores none
+of them silently because there is no API for them. The tree guide style is set on the root and on
+any node (`Tree::guide_style`), inherited downward as Rich does.
+
+- Remove when: each option lands with its own goldens.
+
+### D-034: no room, no lines
+
+When the width left for a panel body or a tree label is zero (a console of 0 or 1 cell, a panel
+whose padding takes the whole width, a tree node nested deeper than the width allows), Rich renders
+nothing into it, so the panel prints only its edges and the tree node prints no line. hud does the
+same. The vectors that found it were 134 of 1 200 ASCII trees and most ASCII panels at narrow
+widths.
+
+- Remove when: never. It is Rich's behavior and the printed rows stay inside the terminal.
+
+### D-035: a panel with markup that does not parse prints as written
+
+A body, a title or a subtitle with a markup error: Rich raises `MarkupError` at construction or
+print time, hud prints the string as it is (the rule of D-021 and D-032).
+
+- Remove when: hud returns the error from a fallible API.
+
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 
 - **Windows.** v0.1 resolves the size from `COLUMNS` and `LINES` and falls back to 80x24; it

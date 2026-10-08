@@ -54,7 +54,7 @@ fn guide_segment(guide: Guide, style: &Style) -> Segment {
 /// The lines of one label, wrapped to `width` cells and cut to it, without padding.
 fn label_lines(label: &str, width: usize) -> Vec<Vec<Segment>> {
     if width == 0 {
-        return vec![Vec::new()];
+        return Vec::new();
     }
     split_lines(render_text(&markup_text(label), width), width, None)
 }
@@ -191,8 +191,10 @@ mod tests {
     }
 
     #[test]
-    fn a_label_in_no_room_at_all_is_one_empty_line() {
+    fn a_node_with_no_room_for_its_label_prints_no_line() {
         let tree = Tree::new("r").child("x");
-        assert_eq!(plain(&tree, 2), "r\n└── \n");
+        assert_eq!(plain(&tree, 2), "r\n");
+        assert_eq!(plain(&tree, 4), "r\n");
+        assert_eq!(plain(&tree, 5), "r\n└── x\n");
     }
 }

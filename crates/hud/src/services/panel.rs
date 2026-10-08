@@ -203,9 +203,13 @@ pub(crate) fn render_panel(panel: &Panel, width: usize) -> Vec<Segment> {
         child_width = room.min(child_width.max(cell_width(&title.plain) + 2));
     }
     let total = child_width + 2;
-    let lines = with_padding(panel, |body| {
-        split_lines(body.render(child_width), child_width, Some(&Style::new()))
-    });
+    let lines = if child_width == 0 {
+        Vec::new()
+    } else {
+        with_padding(panel, |body| {
+            split_lines(body.render(child_width), child_width, Some(&Style::new()))
+        })
+    };
 
     let newline = || run("\n", &Style::new());
     let mut out = edge(rows[TOP], title.as_ref(), panel.title_align, total, border);

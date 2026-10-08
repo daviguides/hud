@@ -5,7 +5,10 @@
 use std::fs;
 use std::path::PathBuf;
 
-use hud::{BoxStyle, ColorSystem, Column, Console, Justify, Overflow, Style, Table, Text};
+use hud::{
+    Align, Body, BoxStyle, ColorSystem, Column, Console, Justify, Overflow, Padding, Panel, Style,
+    Table, Text, Tree,
+};
 use serde_json::Value;
 
 fn fixture(name: &str) -> Vec<Value> {
@@ -248,7 +251,7 @@ fn table_from(row: &Value) -> Result<Table, String> {
             "right" => Justify::Right,
             _ => Justify::Left,
         };
-        let overflow = match column["overflow"].as_str().unwrap() {
+        let overflow = match column["overflow"].as_str().unwrap_or("ellipsis") {
             "crop" => Overflow::Crop,
             "fold" => Overflow::Fold,
             "ignore" => Overflow::Ignore,
@@ -368,7 +371,25 @@ fn explained_by_wide_characters(input: &str, want: &str, got: &str) -> bool {
         .lines()
         .zip(got.lines())
         .filter(|(a, b)| a != b)
-        .all(|(a, b)| a.contains('…') && !b.contains('…'))
+        .all(|(a, b)| ellipses(&without_escapes(a)) > ellipses(&without_escapes(b)))
+}
+
+fn ellipses(line: &str) -> usize {
+    line.matches('…').count()
+}
+
+fn without_escapes(line: &str) -> String {
+    let mut out = String::new();
+    let mut in_escape = false;
+    for c in line.chars() {
+        match (in_escape, c) {
+            (false, '\u{1b}') => in_escape = true,
+            (true, 'm') => in_escape = false,
+            (false, _) => out.push(c),
+            (true, _) => {}
+        }
+    }
+    out
 }
 
 #[test]
@@ -410,4 +431,207 @@ fn unicode_tables_differ_from_rich_only_where_d003_or_d024_say_so() {
             .collect::<Vec<_>>()
             .join("\n")
     );
+}
+
+fn align(name: &str) -> Align {
+    match name {
+        "left" => Align::Left,
+        "right" => Align::Right,
+        _ => Align::Center,
+    }
+}
+
+fn style_of(text: &str) -> Result<Style, String> {
+    Style::parse(text).map_err(|e| e.to_string())
+}
+
+fn body_from(node: &Value) -> Result<Body, String> {
+    Ok(match node["t"].as_str().unwrap() {
+        "text" => Body::from(node["markup"].as_str().unwrap()),
+        "table" => Body::from(table_from(node)?),
+        "tree" => Body::from(tree_from(node)?),
+        _ => Body::from(panel_from(node)?),
+    })
+}
+
+fn panel_from(node: &Value) -> Result<Panel, String> {
+    let boxes = [
+        ("rounded", BoxStyle::Rounded),
+        ("ascii", BoxStyle::Ascii),
+        ("simple", BoxStyle::Simple),
+        ("heavy", BoxStyle::Heavy),
+        ("double", BoxStyle::Double),
+        ("minimal", BoxStyle::Minimal),
+        ("square", BoxStyle::Square),
+        ("heavy_head", BoxStyle::HeavyHead),
+    ];
+    let name = node["box"].as_str().unwrap();
+    let pad: Vec<usize> = node["padding"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|n| n.as_u64().unwrap() as usize)
+        .collect();
+    let padding = match pad.as_slice() {
+        [all] => Padding::from(*all),
+        [vertical, horizontal] => Padding::from((*vertical, *horizontal)),
+        [top, right, bottom, left] => Padding::from((*top, *right, *bottom, *left)),
+        other => panic!("padding of {} numbers", other.len()),
+    };
+    let mut panel = Panel::new(body_from(&node["body"])?)
+        .box_style(boxes.iter().find(|(n, _)| *n == name).unwrap().1)
+        .expand(node["expand"].as_bool().unwrap())
+        .padding(padding)
+        .title_align(align(node["title_align"].as_str().unwrap()))
+        .subtitle_align(align(node["subtitle_align"].as_str().unwrap()));
+    if let Some(title) = node["title"].as_str() {
+        panel = panel.title(title);
+    }
+    if let Some(subtitle) = node["subtitle"].as_str() {
+        panel = panel.subtitle(subtitle);
+    }
+    let border = node["border_style"].as_str().unwrap();
+    if !border.is_empty() {
+        panel = panel.border_style(style_of(border)?);
+    }
+    Ok(panel)
+}
+
+fn tree_node(node: &Value) -> Result<Tree, String> {
+    let mut tree = Tree::new(node["label"].as_str().unwrap());
+    if let Some(style) = node["guide_style"].as_str() {
+        tree = tree.guide_style(style_of(style)?);
+    }
+    for child in node["children"].as_array().unwrap() {
+        tree = tree.child(tree_node(child)?);
+    }
+    Ok(tree)
+}
+
+fn tree_from(node: &Value) -> Result<Tree, String> {
+    let mut root = tree_node(&node["root"])?;
+    let guide = node["guide_style"].as_str().unwrap();
+    if !guide.is_empty() {
+        root = root.guide_style(style_of(guide)?);
+    }
+    Ok(root)
+}
+
+/// `(id, input, message)` of every panel or tree vector whose bytes differ from Rich.
+fn widget_mismatches(name: &str) -> (usize, Vec<(String, String, String)>) {
+    let rows = fixture(name);
+    let mut bad = Vec::new();
+    for row in &rows {
+        let id = row["id"].as_str().unwrap();
+        if row.get("error").is_some() {
+            continue;
+        }
+        let input = row["node"].to_string();
+        let node = &row["node"];
+        let width = row["width"].as_u64().unwrap() as u16;
+        let console = console(width, system(row["color_system"].as_str().unwrap()));
+        let rendered = match row["kind"].as_str().unwrap() {
+            "panel" => panel_from(node).map(|p| console.render_to_string(&p)),
+            _ => tree_from(node).map(|t| console.render_to_string(&t)),
+        };
+        match rendered {
+            Err(e) => bad.push((
+                id.to_string(),
+                input,
+                format!("{id}: Rich renders it, hud errors: {e}"),
+            )),
+            Ok(got) => {
+                let want = strip_link_ids(row["ansi"].as_str().unwrap());
+                if got != want {
+                    bad.push((
+                        id.to_string(),
+                        input,
+                        format!(
+                            "{id} w={width} {}\n   want {want:?}\n   got  {got:?}",
+                            row["color_system"]
+                        ),
+                    ));
+                }
+            }
+        }
+    }
+    (rows.len(), bad)
+}
+
+fn assert_all_match(name: &str) {
+    let (total, bad) = widget_mismatches(name);
+    assert!(
+        bad.is_empty(),
+        "{} of {total} {name} vectors differ, first:\n{}",
+        bad.len(),
+        bad.iter()
+            .take(6)
+            .map(|b| b.2.clone())
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
+}
+
+#[test]
+fn ascii_panels_match_rich() {
+    assert_all_match("panel_ascii.jsonl");
+}
+
+#[test]
+fn ascii_trees_match_rich() {
+    assert_all_match("tree_ascii.jsonl");
+}
+
+fn assert_only_explained_differences(name: &str) {
+    let rows = fixture(name);
+    let (total, bad) = widget_mismatches(name);
+    let (mut marks, mut wide) = (0, 0);
+    let mut unexplained = Vec::new();
+    for (id, input, message) in &bad {
+        if explained(input) {
+            marks += 1;
+            continue;
+        }
+        let row = rows.iter().find(|r| r["id"] == id.as_str()).unwrap();
+        let console = console(
+            row["width"].as_u64().unwrap() as u16,
+            system(row["color_system"].as_str().unwrap()),
+        );
+        let got = match row["kind"].as_str().unwrap() {
+            "panel" => console.render_to_string(&panel_from(&row["node"]).unwrap()),
+            _ => console.render_to_string(&tree_from(&row["node"]).unwrap()),
+        };
+        if explained_by_wide_characters(input, row["ansi"].as_str().unwrap(), &got) {
+            wide += 1;
+        } else {
+            let want = row["ansi"].as_str().unwrap();
+            let first = want.lines().zip(got.lines()).find(|(a, b)| a != b);
+            unexplained.push(format!("{message}\n   first differing line: {first:?}"));
+        }
+    }
+    eprintln!(
+        "{total} {name} vectors: {} differ ({marks} flag or combining mark, {wide} wide character)",
+        bad.len()
+    );
+    assert!(
+        unexplained.is_empty(),
+        "{} unexplained, first:\n{}",
+        unexplained.len(),
+        unexplained
+            .iter()
+            .take(6)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
+}
+
+#[test]
+fn unicode_panels_differ_from_rich_only_where_the_deviations_say_so() {
+    assert_only_explained_differences("panel_unicode.jsonl");
+}
+
+#[test]
+fn unicode_trees_differ_from_rich_only_where_the_deviations_say_so() {
+    assert_only_explained_differences("tree_unicode.jsonl");
 }
