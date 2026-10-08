@@ -1,0 +1,36 @@
+[3m                                            lexer parser                                            [0m
+┌─────────────┬─────────────┬─────────────┬────────────────────────────────────────────────────────┐
+│[1m [0m[1mRho        [0m[1m [0m│[1m [0m[1m   Lexer   [0m[1m [0m│[1m [0m[1mThread     [0m[1m [0m│[1m [0m[1m                        Cache                         [0m[1m [0m│
+├─────────────┼─────────────┼─────────────┼────────────────────────────────────────────────────────┤
+│[2m [0m[2;32mpending[0m[2m    [0m[2m [0m│    70782    │[32m [0m[32mshell phi  [0m[32m [0m│ buffer buffer stream shell omicron theta upsilon omega │
+│[2m             [0m│             │[32m [0m[32mindex token[0m[32m [0m│                                                        │
+│[2m             [0m│             │[32m [0m[32mepsilon    [0m[32m [0m│                                                        │
+│[2m             [0m│             │[32m [0m[32mthread     [0m[32m [0m│                                                        │
+│[2m             [0m│             │[32m [0m[32mkappa      [0m[32m [0m│                                                        │
+│[2m             [0m│             │[32m [0m[32mparser     [0m[32m [0m│                                                        │
+│[2m             [0m│             │[32m [0m[32momega queue[0m[32m [0m│                                                        │
+│[2m             [0m│             │[32m [0m[32mepsilon    [0m[32m [0m│                                                        │
+│[2m             [0m│             │[32m [0m[32mlambda     [0m[32m [0m│                                                        │
+│[2m [0m[2msyn upsilon[0m[2m [0m│  gamma chi  │[32m [0m[32m92427      [0m[32m [0m│    psi stream lambda sigma cache tau socket render     │
+│[2m             [0m│ iota stream │[32m             [0m│                                                        │
+│[2m             [0m│   worker    │[32m             [0m│                                                        │
+│[2m             [0m│   render    │[32m             [0m│                                                        │
+│[2m [0m[2;31mwarn[0m[2m       [0m[2m [0m│    95056    │[32m [0m[32m24475      [0m[32m [0m│                     serde epsilon                      │
+│[2m [0m[2;33mwarn[0m[2m       [0m[2m [0m│  mu queue   │[32m [0m[32mhyper sigma[0m[32m [0m│                          syn                           │
+│[2m             [0m│    theta    │[32m [0m[32meta        [0m[32m [0m│                                                        │
+│[2m             [0m│   upsilon   │[32m             [0m│                                                        │
+│[2m             [0m│ beta deploy │[32m             [0m│                                                        │
+│[2m             [0m│   parser    │[32m             [0m│                                                        │
+│[2m             [0m│    delta    │[32m             [0m│                                                        │
+│[2m [0m[2mstream pi  [0m[2m [0m│    78893    │[32m [0m[32m35707      [0m[32m [0m│                         40042                          │
+│[2m [0m[2meta build  [0m[2m [0m│             │[32m             [0m│                                                        │
+│[2m [0m[2mstream     [0m[2m [0m│             │[32m             [0m│                                                        │
+│[2m [0m[2msigma rho  [0m[2m [0m│             │[32m             [0m│                                                        │
+│[2m [0m[2mrender     [0m[2m [0m│             │[32m             [0m│                                                        │
+│[2m [0m[2mlambda     [0m[2m [0m│             │[32m             [0m│                                                        │
+│[2m [0m[2mlayer      [0m[2m [0m│             │[32m             [0m│                                                        │
+│[2m [0m[2mregex eta  [0m[2m [0m│    81856    │[32m [0m[32mbytes shell[0m[32m [0m│                       syn xi phi                       │
+│[2m [0m[2mchi        [0m[2m [0m│             │[32m [0m[32mworker     [0m[32m [0m│                                                        │
+│[2m [0m[2m18291      [0m[2m [0m│  syn queue  │[32m [0m[32mbytes omega[0m[32m [0m│                        tracing                         │
+│[2m [0m[2;33mwarn[0m[2m       [0m[2m [0m│     [31mok[0m      │[32m [0m[32m88343      [0m[32m [0m│                          [32mwarn[0m                          │
+└─────────────┴─────────────┴─────────────┴────────────────────────────────────────────────────────┘

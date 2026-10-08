@@ -1,0 +1,11 @@
+[31m╭─[0m[31m────────────────────────────────────────────[0m[31m Error [0m[31m─────────────────────────────────────────────[0m[31m─╮[0m
+[31m│[0m [1mpermission denied[0m                                                                                [31m│[0m
+[31m│[0m                                                                                                  [31m│[0m
+[31m│[0m [2mCaused by:[0m                                                                                       [31m│[0m
+[31m│[0m     0: connection reset by peer                                                                  [31m│[0m
+[31m│[0m     1: the lock file is held by another process, retry in a few seconds                          [31m│[0m
+[31m│[0m     2: timed out after 30s waiting for the response headers from the upstream server             [31m│[0m
+[31m│[0m     3: the lock file is held by another process, retry in a few seconds                          [31m│[0m
+[31m│[0m                                                                                                  [31m│[0m
+[31m│[0m [36mhint: run again with --verbose for details[0m                                                       [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────────────────────────╯[0m

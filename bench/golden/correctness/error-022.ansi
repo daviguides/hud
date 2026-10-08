@@ -1,0 +1,7 @@
+[31m╭─[0m[31m──────────────────────────────────[0m[31m Error [0m[31m───────────────────────────────────[0m[31m─╮[0m
+[31m│[0m [1minvalid value for field `edition`[0m                                            [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m [2mCaused by:[0m                                                                   [31m│[0m
+[31m│[0m     0: the lock file is held by another process, retry in a few seconds      [31m│[0m
+[31m│[0m     1: the lock file is held by another process, retry in a few seconds      [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m

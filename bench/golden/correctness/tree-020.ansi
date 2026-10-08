@@ -1,0 +1,7 @@
+[1mrepo[0m
+[2m├── [0m[32mbytes/[0m
+[2m│   [0m[2m├── [0mregex.rs
+[2m│   [0m[2m├── [0mhyper.rs
+[2m│   [0m[2m└── [0msyn.rs
+[2m└── [0m[32manyhow/[0m
+[2m    [0m[2m└── [0mrayon.rs

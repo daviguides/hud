@@ -1,0 +1,12 @@
+[3m                                  index queue                                   [0m
+╭──────────────────┬───────────┬──────────┬─────────┬──────────────────────────╮
+│[1m [0m[1m     Build      [0m[1m [0m│[1m [0m[1m      Chi[0m[1m [0m│[1m [0m[1mEta     [0m[1m [0m│[1m [0m[1m Cache [0m[1m [0m│[1m [0m[1m          Iota          [0m[1m [0m│
+├──────────────────┼───────────┼──────────┼─────────┼──────────────────────────┤
+│ clap thread eta  │     54133 │[2m [0m[2mserde pi[0m[2m [0m│   syn   │           clap           │
+│      69394       │     58744 │[2m [0m[2;33mskip[0m[2m    [0m[2m [0m│  clap   │   route upsilon buffer   │
+│                  │           │[2m          [0m│         │   upsilon nu build phi   │
+│                  │           │[2m          [0m│         │    thread phi epsilon    │
+│                  │           │[2m          [0m│         │      omicron sigma       │
+│ rayon shell zeta │ serde eta │[2m [0m[2;32mok[0m[2m      [0m[2m [0m│ [32mpending[0m │          83821           │
+│      50505       │ hyper phi │[2m [0m[2msyn     [0m[2m [0m│  73609  │            [32mok[0m            │
+╰──────────────────┴───────────┴──────────┴─────────┴──────────────────────────╯

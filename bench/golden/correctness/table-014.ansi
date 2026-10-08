@@ -1,0 +1,9 @@
+┌───────────────────┬──────────────────────────────────────┐
+│[1m [0m[1m            Build[0m[1m [0m│[1m [0m[1m                                Beta[0m[1m [0m│
+├───────────────────┼──────────────────────────────────────┤
+│   tokio pi stream │[91m [0m[91m                               serde[0m[91m [0m│
+│           [33mpending[0m │[91m [0m[91mzeta route route lexer socket thread[0m[91m [0m│
+│ tracing token psi │[91m [0m[91m                                 syn[0m[91m [0m│
+│       rayon sigma │[91m [0m[91m                 rayon shell omicron[0m[91m [0m│
+└───────────────────┴──────────────────────────────────────┘
+[2;3m                       worker upsilon                       [0m

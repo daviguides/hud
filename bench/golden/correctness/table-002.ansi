@@ -1,0 +1,32 @@
+                                                            
+ [1m [0m[1m Thread  [0m[1m [0m [1m [0m[1m  Phi  [0m[1m [0m [1m [0m[1m    Cache[0m[1m [0m [1m [0m[1m      Rho[0m[1m [0m [1m [0m[1m     Sigma[0m[1m [0m 
+ ────────────────────────────────────────────────────────── 
+     syn       2488         tokio  [2m [0m[2m   anyhow[0m[2m [0m     [32mpending[0m  
+    bytes      19017       worker  [2m [0m[2m   anyhow[0m[2m [0m       87378  
+    theta                  rho pi  [2m [0m[2m   render[0m[2m [0m              
+    layer               rho index  [2m [0m[2m  upsilon[0m[2m [0m              
+                             zeta  [2m           [0m              
+  syn lexer    regex      [33mpending[0m  [2m [0m[2m    bytes[0m[2m [0m     tracing  
+    token                          [2m [0m[2m     zeta[0m[2m [0m       delta  
+   tracing     23290     route pi  [2m [0m[2m    14142[0m[2m [0m       41135  
+                          phi tau  [2m           [0m              
+                        psi build  [2m           [0m              
+                              chi  [2m           [0m              
+    rayon      [31mfail[0m         rayon  [2m [0m[2m    serde[0m[2m [0m       96080  
+                                   [2m [0m[2m  upsilon[0m[2m [0m              
+     phi      anyhow         [32mfail[0m  [2m [0m[2m    bytes[0m[2m [0m       bytes  
+   parser                          [2m [0m[2m    gamma[0m[2m [0m              
+   worker                          [2m [0m[2m     beta[0m[2m [0m              
+    sigma                          [2m           [0m              
+    gamma                          [2m           [0m              
+    kappa                          [2m           [0m              
+   buffer                          [2m           [0m              
+   lambda                          [2m           [0m              
+    cache                          [2m           [0m              
+    alpha                          [2m           [0m              
+    sigma                          [2m           [0m              
+    shell                          [2m           [0m              
+  shell psi                        [2m           [0m              
+    [32mfail[0m        [31mok[0m          rayon  [2m [0m[2m    39548[0m[2m [0m        [32mwarn[0m  
+                            kappa  [2m           [0m              
+                                                            

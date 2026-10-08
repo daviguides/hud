@@ -1,0 +1,11 @@
+[31m╭─[0m[31m────────────────────────[0m[31m Error [0m[31m─────────────────────────[0m[31m─╮[0m
+[31m│[0m [1mcould not read config[0m                                    [31m│[0m
+[31m│[0m                                                          [31m│[0m
+[31m│[0m [2mCaused by:[0m                                               [31m│[0m
+[31m│[0m     0: the lock file is held by another process, retry   [31m│[0m
+[31m│[0m in a few seconds                                         [31m│[0m
+[31m│[0m     1: connection reset by peer                          [31m│[0m
+[31m│[0m     2: expected one of `2015`, `2018`, `2021`, `2024`    [31m│[0m
+[31m│[0m                                                          [31m│[0m
+[31m│[0m [36mhint: run again with --verbose for details[0m               [31m│[0m
+[31m╰──────────────────────────────────────────────────────────╯[0m

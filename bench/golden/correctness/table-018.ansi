@@ -1,0 +1,13 @@
+[3m                          lexer shell                          [0m
+                                                               
+ [1m [0m[1m      Token       [0m[1m [0m [1m [0m[1m       Alpha       [0m[1m [0m [1m [0m[1mNu              [0m[1m [0m 
+ ───────────────────────────────────────────────────────────── 
+       tracing         anyhow cache stream   rayon             
+         [33mfail[0m                 86272          [32mok[0m                
+  rayon lexer parser          [33mfail[0m           [33mok[0m                
+        anyhow         hyper epsilon route   44401             
+         [33mfail[0m              syn epsilon       bytes             
+     tracing phi              24071          tokio iota layer  
+         [32mfail[0m          tracing rho buffer    61417             
+     regex delta              [31mfail[0m           61943             
+                                                               

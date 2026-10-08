@@ -1,0 +1,8 @@
+[31m╭─[0m[31m────────────────────────────────────────────[0m[31m Error [0m[31m─────────────────────────────────────────────[0m[31m─╮[0m
+[31m│[0m [1mbuild script exited with a non-zero status while compiling a very long dependency name[0m           [31m│[0m
+[31m│[0m                                                                                                  [31m│[0m
+[31m│[0m [2mCaused by:[0m                                                                                       [31m│[0m
+[31m│[0m     0: stream did not contain valid UTF-8                                                        [31m│[0m
+[31m│[0m     1: No such file or directory (os error 2)                                                    [31m│[0m
+[31m│[0m     2: the lock file is held by another process, retry in a few seconds                          [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────────────────────────╯[0m

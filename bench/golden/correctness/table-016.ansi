@@ -1,0 +1,12 @@
+╭───────────────┬────────────────────────────────────────┬─────────────────────╮
+│[1m [0m[1m        Shell[0m[1m [0m│[1m [0m[1mRender                                [0m[1m [0m│[1m [0m[1mUpsilon            [0m[1m [0m│
+├───────────────┼────────────────────────────────────────┼─────────────────────┤
+│[1m [0m[1m           [0m[1;32mok[0m[1m [0m│ [31mfail[0m                                   │ rayon render lexer  │
+│[1m [0m[1msyn index chi[0m[1m [0m│ 5717                                   │ clap deploy alpha   │
+│[1m [0m[1m        bytes[0m[1m [0m│ cache gamma upsilon iota psi alpha     │ hyper               │
+│[1m               [0m│ omicron pi tau kappa buffer xi         │                     │
+│[1m [0m[1m         [0m[1;33mwarn[0m[1m [0m│ 26820                                  │ tracing theta shell │
+│[1m [0m[1m         [0m[1;32mskip[0m[1m [0m│ zeta nu lambda rho chi omega iota      │ 33260               │
+│[1m [0m[1m        bytes[0m[1m [0m│ rayon                                  │ [33mwarn[0m                │
+│[1m [0m[1m        12589[0m[1m [0m│ 10591                                  │ 17604               │
+╰───────────────┴────────────────────────────────────────┴─────────────────────╯

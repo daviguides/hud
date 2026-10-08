@@ -1,0 +1,10 @@
+[31m╭─[0m[31m──────────────────────────────────[0m[31m Error [0m[31m───────────────────────────────────[0m[31m─╮[0m
+[31m│[0m [1mfailed to connect to the registry at https://crates.io after three retries[0m   [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m [2mCaused by:[0m                                                                   [31m│[0m
+[31m│[0m     0: the lock file is held by another process, retry in a few seconds      [31m│[0m
+[31m│[0m     1: No such file or directory (os error 2)                                [31m│[0m
+[31m│[0m     2: No such file or directory (os error 2)                                [31m│[0m
+[31m│[0m     3: timed out after 30s waiting for the response headers from the         [31m│[0m
+[31m│[0m upstream server                                                              [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m

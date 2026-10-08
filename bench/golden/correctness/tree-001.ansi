@@ -1,0 +1,18 @@
+[1mrepo[0m
+[2m├── [0mhyper/
+[2m│   [0m[2m└── [0msyn/
+[2m│   [0m[2m    [0m[2m├── [0m[32mrayon.rs[0m
+[2m│   [0m[2m    [0m[2m├── [0msyn.rs
+[2m│   [0m[2m    [0m[2m└── [0mregex.rs
+[2m└── [0mtokio/
+[2m    [0m[2m├── [0manyhow/
+[2m    [0m[2m│   [0m[2m├── [0msyn.rs
+[2m    [0m[2m│   [0m[2m├── [0mtracing.rs
+[2m    [0m[2m│   [0m[2m└── [0mbytes.rs
+[2m    [0m[2m├── [0mrayon/
+[2m    [0m[2m│   [0m[2m├── [0mserde.rs
+[2m    [0m[2m│   [0m[2m├── [0m[32mregex.rs[0m
+[2m    [0m[2m│   [0m[2m└── [0m[1msyn.rs[0m
+[2m    [0m[2m└── [0mbytes/
+[2m    [0m[2m    [0m[2m├── [0mregex.rs
+[2m    [0m[2m    [0m[2m└── [0msyn.rs

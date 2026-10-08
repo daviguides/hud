@@ -1,0 +1,11 @@
+╭─────────────── Error ────────────────╮
+│ invalid value for field `edition`    │
+│                                      │
+│ Caused by:                           │
+│     0: expected one of `2015`,       │
+│ `2018`, `2021`, `2024`               │
+│     1: stream did not contain valid  │
+│ UTF-8                                │
+│     2: No such file or directory (os │
+│ error 2)                             │
+╰──────────────────────────────────────╯

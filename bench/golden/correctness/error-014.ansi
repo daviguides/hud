@@ -1,0 +1,17 @@
+[31m╭─[0m[31m──────────────[0m[31m Error [0m[31m───────────────[0m[31m─╮[0m
+[31m│[0m [1mbuild script exited with a non-zero [0m [31m│[0m
+[31m│[0m [1mstatus while compiling a very long [0m  [31m│[0m
+[31m│[0m [1mdependency name[0m                      [31m│[0m
+[31m│[0m                                      [31m│[0m
+[31m│[0m [2mCaused by:[0m                           [31m│[0m
+[31m│[0m     0: the lock file is held by      [31m│[0m
+[31m│[0m another process, retry in a few      [31m│[0m
+[31m│[0m seconds                              [31m│[0m
+[31m│[0m     1: connection reset by peer      [31m│[0m
+[31m│[0m     2: timed out after 30s waiting   [31m│[0m
+[31m│[0m for the response headers from the    [31m│[0m
+[31m│[0m upstream server                      [31m│[0m
+[31m│[0m     3: timed out after 30s waiting   [31m│[0m
+[31m│[0m for the response headers from the    [31m│[0m
+[31m│[0m upstream server                      [31m│[0m
+[31m╰──────────────────────────────────────╯[0m

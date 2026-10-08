@@ -1,0 +1,8 @@
+╭─────────────── Error ────────────────╮
+│ could not read config                │
+│                                      │
+│ Caused by:                           │
+│     0: connection reset by peer      │
+│     1: No such file or directory (os │
+│ error 2)                             │
+╰──────────────────────────────────────╯

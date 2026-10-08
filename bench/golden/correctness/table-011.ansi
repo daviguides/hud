@@ -1,0 +1,22 @@
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┓
+┃             Omega ┃       Omega       ┃ Nu                ┃            Shell ┃      Socket       ┃
+┣━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━┫
+┃             regex ┃       tokio       ┃ worker omega eta  ┃     tokio parser ┃       skip        ┃
+┃                   ┃                   ┃ psi lexer render  ┃                  ┃                   ┃
+┃                   ┃                   ┃ sigma xi          ┃                  ┃                   ┃
+┃             10481 ┃ kappa shell zeta  ┃ tokio             ┃   delta nu lexer ┃       warn        ┃
+┃                   ┃   mu eta shell    ┃                   ┃      lexer omega ┃                   ┃
+┃                   ┃   stream stream   ┃                   ┃   kappa xi queue ┃                   ┃
+┃                   ┃     beta psi      ┃                   ┃     stream queue ┃                   ┃
+┃              skip ┃ stream lexer chi  ┃ fail              ┃          pending ┃       48915       ┃
+┃                   ┃  beta psi tau nu  ┃                   ┃                  ┃                   ┃
+┃                   ┃  kappa psi queue  ┃                   ┃                  ┃                   ┃
+┃                   ┃  token alpha eta  ┃                   ┃                  ┃                   ┃
+┃                   ┃       kappa       ┃                   ┃                  ┃                   ┃
+┃       sigma omega ┃       82642       ┃ nu token stream   ┃      bytes route ┃       96272       ┃
+┃      stream shell ┃                   ┃ omicron tau pi    ┃          epsilon ┃                   ┃
+┃       sigma cache ┃                   ┃ lambda deploy mu  ┃                  ┃                   ┃
+┃                   ┃                   ┃ chi eta           ┃                  ┃                   ┃
+┃             63278 ┃       28773       ┃ bytes             ┃       clap shell ┃    rayon build    ┃
+┃                   ┃                   ┃                   ┃                  ┃      thread       ┃
+┗━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━┛

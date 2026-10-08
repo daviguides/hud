@@ -1,3 +1,7 @@
 /target
 Cargo.lock.bak
 .DS_Store
+bench/.venv/
+bench/results/
+__pycache__/
+.pytest_cache/

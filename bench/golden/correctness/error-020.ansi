@@ -1,0 +1,8 @@
+[31m╭─[0m[31m──────────────[0m[31m Error [0m[31m───────────────[0m[31m─╮[0m
+[31m│[0m [1mfailed to connect to the registry at[0m [31m│[0m
+[31m│[0m [1mhttps://crates.io after three [0m       [31m│[0m
+[31m│[0m [1mretries[0m                              [31m│[0m
+[31m│[0m                                      [31m│[0m
+[31m│[0m [36mhint: run again with --verbose for [0m  [31m│[0m
+[31m│[0m [36mdetails[0m                              [31m│[0m
+[31m╰──────────────────────────────────────╯[0m

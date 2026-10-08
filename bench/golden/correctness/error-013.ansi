@@ -1,0 +1,8 @@
+[31m╭─[0m[31m──────────────────────────────────[0m[31m Error [0m[31m───────────────────────────────────[0m[31m─╮[0m
+[31m│[0m [1mfailed to connect to the registry at https://crates.io after three retries[0m   [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m [2mCaused by:[0m                                                                   [31m│[0m
+[31m│[0m     0: connection reset by peer                                              [31m│[0m
+[31m│[0m     1: connection reset by peer                                              [31m│[0m
+[31m│[0m     2: stream did not contain valid UTF-8                                    [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m

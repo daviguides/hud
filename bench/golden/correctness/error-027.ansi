@@ -1,0 +1,9 @@
+╭───────────────────────── Error ──────────────────────────╮
+│ failed to connect to the registry at https://crates.io   │
+│ after three retries                                      │
+│                                                          │
+│ Caused by:                                               │
+│     0: No such file or directory (os error 2)            │
+│     1: timed out after 30s waiting for the response      │
+│ headers from the upstream server                         │
+╰──────────────────────────────────────────────────────────╯

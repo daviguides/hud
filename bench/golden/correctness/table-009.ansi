@@ -1,0 +1,14 @@
+[3m                                  delta parser                                  [0m
++------------------------------------------------------------------------------+
+|[1m [0m[1m                     Tau                     [0m[1m [0m|[1m [0m[1m        Sigma[0m[1m [0m|[1m [0m[1m   Thread   [0m[1m [0m|
+|-----------------------------------------------+---------------+--------------|
+| worker theta render layer iota omicron deploy |       [33mpending[0m |[32m [0m[32m   tokio    [0m[32m [0m|
+|                  serde cache                  |         serde |[32m [0m[32m    syn     [0m[32m [0m|
+|                  regex sigma                  |          8380 |[32m [0m[32m    4356    [0m[32m [0m|
+|                hyper mu buffer                |          clap |[32m [0m[32m nu parser  [0m[32m [0m|
+|                                               |               |[32m [0m[32m theta rho  [0m[32m [0m|
+|                                               |               |[32m [0m[32mworker omega[0m[32m [0m|
+|                     57394                     |    regex zeta |[32m [0m[32m   19521    [0m[32m [0m|
+|                     [31mwarn[0m                      |     syn shell |[32m [0m[32mtokio kappa [0m[32m [0m|
+|               rayon iota queue                | anyhow render |[32m [0m[32m    [0m[31mskip[0m[32m    [0m[32m [0m|
++------------------------------------------------------------------------------+

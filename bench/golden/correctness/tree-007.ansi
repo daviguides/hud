@@ -1,0 +1,9 @@
+project/
+├── regex/
+│   ├── syn.rs
+│   └── serde.rs
+├── clap/
+│   ├── tracing.rs
+│   └── tokio.rs
+└── hyper/
+    └── rayon.rs

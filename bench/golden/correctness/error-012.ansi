@@ -1,0 +1,10 @@
+[31m╭─[0m[31m──────────────────────────────────[0m[31m Error [0m[31m───────────────────────────────────[0m[31m─╮[0m
+[31m│[0m [1mcould not read config[0m                                                        [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m [2mCaused by:[0m                                                                   [31m│[0m
+[31m│[0m     0: the lock file is held by another process, retry in a few seconds      [31m│[0m
+[31m│[0m     1: timed out after 30s waiting for the response headers from the         [31m│[0m
+[31m│[0m upstream server                                                              [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m [36mhint: run again with --verbose for details[0m                                   [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m

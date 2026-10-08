@@ -1,0 +1,9 @@
+╭───────────────────────────────────────────── Error ──────────────────────────────────────────────╮
+│ could not read config                                                                            │
+│                                                                                                  │
+│ Caused by:                                                                                       │
+│     0: timed out after 30s waiting for the response headers from the upstream server             │
+│     1: stream did not contain valid UTF-8                                                        │
+│     2: expected one of `2015`, `2018`, `2021`, `2024`                                            │
+│     3: expected one of `2015`, `2018`, `2021`, `2024`                                            │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯

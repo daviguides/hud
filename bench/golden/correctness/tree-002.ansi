@@ -1,0 +1,22 @@
+project/
+[2m├── [0manyhow/
+[2m│   [0m[2m├── [0mbytes/
+[2m│   [0m[2m│   [0m[2m├── [0m[36mclap.rs[0m
+[2m│   [0m[2m│   [0m[2m├── [0mserde.rs
+[2m│   [0m[2m│   [0m[2m└── [0m[1mrayon.rs[0m
+[2m│   [0m[2m├── [0mregex/
+[2m│   [0m[2m│   [0m[2m└── [0mserde.rs
+[2m│   [0m[2m└── [0mtracing/
+[2m│   [0m[2m    [0m[2m├── [0msyn.rs
+[2m│   [0m[2m    [0m[2m└── [0mhyper.rs
+[2m├── [0mrayon/
+[2m│   [0m[2m└── [0mserde/
+[2m│   [0m[2m    [0m[2m└── [0m[36mbytes.rs[0m
+[2m└── [0m[1mrayon/[0m
+[2m    [0m[2m├── [0mbytes/
+[2m    [0m[2m│   [0m[2m├── [0mclap.rs
+[2m    [0m[2m│   [0m[2m└── [0mtokio.rs
+[2m    [0m[2m└── [0msyn/
+[2m    [0m[2m    [0m[2m├── [0mtracing.rs
+[2m    [0m[2m    [0m[2m├── [0mregex.rs
+[2m    [0m[2m    [0m[2m└── [0mregex.rs

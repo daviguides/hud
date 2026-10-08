@@ -1,0 +1,12 @@
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓
+┃               Phi ┃       Token       ┃       Lexer       ┃   Pi    ┃ Omicron              ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩
+│                ok │      pending      │ serde token alpha │  bytes  │ 33301                │
+│             85639 │       warn        │       35157       │  87637  │ pending              │
+│                ok │   syn index psi   │     serde tau     │  fail   │ bytes                │
+│             11466 │       53781       │       rayon       │ anyhow  │ 31215                │
+│ hyper index lexer │    hyper token    │   tracing delta   │ pending │ 82803                │
+│             73668 │       rayon       │      clap mu      │  57551  │ skip                 │
+│             66955 │     rayon mu      │ regex kappa sigma │   ok    │ tracing worker route │
+│ regex index gamma │ syn omicron theta │       39277       │  rayon  │ regex                │
+└───────────────────┴───────────────────┴───────────────────┴─────────┴──────────────────────┘

@@ -1,0 +1,14 @@
+[1mrepo[0m
+├── [36msyn/[0m
+│   ├── hyper/
+│   │   └── syn.rs
+│   └── tracing/
+│       ├── bytes.rs
+│       ├── [1mrayon.rs[0m
+│       └── bytes.rs
+└── syn/
+    ├── serde/
+    │   └── bytes.rs
+    └── hyper/
+        ├── [36mregex.rs[0m
+        └── [1mtokio.rs[0m

@@ -1,0 +1,9 @@
+╭─────────────────────────────────── Error ────────────────────────────────────╮
+│ build script exited with a non-zero status while compiling a very long       │
+│ dependency name                                                              │
+│                                                                              │
+│ Caused by:                                                                   │
+│     0: stream did not contain valid UTF-8                                    │
+│     1: connection reset by peer                                              │
+│     2: the lock file is held by another process, retry in a few seconds      │
+╰──────────────────────────────────────────────────────────────────────────────╯

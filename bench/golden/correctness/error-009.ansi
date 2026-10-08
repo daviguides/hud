@@ -1,0 +1,16 @@
+[31m╭─[0m[31m──────────────[0m[31m Error [0m[31m───────────────[0m[31m─╮[0m
+[31m│[0m [1mfailed to connect to the registry at[0m [31m│[0m
+[31m│[0m [1mhttps://crates.io after three [0m       [31m│[0m
+[31m│[0m [1mretries[0m                              [31m│[0m
+[31m│[0m                                      [31m│[0m
+[31m│[0m [2mCaused by:[0m                           [31m│[0m
+[31m│[0m     0: expected one of `2015`,       [31m│[0m
+[31m│[0m `2018`, `2021`, `2024`               [31m│[0m
+[31m│[0m     1: the lock file is held by      [31m│[0m
+[31m│[0m another process, retry in a few      [31m│[0m
+[31m│[0m seconds                              [31m│[0m
+[31m│[0m     2: the lock file is held by      [31m│[0m
+[31m│[0m another process, retry in a few      [31m│[0m
+[31m│[0m seconds                              [31m│[0m
+[31m│[0m     3: connection reset by peer      [31m│[0m
+[31m╰──────────────────────────────────────╯[0m

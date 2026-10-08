@@ -1,0 +1,4 @@
+[31m╭─[0m[31m────────────────────────[0m[31m Error [0m[31m─────────────────────────[0m[31m─╮[0m
+[31m│[0m [1mbuild script exited with a non-zero status while [0m        [31m│[0m
+[31m│[0m [1mcompiling a very long dependency name[0m                    [31m│[0m
+[31m╰──────────────────────────────────────────────────────────╯[0m
