@@ -1,0 +1,21 @@
+name: Feature request
+description: A widget, option or behavior hud does not have
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What are you trying to print?
+      description: The output you want, as text. A feature is judged by the output it must produce.
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: What you do today
+      description: The closest code you can write with the current API, and where it falls short.
+  - type: textarea
+    id: reference
+    attributes:
+      label: Reference
+      description: The same output from Python Rich or another tool, if it exists.

@@ -1,0 +1,32 @@
+name: Bug report
+description: Output that is wrong, misaligned, or different from what the docs promise
+labels: [bug]
+body:
+  - type: textarea
+    id: program
+    attributes:
+      label: Smallest program that shows it
+      description: A complete `main.rs` that prints the wrong thing.
+      render: rust
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected output
+      description: Paste the text. If it is a difference from Python Rich, paste Rich's output too and say the version.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual output
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Output of `cargo run -p hud --example env` in the same terminal, the terminal program, `rustc --version`, and the operating system.
+    validations:
+      required: true
