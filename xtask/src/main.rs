@@ -503,7 +503,7 @@ fn check_layers() -> Res<()> {
         let text = fs::read_to_string(&file).map_err(|e| format!("{}: {e}", file.display()))?;
         for (number, line) in text.lines().enumerate() {
             let code = line.split("//").next().unwrap_or("");
-            if code.contains("Command::new") || code.contains("std::process") {
+            if code.contains("Command::new") || code.contains("process::Command") {
                 violations.push(format!(
                     "{}:{}: no child process is allowed in the library",
                     file.display(),

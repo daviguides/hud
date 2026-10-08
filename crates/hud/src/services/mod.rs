@@ -8,6 +8,7 @@ pub(crate) mod measure;
 pub(crate) mod panel;
 pub(crate) mod progress;
 pub(crate) mod render;
+pub(crate) mod report;
 pub(crate) mod resolve;
 pub(crate) mod style;
 pub(crate) mod table;

@@ -243,6 +243,44 @@ above about 10^14 steps; no corpus case or oracle vector reaches it.
 
 - Remove when: never needed.
 
+### D-040: `ErrorReport` is a fixed layout, not a Rich widget
+
+Rich has no error widget; the reference layout is a composition of Rich primitives fixed in
+`bench/spec/case-schema.md` (a red rounded panel titled `Error`, the message in bold, `Caused by:`
+in dim over causes numbered from 0 and indented four spaces, `hint:` in cyan). hud implements that
+layout and nothing else. The message, the causes and the hint are plain text, never markup, as in
+the reference (`Text(...)`), so a bracket in an error prints as written. Not claimed: options for
+the title, border or colors, a custom `hint:` prefix, source context lines and backtraces.
+
+- Remove when: the API audit of v0.7 decides which options a report needs.
+
+### D-041: `from_error` keeps a cause that repeats its parent
+
+`ErrorReport::from_error` walks `source()` and prints every error in the chain. An error whose
+`Display` already includes its source (`"{self}: {source}"`) shows the same text in the message and
+again as a cause. Dropping text on a guess is worse than repeating it, so nothing is deduplicated.
+
+- Remove when: never.
+
+### D-042: `hud::report` returns an `ExitCode`
+
+A `main` that returns `Result<(), E>` makes the standard library print `Error: {E:?}` in front of
+the Debug text, which would put seven characters before the top border of the panel. `hud::report`
+renders the report to standard error and returns the exit code instead. `ExitCode` lives in
+`std::process`, so the `xtask check-layers` rule against child processes now matches
+`process::Command` and `Command::new` instead of the whole `std::process` path; the rule still
+forbids every way of starting a child process.
+
+- Remove when: `Termination` can be implemented for a custom error type with a clean output.
+
+### D-043: `Group` has no `fit` option
+
+Rich's `Group(*renderables, fit=True)` takes a `fit` flag. hud's `Group` is built with `push`, renders
+its items in order and measures as the widest minimum and the widest maximum of its items; it has
+no `fit` option. The error report uses it with the layout above and matches Rich on every vector.
+
+- Remove when: a user needs `fit=False`.
+
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 
 - **Windows.** v0.1 resolves the size from `COLUMNS` and `LINES` and falls back to 80x24; it

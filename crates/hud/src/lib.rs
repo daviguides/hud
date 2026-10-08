@@ -6,14 +6,14 @@ mod model;
 mod progress;
 mod services;
 
-pub use console::{Console, ConsoleBuilder, capabilities};
+pub use console::{Console, ConsoleBuilder, capabilities, report};
 pub use hud_width as width;
 pub use hud_width::{cell_width, cell_width_of_cluster, clusters, fold, pad, truncate};
 pub use model::{
     Align, Attribute, BarColumn, Body, BoxStyle, Capabilities, Color, ColorSystem, Column,
-    EnvSnapshot, Justify, MarkupError, Measure, MofNCompleteColumn, Overflow, Padding, Panel,
-    ProgressColumn, Renderable, Segment, Span, SpinnerColumn, Stream, StreamInfo, Style,
-    StyleError, Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn,
+    EnvSnapshot, ErrorReport, Group, Justify, MarkupError, Measure, MofNCompleteColumn, Overflow,
+    Padding, Panel, ProgressColumn, Renderable, Segment, Span, SpinnerColumn, Stream, StreamInfo,
+    Style, StyleError, Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn,
     TimeRemainingColumn, Tree,
 };
 pub use progress::{Progress, ProgressBuilder, Task, Track, track};

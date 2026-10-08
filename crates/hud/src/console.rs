@@ -3,15 +3,18 @@
 
 use std::fmt;
 use std::io;
+use std::process::ExitCode;
 use std::sync::OnceLock;
 
 use crate::integrations::{self, Probe, SystemProbe};
 use crate::model::{
-    Capabilities, ColorSystem, Measure, Panel, Renderable, Segment, Stream, Table, Text, Tree,
+    Capabilities, ColorSystem, ErrorReport, Measure, Panel, Renderable, Segment, Stream, Table,
+    Text, Tree,
 };
 use crate::services::layout::measure_text;
 use crate::services::panel::{measure_panel, render_panel};
 use crate::services::render::{crop_lines, render_text, render_text_ending, to_ansi, to_plain};
+use crate::services::report::{measure_report, render_report};
 use crate::services::resolve::resolve;
 use crate::services::table::{measure_table, render_table};
 use crate::services::tree::{measure_tree, render_tree};
@@ -257,6 +260,16 @@ impl Renderable for String {
     }
 }
 
+impl Renderable for ErrorReport {
+    fn render(&self, width: usize) -> Vec<Segment> {
+        render_report(self, width)
+    }
+
+    fn measure(&self, max_width: usize) -> Measure {
+        measure_report(self, max_width)
+    }
+}
+
 impl<T: Renderable + ?Sized> Renderable for &T {
     fn render(&self, width: usize) -> Vec<Segment> {
         (**self).render(width)
@@ -305,6 +318,13 @@ impl fmt::Display for Panel {
 }
 
 /// Renders for the standard output profile without the final newline, like [`Table`].
+impl fmt::Display for ErrorReport {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        display_block(f, &render_report(self, display_width()))
+    }
+}
+
+/// Renders for the standard output profile without the final newline, like [`Table`].
 impl fmt::Display for Tree {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         display_block(f, &render_tree(self, display_width()))
@@ -320,6 +340,32 @@ fn display_block(f: &mut fmt::Formatter<'_>, segments: &[Segment]) -> fmt::Resul
     let width = usize::from(caps.width);
     let ansi = to_ansi(&crop_lines(segments.to_vec(), width), &caps);
     f.write_str(ansi.strip_suffix('\n').unwrap_or(&ansi))
+}
+
+/// Ends a program: on `Err` prints the error to standard error as an [`ErrorReport`] and returns
+/// a failing exit code, on `Ok` returns success. Any error type works, and a `Box<dyn Error>`
+/// or a string too.
+///
+/// ```no_run
+/// use std::process::ExitCode;
+///
+/// fn run() -> Result<(), std::io::Error> {
+///     std::fs::read_to_string("/etc/hud/config.toml").map(|_| ())
+/// }
+///
+/// fn main() -> ExitCode {
+///     hud::report(run())
+/// }
+/// ```
+pub fn report<T, E: Into<Box<dyn std::error::Error>>>(result: Result<T, E>) -> ExitCode {
+    match result {
+        Ok(_) => ExitCode::SUCCESS,
+        Err(error) => {
+            let error: Box<dyn std::error::Error> = error.into();
+            Console::stderr().print(&ErrorReport::from_error(&*error));
+            ExitCode::FAILURE
+        }
+    }
 }
 
 /// Used by the `println!` macros: prints markup, newline included.
