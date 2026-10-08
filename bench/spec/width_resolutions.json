@@ -1,0 +1,21 @@
+{
+  "method": "Hand-resolved disagreements between Python Rich cell_len and wcwidth (corpus 1). All 13 disagreements involve Unicode spacing combining marks (category Mc: U+103B Burmese medial ya, U+0C41 Telugu vowel sign u, U+0A3E/U+0A40 Gurmukhi vowel signs, U+093F Devanagari vowel sign i). wcwidth counts each Mc as one cell (legacy per-code-point model, what xterm does). Rich keeps an Mc inside its grapheme cluster (UAX #29 SpacingMark) so it adds no cell, which is what terminals with grapheme clustering (mode 2027: Ghostty, kitty, WezTerm, iTerm2) do. The target terminal for hud is the second kind, so the Rich value is the resolved reference for all 13.",
+  "known_ambiguities": [
+    "Indic conjuncts with virama (e.g. क्ष, स्ते): Rich and wcwidth both count one cell per consonant (2 for a two-consonant conjunct) while UAX #29 15.1+ (GB9c) forms a single cluster that mode-2027 terminals may render in 1 cell. Rich and wcwidth agree here, so the corpus keeps their value; the conjunct widths are NOT confirmed against a terminal and are listed here so a candidate that follows GB9c is reported, not silently counted wrong. w-0325 and w-0493 contain both effects; their resolved value follows the Rich/wcwidth consensus for conjuncts and Rich for Mc."
+  ],
+  "entries": {
+    "w-0317": {"ref": 3, "rule": "Mc stays in cluster; Rich value"},
+    "w-0318": {"ref": 3, "rule": "Mc stays in cluster; Rich value"},
+    "w-0319": {"ref": 3, "rule": "Mc stays in cluster; Rich value"},
+    "w-0323": {"ref": 5, "rule": "Mc stays in cluster; Rich value"},
+    "w-0325": {"ref": 12, "rule": "Mc stays in cluster; Rich value; contains virama conjuncts (see known_ambiguities)"},
+    "w-0327": {"ref": 5, "rule": "Mc stays in cluster; Rich value"},
+    "w-0336": {"ref": 9, "rule": "Mc stays in cluster; Rich value"},
+    "w-0338": {"ref": 11, "rule": "Mc stays in cluster; Rich value"},
+    "w-0343": {"ref": 9, "rule": "Mc stays in cluster; Rich value"},
+    "w-0452": {"ref": 12, "rule": "Mc stays in cluster; Rich value"},
+    "w-0473": {"ref": 8, "rule": "Mc stays in cluster; Rich value"},
+    "w-0483": {"ref": 18, "rule": "Mc stays in cluster; Rich value"},
+    "w-0493": {"ref": 21, "rule": "Mc stays in cluster; Rich value; contains virama conjuncts (see known_ambiguities)"}
+  }
+}

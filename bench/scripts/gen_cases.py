@@ -257,6 +257,35 @@ def error_cases():
     return cases
 
 
+UNICODE_CELLS = [
+    "漢字日本語", "한국어", "ひらがな", "😀🚀", "👨‍👩‍👧‍👦", "🇧🇷", "e\u0301le\u0301ve", "कक्षा", "ＡＢＣ", "ábç", "α→β", "🏳️‍🌈 pride",
+    "mix 日本 and ascii", "👍🏽", "①②③", "1️⃣2️⃣", "naïve café", "Zürich 東京 São Paulo",
+]
+
+
+def table_unicode_cases():
+    rng = random.Random(108)
+    cases = []
+    for i in range(12):
+        ncols = rng.randint(2, 4)
+        nrows = rng.randint(2, 6)
+        rows = [[rng.choice(UNICODE_CELLS) for _ in range(ncols)] for _ in range(nrows)]
+        cases.append({
+            "id": f"tw-{i:03d}",
+            "feature": "table",
+            "width": rng.choice([60, 80, 100]),
+            "color_system": ["none", "truecolor"][i % 2],
+            "corpus": CORPUS_VERSION,
+            "renderable": {
+                "t": "table", "title": None, "caption": None, "box": BOXES[i % len(BOXES)],
+                "show_lines": i % 4 == 0,
+                "columns": [{"header": f"H{j}", "justify": rng.choice(["left", "center", "right"])} for j in range(ncols)],
+                "rows": rows,
+            },
+        })
+    return cases
+
+
 def main():
     cases = []
     for fn in (style_cases, markup_cases, table_cases, panel_cases, tree_cases, progress_cases, error_cases):
@@ -267,6 +296,12 @@ def main():
             c["corpus"] = CORPUS_VERSION
             f.write(json.dumps(c, ensure_ascii=False, sort_keys=True) + "\n")
     print(f"{len(cases)} cases -> {OUT}")
+    tw = table_unicode_cases()
+    path = OUT.with_name("table_unicode.jsonl")
+    with path.open("w") as f:
+        for c in tw:
+            f.write(json.dumps(c, ensure_ascii=False, sort_keys=True) + "\n")
+    print(f"{len(tw)} unicode table cases -> {path}")
 
 
 if __name__ == "__main__":

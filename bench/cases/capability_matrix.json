@@ -1,0 +1,512 @@
+[
+  {
+    "depth": "truecolor",
+    "env": "unset",
+    "expect": {
+      "bold": true,
+      "color_class": "truecolor",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-truecolor-unset-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "truecolor",
+    "env": "unset",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-truecolor-unset-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "truecolor",
+    "env": "NO_COLOR",
+    "expect": {
+      "bold": true,
+      "color_class": "none",
+      "escapes": true,
+      "notes": [
+        "NO_COLOR removes color, keeps bold (no-color.org)"
+      ]
+    },
+    "id": "cap-truecolor-NO_COLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "truecolor",
+    "env": "NO_COLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-truecolor-NO_COLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "truecolor",
+    "env": "FORCE_COLOR",
+    "expect": {
+      "bold": true,
+      "color_class": "truecolor",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-truecolor-FORCE_COLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "truecolor",
+    "env": "FORCE_COLOR",
+    "expect": {
+      "bold": true,
+      "color_class": "truecolor",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-truecolor-FORCE_COLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "truecolor",
+    "env": "CLICOLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "CLICOLOR=0 disables color on a tty (bixense)"
+      ]
+    },
+    "id": "cap-truecolor-CLICOLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "truecolor",
+    "env": "CLICOLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "CLICOLOR=0 disables color on a tty (bixense)"
+      ]
+    },
+    "id": "cap-truecolor-CLICOLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "truecolor",
+    "env": "CLICOLOR_FORCE",
+    "expect": {
+      "bold": true,
+      "color_class": "truecolor",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-truecolor-CLICOLOR_FORCE-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "truecolor",
+    "env": "CLICOLOR_FORCE",
+    "expect": {
+      "bold": true,
+      "color_class": "truecolor",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-truecolor-CLICOLOR_FORCE-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "256",
+    "env": "unset",
+    "expect": {
+      "bold": true,
+      "color_class": "256",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-256-unset-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "256",
+    "env": "unset",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-256-unset-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "256",
+    "env": "NO_COLOR",
+    "expect": {
+      "bold": true,
+      "color_class": "none",
+      "escapes": true,
+      "notes": [
+        "NO_COLOR removes color, keeps bold (no-color.org)"
+      ]
+    },
+    "id": "cap-256-NO_COLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "256",
+    "env": "NO_COLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-256-NO_COLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "256",
+    "env": "FORCE_COLOR",
+    "expect": {
+      "bold": true,
+      "color_class": "256",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-256-FORCE_COLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "256",
+    "env": "FORCE_COLOR",
+    "expect": {
+      "bold": true,
+      "color_class": "256",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-256-FORCE_COLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "256",
+    "env": "CLICOLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "CLICOLOR=0 disables color on a tty (bixense)"
+      ]
+    },
+    "id": "cap-256-CLICOLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "256",
+    "env": "CLICOLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "CLICOLOR=0 disables color on a tty (bixense)"
+      ]
+    },
+    "id": "cap-256-CLICOLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "256",
+    "env": "CLICOLOR_FORCE",
+    "expect": {
+      "bold": true,
+      "color_class": "256",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-256-CLICOLOR_FORCE-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "256",
+    "env": "CLICOLOR_FORCE",
+    "expect": {
+      "bold": true,
+      "color_class": "256",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-256-CLICOLOR_FORCE-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "16",
+    "env": "unset",
+    "expect": {
+      "bold": true,
+      "color_class": "standard",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-16-unset-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "16",
+    "env": "unset",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-16-unset-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "16",
+    "env": "NO_COLOR",
+    "expect": {
+      "bold": true,
+      "color_class": "none",
+      "escapes": true,
+      "notes": [
+        "NO_COLOR removes color, keeps bold (no-color.org)"
+      ]
+    },
+    "id": "cap-16-NO_COLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "16",
+    "env": "NO_COLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-16-NO_COLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "16",
+    "env": "FORCE_COLOR",
+    "expect": {
+      "bold": true,
+      "color_class": "standard",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-16-FORCE_COLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "16",
+    "env": "FORCE_COLOR",
+    "expect": {
+      "bold": true,
+      "color_class": "standard",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-16-FORCE_COLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "16",
+    "env": "CLICOLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "CLICOLOR=0 disables color on a tty (bixense)"
+      ]
+    },
+    "id": "cap-16-CLICOLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "16",
+    "env": "CLICOLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "CLICOLOR=0 disables color on a tty (bixense)"
+      ]
+    },
+    "id": "cap-16-CLICOLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "16",
+    "env": "CLICOLOR_FORCE",
+    "expect": {
+      "bold": true,
+      "color_class": "standard",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-16-CLICOLOR_FORCE-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "16",
+    "env": "CLICOLOR_FORCE",
+    "expect": {
+      "bold": true,
+      "color_class": "standard",
+      "escapes": true,
+      "notes": []
+    },
+    "id": "cap-16-CLICOLOR_FORCE-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "none",
+    "env": "unset",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-none-unset-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "none",
+    "env": "unset",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-none-unset-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "none",
+    "env": "NO_COLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-none-NO_COLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "none",
+    "env": "NO_COLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": []
+    },
+    "id": "cap-none-NO_COLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "none",
+    "env": "FORCE_COLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "standards_silent: forced color on TERM=dumb; follows Rich (no escapes)"
+      ]
+    },
+    "id": "cap-none-FORCE_COLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "none",
+    "env": "FORCE_COLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "standards_silent: forced color on TERM=dumb; follows Rich (no escapes)"
+      ]
+    },
+    "id": "cap-none-FORCE_COLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "none",
+    "env": "CLICOLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "CLICOLOR=0 disables color on a tty (bixense)"
+      ]
+    },
+    "id": "cap-none-CLICOLOR-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "none",
+    "env": "CLICOLOR",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "CLICOLOR=0 disables color on a tty (bixense)"
+      ]
+    },
+    "id": "cap-none-CLICOLOR-pipe",
+    "stream": "pipe"
+  },
+  {
+    "depth": "none",
+    "env": "CLICOLOR_FORCE",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "standards_silent: forced color on TERM=dumb; follows Rich (no escapes)"
+      ]
+    },
+    "id": "cap-none-CLICOLOR_FORCE-tty",
+    "stream": "tty"
+  },
+  {
+    "depth": "none",
+    "env": "CLICOLOR_FORCE",
+    "expect": {
+      "bold": false,
+      "color_class": "none",
+      "escapes": false,
+      "notes": [
+        "standards_silent: forced color on TERM=dumb; follows Rich (no escapes)"
+      ]
+    },
+    "id": "cap-none-CLICOLOR_FORCE-pipe",
+    "stream": "pipe"
+  }
+]
