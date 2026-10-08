@@ -32,6 +32,14 @@ pub fn cell_len(text: &str) -> usize {
 }
 pub use services::resolve::resolve;
 
+/// The JSON Schema (draft 2020-12) of the document that [`Format::Json`] and [`Node::to_json`]
+/// write, for programs that validate what they read.
+///
+/// ```
+/// assert!(hud::JSON_SCHEMA.contains("\"hud/1\""));
+/// ```
+pub const JSON_SCHEMA: &str = include_str!("../schema/hud-1.json");
+
 #[doc(hidden)]
 pub use console::print_markup as __print_markup;
 

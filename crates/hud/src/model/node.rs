@@ -9,6 +9,27 @@ use super::text::Justify;
 /// [`Renderable::node`](crate::Renderable::node) makes one; [`Node::to_json`] writes it as the
 /// document `hud/1` and [`Node::from_json`] reads such a document back.
 ///
+/// # The document
+///
+/// [`Node::to_json`] writes `{"schema": "hud/1", "content": <node>}` with two space indent, keys
+/// in the order below and a final newline. Every node is an object whose first key is `type`:
+///
+/// | `type` | other keys |
+/// |---|---|
+/// | `text` | `text` |
+/// | `table` | `title`, `caption` (strings or null), `columns` (objects with `header` and `justify`: `left`, `center`, `right` or `full`), `rows` (arrays of strings) |
+/// | `panel` | `title`, `subtitle` (strings or null), `body` (a node) |
+/// | `tree` | `label`, `children` (tree nodes) |
+/// | `progress` | `tasks` (objects with `description`, `completed`, `total`, `finished`, `visible`) |
+/// | `error` | `message`, `causes` (strings), `hint` (string or null) |
+/// | `columns` | `title` (string or null), `items` (nodes) |
+/// | `layout` | `name` (string or null), `ratio`, `size` (integer or null), `visible`, `direction` (`none`, `row` or `column`), `content` (a node or null), `children` (layout nodes) |
+/// | `group` | `items` (nodes) |
+/// | `padding` | `top`, `right`, `bottom`, `left`, `content` (a node) |
+///
+/// Text is plain: markup tags are removed. There is no floating point in a document, and the
+/// schema is [`JSON_SCHEMA`](crate::JSON_SCHEMA).
+///
 /// ```
 /// use hud::Node;
 ///
