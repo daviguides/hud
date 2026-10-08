@@ -88,12 +88,12 @@ fn scan(markup: &str) -> Vec<Piece<'_>> {
     pieces
 }
 
-/// The canonical text of a style word list, or the trimmed lowercase text when it is not a
-/// style: what two tags are compared by.
-fn normalize(name: &str) -> String {
+/// The canonical text of a tag name, with the style it parses to, or the trimmed lowercase text
+/// when it is not a style: what two tags are compared by.
+fn normalize(name: &str) -> (String, Option<Style>) {
     match style::parse(name) {
-        Ok(parsed) => parsed.canonical,
-        Err(_) => name.trim().to_lowercase(),
+        Ok(parsed) => (parsed.canonical, Some(parsed.style)),
+        Err(_) => (name.trim().to_lowercase(), None),
     }
 }
 
@@ -105,8 +105,8 @@ fn char_position(markup: &str, byte: usize) -> usize {
 /// parse yields a span with a null style, as an unknown style name does in Rich.
 pub(crate) fn parse(markup: &str) -> Result<(String, Vec<Span>), MarkupError> {
     let mut plain = String::with_capacity(markup.len());
-    let mut stack: Vec<(usize, String, Option<&str>)> = Vec::new();
-    let mut closed: Vec<(usize, usize, String)> = Vec::new();
+    let mut stack: Vec<Open> = Vec::new();
+    let mut closed: Vec<(usize, usize, Style)> = Vec::new();
     for piece in scan(markup) {
         match piece {
             // An escaped bracket that does not start a tag loses its backslash too.
@@ -124,10 +124,10 @@ pub(crate) fn parse(markup: &str) -> Result<(String, Vec<Span>), MarkupError> {
                             ))
                         })?
                     } else {
-                        let wanted = normalize(wanted);
+                        let (wanted, _) = normalize(wanted);
                         let index = stack
                             .iter()
-                            .rposition(|(_, name, _)| *name == wanted)
+                            .rposition(|open| open.name == wanted)
                             .ok_or_else(|| {
                                 MarkupError::new(format!(
                                     "closing tag '{}' at position {} doesn't match any open tag",
@@ -137,36 +137,51 @@ pub(crate) fn parse(markup: &str) -> Result<(String, Vec<Span>), MarkupError> {
                             })?;
                         stack.remove(index)
                     };
-                    closed.push((popped.0, plain.len(), definition(&popped.1, popped.2)));
+                    closed.push((popped.start, plain.len(), popped.style()));
                 } else {
-                    stack.push((plain.len(), normalize(tag.name), tag.parameters));
+                    let (name, style) = normalize(tag.name);
+                    stack.push(Open {
+                        start: plain.len(),
+                        name,
+                        parameters: tag.parameters,
+                        style,
+                    });
                 }
             }
         }
     }
-    while let Some((start, name, parameters)) = stack.pop() {
-        closed.push((start, plain.len(), definition(&name, parameters)));
+    while let Some(open) = stack.pop() {
+        closed.push((open.start, plain.len(), open.style()));
     }
     // Outer spans first, so an inner span's style wins where they overlap.
     closed.reverse();
     closed.sort_by_key(|&(start, _, _)| start);
     let spans = closed
         .into_iter()
-        .map(|(start, end, definition)| Span {
-            start,
-            end,
-            style: style::parse(&definition)
-                .map(|parsed| parsed.style)
-                .unwrap_or_else(|_| Style::new()),
-        })
+        .map(|(start, end, style)| Span { start, end, style })
         .collect();
     Ok((plain, spans))
 }
 
-fn definition(name: &str, parameters: Option<&str>) -> String {
-    match parameters {
-        Some(parameters) => format!("{name} {parameters}"),
-        None => name.to_string(),
+/// A tag that has been opened and not yet closed.
+struct Open<'a> {
+    start: usize,
+    name: String,
+    parameters: Option<&'a str>,
+    /// What the name alone parses to, when it is a style.
+    style: Option<Style>,
+}
+
+impl Open<'_> {
+    /// The style the tag applies: a tag with parameters (`link=url`) is parsed as its name and
+    /// parameters together, and one that does not parse changes nothing.
+    fn style(self) -> Style {
+        match self.parameters {
+            None => self.style.unwrap_or_default(),
+            Some(parameters) => style::parse(&format!("{} {parameters}", self.name))
+                .map(|parsed| parsed.style)
+                .unwrap_or_default(),
+        }
     }
 }
 

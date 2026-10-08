@@ -4,7 +4,7 @@ use hud_width::cell_width;
 
 use super::measure::{set_cell_size, wrap};
 use super::style::emit;
-use crate::model::{Capabilities, Segment, Style, Text};
+use crate::model::{Capabilities, Justify, Segment, Style, Text};
 
 /// Splits one wrapped line into runs wherever a span starts or ends, each run carrying the
 /// combination of every style in force there, the line's own style first.
@@ -76,6 +76,14 @@ fn line_segments(line: &Text, out: &mut Vec<Segment>) {
     }
 }
 
+/// A text that wrapping, justifying and cropping would leave exactly as it is: one line with
+/// no tab, no newline and a width within the limit.
+fn fits_one_line(text: &Text, width: usize) -> bool {
+    text.justify == Justify::Default
+        && !text.plain.bytes().any(|b| b == b'\n' || b == b'\t')
+        && cell_width(&text.plain) <= width
+}
+
 /// Renders `text` for a `width`-cell terminal: wrapped lines as styled runs, a newline between
 /// lines and the text's end after the last.
 pub(crate) fn render_text(text: &Text, width: usize) -> Vec<Segment> {
@@ -84,8 +92,18 @@ pub(crate) fn render_text(text: &Text, width: usize) -> Vec<Segment> {
 
 /// Like [`render_text`] with `end` after the last line instead of the text's own.
 pub(crate) fn render_text_ending(text: &Text, width: usize, end: &str) -> Vec<Segment> {
-    let lines = wrap(text, width);
     let mut out = Vec::new();
+    if fits_one_line(text, width) {
+        line_segments(text, &mut out);
+        if !end.is_empty() {
+            out.push(Segment {
+                text: end.to_string(),
+                style: Style::new(),
+            });
+        }
+        return out;
+    }
+    let lines = wrap(text, width);
     for (index, line) in lines.iter().enumerate() {
         line_segments(line, &mut out);
         let separator = if index + 1 == lines.len() { end } else { "\n" };
@@ -99,9 +117,29 @@ pub(crate) fn render_text_ending(text: &Text, width: usize, end: &str) -> Vec<Se
     out
 }
 
+/// Whether any line of `segments` is wider than `width` cells.
+fn exceeds(segments: &[Segment], width: usize) -> bool {
+    let mut used = 0usize;
+    for segment in segments {
+        for (index, piece) in segment.text.split('\n').enumerate() {
+            if index > 0 {
+                used = 0;
+            }
+            used += cell_width(piece);
+            if used > width {
+                return true;
+            }
+        }
+    }
+    false
+}
+
 /// Cuts every line of `segments` to `width` cells, dropping what is past it, as printing does:
 /// a line that fits is left alone, and a run that crosses the edge keeps the cells before it.
 pub(crate) fn crop_lines(segments: Vec<Segment>, width: usize) -> Vec<Segment> {
+    if !exceeds(&segments, width) {
+        return segments;
+    }
     let mut out = Vec::with_capacity(segments.len());
     let mut used = 0usize;
     let mut full = false;

@@ -31,31 +31,40 @@ fn attribute_for(word: &str) -> Option<Attribute> {
     })
 }
 
+fn push_word(out: &mut String, word: &str) {
+    if !out.is_empty() {
+        out.push(' ');
+    }
+    out.push_str(word);
+}
+
 fn canonical_form(style: &Style, fg: Option<&str>, bg: Option<&str>) -> String {
-    let mut words: Vec<String> = Vec::new();
+    let mut out = String::new();
     for attribute in Attribute::ALL {
         match style.get(attribute) {
-            Some(true) => words.push(attribute.word().to_string()),
-            Some(false) => words.push(format!("not {}", attribute.word())),
+            Some(true) => push_word(&mut out, attribute.word()),
+            Some(false) => {
+                push_word(&mut out, "not");
+                push_word(&mut out, attribute.word());
+            }
             None => {}
         }
     }
     if let Some(fg) = fg {
-        words.push(fg.to_string());
+        push_word(&mut out, fg);
     }
     if let Some(bg) = bg {
-        words.push("on".to_string());
-        words.push(bg.to_string());
+        push_word(&mut out, "on");
+        push_word(&mut out, bg);
     }
     if let Some(url) = style.link_url() {
-        words.push("link".to_string());
-        words.push(url.to_string());
+        push_word(&mut out, "link");
+        push_word(&mut out, url);
     }
-    if words.is_empty() {
-        "none".to_string()
-    } else {
-        words.join(" ")
+    if out.is_empty() {
+        out.push_str("none");
     }
+    out
 }
 
 /// Parses a style string such as `bold red on #223344`, `not italic` or `link https://x.org`.
@@ -151,14 +160,15 @@ impl fmt::Display for Style {
     }
 }
 
-/// The SGR parameters (`1;3;38;5;244`) `style` needs on a stream that shows `color_system`
-/// colors and, when `attributes` is set, text attributes. Empty when nothing is to be emitted.
-pub(crate) fn sgr_codes(style: &Style, color_system: ColorSystem, attributes: bool) -> String {
-    let mut out = String::new();
+/// Appends the SGR parameters (`1;3;38;5;244`) `style` needs on a stream that shows
+/// `color_system` colors and, when `attributes` is set, text attributes. Appends nothing when
+/// there is nothing to emit.
+fn push_sgr(out: &mut String, style: &Style, color_system: ColorSystem, attributes: bool) {
+    let start = out.len();
     if attributes {
         for attribute in Attribute::ALL {
             if style.get(attribute) == Some(true) {
-                if !out.is_empty() {
+                if out.len() > start {
                     out.push(';');
                 }
                 out.push_str(attribute.sgr());
@@ -166,13 +176,27 @@ pub(crate) fn sgr_codes(style: &Style, color_system: ColorSystem, attributes: bo
         }
     }
     if color_system != ColorSystem::None {
+        let mut tail = String::new();
         if let Some(color) = style.fg {
-            push_codes(&mut out, downgrade(color, color_system), true);
+            push_codes(&mut tail, downgrade(color, color_system), true);
         }
         if let Some(color) = style.bg {
-            push_codes(&mut out, downgrade(color, color_system), false);
+            push_codes(&mut tail, downgrade(color, color_system), false);
+        }
+        if !tail.is_empty() {
+            if out.len() > start {
+                out.push(';');
+            }
+            out.push_str(&tail);
         }
     }
+}
+
+/// The SGR parameters `style` needs; empty when nothing is to be emitted.
+#[cfg(test)]
+pub(crate) fn sgr_codes(style: &Style, color_system: ColorSystem, attributes: bool) -> String {
+    let mut out = String::new();
+    push_sgr(&mut out, style, color_system, attributes);
     out
 }
 
@@ -187,18 +211,24 @@ pub(crate) fn emit(
     if text.is_empty() {
         return;
     }
+    if style.is_null() {
+        out.push_str(text);
+        return;
+    }
     let link = if attributes { style.link_url() } else { None };
     if let Some(url) = link {
         out.push_str("\x1b]8;;");
         out.push_str(url);
         out.push_str("\x1b\\");
     }
-    let codes = sgr_codes(style, color_system, attributes);
-    if codes.is_empty() {
+    let mark = out.len();
+    out.push_str("\x1b[");
+    let codes_at = out.len();
+    push_sgr(out, style, color_system, attributes);
+    if out.len() == codes_at {
+        out.truncate(mark);
         out.push_str(text);
     } else {
-        out.push_str("\x1b[");
-        out.push_str(&codes);
         out.push('m');
         out.push_str(text);
         out.push_str("\x1b[0m");
