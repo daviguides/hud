@@ -7,6 +7,8 @@ mod model;
 mod progress;
 mod refresh;
 mod services;
+mod spinner;
+mod status;
 
 pub use console::{Console, ConsoleBuilder, capabilities, report};
 pub use hud_width as width;
@@ -17,10 +19,13 @@ pub use model::{
     EnvSnapshot, ErrorReport, Format, Group, Justify, Layout, MarkupError, Measure,
     MofNCompleteColumn, Node, NodeError, Overflow, Pad, Padding, Panel, ProgressColumn, Renderable,
     Segment, Span, SpinnerColumn, Stream, StreamInfo, Style, StyleError, Table, TaskProgressColumn,
-    Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn, Tree, VerticalOverflow,
+    Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn, Tree, UnknownSpinner,
+    VerticalOverflow,
 };
 pub use progress::{Progress, ProgressBuilder, Task, TaskUpdate, Track, track};
 pub use services::markup::escape;
+pub use spinner::{Spinner, SpinnerUpdate};
+pub use status::{Status, StatusBuilder, StatusUpdate};
 
 /// The width of `text` in terminal cells: Rich's `cell_len`, the same as [`cell_width`].
 ///

@@ -137,6 +137,8 @@ impl core::convert::From<hud::Padding> for hud::Body
 pub fn hud::Body::from(hud::Padding) -> hud::Body
 impl core::convert::From<hud::Panel> for hud::Body
 pub fn hud::Body::from(hud::Panel) -> hud::Body
+impl core::convert::From<hud::Spinner> for hud::Body
+pub fn hud::Body::from(hud::Spinner) -> hud::Body
 impl core::convert::From<hud::Table> for hud::Body
 pub fn hud::Body::from(hud::Table) -> hud::Body
 impl core::convert::From<hud::Text> for hud::Body
@@ -214,6 +216,7 @@ pub fn hud::Console::print<R: hud::Renderable + ?core::marker::Sized>(&self, &R)
 pub fn hud::Console::render_as<R: hud::Renderable + ?core::marker::Sized>(&self, &R, hud::Format) -> alloc::string::String
 pub fn hud::Console::render_to_plain<R: hud::Renderable + ?core::marker::Sized>(&self, &R) -> alloc::string::String
 pub fn hud::Console::render_to_string<R: hud::Renderable + ?core::marker::Sized>(&self, &R) -> alloc::string::String
+pub fn hud::Console::status(&self, impl core::convert::AsRef<str>) -> hud::Status
 pub fn hud::Console::stderr() -> hud::Console
 pub fn hud::Console::stdout() -> hud::Console
 pub fn hud::Console::try_print<R: hud::Renderable + ?core::marker::Sized>(&self, &R) -> core::io::error::Result<()>
@@ -460,6 +463,27 @@ pub struct hud::Span
 pub hud::Span::end: usize
 pub hud::Span::start: usize
 pub hud::Span::style: hud::Style
+pub struct hud::Spinner
+impl hud::Spinner
+pub fn hud::Spinner::clock(self, impl core::ops::function::Fn() -> f64 + core::marker::Send + core::marker::Sync + 'static) -> hud::Spinner
+pub fn hud::Spinner::name(&self) -> &'static str
+pub fn hud::Spinner::names() -> impl core::iter::traits::iterator::Iterator<Item = &'static str>
+pub fn hud::Spinner::new(&str) -> hud::Spinner
+pub fn hud::Spinner::speed(self, f64) -> hud::Spinner
+pub fn hud::Spinner::style(self, hud::Style) -> hud::Spinner
+pub fn hud::Spinner::text(self, impl core::convert::AsRef<str>) -> hud::Spinner
+pub fn hud::Spinner::try_new(&str) -> core::result::Result<hud::Spinner, hud::UnknownSpinner>
+pub fn hud::Spinner::update(&self) -> hud::SpinnerUpdate
+impl core::convert::From<hud::Spinner> for hud::Body
+pub fn hud::Body::from(hud::Spinner) -> hud::Body
+impl core::fmt::Debug for hud::Spinner
+pub fn hud::Spinner::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+impl hud::Renderable for hud::Spinner
+pub fn hud::Spinner::measure(&self, usize) -> hud::Measure
+pub fn hud::Spinner::node(&self) -> hud::Node
+pub fn hud::Spinner::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Spinner::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Spinner::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub struct hud::SpinnerColumn
 impl hud::SpinnerColumn
 pub fn hud::SpinnerColumn::finished_text(self, impl core::convert::Into<alloc::string::String>) -> hud::SpinnerColumn
@@ -470,6 +494,59 @@ impl core::convert::From<hud::SpinnerColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::SpinnerColumn) -> hud::ProgressColumn
 impl core::default::Default for hud::SpinnerColumn
 pub fn hud::SpinnerColumn::default() -> hud::SpinnerColumn
+pub struct hud::SpinnerUpdate
+impl hud::SpinnerUpdate
+pub fn hud::SpinnerUpdate::speed(self, f64) -> hud::SpinnerUpdate
+pub fn hud::SpinnerUpdate::style(self, hud::Style) -> hud::SpinnerUpdate
+pub fn hud::SpinnerUpdate::text(self, impl core::convert::Into<alloc::string::String>) -> hud::SpinnerUpdate
+impl core::fmt::Debug for hud::SpinnerUpdate
+pub fn hud::SpinnerUpdate::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+impl core::ops::drop::Drop for hud::SpinnerUpdate
+pub fn hud::SpinnerUpdate::drop(&mut self)
+pub struct hud::Status
+impl hud::Status
+pub fn hud::Status::builder() -> hud::StatusBuilder
+pub fn hud::Status::is_started(&self) -> bool
+pub fn hud::Status::new(impl core::convert::AsRef<str>) -> hud::Status
+pub fn hud::Status::refresh(&self)
+pub fn hud::Status::spinner(&self) -> hud::Spinner
+pub fn hud::Status::start(&self)
+pub fn hud::Status::stop(&self)
+pub fn hud::Status::update(&self) -> hud::StatusUpdate
+impl core::fmt::Debug for hud::Status
+pub fn hud::Status::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+impl hud::Renderable for hud::Status
+pub fn hud::Status::measure(&self, usize) -> hud::Measure
+pub fn hud::Status::node(&self) -> hud::Node
+pub fn hud::Status::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Status::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Status::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub struct hud::StatusBuilder
+impl hud::StatusBuilder
+pub fn hud::StatusBuilder::auto_refresh(self, bool) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::build(self) -> hud::Status
+pub fn hud::StatusBuilder::clock(self, impl core::ops::function::Fn() -> f64 + core::marker::Send + core::marker::Sync + 'static) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::console(self, hud::Console) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::disable(self, bool) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::interactive(self, bool) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::refresh_per_second(self, f64) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::speed(self, f64) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::spinner(self, impl core::convert::Into<alloc::string::String>) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::spinner_style(self, hud::Style) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::text(self, impl core::convert::AsRef<str>) -> hud::StatusBuilder
+pub fn hud::StatusBuilder::writer(self, impl core::io::write::Write + core::marker::Send + 'static) -> hud::StatusBuilder
+impl core::fmt::Debug for hud::StatusBuilder
+pub fn hud::StatusBuilder::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub struct hud::StatusUpdate
+impl hud::StatusUpdate
+pub fn hud::StatusUpdate::speed(self, f64) -> hud::StatusUpdate
+pub fn hud::StatusUpdate::spinner(self, impl core::convert::Into<alloc::string::String>) -> hud::StatusUpdate
+pub fn hud::StatusUpdate::spinner_style(self, hud::Style) -> hud::StatusUpdate
+pub fn hud::StatusUpdate::text(self, impl core::convert::Into<alloc::string::String>) -> hud::StatusUpdate
+impl core::fmt::Debug for hud::StatusUpdate
+pub fn hud::StatusUpdate::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+impl core::ops::drop::Drop for hud::StatusUpdate
+pub fn hud::StatusUpdate::drop(&mut self)
 pub struct hud::StreamInfo
 pub hud::StreamInfo::is_tty: bool
 pub hud::StreamInfo::size: core::option::Option<(u16, u16)>
@@ -654,6 +731,12 @@ pub fn hud::Tree::node(&self) -> hud::Node
 pub fn hud::Tree::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Tree::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Tree::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub struct hud::UnknownSpinner
+impl hud::UnknownSpinner
+pub fn hud::UnknownSpinner::name(&self) -> &str
+impl core::error::Error for hud::UnknownSpinner
+impl core::fmt::Display for hud::UnknownSpinner
+pub fn hud::UnknownSpinner::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 pub const hud::JSON_SCHEMA: &str
 pub trait hud::Renderable
 pub fn hud::Renderable::measure(&self, usize) -> hud::Measure
@@ -715,6 +798,18 @@ pub fn hud::Progress::node(&self) -> hud::Node
 pub fn hud::Progress::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Progress::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Progress::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+impl hud::Renderable for hud::Spinner
+pub fn hud::Spinner::measure(&self, usize) -> hud::Measure
+pub fn hud::Spinner::node(&self) -> hud::Node
+pub fn hud::Spinner::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Spinner::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Spinner::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+impl hud::Renderable for hud::Status
+pub fn hud::Status::measure(&self, usize) -> hud::Measure
+pub fn hud::Status::node(&self) -> hud::Node
+pub fn hud::Status::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Status::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Status::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::Table
 pub fn hud::Table::measure(&self, usize) -> hud::Measure
 pub fn hud::Table::node(&self) -> hud::Node

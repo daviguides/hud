@@ -16,6 +16,8 @@ mod platform;
 mod progress;
 mod report;
 mod segment;
+mod spinner;
+mod spinners;
 mod style;
 mod table;
 mod text;
@@ -24,7 +26,7 @@ mod tree;
 pub use capabilities::{Capabilities, ColorSystem, EnvSnapshot, Stream, StreamInfo};
 pub use color::Color;
 pub use columns::Columns;
-pub use error::{MarkupError, NodeError, StyleError};
+pub use error::{MarkupError, NodeError, StyleError, UnknownSpinner};
 pub use format::Format;
 pub use group::Group;
 pub use layout::Layout;
@@ -42,6 +44,9 @@ pub use progress::{
 };
 pub use report::ErrorReport;
 pub use segment::{Measure, Renderable, Segment};
+pub(crate) use spinner::{
+    Animation, default_data as default_spinner, find as find_spinner, names as spinner_names,
+};
 pub use style::{Attribute, Style};
 pub use table::{BoxStyle, Column, Table};
 pub(crate) use text::clean;

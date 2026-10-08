@@ -66,3 +66,24 @@ impl fmt::Display for NodeError {
 }
 
 impl std::error::Error for NodeError {}
+
+/// A spinner name that is not one of the animations of [`Spinner::names`](crate::Spinner::names).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct UnknownSpinner {
+    pub(crate) name: String,
+}
+
+impl UnknownSpinner {
+    /// The name that was asked for.
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+}
+
+impl fmt::Display for UnknownSpinner {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "no spinner called {:?}", self.name)
+    }
+}
+
+impl std::error::Error for UnknownSpinner {}

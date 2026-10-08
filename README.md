@@ -15,12 +15,13 @@ hud = { git = "https://github.com/daviguides/hud" }
 
 The crate needs Rust 1.85 or newer (edition 2024) and has no required features. `hud-width`, the cell width and grapheme-cluster crate underneath it, builds without `std` and without dependencies.
 
-## What works today (v0.8)
+## What works today (v0.9)
 
 - **`hud-width`**: terminal cell width and grapheme-cluster segmentation (UAX #29, Unicode 17). `fold`, `truncate` and `pad` cut only between clusters. `no_std`, no dependencies.
 - **`hud`**: styled text. `Style` parses `"bold red on #223344"`, markup (`[bold]ok[/]`, nested tags, `\[` for a bracket) builds a `Text`, and a `Console` prints it wrapped to the terminal width, with tabs, justification and overflow, in the colors the terminal has (truecolor, 256, 16 or none; `NO_COLOR` removes color and keeps bold). Output is byte for byte what Python Rich writes for the same markup, checked against its goldens and thousands of random vectors.
 - **`hud`**: `Table`, `Panel` and `Tree` with Rich's boxes, padding and width arrangement, aligned on cells, never on characters; `Progress` with the bar, percentage, count, elapsed, remaining and spinner columns, handles you can clone and advance from any thread, and a display that redraws in place on a terminal and prints once anywhere else; `Group` stacks renderables, and `ErrorReport` prints an error with its causes and a hint, from any `std::error::Error`. Every one is byte for byte what Python Rich writes, checked against its goldens and thousands of random vectors.
 - **`hud`**: `Columns` arranges any items in as many columns as fit, `Layout` divides the terminal into rows and columns by size and ratio, and `Live` redraws any renderable in place; `Live` and `Progress` write the same bytes Rich writes, frame by frame (corpus 3, and thousands of random vectors).
+- **`hud`**: `Status` shows a message with a spinner next to it while something runs and erases itself when it ends, and `Spinner` is the frame on its own; 73 animations, byte for byte what Rich writes (corpus 5, and thousands of random vectors with a fixed clock).
 - **`hud`**: one print call, three formats. `Console::print` follows the console's `Format`: rich (the styled text above), plain (no escape sequence at all) or JSON, a document `hud/1` that says what a value contains and never how it looks (no style, width or wrapping, the same bytes on every console, valid under `crates/hud/schema/hud-1.json`). Choose it in code with `ConsoleBuilder::format`, or from the environment with `HUD_FORMAT` set to `rich`, `plain` or `json`, so the same program serves a person and a script.
 - **`hud`**: one resolver decides what a stream can show (color depth, `NO_COLOR`, `FORCE_COLOR`, `CLICOLOR`, `CLICOLOR_FORCE`, `TERM=dumb`, pipes, terminal size), with the precedence written in one place.
 
@@ -85,6 +86,17 @@ for step in 1..=3 {
     live.refresh();
 }
 live.stop();
+```
+
+```rust,no_run
+use hud::Status;
+
+let status = Status::new("[bold]fetching[/] the index");
+status.start();
+// ... work ...
+status.update().text("unpacking").spinner("line");
+// ... more work ...
+status.stop();
 ```
 
 ```rust,no_run

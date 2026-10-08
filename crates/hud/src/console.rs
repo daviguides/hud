@@ -29,6 +29,7 @@ use crate::services::split::render_layout;
 use crate::services::table::{measure_table, render_table};
 use crate::services::tree::{measure_tree, render_tree};
 use crate::services::winenv::apply_windows;
+use crate::status::Status;
 
 /// Resolves capabilities through a [`Probe`] and remembers the answer per stream.
 pub(crate) struct Resolver<P> {
@@ -169,6 +170,18 @@ impl Console {
     /// Prints `renderable` and returns the write error, if any.
     pub fn try_print<R: Renderable + ?Sized>(&self, renderable: &R) -> io::Result<()> {
         integrations::write(self.stream, &self.render_to_string(renderable))
+    }
+
+    /// A [`Status`] with `text` on this console, not started yet: Rich's `Console.status`.
+    ///
+    /// ```
+    /// use hud::Console;
+    ///
+    /// let status = Console::builder().plain().build().status("[bold]working[/]");
+    /// assert!(!status.is_started());
+    /// ```
+    pub fn status(&self, text: impl AsRef<str>) -> Status {
+        Status::builder().text(text).console(self.clone()).build()
     }
 
     /// What [`Console::print`] would write: the bytes for this console's profile in this
