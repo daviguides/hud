@@ -1,0 +1,36 @@
+{
+ "seeds": [
+  20261008,
+  1,
+  2,
+  3
+ ],
+ "count": 20000,
+ "features": {
+  "style": {
+   "inputs": 80000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "markup": {
+   "inputs": 80000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "width": {
+   "inputs": 80000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "capability": {
+   "inputs": 80000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  }
+ },
+ "pass": true
+}

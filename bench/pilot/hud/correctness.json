@@ -1,0 +1,72 @@
+{
+  "features": {
+    "error": {
+      "not_claimed": 30,
+      "pass": 0,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 0,
+      "rate": null
+    },
+    "markup": {
+      "pass": 30,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 1.0
+    },
+    "panel": {
+      "not_claimed": 30,
+      "pass": 0,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 0,
+      "rate": null
+    },
+    "progress": {
+      "not_claimed": 30,
+      "pass": 0,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 0,
+      "rate": null
+    },
+    "style": {
+      "pass": 30,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 1.0
+    },
+    "table": {
+      "not_claimed": 30,
+      "pass": 0,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 0,
+      "rate": null
+    },
+    "tree": {
+      "not_claimed": 30,
+      "pass": 0,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 0,
+      "rate": null
+    }
+  },
+  "overall": {
+    "pass": 60,
+    "denominator": 60,
+    "rate": 1.0,
+    "style_markup_100": true
+  },
+  "failures": []
+}
