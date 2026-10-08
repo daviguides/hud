@@ -11,26 +11,23 @@ use std::path::PathBuf;
 use hud::{ColorSystem, EnvSnapshot, StreamInfo, resolve};
 
 fn env_for(depth: &str, variable: &str) -> EnvSnapshot {
-    let mut env = EnvSnapshot::default();
-    match depth {
-        "truecolor" => {
-            env.term = Some("xterm-256color".into());
-            env.colorterm = Some("truecolor".into());
-        }
-        "256" => env.term = Some("xterm-256color".into()),
-        "16" => env.term = Some("xterm".into()),
-        "none" => env.term = Some("dumb".into()),
+    let env = match depth {
+        "truecolor" => EnvSnapshot::new()
+            .term("xterm-256color")
+            .colorterm("truecolor"),
+        "256" => EnvSnapshot::new().term("xterm-256color"),
+        "16" => EnvSnapshot::new().term("xterm"),
+        "none" => EnvSnapshot::new().term("dumb"),
         other => panic!("unknown depth {other}"),
-    }
+    };
     match variable {
-        "unset" => {}
-        "NO_COLOR" => env.no_color = Some("1".into()),
-        "FORCE_COLOR" => env.force_color = Some("1".into()),
-        "CLICOLOR" => env.clicolor = Some("0".into()),
-        "CLICOLOR_FORCE" => env.clicolor_force = Some("1".into()),
+        "unset" => env,
+        "NO_COLOR" => env.no_color("1"),
+        "FORCE_COLOR" => env.force_color("1"),
+        "CLICOLOR" => env.clicolor("0"),
+        "CLICOLOR_FORCE" => env.clicolor_force("1"),
         other => panic!("unknown variable {other}"),
     }
-    env
 }
 
 fn color_class(system: ColorSystem) -> &'static str {
@@ -39,6 +36,7 @@ fn color_class(system: ColorSystem) -> &'static str {
         ColorSystem::Standard => "standard",
         ColorSystem::EightBit => "256",
         ColorSystem::TrueColor => "truecolor",
+        other => panic!("a color system the matrix does not know: {other:?}"),
     }
 }
 
@@ -55,9 +53,10 @@ fn all_forty_cells_match_the_written_expectation() {
             cell["depth"].as_str().unwrap(),
             cell["env"].as_str().unwrap(),
         );
-        let stream = StreamInfo {
-            is_tty: cell["stream"] == "tty",
-            size: cell["stream"].eq("tty").then_some((100, 24)),
+        let stream = if cell["stream"] == "tty" {
+            StreamInfo::terminal(100, 24)
+        } else {
+            StreamInfo::new()
         };
         let caps = resolve(&env, stream);
         let expect = &cell["expect"];

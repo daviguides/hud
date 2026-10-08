@@ -2,6 +2,7 @@ use super::color::Color;
 
 /// A text attribute that can be switched on or explicitly off in a [`Style`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[non_exhaustive]
 pub enum Attribute {
     /// Bold weight.
     Bold,

@@ -17,6 +17,7 @@ use core::fmt;
 /// assert!(json.starts_with("{\n  \"schema\": \"hud/1\""));
 /// ```
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
+#[non_exhaustive]
 pub enum Format {
     /// Styled text with the escape sequences the console's capabilities allow: what a console
     /// wrote before formats existed. On a pipe that is text with none. The default.

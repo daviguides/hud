@@ -12,7 +12,7 @@ pub enum hud::Align
 pub hud::Align::Center
 pub hud::Align::Left
 pub hud::Align::Right
-pub enum hud::Attribute
+#[non_exhaustive] pub enum hud::Attribute
 pub hud::Attribute::Blink
 pub hud::Attribute::Blink2
 pub hud::Attribute::Bold
@@ -26,7 +26,7 @@ pub hud::Attribute::Reverse
 pub hud::Attribute::Strike
 pub hud::Attribute::Underline
 pub hud::Attribute::Underline2
-pub enum hud::BoxStyle
+#[non_exhaustive] pub enum hud::BoxStyle
 pub hud::BoxStyle::Ascii
 pub hud::BoxStyle::Double
 pub hud::BoxStyle::Heavy
@@ -55,12 +55,12 @@ impl hud::Color
 pub fn hud::Color::parse(&str) -> core::result::Result<hud::Color, hud::StyleError>
 impl core::fmt::Display for hud::Color
 pub fn hud::Color::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-pub enum hud::ColorSystem
+#[non_exhaustive] pub enum hud::ColorSystem
 pub hud::ColorSystem::EightBit
 pub hud::ColorSystem::None
 pub hud::ColorSystem::Standard
 pub hud::ColorSystem::TrueColor
-pub enum hud::Format
+#[non_exhaustive] pub enum hud::Format
 pub hud::Format::Json
 pub hud::Format::Plain
 pub hud::Format::Rich
@@ -79,7 +79,7 @@ pub hud::Overflow::Crop
 pub hud::Overflow::Ellipsis
 pub hud::Overflow::Fold
 pub hud::Overflow::Ignore
-pub enum hud::ProgressColumn
+#[non_exhaustive] pub enum hud::ProgressColumn
 pub hud::ProgressColumn::Bar(hud::BarColumn)
 pub hud::ProgressColumn::MofNComplete(hud::MofNCompleteColumn)
 pub hud::ProgressColumn::Spinner(hud::SpinnerColumn)
@@ -153,7 +153,7 @@ pub fn hud::Body::node(&self) -> hud::Node
 pub fn hud::Body::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Body::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Body::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
-pub struct hud::Capabilities
+#[non_exhaustive] pub struct hud::Capabilities
 pub hud::Capabilities::attributes: bool
 pub hud::Capabilities::color_system: hud::ColorSystem
 pub hud::Capabilities::height: u16
@@ -232,7 +232,7 @@ pub fn hud::ConsoleBuilder::height(self, u16) -> hud::ConsoleBuilder
 pub fn hud::ConsoleBuilder::plain(self) -> hud::ConsoleBuilder
 pub fn hud::ConsoleBuilder::stream(self, hud::Stream) -> hud::ConsoleBuilder
 pub fn hud::ConsoleBuilder::width(self, u16) -> hud::ConsoleBuilder
-pub struct hud::EnvSnapshot
+#[non_exhaustive] pub struct hud::EnvSnapshot
 pub hud::EnvSnapshot::clicolor: core::option::Option<alloc::string::String>
 pub hud::EnvSnapshot::clicolor_force: core::option::Option<alloc::string::String>
 pub hud::EnvSnapshot::colorterm: core::option::Option<alloc::string::String>
@@ -241,6 +241,16 @@ pub hud::EnvSnapshot::force_color: core::option::Option<alloc::string::String>
 pub hud::EnvSnapshot::lines: core::option::Option<alloc::string::String>
 pub hud::EnvSnapshot::no_color: core::option::Option<alloc::string::String>
 pub hud::EnvSnapshot::term: core::option::Option<alloc::string::String>
+impl hud::EnvSnapshot
+pub fn hud::EnvSnapshot::clicolor(self, impl core::convert::Into<alloc::string::String>) -> hud::EnvSnapshot
+pub fn hud::EnvSnapshot::clicolor_force(self, impl core::convert::Into<alloc::string::String>) -> hud::EnvSnapshot
+pub fn hud::EnvSnapshot::colorterm(self, impl core::convert::Into<alloc::string::String>) -> hud::EnvSnapshot
+pub fn hud::EnvSnapshot::columns(self, impl core::convert::Into<alloc::string::String>) -> hud::EnvSnapshot
+pub fn hud::EnvSnapshot::force_color(self, impl core::convert::Into<alloc::string::String>) -> hud::EnvSnapshot
+pub fn hud::EnvSnapshot::lines(self, impl core::convert::Into<alloc::string::String>) -> hud::EnvSnapshot
+pub fn hud::EnvSnapshot::new() -> hud::EnvSnapshot
+pub fn hud::EnvSnapshot::no_color(self, impl core::convert::Into<alloc::string::String>) -> hud::EnvSnapshot
+pub fn hud::EnvSnapshot::term(self, impl core::convert::Into<alloc::string::String>) -> hud::EnvSnapshot
 pub struct hud::ErrorReport
 impl hud::ErrorReport
 pub fn hud::ErrorReport::cause(self, impl core::convert::Into<alloc::string::String>) -> hud::ErrorReport
@@ -547,9 +557,14 @@ impl core::fmt::Debug for hud::StatusUpdate
 pub fn hud::StatusUpdate::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::ops::drop::Drop for hud::StatusUpdate
 pub fn hud::StatusUpdate::drop(&mut self)
-pub struct hud::StreamInfo
+#[non_exhaustive] pub struct hud::StreamInfo
 pub hud::StreamInfo::is_tty: bool
 pub hud::StreamInfo::size: core::option::Option<(u16, u16)>
+impl hud::StreamInfo
+pub fn hud::StreamInfo::is_tty(self, bool) -> hud::StreamInfo
+pub fn hud::StreamInfo::new() -> hud::StreamInfo
+pub fn hud::StreamInfo::size(self, u16, u16) -> hud::StreamInfo
+pub fn hud::StreamInfo::terminal(u16, u16) -> hud::StreamInfo
 pub struct hud::Style
 impl hud::Style
 pub fn hud::Style::attribute(self, hud::Attribute, bool) -> hud::Style

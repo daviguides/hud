@@ -54,16 +54,13 @@ fn depth(env: &EnvSnapshot) -> ColorSystem {
 /// ```
 /// use hud::{ColorSystem, EnvSnapshot, StreamInfo, resolve};
 ///
-/// let env = EnvSnapshot {
-///     term: Some("xterm-256color".into()),
-///     ..EnvSnapshot::default()
-/// };
-/// let tty = StreamInfo { is_tty: true, size: Some((120, 40)) };
+/// let env = EnvSnapshot::new().term("xterm-256color");
+/// let tty = StreamInfo::terminal(120, 40);
 /// let caps = resolve(&env, tty);
 /// assert_eq!(caps.color_system, ColorSystem::EightBit);
 /// assert_eq!((caps.width, caps.height), (120, 40));
 ///
-/// let piped = resolve(&env, StreamInfo::default());
+/// let piped = resolve(&env, StreamInfo::new());
 /// assert!(!piped.emits_escapes());
 /// ```
 pub fn resolve(env: &EnvSnapshot, stream: StreamInfo) -> Capabilities {

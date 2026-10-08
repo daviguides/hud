@@ -21,6 +21,27 @@ pub struct Measure {
 }
 
 /// Something that can be printed by a [`Console`](crate::Console).
+///
+/// # Stability
+///
+/// The trait is open on purpose: implement it for your own types. Only [`render`](Renderable::render)
+/// is required. In 1.x a method is added only with a default body, so an implementation written
+/// today keeps compiling; no method is removed or changes its signature.
+///
+/// ```
+/// use hud::{Console, Renderable, Segment, Style};
+///
+/// struct Rule;
+///
+/// impl Renderable for Rule {
+///     fn render(&self, width: usize) -> Vec<Segment> {
+///         vec![Segment { text: format!("{}\n", "-".repeat(width)), style: Style::new() }]
+///     }
+/// }
+///
+/// let console = Console::builder().width(4).plain().build();
+/// assert_eq!(console.render_to_plain(&Rule), "----\n");
+/// ```
 pub trait Renderable {
     /// Renders into styled runs for a line `width` cells wide. Line breaks are part of the
     /// runs.

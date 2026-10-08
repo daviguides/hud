@@ -12,7 +12,7 @@ fn main() {
         ColorSystem::TrueColor => params.push("38;2;255;136;0"),
         ColorSystem::EightBit => params.push("38;5;208"),
         ColorSystem::Standard => params.push("33"),
-        ColorSystem::None => {}
+        _ => {}
     }
     if params.is_empty() {
         println!("x");

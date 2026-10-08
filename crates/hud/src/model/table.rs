@@ -3,6 +3,7 @@ use super::text::{Justify, Overflow};
 
 /// The line-drawing characters around and between the cells of a [`Table`].
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
+#[non_exhaustive]
 pub enum BoxStyle {
     /// `+`, `-` and `|`: safe on any terminal.
     Ascii,

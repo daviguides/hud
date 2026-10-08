@@ -330,6 +330,7 @@ impl Default for SpinnerColumn {
 /// One column of a progress display; build them with the `*Column` types and pass them to
 /// [`ProgressBuilder::column`](crate::ProgressBuilder::column).
 #[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
 pub enum ProgressColumn {
     /// See [`TextColumn`].
     Text(TextColumn),

@@ -546,20 +546,40 @@ fn width_case(rng: &mut Rng, input: &str) -> Option<String> {
 fn capability_case(rng: &mut Rng, _: &str) -> Option<String> {
     const VALUES: &[&str] = &["", "0", "1", "no", "truecolor", "24bit", "xterm", "xterm-256color", "dumb", "-5", "99999999999", "x"];
     let value = |rng: &mut Rng| rng.chance(50).then(|| rng.pick(VALUES).to_string());
-    let env = EnvSnapshot {
-        no_color: value(rng),
-        force_color: value(rng),
-        clicolor: value(rng),
-        clicolor_force: value(rng),
-        colorterm: value(rng),
-        term: value(rng),
-        columns: value(rng),
-        lines: value(rng),
-    };
-    let stream = StreamInfo {
-        is_tty: rng.chance(50),
-        size: rng.chance(60).then(|| (rng.below(300) as u16, rng.below(100) as u16)),
-    };
+    // EnvSnapshot and StreamInfo are #[non_exhaustive] since the 1.0 freeze: built with their
+    // setters in the order the old struct expression evaluated the fields, so the random stream is
+    // unchanged.
+    let mut env = EnvSnapshot::new();
+    for (index, slot) in [
+        value(rng),
+        value(rng),
+        value(rng),
+        value(rng),
+        value(rng),
+        value(rng),
+        value(rng),
+        value(rng),
+    ]
+    .into_iter()
+    .enumerate()
+    {
+        if let Some(text) = slot {
+            env = match index {
+                0 => env.no_color(text),
+                1 => env.force_color(text),
+                2 => env.clicolor(text),
+                3 => env.clicolor_force(text),
+                4 => env.colorterm(text),
+                5 => env.term(text),
+                6 => env.columns(text),
+                _ => env.lines(text),
+            };
+        }
+    }
+    let mut stream = StreamInfo::new().is_tty(rng.chance(50));
+    if rng.chance(60) {
+        stream = stream.size(rng.below(300) as u16, rng.below(100) as u16);
+    }
     let caps = resolve(&env, stream);
     (caps.width == 0 || caps.height == 0).then(|| format!("resolved a zero size from {env:?} {stream:?}"))
 }
