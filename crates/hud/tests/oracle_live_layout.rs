@@ -32,7 +32,8 @@ fn mismatches(name: &str) -> (usize, Vec<(Value, String, String)>) {
         .filter_map(|row| {
             let case = &row["case"];
             let want = row["out"].as_str().unwrap();
-            let got = runner::render(case).unwrap_or_else(|| panic!("{} is not supported", case["id"]));
+            let got =
+                runner::render(case).unwrap_or_else(|| panic!("{} is not supported", case["id"]));
             (got != want).then(|| (case.clone(), want.to_string(), got))
         })
         .collect();
@@ -97,7 +98,9 @@ fn assert_only_explained_differences(name: &str) {
     let (total, bad) = mismatches(name);
     let unexplained: Vec<_> = bad
         .iter()
-        .filter(|(case, want, got)| !explained(case) && !explained_by_wide_characters(case, want, got))
+        .filter(|(case, want, got)| {
+            !explained(case) && !explained_by_wide_characters(case, want, got)
+        })
         .collect();
     eprintln!(
         "{name}: {total} vectors, {} differ ({} neither a flag or combining mark nor a wide character)",

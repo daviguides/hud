@@ -211,18 +211,19 @@ task attribute with a format spec. `track` takes an exact-size iterator and does
 
 - Remove when: a case in the corpus needs one of them.
 
-### D-037: the bytes of a live display are not Rich's
+### D-037: the bytes of a live display (resolved on the live-layout branch)
 
-A display on an interactive stream hides the cursor, draws each frame as its lines each ended by a
-newline, and puts the next one over it with `CR`, `ESC [ n A` (up by the height of the frame) and
-`ESC [ J` (clear to the end of the screen); it ends with the last frame, a newline already written,
-and `ESC [ ? 25 h`. Rich draws without a final newline and erases line by line. A stream that is not
-interactive prints the last frame once, when the display ends, as Rich does for a file. A frame
-taller than the terminal is cut to the height less one line and ends with a `...` line (Rich's
-ellipsis is styled and has other rules). The screen a user sees is the same; the correctness corpus
-compares one frame (30 of 30 byte-identical), `speed.py verify S3` and task t03 compare screens.
+Until this branch a display drew each frame with a newline after every line and put the next one over it
+with `CR`, `ESC [ n A` and `ESC [ J`; its bytes were not Rich's, only its screens were. `Live` and `Progress`
+now share one redraw protocol (`services/live.rs`) that writes what Rich writes: the cursor hidden at the
+start, each frame preceded by `CR`, `ESC [ 2 K` and `ESC [ 1 A ESC [ 2 K` per earlier line, its lines
+separated by newlines with none after the last, a newline and `ESC [ ? 25 h` at the end, and the erase of a
+transient display after that. A frame taller than the terminal keeps one line less and ends with `...`
+centered in bold red (Rich's `live.ellipsis`). Verified on corpus 3: `live` 30 of 30 and `progress_live` 12 of
+12 byte-identical, and 1 100 ASCII random vectors of each (`oracle_live_layout.rs`). What still differs from
+Rich is listed in D-044.
 
-- Remove when: never, unless a user asks for the exact bytes of an animation.
+- Remove when: kept as the record of why the screens of the earlier milestones were compared and not the bytes.
 
 ### D-038: steps are whole numbers, estimates never go below zero
 
@@ -280,6 +281,25 @@ its items in order and measures as the widest minimum and the widest maximum of 
 no `fit` option. The error report uses it with the layout above and matches Rich on every vector.
 
 - Remove when: a user needs `fit=False`.
+
+### D-044: what `Live`, `Layout` and `Columns` do not do yet
+
+`Live` has no alternate screen (`screen=True`), no redirection of standard output and error (`redirect_stdout`,
+`redirect_stderr`), no nested displays (a second `Live` on the same console draws over the first) and no
+`get_renderable` callback; replace what it shows with `update`. A `Progress` starts drawing at its first
+task, where Rich's `start()` already hides the cursor: a `Progress` that ends with no task writes nothing, and
+Rich writes the cursor sequences and a line break (hud draws the empty frame Rich draws, one blank line, in front of the
+first task so the bytes of every other case are Rich's). `Layout` has no placeholder (a leaf with no
+renderable is blank where Rich draws a titled panel with a `repr` of the layout), no `tree`, no
+`refresh_screen`, no custom splitters, and a layout whose children are all invisible is blank (Rich recurses
+forever). A `Layout` placed inside another layout as the renderable of a leaf takes the height of its region,
+as in Rich; a layout printed on its own, or inside a `Panel` or a `Group`, is as tall as the standard output
+terminal, not as the console it is printed on (the renderable has no console height to ask for). `Columns`
+holds markup, `Text`, tables, trees, panels and any renderable; a `Text` with a base style of its own keeps its
+padding unstyled in a cell. When `width` is so small that no column fits, hud uses one column and Rich raises
+a `ValueError`. `Group` items do not receive the height of a region.
+
+- Remove when: a case in the corpus needs one of them.
 
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 

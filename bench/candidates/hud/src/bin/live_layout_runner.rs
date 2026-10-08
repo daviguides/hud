@@ -14,7 +14,7 @@ use hud::{
 };
 use serde_json::{Value, json};
 
-pub const CLAIMED: &[&str] = &["columns", "layout", "live", "progress_live"];
+pub(crate) const CLAIMED: &[&str] = &["columns", "layout", "live", "progress_live"];
 
 fn color_system(name: &str) -> ColorSystem {
     match name {
@@ -249,9 +249,14 @@ fn render_progress_live(case: &Value) -> Option<String> {
     let mut tasks: Vec<Task> = Vec::new();
     for event in node["events"].as_array()? {
         match event["op"].as_str()? {
-            "add" => tasks.push(progress.add_task(event["description"].as_str()?, event["total"].as_u64()?)),
-            "advance" => tasks.get(event["task"].as_u64()? as usize)?.advance(event["amount"].as_u64()?),
-            "update" => tasks.get(event["task"].as_u64()? as usize)?.set_completed(event["completed"].as_u64()?),
+            "add" => tasks
+                .push(progress.add_task(event["description"].as_str()?, event["total"].as_u64()?)),
+            "advance" => tasks
+                .get(event["task"].as_u64()? as usize)?
+                .advance(event["amount"].as_u64()?),
+            "update" => tasks
+                .get(event["task"].as_u64()? as usize)?
+                .set_completed(event["completed"].as_u64()?),
             "refresh" => progress.refresh(),
             _ => return None,
         }
@@ -291,7 +296,7 @@ fn render_live(case: &Value) -> Option<String> {
 }
 
 /// The bytes hud writes for one case, or `None` when the case is not one it supports.
-pub fn render(case: &Value) -> Option<String> {
+pub(crate) fn render(case: &Value) -> Option<String> {
     let node = &case["renderable"];
     let console = console_for(case)?;
     match node["t"].as_str()? {

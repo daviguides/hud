@@ -32,3 +32,8 @@ impl Probe for SystemProbe {
 pub(crate) fn write(stream: Stream, text: &str) -> std::io::Result<()> {
     sink::write(stream, text)
 }
+
+/// Writes a frame of a live display to `stream` in one system call where the platform allows it.
+pub(crate) fn write_frame(stream: Stream, text: &str) -> std::io::Result<()> {
+    sink::write_frame(stream, text)
+}

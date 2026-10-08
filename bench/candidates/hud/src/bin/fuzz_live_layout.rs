@@ -8,7 +8,7 @@ use std::panic::{self, AssertUnwindSafe};
 use std::sync::{Arc, Mutex};
 
 use hud::{
-    Align, Body, BoxStyle, Column, ColorSystem, Columns, Console, Layout, Live, Padding, Panel,
+    Align, Body, BoxStyle, ColorSystem, Column, Columns, Console, Layout, Live, Padding, Panel,
     Renderable, Table, Tree, VerticalOverflow, cell_width,
 };
 use serde_json::json;
@@ -35,10 +35,35 @@ impl Rng {
 }
 
 const FRAGMENTS: &[&str] = &[
-    "[", "]", "[/]", "[bold]", "[/bold]", "[red on blue]", "\\[", "[b", "bold", " ", "  ", "\t", "\n",
-    "x", "word", "alpha beta gamma", "supercalifragilisticexpialidocious", "0", "255",
+    "[",
+    "]",
+    "[/]",
+    "[bold]",
+    "[/bold]",
+    "[red on blue]",
+    "\\[",
+    "[b",
+    "bold",
+    " ",
+    "  ",
+    "\t",
+    "\n",
+    "x",
+    "word",
+    "alpha beta gamma",
+    "supercalifragilisticexpialidocious",
+    "0",
+    "255",
 ];
-const UNICODE: &[&str] = &["你好", "😀", "👨\u{200d}👩\u{200d}👧", "🇧🇷", "e\u{301}", "한국어", "क्ष"];
+const UNICODE: &[&str] = &[
+    "你好",
+    "😀",
+    "👨\u{200d}👩\u{200d}👧",
+    "🇧🇷",
+    "e\u{301}",
+    "한국어",
+    "क्ष",
+];
 
 fn random_string(rng: &mut Rng) -> String {
     let mut out = String::new();
@@ -54,7 +79,12 @@ fn random_string(rng: &mut Rng) -> String {
 }
 
 fn console(rng: &mut Rng) -> Console {
-    let system = [ColorSystem::None, ColorSystem::Standard, ColorSystem::EightBit, ColorSystem::TrueColor][rng.below(4)];
+    let system = [
+        ColorSystem::None,
+        ColorSystem::Standard,
+        ColorSystem::EightBit,
+        ColorSystem::TrueColor,
+    ][rng.below(4)];
     Console::builder()
         .width([1, 2, 3, 8, 20, 80, 200][rng.below(7)])
         .height([1, 2, 3, 5, 12, 24, 60][rng.below(7)])
@@ -147,8 +177,14 @@ fn random_columns(rng: &mut Rng) -> Columns {
 /// terminal exactly.
 fn random_layout(rng: &mut Rng, depth: usize, named: &mut usize, flex: bool) -> Layout {
     let mut layout = if depth < 3 && rng.chance(60) {
-        let children: Vec<Layout> = (0..1 + rng.below(4)).map(|_| random_layout(rng, depth + 1, named, flex)).collect();
-        if rng.chance(50) { Layout::row(children) } else { Layout::column(children) }
+        let children: Vec<Layout> = (0..1 + rng.below(4))
+            .map(|_| random_layout(rng, depth + 1, named, flex))
+            .collect();
+        if rng.chance(50) {
+            Layout::row(children)
+        } else {
+            Layout::column(children)
+        }
     } else if !flex && rng.chance(15) {
         Layout::empty()
     } else {
@@ -183,12 +219,17 @@ fn check_width(console: &Console, renderable: &dyn Renderable, what: &str) -> Op
     let plain = console.render_to_plain(&renderable);
     for line in plain.split('\n') {
         if cell_width(line) > width {
-            return Some(format!("a printed {what} line is {} cells wide at width {width}: {line:?}", cell_width(line)));
+            return Some(format!(
+                "a printed {what} line is {} cells wide at width {width}: {line:?}",
+                cell_width(line)
+            ));
         }
     }
     let ansi = console.render_to_string(&renderable);
     if !console.capabilities().emits_escapes() && ansi != plain {
-        return Some(format!("a console that shows nothing wrote escape sequences for a {what}"));
+        return Some(format!(
+            "a console that shows nothing wrote escape sequences for a {what}"
+        ));
     }
     if console.render_to_string(&renderable) != ansi {
         return Some(format!("rendering a {what} twice gave different bytes"));
@@ -227,7 +268,9 @@ fn layout_case(rng: &mut Rng, _: &str) -> Option<String> {
     let plain = console.render_to_plain(&layout);
     let lines = plain.matches('\n').count();
     if lines != height {
-        return Some(format!("a layout printed {lines} lines on a console {height} rows tall: {plain:?}"));
+        return Some(format!(
+            "a layout printed {lines} lines on a console {height} rows tall: {plain:?}"
+        ));
     }
     // With no fixed sizes the regions tile the terminal: every line is as wide as the console.
     let flex = random_layout(rng, 0, &mut 0, true);
@@ -235,7 +278,10 @@ fn layout_case(rng: &mut Rng, _: &str) -> Option<String> {
     let plain = console.render_to_plain(&flex);
     for line in plain.strip_suffix('\n').unwrap_or(&plain).split('\n') {
         if cell_width(line) != width {
-            return Some(format!("a layout of flexible children left a line {} cells wide on a console {width} wide: {plain:?}", cell_width(line)));
+            return Some(format!(
+                "a layout of flexible children left a line {} cells wide on a console {width} wide: {plain:?}",
+                cell_width(line)
+            ));
         }
     }
     // Updating a named child never panics and the layout is still as tall as the terminal.
@@ -301,7 +347,11 @@ fn live_case(rng: &mut Rng, _: &str) -> Option<String> {
     let console = console(rng);
     let interactive = rng.chance(70);
     let transient = rng.chance(40);
-    let overflow = [VerticalOverflow::Ellipsis, VerticalOverflow::Crop, VerticalOverflow::Visible][rng.below(3)];
+    let overflow = [
+        VerticalOverflow::Ellipsis,
+        VerticalOverflow::Crop,
+        VerticalOverflow::Visible,
+    ][rng.below(3)];
     let capture = Capture::default();
     let mut builder = Live::builder()
         .console(console)
@@ -327,29 +377,42 @@ fn live_case(rng: &mut Rng, _: &str) -> Option<String> {
         }
     }
     if !interactive && !text(&capture).is_empty() {
-        return Some(format!("a stream that is not interactive was written to before the end: {:?}", text(&capture)));
+        return Some(format!(
+            "a stream that is not interactive was written to before the end: {:?}",
+            text(&capture)
+        ));
     }
     live.stop();
     live.stop();
     let written = text(&capture);
     if !interactive {
         if transient && !written.is_empty() {
-            return Some(format!("a transient display on a stream that is not interactive wrote {written:?}"));
+            return Some(format!(
+                "a transient display on a stream that is not interactive wrote {written:?}"
+            ));
         }
         return None;
     }
     if written.matches("\x1b[?25l").count() != 1 || written.matches("\x1b[?25h").count() != 1 {
-        return Some(format!("the cursor is not hidden once and shown once: {written:?}"));
+        return Some(format!(
+            "the cursor is not hidden once and shown once: {written:?}"
+        ));
     }
     let (row, least) = cursor_rows(&written);
     if least < 0 {
-        return Some(format!("the cursor went above the display (row {least}): {written:?}"));
+        return Some(format!(
+            "the cursor went above the display (row {least}): {written:?}"
+        ));
     }
     if transient && row != 0 {
-        return Some(format!("a transient display left the cursor {row} lines below where it started: {written:?}"));
+        return Some(format!(
+            "a transient display left the cursor {row} lines below where it started: {written:?}"
+        ));
     }
     if !transient && row < 0 {
-        return Some(format!("the display ended above where it started: {written:?}"));
+        return Some(format!(
+            "the display ended above where it started: {written:?}"
+        ));
     }
     None
 }
@@ -382,11 +445,19 @@ fn run(feature: &str, seed: u64, count: usize, case: Case) -> bool {
 
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
-    let get = |flag: &str| args.iter().position(|a| a == flag).map(|i| args[i + 1].clone());
+    let get = |flag: &str| {
+        args.iter()
+            .position(|a| a == flag)
+            .map(|i| args[i + 1].clone())
+    };
     let seed: u64 = get("--seed").map_or(20_261_008, |v| v.parse().unwrap());
     let count: usize = get("--count").map_or(5000, |v| v.parse().unwrap());
     panic::set_hook(Box::new(|_| {}));
-    let cases: [(&str, Case); 3] = [("columns", columns_case), ("layout", layout_case), ("live", live_case)];
+    let cases: [(&str, Case); 3] = [
+        ("columns", columns_case),
+        ("layout", layout_case),
+        ("live", live_case),
+    ];
     let mut ok = true;
     for (feature, case) in cases {
         ok &= run(feature, seed, count, case);

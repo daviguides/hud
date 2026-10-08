@@ -55,7 +55,7 @@ impl Core {
                 let _ = writer.flush();
             }
             None => {
-                let _ = integrations::write(self.console.stream(), text);
+                let _ = integrations::write_frame(self.console.stream(), text);
             }
         }
     }
