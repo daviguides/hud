@@ -1,0 +1,380 @@
+[
+ {
+  "kind": "matrix",
+  "format_env": null,
+  "stream": "tty",
+  "force_color": null,
+  "expect": "styled",
+  "env": {},
+  "ok": true,
+  "bytes": 264
+ },
+ {
+  "kind": "matrix",
+  "format_env": null,
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "unstyled",
+  "env": {},
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "matrix",
+  "format_env": null,
+  "stream": "pipe",
+  "force_color": "1",
+  "expect": "styled",
+  "env": {
+   "FORCE_COLOR": "1"
+  },
+  "ok": true,
+  "bytes": 264
+ },
+ {
+  "kind": "matrix",
+  "format_env": "rich",
+  "stream": "tty",
+  "force_color": null,
+  "expect": "styled",
+  "env": {
+   "HUD_FORMAT": "rich"
+  },
+  "ok": true,
+  "bytes": 264
+ },
+ {
+  "kind": "matrix",
+  "format_env": "rich",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "unstyled",
+  "env": {
+   "HUD_FORMAT": "rich"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "matrix",
+  "format_env": "rich",
+  "stream": "pipe",
+  "force_color": "1",
+  "expect": "styled",
+  "env": {
+   "HUD_FORMAT": "rich",
+   "FORCE_COLOR": "1"
+  },
+  "ok": true,
+  "bytes": 264
+ },
+ {
+  "kind": "matrix",
+  "format_env": "plain",
+  "stream": "tty",
+  "force_color": null,
+  "expect": "plain",
+  "env": {
+   "HUD_FORMAT": "plain"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "matrix",
+  "format_env": "plain",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "plain",
+  "env": {
+   "HUD_FORMAT": "plain"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "matrix",
+  "format_env": "plain",
+  "stream": "pipe",
+  "force_color": "1",
+  "expect": "plain",
+  "env": {
+   "HUD_FORMAT": "plain",
+   "FORCE_COLOR": "1"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "matrix",
+  "format_env": "json",
+  "stream": "tty",
+  "force_color": null,
+  "expect": "json",
+  "env": {
+   "HUD_FORMAT": "json"
+  },
+  "ok": true,
+  "bytes": 376
+ },
+ {
+  "kind": "matrix",
+  "format_env": "json",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "json",
+  "env": {
+   "HUD_FORMAT": "json"
+  },
+  "ok": true,
+  "bytes": 376
+ },
+ {
+  "kind": "matrix",
+  "format_env": "json",
+  "stream": "pipe",
+  "force_color": "1",
+  "expect": "json",
+  "env": {
+   "HUD_FORMAT": "json",
+   "FORCE_COLOR": "1"
+  },
+  "ok": true,
+  "bytes": 376
+ },
+ {
+  "kind": "matrix",
+  "format_env": "JSON",
+  "stream": "tty",
+  "force_color": null,
+  "expect": "json",
+  "env": {
+   "HUD_FORMAT": "JSON"
+  },
+  "ok": true,
+  "bytes": 376
+ },
+ {
+  "kind": "matrix",
+  "format_env": "JSON",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "json",
+  "env": {
+   "HUD_FORMAT": "JSON"
+  },
+  "ok": true,
+  "bytes": 376
+ },
+ {
+  "kind": "matrix",
+  "format_env": "JSON",
+  "stream": "pipe",
+  "force_color": "1",
+  "expect": "json",
+  "env": {
+   "HUD_FORMAT": "JSON",
+   "FORCE_COLOR": "1"
+  },
+  "ok": true,
+  "bytes": 376
+ },
+ {
+  "kind": "matrix",
+  "format_env": "bogus",
+  "stream": "tty",
+  "force_color": null,
+  "expect": "styled",
+  "env": {
+   "HUD_FORMAT": "bogus"
+  },
+  "ok": true,
+  "bytes": 264
+ },
+ {
+  "kind": "matrix",
+  "format_env": "bogus",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "unstyled",
+  "env": {
+   "HUD_FORMAT": "bogus"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "matrix",
+  "format_env": "bogus",
+  "stream": "pipe",
+  "force_color": "1",
+  "expect": "styled",
+  "env": {
+   "HUD_FORMAT": "bogus",
+   "FORCE_COLOR": "1"
+  },
+  "ok": true,
+  "bytes": 264
+ },
+ {
+  "kind": "matrix",
+  "format_env": null,
+  "stream": "tty",
+  "force_color": "1",
+  "expect": "styled",
+  "env": {
+   "FORCE_COLOR": "1"
+  },
+  "ok": true,
+  "bytes": 264
+ },
+ {
+  "kind": "matrix",
+  "format_env": "rich",
+  "stream": "tty",
+  "force_color": "1",
+  "expect": "styled",
+  "env": {
+   "FORCE_COLOR": "1",
+   "HUD_FORMAT": "rich"
+  },
+  "ok": true,
+  "bytes": 264
+ },
+ {
+  "kind": "matrix",
+  "format_env": "plain",
+  "stream": "tty",
+  "force_color": "1",
+  "expect": "plain",
+  "env": {
+   "FORCE_COLOR": "1",
+   "HUD_FORMAT": "plain"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "matrix",
+  "format_env": "json",
+  "stream": "tty",
+  "force_color": "1",
+  "expect": "json",
+  "env": {
+   "FORCE_COLOR": "1",
+   "HUD_FORMAT": "json"
+  },
+  "ok": true,
+  "bytes": 376
+ },
+ {
+  "kind": "matrix",
+  "format_env": "JSON",
+  "stream": "tty",
+  "force_color": "1",
+  "expect": "json",
+  "env": {
+   "FORCE_COLOR": "1",
+   "HUD_FORMAT": "JSON"
+  },
+  "ok": true,
+  "bytes": 376
+ },
+ {
+  "kind": "matrix",
+  "format_env": "bogus",
+  "stream": "tty",
+  "force_color": "1",
+  "expect": "styled",
+  "env": {
+   "FORCE_COLOR": "1",
+   "HUD_FORMAT": "bogus"
+  },
+  "ok": true,
+  "bytes": 264
+ },
+ {
+  "kind": "override",
+  "format_env": "json",
+  "builder": "rich",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "unstyled",
+  "env": {
+   "HUD_FORMAT": "json",
+   "HUD_PROBE_FORMAT": "rich"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "override",
+  "format_env": "plain",
+  "builder": "rich",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "unstyled",
+  "env": {
+   "HUD_FORMAT": "plain",
+   "HUD_PROBE_FORMAT": "rich"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "override",
+  "format_env": "json",
+  "builder": "plain",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "plain",
+  "env": {
+   "HUD_FORMAT": "json",
+   "HUD_PROBE_FORMAT": "plain"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "override",
+  "format_env": "plain",
+  "builder": "plain",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "plain",
+  "env": {
+   "HUD_FORMAT": "plain",
+   "HUD_PROBE_FORMAT": "plain"
+  },
+  "ok": true,
+  "bytes": 216
+ },
+ {
+  "kind": "override",
+  "format_env": "json",
+  "builder": "json",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "json",
+  "env": {
+   "HUD_FORMAT": "json",
+   "HUD_PROBE_FORMAT": "json"
+  },
+  "ok": true,
+  "bytes": 376
+ },
+ {
+  "kind": "override",
+  "format_env": "plain",
+  "builder": "json",
+  "stream": "pipe",
+  "force_color": null,
+  "expect": "json",
+  "env": {
+   "HUD_FORMAT": "plain",
+   "HUD_PROBE_FORMAT": "json"
+  },
+  "ok": true,
+  "bytes": 376
+ }
+]

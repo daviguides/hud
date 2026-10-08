@@ -1,0 +1,43 @@
+{
+  "features": {
+    "columns": {
+      "pass": 30,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 1.0
+    },
+    "layout": {
+      "pass": 30,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 1.0
+    },
+    "live": {
+      "pass": 30,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 1.0
+    },
+    "progress_live": {
+      "pass": 12,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 12,
+      "rate": 1.0
+    }
+  },
+  "overall": {
+    "pass": 102,
+    "denominator": 102,
+    "rate": 1.0,
+    "style_markup_100": true
+  },
+  "failures": []
+}

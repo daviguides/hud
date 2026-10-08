@@ -1,0 +1,143 @@
+estimate (assumptions in spec/dx-models.json): [{"role": "primary", "model": "claude-sonnet-5-5", "runs": 40, "input_tokens": 15399360, "output_tokens": 120000, "cost_usd": null}, {"role": "stress", "model": "claude-haiku-5-5", "runs": 24, "input_tokens": 9239616, "output_tokens": 72000, "cost_usd": null}]
+claude-sonnet-5-5 t01-table #1: success
+claude-sonnet-5-5 t01-table #2: success
+claude-sonnet-5-5 t01-table #3: success
+claude-sonnet-5-5 t01-table #4: success
+claude-sonnet-5-5 t01-table #5: success
+claude-sonnet-5-5 t02-panel #1: success
+claude-sonnet-5-5 t02-panel #2: success
+claude-sonnet-5-5 t02-panel #3: success
+claude-sonnet-5-5 t02-panel #4: success
+claude-sonnet-5-5 t02-panel #5: success
+claude-sonnet-5-5 t03-progress #1: protocol_violation (tool Rust)
+claude-sonnet-5-5 t03-progress #2: success
+claude-sonnet-5-5 t03-progress #3: success
+claude-sonnet-5-5 t03-progress #4: success
+claude-sonnet-5-5 t03-progress #5: success
+claude-sonnet-5-5 t04-tree #1: success
+claude-sonnet-5-5 t04-tree #2: success
+claude-sonnet-5-5 t04-tree #3: success
+claude-sonnet-5-5 t04-tree #4: success
+claude-sonnet-5-5 t04-tree #5: success
+claude-sonnet-5-5 t05-error #1: success
+claude-sonnet-5-5 t05-error #2: success
+claude-sonnet-5-5 t05-error #3: success
+claude-sonnet-5-5 t05-error #4: success
+claude-sonnet-5-5 t05-error #5: success
+claude-sonnet-5-5 t06-markup #1: success
+claude-sonnet-5-5 t06-markup #2: success
+claude-sonnet-5-5 t06-markup #3: success
+claude-sonnet-5-5 t06-markup #4: success
+claude-sonnet-5-5 t06-markup #5: success
+claude-sonnet-5-5 t07-pipe #1: success
+claude-sonnet-5-5 t07-pipe #2: success
+claude-sonnet-5-5 t07-pipe #3: success
+claude-sonnet-5-5 t07-pipe #4: success
+claude-sonnet-5-5 t07-pipe #5: success
+claude-sonnet-5-5 t08-env #1: success
+claude-sonnet-5-5 t08-env #2: success
+claude-sonnet-5-5 t08-env #3: success
+claude-sonnet-5-5 t08-env #4: success
+claude-sonnet-5-5 t08-env #5: success
+claude-haiku-5-5 t01-table #1: success
+claude-haiku-5-5 t01-table #2: success
+claude-haiku-5-5 t01-table #3: success
+claude-haiku-5-5 t02-panel #1: success
+claude-haiku-5-5 t02-panel #2: success
+claude-haiku-5-5 t02-panel #3: success
+claude-haiku-5-5 t03-progress #1: success
+claude-haiku-5-5 t03-progress #2: success
+claude-haiku-5-5 t03-progress #3: success
+claude-haiku-5-5 t04-tree #1: success
+claude-haiku-5-5 t04-tree #2: success
+claude-haiku-5-5 t04-tree #3: success
+claude-haiku-5-5 t05-error #1: success
+claude-haiku-5-5 t05-error #2: success
+claude-haiku-5-5 t05-error #3: success
+claude-haiku-5-5 t06-markup #1: success
+claude-haiku-5-5 t06-markup #2: success
+claude-haiku-5-5 t06-markup #3: success
+claude-haiku-5-5 t07-pipe #1: success
+claude-haiku-5-5 t07-pipe #2: protocol_violation (tool Write)
+claude-haiku-5-5 t07-pipe #3: success
+claude-haiku-5-5 t08-env #1: success
+claude-haiku-5-5 t08-env #2: success
+claude-haiku-5-5 t08-env #3: success
+{
+ "runs_file": "pilot/hud/dx_v07/runs.jsonl",
+ "seconds": 1061.2,
+ "report": {
+  "claude-haiku-5-5": {
+   "runs": 23,
+   "success": 23,
+   "first_try": 1.0,
+   "per_task": {
+    "t01-table": 1.0,
+    "t02-panel": 1.0,
+    "t03-progress": 1.0,
+    "t04-tree": 1.0,
+    "t05-error": 1.0,
+    "t06-markup": 1.0,
+    "t07-pipe": 1.0,
+    "t08-env": 1.0
+   },
+   "median_loc_per_task": {
+    "t01-table": 15,
+    "t02-panel": 5,
+    "t03-progress": 21,
+    "t04-tree": 14,
+    "t05-error": 10,
+    "t06-markup": 26,
+    "t07-pipe": 16.0,
+    "t08-env": 3
+   },
+   "ci95_over_tasks": [
+    1.0,
+    1.0
+   ],
+   "excluded": {
+    "harness_error": 0,
+    "protocol_violation": 1,
+    "unsupported": 0
+   },
+   "pipeline_check": true,
+   "gate": "inconclusive (pipeline check)"
+  },
+  "claude-sonnet-5-5": {
+   "runs": 39,
+   "success": 39,
+   "first_try": 1.0,
+   "per_task": {
+    "t01-table": 1.0,
+    "t02-panel": 1.0,
+    "t03-progress": 1.0,
+    "t04-tree": 1.0,
+    "t05-error": 1.0,
+    "t06-markup": 1.0,
+    "t07-pipe": 1.0,
+    "t08-env": 1.0
+   },
+   "median_loc_per_task": {
+    "t01-table": 15,
+    "t02-panel": 8,
+    "t03-progress": 23.5,
+    "t04-tree": 14,
+    "t05-error": 8,
+    "t06-markup": 5,
+    "t07-pipe": 30,
+    "t08-env": 3
+   },
+   "ci95_over_tasks": [
+    1.0,
+    1.0
+   ],
+   "excluded": {
+    "harness_error": 0,
+    "protocol_violation": 1,
+    "unsupported": 0
+   },
+   "pipeline_check": true,
+   "gate": "inconclusive (pipeline check)"
+  }
+ }
+}

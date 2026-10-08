@@ -1,0 +1,51 @@
+estimate (assumptions in spec/dx-models.json): [{"role": "primary", "model": null, "runs": 40, "input_tokens": 15243720, "output_tokens": 120000, "cost_usd": null}, {"role": "stress", "model": null, "runs": 24, "input_tokens": 9146232, "output_tokens": 72000, "cost_usd": null}]
+mock-primary t01-table #1: success
+mock-primary t02-panel #1: success
+mock-primary t03-progress #1: success
+mock-primary t04-tree #1: success
+mock-primary t05-error #1: success
+mock-primary t06-markup #1: success
+mock-primary t07-pipe #1: success
+mock-primary t08-env #1: success
+{
+ "runs_file": "/Users/daviguides/work/sources/hud/bench/results/dx/runs.jsonl",
+ "seconds": 4.6,
+ "report": {
+  "mock-primary": {
+   "runs": 8,
+   "success": 8,
+   "first_try": 1.0,
+   "per_task": {
+    "t01-table": 1.0,
+    "t02-panel": 1.0,
+    "t03-progress": 1.0,
+    "t04-tree": 1.0,
+    "t05-error": 1.0,
+    "t06-markup": 1.0,
+    "t07-pipe": 1.0,
+    "t08-env": 1.0
+   },
+   "median_loc_per_task": {
+    "t01-table": 15,
+    "t02-panel": 5,
+    "t03-progress": 21,
+    "t04-tree": 14,
+    "t05-error": 8,
+    "t06-markup": 5,
+    "t07-pipe": 16,
+    "t08-env": 3
+   },
+   "ci95_over_tasks": [
+    1.0,
+    1.0
+   ],
+   "excluded": {
+    "harness_error": 0,
+    "protocol_violation": 0,
+    "unsupported": 0
+   },
+   "pipeline_check": true,
+   "gate": "inconclusive (pipeline check)"
+  }
+ }
+}

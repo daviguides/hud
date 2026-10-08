@@ -1,0 +1,29 @@
+{
+ "seeds": [
+  20261008,
+  1,
+  2
+ ],
+ "count": 5000,
+ "features": {
+  "spinner": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "spinner_update": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "status": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  }
+ },
+ "pass": true
+}

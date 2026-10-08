@@ -1,0 +1,2 @@
+name parity (existence by name): 28/40 = 70%
+missing: ['Console.width', 'Console.is_terminal', 'Console.color_system', 'Console.no_color', 'Console.force_terminal', 'Color.parse', 'Text.truncate', 'Text.wrap', 'box', 'box.ROUNDED', 'markup.escape', 'cell_len']

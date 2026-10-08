@@ -1,0 +1,19 @@
+{
+  "features": {
+    "table": {
+      "pass": 12,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 12,
+      "rate": 1.0
+    }
+  },
+  "overall": {
+    "pass": 12,
+    "denominator": 12,
+    "rate": 1.0,
+    "style_markup_100": true
+  },
+  "failures": []
+}

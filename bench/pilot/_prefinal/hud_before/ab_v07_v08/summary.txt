@@ -1,0 +1,6 @@
+S1: v0.8/v0.7 = 0.952 (95% CI 0.935 to 0.976); median 1.732 ms -> 1.648 ms; under_load=False
+S2: v0.8/v0.7 = 0.986 (95% CI 0.976 to 0.998); median 19.581 ms -> 19.311 ms; under_load=False
+S3: v0.8/v0.7 = 0.961 (95% CI 0.948 to 0.973); median 1.447 ms -> 1.393 ms; under_load=False
+S4: v0.8/v0.7 = 1.068 (95% CI 1.052 to 1.084); median 1.658 ms -> 1.770 ms; under_load=False
+S2 JSON/rich = 0.438 (95% CI 0.434 to 0.441); rich 19.51 ms, json 8.54 ms; under_load=False
+loads: S1-0=2.25, S1-1=2.25, S1-2=2.25, S1-3=2.25, S2-0=2.25, S2-1=2.25, S2-2=2.25, S2-3=2.39, S3-0=2.39, S3-1=2.39, S3-2=2.39, S3-3=2.39, S4-0=2.39, S4-1=2.39, S4-2=2.39, S4-3=2.6, S2json-0=2.6, S2json-1=2.6, S2json-2=2.6, S2json-3=2.6

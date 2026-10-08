@@ -1,0 +1,6 @@
+PASS t01-table/main
+PASS t07-pipe/main
+PASS t06-markup/main
+PASS t08-env/no_color_tty
+PASS t08-env/force_color_pipe
+PASS t08-env/plain_pipe

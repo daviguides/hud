@@ -1,0 +1,29 @@
+{
+ "seeds": [
+  20261008,
+  1,
+  2
+ ],
+ "count": 5000,
+ "features": {
+  "columns": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "layout": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "live": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  }
+ },
+ "pass": true
+}
