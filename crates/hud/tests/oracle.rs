@@ -1,3 +1,4 @@
+#![allow(clippy::unwrap_used, clippy::expect_used, clippy::panic)]
 //! Differential tests against Python Rich: vectors rendered by the pinned Rich
 //! (`bench/scripts/gen_oracle_vectors.py`) must come out byte for byte the same.
 
