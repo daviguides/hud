@@ -5,10 +5,13 @@
 use std::fs;
 use std::path::PathBuf;
 
-use hud::{BoxStyle, Column, ColorSystem, Console, Justify, Padding, Panel, Style, Table, Text, Tree};
+use hud::{
+    BarColumn, BoxStyle, ColorSystem, Column, Console, Justify, MofNCompleteColumn, Padding, Panel,
+    Progress, Style, Table, TaskProgressColumn, Text, TextColumn, Tree,
+};
 use serde_json::{Value, json};
 
-const CLAIMED: &[&str] = &["style", "markup", "table", "panel", "tree"];
+const CLAIMED: &[&str] = &["style", "markup", "table", "panel", "tree", "progress"];
 
 fn color_system(name: &str) -> ColorSystem {
     match name {
@@ -112,10 +115,26 @@ fn tree(node: &Value) -> Option<Tree> {
     Some(root)
 }
 
+fn progress(node: &Value, console: &Console) -> Option<Progress> {
+    let progress = Progress::builder()
+        .console(console.clone())
+        .column(TextColumn::new("{task.description}"))
+        .column(BarColumn::new().bar_width(node["bar_width"].as_u64()? as usize))
+        .column(TaskProgressColumn::new())
+        .column(MofNCompleteColumn::new())
+        .disable(true)
+        .build();
+    for task in node["tasks"].as_array()? {
+        let added = progress.add_task(task["description"].as_str()?, task["total"].as_u64()?);
+        added.set_completed(task["completed"].as_u64()?);
+    }
+    Some(progress)
+}
+
 fn render(case: &Value) -> Option<String> {
     let node = &case["renderable"];
     let kind = node["t"].as_str()?;
-    if !matches!(kind, "text" | "table" | "panel" | "tree") {
+    if !matches!(kind, "text" | "table" | "panel" | "tree" | "progress") {
         return None;
     }
     let system = color_system(case["color_system"].as_str()?);
@@ -129,6 +148,7 @@ fn render(case: &Value) -> Option<String> {
         "table" => return Some(console.render_to_string(&table(node)?)),
         "panel" => return Some(console.render_to_string(&panel(node)?)),
         "tree" => return Some(console.render_to_string(&tree(node)?)),
+        "progress" => return Some(console.render_to_string(&progress(node, &console)?)),
         _ => {}
     }
     let text = match node["markup"].as_str() {

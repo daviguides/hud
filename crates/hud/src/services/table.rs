@@ -9,12 +9,12 @@ use super::render::render_text;
 use crate::model::{Column, Justify, Measure, Overflow, Segment, Style, Table, Text};
 
 /// Text that is printable ASCII: one cell per byte, nothing to wrap or expand.
-fn is_plain_ascii(text: &str) -> bool {
+pub(crate) fn is_plain_ascii(text: &str) -> bool {
     text.bytes().all(|b| (0x20..0x7f).contains(&b))
 }
 
 /// The lines of `text` laid out in `inner` cells, each exactly `inner` cells wide.
-fn content_lines(text: &Text, inner: usize) -> Vec<Vec<Segment>> {
+pub(crate) fn content_lines(text: &Text, inner: usize) -> Vec<Vec<Segment>> {
     let plain = text.plain();
     if text.spans.is_empty()
         && is_plain_ascii(plain)

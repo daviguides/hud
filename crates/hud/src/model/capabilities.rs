@@ -62,6 +62,9 @@ pub struct Capabilities {
     pub attributes: bool,
     /// The stream is attached to a terminal.
     pub is_tty: bool,
+    /// A display may redraw in place with cursor control: a terminal, or a stream forced to
+    /// behave as one, that is not `TERM=dumb`.
+    pub interactive: bool,
     /// Width in cells.
     pub width: u16,
     /// Height in rows.

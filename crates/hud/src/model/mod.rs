@@ -5,6 +5,7 @@ mod color;
 mod error;
 pub(crate) mod palette;
 mod panel;
+mod progress;
 mod segment;
 mod style;
 mod table;
@@ -15,6 +16,11 @@ pub use capabilities::{Capabilities, ColorSystem, EnvSnapshot, Stream, StreamInf
 pub use color::Color;
 pub use error::{MarkupError, StyleError};
 pub use panel::{Align, Body, Padding, Panel};
+pub(crate) use progress::TaskSnapshot;
+pub use progress::{
+    BarColumn, MofNCompleteColumn, ProgressColumn, SpinnerColumn, TaskProgressColumn, TextColumn,
+    TimeElapsedColumn, TimeRemainingColumn,
+};
 pub use segment::{Measure, Renderable, Segment};
 pub use style::{Attribute, Style};
 pub use table::{BoxStyle, Column, Table};

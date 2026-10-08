@@ -122,13 +122,24 @@ impl Console {
     /// What [`Console::print`] would write: the bytes for this console's profile.
     pub fn render_to_string<R: Renderable + ?Sized>(&self, renderable: &R) -> String {
         let width = usize::from(self.caps.width);
-        to_ansi(&crop_lines(renderable.render(width), width), &self.caps)
+        to_ansi(
+            &crop_lines(renderable.render_with(width, &self.caps), width),
+            &self.caps,
+        )
     }
 
     /// The same output with no escape sequences.
     pub fn render_to_plain<R: Renderable + ?Sized>(&self, renderable: &R) -> String {
         let width = usize::from(self.caps.width);
-        to_plain(&crop_lines(renderable.render(width), width))
+        to_plain(&crop_lines(
+            renderable.render_with(width, &self.caps),
+            width,
+        ))
+    }
+
+    /// The stream this console prints to.
+    pub(crate) fn stream(&self) -> Stream {
+        self.stream
     }
 }
 
@@ -249,6 +260,10 @@ impl Renderable for String {
 impl<T: Renderable + ?Sized> Renderable for &T {
     fn render(&self, width: usize) -> Vec<Segment> {
         (**self).render(width)
+    }
+
+    fn render_with(&self, width: usize, caps: &Capabilities) -> Vec<Segment> {
+        (**self).render_with(width, caps)
     }
 
     fn measure(&self, max_width: usize) -> Measure {

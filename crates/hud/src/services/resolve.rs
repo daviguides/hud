@@ -87,6 +87,7 @@ pub fn resolve(env: &EnvSnapshot, stream: StreamInfo) -> Capabilities {
         color_system,
         attributes,
         is_tty: stream.is_tty,
+        interactive: !dumb && (forced || stream.is_tty),
         width: positive(&env.columns).or(os_width).unwrap_or(DEFAULT_WIDTH),
         height: positive(&env.lines).or(os_height).unwrap_or(DEFAULT_HEIGHT),
     }

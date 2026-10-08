@@ -248,6 +248,7 @@ mod tests {
             color_system,
             attributes,
             is_tty: true,
+            interactive: true,
             width: 80,
             height: 24,
         }

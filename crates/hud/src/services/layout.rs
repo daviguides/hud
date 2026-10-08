@@ -124,20 +124,23 @@ pub(crate) fn measure_text(text: &Text) -> Measurement {
     }
 }
 
-/// The measurement of a cell as the table prints it: the text plus a cell of padding on each
-/// side, never wider than `max_width`.
-fn measure_cell(text: &Text, max_width: i64) -> Measurement {
+/// What a cell asks for once `extra` cells of padding surround content that measures `inner`,
+/// never wider than `max_width`: the rule of Rich's `Padding` measure.
+pub(crate) fn measure_padded(
+    inner: impl FnOnce() -> Measurement,
+    max_width: i64,
+    extra: i64,
+) -> Measurement {
     if max_width < 1 {
         return Measurement { min: 0, max: 0 };
     }
-    let extra = 2 * PADDING;
     let padded = if max_width - extra < 1 {
         Measurement {
             min: max_width,
             max: max_width,
         }
     } else {
-        let inner = measure_text(text).normalize().with_maximum(max_width);
+        let inner = inner().normalize().with_maximum(max_width);
         let inner = if inner.max < 1 {
             Measurement { min: 0, max: 0 }
         } else {
@@ -155,6 +158,17 @@ fn measure_cell(text: &Text, max_width: i64) -> Measurement {
     } else {
         padded.normalize()
     }
+}
+
+/// The measurement of a cell as the table prints it: the text plus `extra` cells of padding,
+/// never wider than `max_width`.
+pub(crate) fn measure_cell_padded(text: &Text, max_width: i64, extra: i64) -> Measurement {
+    measure_padded(|| measure_text(text), max_width, extra)
+}
+
+/// The measurement of a table cell: the text plus a cell of padding on each side.
+fn measure_cell(text: &Text, max_width: i64) -> Measurement {
+    measure_cell_padded(text, max_width, 2 * PADDING)
 }
 
 /// The range a column wants, from its header and cells, within `max_width`.
@@ -263,12 +277,15 @@ fn collapse_widths(mut widths: Vec<i64>, wrapable: &[bool], max_width: i64) -> V
 
 /// The width of every column, padding included and borders not, for `available` cells.
 ///
-/// `cells[i]` holds the header and the cells of column `i`.
-pub(crate) fn column_widths(columns: &[Column], cells: &[Vec<Text>], available: i64) -> Vec<usize> {
-    let ranges: Vec<Measurement> = columns
-        .iter()
-        .zip(cells)
-        .map(|(column, texts)| measure_column(column, texts, available))
+/// `measure(i, width)` is what column `i` asks for within `width` cells, padding included;
+/// `wrapable[i]` says whether the column may give cells up when the total does not fit.
+pub(crate) fn arrange(
+    wrapable: &[bool],
+    mut measure: impl FnMut(usize, i64) -> Measurement,
+    available: i64,
+) -> Vec<usize> {
+    let ranges: Vec<Measurement> = (0..wrapable.len())
+        .map(|index| measure(index, available))
         .collect();
     let mut widths: Vec<i64> = ranges
         .iter()
@@ -276,25 +293,35 @@ pub(crate) fn column_widths(columns: &[Column], cells: &[Vec<Text>], available: 
         .collect();
     let mut total: i64 = widths.iter().sum();
     if total > available {
-        let wrapable: Vec<bool> = columns
-            .iter()
-            .map(|column| column.width.is_none() && !column.no_wrap)
-            .collect();
-        widths = collapse_widths(widths, &wrapable, available);
+        widths = collapse_widths(widths, wrapable, available);
         total = widths.iter().sum();
         if total > available {
             let excess = total - available;
             let ones = vec![1; widths.len()];
             widths = ratio_reduce(excess, &ones, &widths, &widths);
         }
-        widths = columns
+        widths = widths
             .iter()
-            .zip(cells)
-            .zip(&widths)
-            .map(|((column, texts), &width)| measure_column(column, texts, width).max)
+            .enumerate()
+            .map(|(index, &width)| measure(index, width).max)
             .collect();
     }
     widths.iter().map(|&width| width.max(0) as usize).collect()
+}
+
+/// The width of every column, padding included and borders not, for `available` cells.
+///
+/// `cells[i]` holds the header and the cells of column `i`.
+pub(crate) fn column_widths(columns: &[Column], cells: &[Vec<Text>], available: i64) -> Vec<usize> {
+    let wrapable: Vec<bool> = columns
+        .iter()
+        .map(|column| column.width.is_none() && !column.no_wrap)
+        .collect();
+    arrange(
+        &wrapable,
+        |index, width| measure_column(&columns[index], &cells[index], width),
+        available,
+    )
 }
 
 #[cfg(test)]

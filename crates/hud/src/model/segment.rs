@@ -1,3 +1,4 @@
+use super::capabilities::Capabilities;
 use super::style::Style;
 
 /// A run of text that has one style: the unit between a renderer and the bytes.
@@ -23,6 +24,13 @@ pub trait Renderable {
     /// Renders into styled runs for a line `width` cells wide. Line breaks are part of the
     /// runs.
     fn render(&self, width: usize) -> Vec<Segment>;
+
+    /// Like [`Renderable::render`] for output with these capabilities. Most widgets look the
+    /// same whatever the terminal can show and keep this default; a progress bar leaves out its
+    /// track when there is no color.
+    fn render_with(&self, width: usize, _caps: &Capabilities) -> Vec<Segment> {
+        self.render(width)
+    }
 
     /// The widths this renderable can be printed in, given that no more than `max_width` cells
     /// are available. A panel that fits its content asks for this. The default says any width
