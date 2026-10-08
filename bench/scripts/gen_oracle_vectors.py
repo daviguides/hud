@@ -181,12 +181,99 @@ def make_styled_case(rng, index, unicode_words):
     }
 
 
+BOXES = ["rounded", "ascii", "simple", "heavy", "double", "minimal", "square", "heavy_head"]
+
+
+def cell_markup(rng, unicode_words):
+    pool = ASCII_WORDS + (UNICODE_WORDS if unicode_words else [])
+    out = []
+    for _ in range(rng.randrange(0, 6)):
+        word = rng.choice(pool)
+        r = rng.random()
+        if r < 0.25:
+            out.append(f"[{style_string(rng, allow_bad=False)}]{word}[/]")
+        elif r < 0.3:
+            out.append(rng.choice(["\\[x]", "\\[", "\\\\"]))
+        else:
+            out.append(word)
+        out.append(rng.choice([" ", " ", " ", "  ", "\n", ""]))
+    return "".join(out)
+
+
+def make_table_case(rng, index, unicode_words):
+    count = rng.randrange(1, 7)
+    columns = []
+    for c in range(count):
+        column = {
+            "header": cell_markup(rng, unicode_words) if rng.random() < 0.7 else f"H{c}",
+            "justify": rng.choice(["left", "left", "center", "right"]),
+            "style": style_string(rng, allow_bad=False) if rng.random() < 0.3 else "",
+            "no_wrap": rng.random() < 0.15,
+            "overflow": rng.choice(["ellipsis"] * 6 + ["fold", "crop", "ignore"]),
+        }
+        if rng.random() < 0.1:
+            column["width"] = rng.randrange(1, 25)
+        if rng.random() < 0.1:
+            column["min_width"] = rng.randrange(1, 20)
+        if rng.random() < 0.1:
+            column["max_width"] = rng.randrange(3, 30)
+        if rng.random() < 0.15:
+            column["header_style"] = style_string(rng, allow_bad=False)
+        columns.append(column)
+    rows = []
+    for _ in range(rng.randrange(0, 9)):
+        cells = count if rng.random() < 0.9 else rng.randrange(0, count + 2)
+        rows.append([cell_markup(rng, unicode_words) for _ in range(cells)])
+    return {
+        "id": f"{'tu' if unicode_words else 'ta'}-{index:04d}",
+        "kind": "table",
+        "box": rng.choice(BOXES),
+        "show_lines": rng.random() < 0.3,
+        "title": cell_markup(rng, unicode_words) if rng.random() < 0.4 else None,
+        "caption": cell_markup(rng, unicode_words) if rng.random() < 0.3 else None,
+        "header_style": style_string(rng, allow_bad=False) if rng.random() < 0.2 else None,
+        "columns": columns,
+        "rows": rows,
+        "width": rng.choice([10, 16, 20, 30, 40, 60, 80, 100, 120]),
+        "color_system": rng.choice(["truecolor", "256", "standard", "none"]),
+    }
+
+
+def render_table_case(case):
+    from rich import box as rbox
+    from rich.table import Table
+
+    from render_reference import make_console
+
+    console = make_console(case["width"], case["color_system"])
+    try:
+        kwargs = {}
+        if case["header_style"] is not None:
+            kwargs["header_style"] = case["header_style"]
+        table = Table(title=case["title"], caption=case["caption"], box=getattr(rbox, case["box"].upper()),
+                      show_lines=case["show_lines"], **kwargs)
+        for col in case["columns"]:
+            table.add_column(
+                col["header"], justify=col["justify"], style=col["style"], no_wrap=col["no_wrap"],
+                overflow=col["overflow"], width=col.get("width"), min_width=col.get("min_width"),
+                max_width=col.get("max_width"), header_style=col.get("header_style"),
+            )
+        for row in case["rows"]:
+            table.add_row(*row)
+        console.print(table)
+    except Exception as error:
+        return {**case, "error": type(error).__name__}
+    return {**case, "ansi": console.file.getvalue()}
+
+
 def render_case(case):
     from rich.console import Group
     from rich.text import Text
 
     from render_reference import make_console
 
+    if case["kind"] == "table":
+        return render_table_case(case)
     console = make_console(case["width"], case["color_system"])
     try:
         if case["kind"] == "markup":
@@ -223,6 +310,8 @@ def main():
     unicode_markup = [make_markup_case(rng, i, True) for i in range(700)]
     ascii_styled = [make_styled_case(rng, i, False) for i in range(500)]
     unicode_styled = [make_styled_case(rng, i, True) for i in range(200)]
+    ascii_tables = [make_table_case(rng, i, False) for i in range(1500)]
+    unicode_tables = [make_table_case(rng, i, True) for i in range(600)]
     with Pool(8, maxtasksperchild=1) as pool:
         styles = pool.map(style_vector, inputs, chunksize=1)
         sample = rng.sample([s for s in styles if s["ok"]], 150)
@@ -234,6 +323,8 @@ def main():
         write("style.jsonl", styles)
         write("markup_ascii.jsonl", pool.map(render_case, ascii_markup + ascii_styled, chunksize=1))
         write("markup_unicode.jsonl", pool.map(render_case, unicode_markup + unicode_styled, chunksize=1))
+        write("table_ascii.jsonl", pool.map(render_case, ascii_tables, chunksize=1))
+        write("table_unicode.jsonl", pool.map(render_case, unicode_tables, chunksize=1))
     import importlib.metadata as md
 
     (OUT / "manifest.json").write_text(json.dumps({

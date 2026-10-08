@@ -1,12 +1,12 @@
 // fuzz [--seed S] [--count N]   (bench/scripts/fuzz.py drives it)
 // Zero-panic check: N seeded random inputs per feature (style parse, markup parse and render,
-// width and segmentation, capability resolution), plus a few properties that must hold on every
+// width and segmentation, capability resolution, table rendering), plus a few properties that must hold on every
 // input. Prints one JSON line per feature and exits 1 on any panic or violated property.
 use std::panic::{self, AssertUnwindSafe};
 
 use hud::{
-    ColorSystem, Console, EnvSnapshot, Justify, Overflow, StreamInfo, Style, Text, cell_width,
-    clusters, escape, fold, pad, resolve, truncate,
+    BoxStyle, Column, ColorSystem, Console, EnvSnapshot, Justify, Overflow, StreamInfo, Style,
+    Table, Text, cell_width, clusters, escape, fold, pad, resolve, truncate,
 };
 use serde_json::json;
 
@@ -129,6 +129,66 @@ fn markup_case(rng: &mut Rng, input: &str) -> Option<String> {
     None
 }
 
+fn table_case(rng: &mut Rng, input: &str) -> Option<String> {
+    let boxes = [
+        BoxStyle::Ascii,
+        BoxStyle::Rounded,
+        BoxStyle::Simple,
+        BoxStyle::Heavy,
+        BoxStyle::Double,
+        BoxStyle::Minimal,
+        BoxStyle::Square,
+        BoxStyle::HeavyHead,
+    ];
+    let columns = 1 + rng.below(6);
+    let mut table = Table::new()
+        .box_style(boxes[rng.below(8)])
+        .show_lines(rng.chance(40));
+    if rng.chance(60) {
+        table = table.title(input);
+    }
+    if rng.chance(40) {
+        table = table.caption(random_string(rng));
+    }
+    for _ in 0..columns {
+        let mut column = Column::new(random_string(rng))
+            .justify([Justify::Left, Justify::Center, Justify::Right, Justify::Default][rng.below(4)])
+            .overflow([Overflow::Fold, Overflow::Crop, Overflow::Ellipsis, Overflow::Ignore][rng.below(4)])
+            .no_wrap(rng.chance(25));
+        if rng.chance(15) {
+            column = column.width(rng.below(30));
+        }
+        if rng.chance(15) {
+            column = column.min_width(rng.below(20));
+        }
+        if rng.chance(15) {
+            column = column.max_width(rng.below(30));
+        }
+        table.add_column(column);
+    }
+    for _ in 0..rng.below(9) {
+        let cells = rng.below(columns + 2);
+        table.add_row((0..cells).map(|_| random_string(rng)));
+    }
+    let console = console(rng);
+    let width = usize::from(console.capabilities().width);
+    let plain = console.render_to_plain(&table);
+    for line in plain.split('\n') {
+        if cell_width(line) > width {
+            return Some(format!("a printed line is {} cells wide at width {width}: {line:?}", cell_width(line)));
+        }
+    }
+    let wide = Console::builder().width(60_000).plain().build();
+    let plain = wide.render_to_plain(&table);
+    let widths: std::collections::BTreeSet<usize> = plain
+        .strip_suffix('\n')
+        .unwrap_or(&plain)
+        .split('\n')
+        .map(cell_width)
+        .collect();
+    (widths.len() > 1).then(|| format!("lines of different widths {widths:?} in a table that fits: {plain:?}"))
+}
+
 fn strip_controls(text: &str) -> String {
     text.chars().filter(|c| !matches!(*c, '\u{7}' | '\u{8}' | '\u{b}' | '\u{c}' | '\r')).collect()
 }
@@ -206,11 +266,12 @@ fn main() {
     let seed: u64 = get("--seed").map_or(20_261_008, |v| v.parse().unwrap());
     let count: usize = get("--count").map_or(5000, |v| v.parse().unwrap());
     panic::set_hook(Box::new(|_| {}));
-    let cases: [(&str, Case); 4] = [
+    let cases: [(&str, Case); 5] = [
         ("style", style_case),
         ("markup", markup_case),
         ("width", width_case),
         ("capability", capability_case),
+        ("table", table_case),
     ];
     let mut ok = true;
     for (feature, case) in cases {

@@ -5,7 +5,7 @@ use hud_width::cell_width;
 use super::layout::{PADDING, column_widths};
 use super::measure::set_cell_size;
 use super::render::render_text;
-use crate::model::{BoxStyle, Column, Justify, Segment, Style, Table, Text};
+use crate::model::{BoxStyle, Column, Justify, Overflow, Segment, Style, Table, Text};
 
 /// The eight rows of a box: top, header, under the header, body, between rows, above the
 /// footer, footer and bottom, each as left, horizontal (or filler), divider and right.
@@ -156,6 +156,7 @@ fn content_lines(text: &Text, inner: usize) -> Vec<Vec<Segment>> {
             text.justify,
             Justify::Left | Justify::Center | Justify::Right
         )
+        && text.overflow != Overflow::Ignore
     {
         let placed = match text.justify {
             Justify::Left => {
@@ -392,4 +393,64 @@ pub(crate) fn render_table(table: &Table, width: usize) -> Vec<Segment> {
         ));
     }
     out
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::services::render::to_plain;
+
+    fn plain(table: &Table, width: usize) -> String {
+        to_plain(&render_table(table, width))
+    }
+
+    #[test]
+    fn a_small_table_is_boxed_and_aligned() {
+        let table = Table::new()
+            .column("A")
+            .column(Column::new("B").justify(Justify::Right))
+            .row(["x", "yy"]);
+        assert_eq!(
+            plain(&table, 40),
+            "┏━━━┳━━━━┓\n┃ A ┃  B ┃\n┡━━━╇━━━━┩\n│ x │ yy │\n└───┴────┘\n"
+        );
+    }
+
+    #[test]
+    fn a_table_without_columns_is_a_blank_line() {
+        assert_eq!(plain(&Table::new().title("t"), 40), "\n");
+    }
+
+    #[test]
+    fn a_longer_row_adds_columns_and_a_shorter_one_is_completed() {
+        let table = Table::new().column("A").row(["x", "y"]).row(["z"]);
+        let text = plain(&table, 40);
+        assert_eq!(text.lines().count(), 6);
+        assert!(text.contains("│ x │ y │"));
+        assert!(text.contains("│ z │   │"));
+    }
+
+    #[test]
+    fn overflow_ignore_leaves_the_cell_unjustified() {
+        let table = Table::new()
+            .column(
+                Column::new("A")
+                    .justify(Justify::Right)
+                    .overflow(Overflow::Ignore),
+            )
+            .row(["x"])
+            .row(["abc"]);
+        assert!(plain(&table, 40).contains("│ x   │"));
+    }
+
+    #[test]
+    fn a_column_squeezed_below_its_padding_has_no_lines_of_its_own() {
+        let table = Table::new()
+            .column("alpha beta")
+            .column("gamma delta")
+            .column("omega")
+            .row(["one two", "three four", "five"]);
+        let text = plain(&table, 9);
+        assert!(text.lines().all(|line| line.chars().count() >= 9));
+    }
 }

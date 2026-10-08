@@ -105,11 +105,16 @@ its text is kept, which is what Rich does for names missing from its theme.
 ### D-024: widths count cells, not characters
 
 Where Rich compares the number of characters with a width (`rstrip_end`, which cuts the
-whitespace a line has beyond the width), hud compares cells. The two agree on text with no
-combining marks. With one (`e` followed by U+0301 is two characters and one cell) Rich cuts a
-cell too many and the line ends one cell short of the width, which also changes how `full`
-justification spreads spaces. Measured over 900 random Unicode vectors: 10 differ, every one
-with a combining mark or a flag in the input (`tests/oracle.rs`).
+whitespace a line has beyond the width), hud compares cells. The two agree on text where every
+character is one cell. With a combining mark (`e` followed by U+0301 is two characters and one
+cell) Rich cuts a cell too many and the line ends one cell short of the width, which also changes
+how `full` justification spreads spaces. With a wide character (a CJK, fullwidth or emoji
+character is one character and two cells) Rich cuts too little: a word that exactly fits a
+table column and is followed by a space keeps the space, overflows by one cell and gets an
+ellipsis (`한국 …` where hud prints `한국어`). Measured over 900 random Unicode markup vectors:
+10 differ, every one with a combining mark or a flag in the input; over 600 random Unicode table
+vectors: 49 differ, 43 with a flag or a combining mark and 6 with a wide character, and in each
+of those 6 the line Rich prints has `…` where hud's does not (`tests/oracle.rs`).
 
 - Remove when: Rich counts cells there.
 
@@ -144,6 +149,25 @@ interface that makes a name written for Rich work here and the downgrade identic
 copied.
 
 - Remove when: never needed to remove; regenerate with `bench/scripts/gen_palette.py` if the pinned Rich changes.
+
+### D-031: what `Table` does not do yet
+
+Not claimed in v0.3, because no case, task or workload needs it: `expand` and column `ratio`,
+a table `width` or `min_width`, `padding`, `pad_edge`, `collapse_padding`, `show_header`,
+`show_footer`, `show_edge`, `leading`, row styles and sections, a vertical alignment other than
+bottom for the header and top for the rows, a cell that is not a markup string (nested tables,
+panels), and the substitution of an ASCII box when the terminal is not UTF-8 (hud has no encoding
+detection). The ones Rich has and the roadmap puts later are listed in `features.md`; a table
+built in hud ignores none of them silently because there is no API for them.
+
+- Remove when: each option lands with its own goldens.
+
+### D-032: a cell with markup that does not parse prints as written
+
+Rich raises `MarkupError` from `Table.add_row` or at print time. hud prints the string as it is,
+the same rule as D-021 for text, so a table never fails to print because of one cell.
+
+- Remove when: never; same decision as D-021.
 
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 

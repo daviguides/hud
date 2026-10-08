@@ -5,7 +5,7 @@
 use std::fs;
 use std::path::PathBuf;
 
-use hud::{ColorSystem, Console, Justify, Overflow, Style, Text};
+use hud::{BoxStyle, ColorSystem, Column, Console, Justify, Overflow, Style, Table, Text};
 use serde_json::Value;
 
 fn fixture(name: &str) -> Vec<Value> {
@@ -215,5 +215,199 @@ fn unicode_markup_differs_from_rich_only_with_flags_or_combining_marks() {
         bad.len() * 25 < total,
         "{} of {total} is more than the expected few",
         bad.len()
+    );
+}
+
+fn table_from(row: &Value) -> Result<Table, String> {
+    let boxes = [
+        ("rounded", BoxStyle::Rounded),
+        ("ascii", BoxStyle::Ascii),
+        ("simple", BoxStyle::Simple),
+        ("heavy", BoxStyle::Heavy),
+        ("double", BoxStyle::Double),
+        ("minimal", BoxStyle::Minimal),
+        ("square", BoxStyle::Square),
+        ("heavy_head", BoxStyle::HeavyHead),
+    ];
+    let name = row["box"].as_str().unwrap();
+    let mut table = Table::new()
+        .box_style(boxes.iter().find(|(n, _)| *n == name).unwrap().1)
+        .show_lines(row["show_lines"].as_bool().unwrap());
+    if let Some(title) = row["title"].as_str() {
+        table = table.title(title);
+    }
+    if let Some(caption) = row["caption"].as_str() {
+        table = table.caption(caption);
+    }
+    if let Some(style) = row["header_style"].as_str() {
+        table = table.header_style(Style::parse(style).map_err(|e| e.to_string())?);
+    }
+    for column in row["columns"].as_array().unwrap() {
+        let justify = match column["justify"].as_str().unwrap() {
+            "center" => Justify::Center,
+            "right" => Justify::Right,
+            _ => Justify::Left,
+        };
+        let overflow = match column["overflow"].as_str().unwrap() {
+            "crop" => Overflow::Crop,
+            "fold" => Overflow::Fold,
+            "ignore" => Overflow::Ignore,
+            _ => Overflow::Ellipsis,
+        };
+        let mut built = Column::new(column["header"].as_str().unwrap())
+            .justify(justify)
+            .overflow(overflow)
+            .no_wrap(column["no_wrap"].as_bool().unwrap());
+        let style = column["style"].as_str().unwrap();
+        if !style.is_empty() {
+            built = built.style(Style::parse(style).map_err(|e| e.to_string())?);
+        }
+        if let Some(style) = column["header_style"].as_str() {
+            built = built.header_style(Style::parse(style).map_err(|e| e.to_string())?);
+        }
+        for (key, apply) in [
+            ("width", Column::width as fn(Column, usize) -> Column),
+            ("min_width", Column::min_width),
+            ("max_width", Column::max_width),
+        ] {
+            if let Some(value) = column[key].as_u64() {
+                built = apply(built, value as usize);
+            }
+        }
+        table.add_column(built);
+    }
+    for cells in row["rows"].as_array().unwrap() {
+        table.add_row(
+            cells
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|c| c.as_str().unwrap()),
+        );
+    }
+    Ok(table)
+}
+
+/// `(id, input, message)` of every table vector whose bytes differ from Rich.
+fn table_mismatches(name: &str) -> (usize, Vec<(String, String, String)>) {
+    let rows = fixture(name);
+    let mut bad = Vec::new();
+    for row in &rows {
+        let id = row["id"].as_str().unwrap();
+        let mut spec = row.clone();
+        spec.as_object_mut().unwrap().remove("ansi");
+        let input = spec.to_string();
+        let table = table_from(row);
+        match (table, row.get("error")) {
+            (_, Some(_)) => continue,
+            (Err(e), None) => {
+                bad.push((
+                    id.to_string(),
+                    input,
+                    format!("{id}: Rich renders it, hud errors: {e}"),
+                ));
+                continue;
+            }
+            (Ok(table), None) => {
+                let width = row["width"].as_u64().unwrap() as u16;
+                let got = console(width, system(row["color_system"].as_str().unwrap()))
+                    .render_to_string(&table);
+                let want = strip_link_ids(row["ansi"].as_str().unwrap());
+                if got != want {
+                    if std::env::var("TABLE_DEBUG").is_ok_and(|v| v == id) {
+                        let first = want
+                            .lines()
+                            .zip(got.lines())
+                            .position(|(a, b)| a != b)
+                            .unwrap_or(0);
+                        eprintln!(
+                            "DEBUG {id}\nINPUT {input}\nline {first}\nWANT {:?}\nGOT  {:?}\nFULL-WANT\n{want}\nFULL-GOT\n{got}",
+                            want.lines().nth(first),
+                            got.lines().nth(first)
+                        );
+                    }
+                    bad.push((
+                        id.to_string(),
+                        input,
+                        format!(
+                            "{id} w={width} {}\n   want {want:?}\n   got  {got:?}",
+                            row["color_system"]
+                        ),
+                    ));
+                }
+            }
+        }
+    }
+    (rows.len(), bad)
+}
+
+#[test]
+fn ascii_tables_match_rich() {
+    let (total, bad) = table_mismatches("table_ascii.jsonl");
+    assert!(
+        bad.is_empty(),
+        "{} of {total} ascii table vectors differ, first:\n{}",
+        bad.len(),
+        bad.iter()
+            .take(6)
+            .map(|b| b.2.clone())
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
+}
+
+/// D-024 seen from a table: Rich compares the characters of a line with the width where hud
+/// compares cells. With a wide character (two cells, one character) Rich keeps a trailing space
+/// it should cut, so a word that exactly fits gets an ellipsis; the line Rich prints has `…` where
+/// hud's does not.
+fn explained_by_wide_characters(input: &str, want: &str, got: &str) -> bool {
+    let wide = input
+        .chars()
+        .any(|c| hud::cell_width(c.encode_utf8(&mut [0; 4])) > 1);
+    wide && want
+        .lines()
+        .zip(got.lines())
+        .filter(|(a, b)| a != b)
+        .all(|(a, b)| a.contains('…') && !b.contains('…'))
+}
+
+#[test]
+fn unicode_tables_differ_from_rich_only_where_d003_or_d024_say_so() {
+    let rows = fixture("table_unicode.jsonl");
+    let (total, bad) = table_mismatches("table_unicode.jsonl");
+    let mut unexplained = Vec::new();
+    let (mut marks, mut wide) = (0, 0);
+    for (id, input, message) in &bad {
+        if explained(input) {
+            marks += 1;
+            continue;
+        }
+        let row = rows.iter().find(|r| r["id"] == id.as_str()).unwrap();
+        let table = table_from(row).unwrap();
+        let got = console(
+            row["width"].as_u64().unwrap() as u16,
+            system(row["color_system"].as_str().unwrap()),
+        )
+        .render_to_string(&table);
+        if explained_by_wide_characters(input, row["ansi"].as_str().unwrap(), &got) {
+            wide += 1;
+        } else {
+            unexplained.push(message.clone());
+        }
+    }
+    eprintln!(
+        "{total} unicode table vectors: {} differ ({marks} flag or combining mark, {wide} wide character)",
+        bad.len()
+    );
+    assert!(
+        unexplained.is_empty(),
+        "{} unexplained, first:\n{}",
+        unexplained.len(),
+        unexplained
+            .iter()
+            .take(6)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("\n")
     );
 }
