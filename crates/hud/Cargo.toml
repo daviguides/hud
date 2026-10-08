@@ -6,7 +6,8 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-readme = "../../README.md"
+readme = "README.md"
+include = ["src/**/*", "examples/**/*", "schema/**/*", "README.md", "LICENSE-MIT", "LICENSE-APACHE"]
 keywords = ["terminal", "cli", "tui", "table", "ansi"]
 categories = ["command-line-interface"]
 
