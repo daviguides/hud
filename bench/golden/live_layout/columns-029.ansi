@@ -1,0 +1,8 @@
+anyhow-pi [1mnu[0m stream route serde root              syn bytes
+                                [32m├── [0mregex/                 
+                                [32m│   [0m[32m├── [0mclap.rs            
+                                [32m│   [0m[32m└── [0m[36manyhow.rs[0m          
+                                [32m└── [0m[1mtokio/[0m                 
+                                [32m    [0m[32m├── [0m[32mregex.rs[0m           
+                                [32m    [0m[32m├── [0msyn.rs             
+                                [32m    [0m[32m└── [0m[32mtokio.rs[0m           

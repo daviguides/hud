@@ -1,0 +1,85 @@
+[?25l                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  clap      671  
+  tokio     624  
+  serde     409  
+  bytes     295  
+  rayon     489  
+  serde     914  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                  
+ [1m [0m[1mKey   [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ──────────────── 
+  rayon      418  
+  rayon      951  
+  syn        876  
+  clap        87  
+  anyhow      29  
+  syn        186  
+  clap       829  
+                  [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                   
+ [1m [0m[1mKey    [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ───────────────── 
+  serde         8  
+  anyhow      561  
+  tracing     596  
+  bytes       783  
+  regex       323  
+  regex       952  
+  anyhow      408  
+  rayon       488  
+                   [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                  
+ [1m [0m[1mKey   [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ──────────────── 
+  regex      900  
+  bytes      457  
+  regex      194  
+  anyhow     781  
+  clap       691  
+  clap       651  
+  hyper       90  
+  tokio      332  
+  clap       671  
+                  [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  bytes     570  
+  regex     963  
+  syn       931  
+  bytes     193  
+  bytes     651  
+  bytes     963  
+  regex     206  
+  syn       237  
+  tokio     228  
+  regex     896  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  tokio     781  
+  syn       853  
+  clap       84  
+  serde     400  
+  hyper     916  
+  bytes     729  
+  regex     202  
+  bytes     289  
+  syn       179  
+  clap      668  
+  regex     267  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  tokio     781  
+  syn       853  
+  clap       84  
+  serde     400  
+  hyper     916  
+  bytes     729  
+  regex     202  
+  bytes     289  
+  syn       179  
+  clap      668  
+  regex     267  
+                 
+[?25h[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K

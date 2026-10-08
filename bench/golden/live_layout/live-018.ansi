@@ -1,0 +1,23 @@
+[?25l╭────────────────────────────────── 11 lines ──────────────────────────────────╮
+│ cache thread                                                                 │
+│ queue gamma                                                                  │
+│ render iota                                                                  │
+│ beta iota                                                                    │
+│ cache omega                                                                  │
+[1;31m                                      ...                                       [0m[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K╭────────────────────────────────── 8 lines ───────────────────────────────────╮
+│ queue deploy                                                                 │
+│ stream zeta                                                                  │
+│ deploy sigma                                                                 │
+│ route token                                                                  │
+│ cache parser                                                                 │
+[1;31m                                      ...                                       [0m[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K╭────────────────────────────────── 8 lines ───────────────────────────────────╮
+│ queue deploy                                                                 │
+│ stream zeta                                                                  │
+│ deploy sigma                                                                 │
+│ route token                                                                  │
+│ cache parser                                                                 │
+│ buffer token                                                                 │
+│ buffer psi                                                                   │
+│ index thread                                                                 │
+╰──────────────────────────────────────────────────────────────────────────────╯
+[?25h

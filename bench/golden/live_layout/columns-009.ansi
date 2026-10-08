@@ -1,0 +1,7 @@
+┏━━━━━━━━━┳━━━━━━━┓ [33mfail[0m socket zeta [31mwarn[0m cache queue bytes clap-delta
+┃[1m [0m[1mKey    [0m[1m [0m┃[1m [0m[1mValue[0m[1m [0m┃                                                   
+┡━━━━━━━━━╇━━━━━━━┩                                                   
+│ tracing │   236 │                                                   
+│ tracing │   879 │                                                   
+│ tokio   │   839 │                                                   
+└─────────┴───────┘                                                   

@@ -1,0 +1,19 @@
+   ┌───────┬───────┐                kappa +---- index -----+
+   │ Key   │ Value │                      | upsilon token  |
+   ├───────┼───────┤                      | index delta    |
+   │ tokio │   922 │                      +----------------+
+   │ clap  │   470 │                                        
+   │ syn   │   607 │                                        
+   │ syn   │   627 │                                        
+   └───────┴───────┘                                        
+                                                            
+                                                            
+               serde     root                           clap
+                         ├── clap/                          
+                         │   └── serde.rs                   
+                         └── serde/                         
+                             ├── tokio.rs                   
+                             └── hyper.rs                   
+                                                            
+                                                            
+               hyper                  syn                   

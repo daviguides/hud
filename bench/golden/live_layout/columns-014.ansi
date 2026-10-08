@@ -1,0 +1,8 @@
+[3m                           omega stream                           [0m
+╭───────┬───────╮[36m┌─[0m[36m───[0m[36m iota [0m[36m────[0m[36m─┐[0mclap-etahyper-buffer[1mrepo[0m        
+│[1m [0m[1mKey  [0m[1m [0m│[1m [0m[1mValue[0m[1m [0m│[36m│[0m token omicron [36m│[0m                    [2m├── [0m[36mrayon.rs[0m
+├───────┼───────┤[36m└───────────────┘[0m                    [2m└── [0mtokio.rs
+│ tokio │   789 │                                                 
+│ serde │   689 │                                                 
+│ tokio │   622 │                                                 
+╰───────┴───────╯                                                 
