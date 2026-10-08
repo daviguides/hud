@@ -1,11 +1,99 @@
-# hud (own engine), results of v0.1, v0.2 and v0.3
+# hud (own engine), results of v0.1 to v0.4
 
 Candidate adapters in `src/bin/`: `width_runner` and `cap` (v0.1), `cases_runner`, `t06_markup`,
-`t08_env`, `bench` (S4) and `fuzz` (v0.2), `t01_table`, `t07_pipe`, `s1_table` and S2 in `bench` (v0.3), built from the workspace crates by path. Everything below
+`t08_env`, `bench` (S4) and `fuzz` (v0.2), `t01_table`, `t07_pipe`, `s1_table` and S2 in `bench` (v0.3), `t02_panel`, `t04_tree`, `cases_runner --widgets` and a `panel` and `tree` feature in `fuzz` (v0.4), built from the workspace crates by path. Everything below
 was produced by the shared scripts of `bench/scripts/` under the corrected harness
 (`bench/CHANGELOG.md` entries 1 to 15). Raw outputs: `bench/pilot/hud/`. hud claims only what it
-implements: width, fold, truncate and capability (v0.1), style and markup (v0.2), table (v0.3). Every other
+implements: width, fold, truncate and capability (v0.1), style and markup (v0.2), table (v0.3), panel and tree (v0.4). Every other
 file is missing, which means unsupported, never a pass.
+
+## v0.4 exit criteria (`foundation/features.md`)
+
+| Criterion | Result | Threshold | Verdict |
+|---|---|---|---|
+| Correctness, panel (`compare.py`, corpus 1) | **30 / 30** byte-identical (bodies: 17 text, 6 table, 7 nested panel; every box, 0 to 2 padding, with and without title and subtitle, expand and fit) | panel 30/30 | pass |
+| Correctness, tree (`compare.py`, corpus 1) | **30 / 30** byte-identical (depth 2 to 4, guide styles `dim`, `green`, `bold #ff8800`, none) | tree 30/30 | pass |
+| Claimed-feature correctness (style, markup, table, panel, tree) | **150 / 150** = 100%; `table_unicode` 12 / 12 (progress and error are not claimed) | at least 98%, style and markup 100% | pass |
+| Task t02 (titled panel with wrapped text) | PASS, 5 lines of code (Python Rich 8, 0.63x) | pass | pass |
+| Task t04 (tree) | PASS, 14 lines (Python Rich 11, 1.27x) | pass | pass |
+| No panel or tree row wider than the terminal on the Unicode table cases (`width_check.py`, changelog 18) | **0 of 704** rows wider than the terminal, **0** misaligned panel rows, over 36 outputs (each of the 12 cases as an expanding panel, a fitting panel and a tree) | zero | pass |
+| Fuzz, panel and tree | 80 000 inputs each (4 seeds x 20 000): **0 panics, 0 violated properties** | zero panics on at least 1 000 inputs per feature | pass |
+| Cumulative v0.1 to v0.3 criteria | style 30 / 30, markup 30 / 30, table 30 / 30 and 12 / 12 (0 of 97 rows misaligned), t01 t06 t07 t08 PASS, width 496 / 500 = 99.2%, 0 splits in 20 000 fold and 20 000 truncate cases, capability 40 / 40, S1, S2 and S4 outputs EQUAL (943, 1 088 681 and 46 698 bytes), fuzz 0 panics in all seven features (80 000 each), docs 104 / 104 documented, 19 doctests, 0 ignored | unchanged | pass except the idle-machine speed re-measurement below |
+
+### Speed: what was and was not measured
+
+S1 (first byte) and S2 and S4 (medians) were **not re-measured on an idle machine** for v0.4. The
+machine never went idle during the session: 1-minute load average between 4 and 6 for most of an
+hour, with spikes to 15, an interactive desktop (browser, video call) running and no `cargo` or
+`rustc` of this work (18 cores, so the load is about a quarter of the machine). The v0.3
+idle numbers (S1 1.667 ms and 0.064x Python Rich, S2 19.877 ms, S4 1.645 ms) stand for the code
+they measured. What was measured is the v0.4 binaries against the v0.3 binaries (commit `4e8de95`,
+built from `git archive`), alternating blocks on the same loaded machine, same inputs, both outputs
+equal to the goldens (`pilot/hud/speed_ab_v03_v04.json`):
+
+| Workload | v0.4 over v0.3 (median ratio) | 95% bootstrap CI | Samples each |
+|---|---|---|---|
+| S1 first byte | 1.026 | [0.988, 1.055] | 320 |
+| S2 (10 000-row table) | 0.980 | [0.967, 0.993] | 240 |
+| S4 (styled lines) | 0.975 | [0.960, 0.987] | 600 |
+
+No workload is slower at the 95% level beyond 5.5%. The absolute times in that file are inflated
+about 1.7x by the load (S2 32.9 ms against 19.9 ms idle) and S1 at 3.86 ms is above the 0.10x gate
+(2.6 ms) under that load, so **the gate itself is not claimed for v0.4**: S1, S2 and S4 against the
+own-engine thresholds are INCONCLUSIVE until a run on an idle machine
+(`scripts/speed.py time S1|S2|S4 --iterations 60`, then `ratio`, as in Reproduce). The A/B
+makes a regression unlikely, it does not replace the measurement. No panel or tree workload exists
+in `spec/speed.md`, so v0.4 adds no speed criterion of its own.
+
+### Differential oracle for panels and trees (`gen_oracle_vectors.py widgets`, `crates/hud/tests/oracle.rs`)
+
+| Set | Vectors | Differ | Reading |
+|---|---|---|---|
+| ASCII panels | 1 200 | **0** | byte-identical (every box, expand and fit, padding as 1, 2 or 4 numbers, title and subtitle with left, center and right alignment, border styles, bodies that are text, tables, trees or nested panels, widths 10 to 120, every color system) |
+| ASCII trees | 1 200 | **0** | byte-identical (0 to 4 levels, thin, heavy and double guides chosen by the guide style, per-node guide style overrides, wrapped labels continuing the guide, every color system) |
+| Unicode panels | 500 | 12 | 10 have a flag or a combining mark (D-003, D-024), 2 have a wide character and Rich prints `…` where hud's line fits (D-024) |
+| Unicode trees | 400 | 4 | all 4 have a flag or a combining mark (D-003, D-024) |
+
+The first run had 134 ASCII tree differences and most ASCII panel differences. One real defect
+explained all of them and is fixed: where no width is left for a label or a body (a console of 0 or
+1 cell, padding taking the whole width, a tree node deeper than the width allows), Rich renders
+nothing, so the node prints no line, and hud printed an empty one (D-034). The 30 corpus cases
+are all 40 cells or wider and did not contain the combination; the vectors found it.
+
+The fuzz properties were checked to be live: changing the panel top rule by one cell made the
+equal-width property fail on 500 inputs, and printing an empty line for a node with no room made
+the tree property fail on 59 of 500.
+
+### The renderer follows Rich's own algorithm, not its code
+
+A panel is measured and laid out as Rich lays it out: the body is padded and rendered at the width
+that is left inside the sides (the full width when the panel expands, otherwise the body's own
+maximum within the room, widened to fit the title plus its two spaces), shorter lines are padded
+and longer ones cut, and the title and subtitle are set into the edges with the fill characters in
+the border style. A tree walks its nodes with a prefix of one four-cell guide per level; the guide
+of a node's own level is a fork, or an end for the last child, on its first line and a continuation
+or blank on the following lines of a wrapped label; heavy or double guides are picked by the guide
+style's `bold` or `underline2`, and those two attributes are then switched off so only the color
+and the other attributes show. The text of the algorithm was read from the pinned Rich in the
+project's references; no code is copied (`THIRD_PARTY_NOTICES.md` is unchanged).
+
+### Adoption and docs
+
+A panel and tree hello (`hello_panel`, `pilot/hud/adoption_hello_panel.json`) adds **218 704 bytes**
+(0.22 MB, limit 1.5 MB) and **6 crates** (limit 60); the compile time of +2.79 s was taken at load
+average 5 and is not ranked (limit 15 s). `cargo doc` coverage: 104 / 104 items documented, 15 / 15
+with examples, 19 doctests, 0 ignored.
+
+### API notes for v0.6 (name parity and DX)
+
+`Panel::new(body)` takes a string, `Text`, `Table`, `Tree` or `Panel` directly and any other
+`Renderable` through `Body::new`; `Panel::fit` is Rich's `Panel.fit`; `padding` takes one number,
+`(vertical, horizontal)` or `(top, right, bottom, left)`. `Tree::new(label).child(...)` builds in
+one expression and `Tree::add` mirrors Rich's `add` for loops. Parity costs: `box` is a Rust
+keyword so the box is `box_style(BoxStyle::...)`, and the border and guide styles are typed
+`Style` values, not the strings Rich takes (`Style::parse` reads a string). Both are listed for
+the v0.6 name-parity review. Not measured yet: first-try success by an agent (the runner arrives
+in v0.5).
 
 ## v0.3 exit criteria (`foundation/features.md`)
 
@@ -179,6 +267,11 @@ rm -rf results/hud/correctness && $B/cases_runner cases/correctness.jsonl result
 .venv/bin/python scripts/adoption.py candidates/hud/hello_styled
 .venv/bin/python scripts/docs_coverage.py .. hud
 .venv/bin/python scripts/gen_oracle_vectors.py && (cd .. && cargo test -p hud --test oracle)   # then git checkout the markup fixtures: only their link ids change
+# v0.4
+.venv/bin/python scripts/gen_oracle_vectors.py widgets && (cd .. && cargo test -p hud --test oracle)
+$B/cases_runner --widgets cases/table_unicode.jsonl results/hud/width && .venv/bin/python scripts/width_check.py results/hud/width
+.venv/bin/python scripts/tasks.py check t02-panel $B/t02_panel; .venv/bin/python scripts/tasks.py check t04-tree $B/t04_tree
+.venv/bin/python scripts/adoption.py candidates/hud/hello_panel
 # v0.3
 rm -rf results/hud/table_unicode results/hud/width/tables && $B/cases_runner cases/table_unicode.jsonl results/hud/table_unicode
 mkdir -p results/hud/width/tables && cp results/hud/table_unicode/tw-*.ansi results/hud/width/tables/

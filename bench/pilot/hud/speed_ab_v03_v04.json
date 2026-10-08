@@ -1,0 +1,37 @@
+{
+ "what": "v0.4 against the v0.3 binaries (commit 4e8de95, built from git archive) on the same machine, alternating blocks, same inputs; both outputs equal the goldens",
+ "conditions": "NOT an idle machine: load average (1 minute) 4.9 to 5.5 during the runs, an interactive desktop (browser, video call) running; no cargo or rustc of this work running. Absolute times are inflated about 1.7x against the idle v0.3 runs (S2 19.9 ms idle, 32.9 ms here), so only the ratios are evidence.",
+ "bootstrap": "3000 resamples of the pooled samples, 95% percentile interval, seed 1",
+ "workloads": {
+  "S4": {
+   "samples_each": 600,
+   "median_ms_v0_4": 2.6710625,
+   "median_ms_v0_3_binary": 2.740292,
+   "ratio_v0_4_over_v0_3": 0.9747364514438607,
+   "ci95": [
+    0.959931491413891,
+    0.9869917236813879
+   ]
+  },
+  "S2": {
+   "samples_each": 240,
+   "median_ms_v0_4": 32.8882495,
+   "median_ms_v0_3_binary": 33.5651245,
+   "ratio_v0_4_over_v0_3": 0.9798339791648918,
+   "ci95": [
+    0.9673237299514096,
+    0.9931090413767799
+   ]
+  },
+  "S1": {
+   "samples_each": 320,
+   "median_ms_v0_4": 3.8639585,
+   "median_ms_v0_3_binary": 3.766104,
+   "ratio_v0_4_over_v0_3": 1.0259829521436477,
+   "ci95": [
+    0.9883094621347379,
+    1.0548580154295466
+   ]
+  }
+ }
+}

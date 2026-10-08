@@ -1,4 +1,6 @@
 width: 496/500 (99.2%); contested 13/13
 fold: splits=0 concat_bad=0 too_wide=0 not_greedy=0 missing=0 of 20000
 truncate: splits=0 not_prefix=0 not_maximal=0 missing=0
-unsupported: ['tables']
+tables: misaligned rows 0/97 in 0/12 tables
+panels and trees: rows wider than the terminal 0/704, panel rows misaligned 0, outputs 36, missing 0
+unsupported: none
