@@ -20,7 +20,9 @@ use crate::services::node::{
 use crate::services::panel::{
     measure_padding, measure_panel, render_padding, render_panel, render_panel_in,
 };
-use crate::services::render::{crop_lines, render_text, render_text_ending, to_ansi, to_plain};
+use crate::services::render::{
+    crop_lines, render_text, render_text_ending, to_ansi, to_plain, without_control_introducers,
+};
 use crate::services::report::{measure_report, render_report};
 use crate::services::resolve::resolve;
 use crate::services::split::render_layout;
@@ -176,7 +178,10 @@ impl Console {
     }
 
     /// What `renderable` is in `format`, whatever this console's own format is: styled text for
-    /// this console's profile, text with no escape sequence, or the JSON document.
+    /// this console's profile, text with no escape sequence, or the JSON document. Plain text
+    /// also leaves out the escape character and the C1 controls found in the data itself, so it
+    /// is safe to write to a log or a terminal; [`Console::render_to_plain`] keeps the data as
+    /// it is and removes only what hud adds.
     ///
     /// ```
     /// use hud::{Console, Format};
@@ -194,7 +199,7 @@ impl Console {
                     &self.caps,
                 )
             }
-            Format::Plain => self.render_to_plain(renderable),
+            Format::Plain => without_control_introducers(&self.render_to_plain(renderable)),
             Format::Json => renderable.node().to_json(),
         }
     }

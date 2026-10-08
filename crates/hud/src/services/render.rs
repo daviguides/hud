@@ -238,10 +238,27 @@ pub(crate) fn to_plain(segments: &[Segment]) -> String {
     segments.iter().map(|s| s.text.as_str()).collect()
 }
 
+/// `text` without the characters a terminal reads as the start of a control sequence: the escape
+/// character and the C1 controls (U+0080 to U+009F). What [`Format::Plain`](crate::Format::Plain)
+/// writes, so data that carries its own escape bytes cannot reach a log or a terminal through it.
+pub(crate) fn without_control_introducers(text: &str) -> String {
+    text.chars()
+        .filter(|c| *c != '\u{1b}' && !('\u{80}'..='\u{9f}').contains(c))
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::model::ColorSystem;
+
+    #[test]
+    fn control_introducers_are_dropped_and_other_text_is_kept() {
+        assert_eq!(
+            without_control_introducers("a\u{1b}[31mb\u{9b}c\u{85}d é日本\n"),
+            "a[31mbcd é日本\n"
+        );
+    }
 
     fn caps(color_system: ColorSystem, attributes: bool) -> Capabilities {
         Capabilities {

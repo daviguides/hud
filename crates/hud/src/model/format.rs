@@ -22,7 +22,8 @@ pub enum Format {
     /// wrote before formats existed. On a pipe that is text with none. The default.
     #[default]
     Rich,
-    /// The same lines with no escape sequence at all, whatever the capabilities say.
+    /// The same lines with no escape sequence at all, whatever the capabilities say. The escape
+    /// character and the C1 controls inside the data are left out too.
     Plain,
     /// A JSON document, schema `hud/1`, that says what the value contains and never how it
     /// looks: no style, width or wrapping, the same bytes on every console.
