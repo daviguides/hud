@@ -1,4 +1,5 @@
 use core::ops::Range;
+use std::borrow::Cow;
 
 use super::style::Style;
 
@@ -64,15 +65,17 @@ pub struct Text {
     pub(crate) end: String,
 }
 
-/// Removes the control characters that would corrupt a terminal line: bell, backspace,
-/// vertical tab, form feed and carriage return.
-pub(crate) fn strip_controls(text: String) -> String {
+/// `text` without the control characters that would corrupt a terminal line: bell, backspace,
+/// vertical tab, form feed and carriage return. Borrowed when there is nothing to remove.
+pub(crate) fn clean(text: &str) -> Cow<'_, str> {
     if text.bytes().any(|b| matches!(b, 7 | 8 | 11 | 12 | 13)) {
-        text.chars()
-            .filter(|c| !matches!(*c, '\u{7}' | '\u{8}' | '\u{b}' | '\u{c}' | '\r'))
-            .collect()
+        Cow::Owned(
+            text.chars()
+                .filter(|c| !matches!(*c, '\u{7}' | '\u{8}' | '\u{b}' | '\u{c}' | '\r'))
+                .collect(),
+        )
     } else {
-        text
+        Cow::Borrowed(text)
     }
 }
 
@@ -86,7 +89,13 @@ impl Text {
     /// Plain text with no style.
     pub fn new(plain: impl Into<String>) -> Text {
         Text {
-            plain: strip_controls(plain.into()),
+            plain: {
+                let plain: String = plain.into();
+                match clean(&plain) {
+                    Cow::Borrowed(_) => plain,
+                    Cow::Owned(cleaned) => cleaned,
+                }
+            },
             style: Style::new(),
             spans: Vec::new(),
             justify: Justify::Default,
@@ -122,7 +131,7 @@ impl Text {
     /// Appends `text` styled with `style`.
     pub fn append(&mut self, text: &str, style: Style) {
         let start = self.plain.len();
-        self.plain.push_str(&strip_controls(text.to_string()));
+        self.plain.push_str(&clean(text));
         if !style.is_null() && !text.is_empty() {
             self.spans.push(Span {
                 start,

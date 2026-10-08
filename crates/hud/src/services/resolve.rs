@@ -82,6 +82,7 @@ pub fn resolve(env: &EnvSnapshot, stream: StreamInfo) -> Capabilities {
     };
 
     let (os_width, os_height) = stream.size.unzip();
+    let (os_width, os_height) = (os_width.filter(|&n| n > 0), os_height.filter(|&n| n > 0));
     Capabilities {
         color_system,
         attributes,
@@ -164,6 +165,16 @@ mod tests {
     fn colorterm_beats_term_for_depth() {
         let caps = resolve(&env(&[("TERM", "xterm"), ("COLORTERM", "24bit")]), TTY);
         assert_eq!(caps.color_system, ColorSystem::TrueColor);
+    }
+
+    #[test]
+    fn a_size_of_zero_from_the_os_counts_as_unknown() {
+        let tty = StreamInfo {
+            is_tty: true,
+            size: Some((63, 0)),
+        };
+        let caps = resolve(&env(&[("TERM", "xterm")]), tty);
+        assert_eq!((caps.width, caps.height), (63, 24));
     }
 
     #[test]

@@ -1,7 +1,7 @@
 //! Inline markup: `[bold red]text[/]`, nested and adjacent tags, `\[` for a literal bracket.
 
 use super::style;
-use crate::model::{MarkupError, Span, Style, Text};
+use crate::model::{MarkupError, Span, Style, Text, clean};
 
 /// A tag as written: its name and the text after `=`, when there is one.
 struct Tag<'a> {
@@ -110,8 +110,10 @@ pub(crate) fn parse(markup: &str) -> Result<(String, Vec<Span>), MarkupError> {
     for piece in scan(markup) {
         match piece {
             // An escaped bracket that does not start a tag loses its backslash too.
-            Piece::Text(text) if text.contains("\\[") => plain.push_str(&text.replace("\\[", "[")),
-            Piece::Text(text) => plain.push_str(text),
+            Piece::Text(text) if text.contains("\\[") => {
+                plain.push_str(&clean(&text.replace("\\[", "[")));
+            }
+            Piece::Text(text) => plain.push_str(&clean(text)),
             Piece::Backslashes(count) => plain.extend(core::iter::repeat_n('\\', count)),
             Piece::Tag(tag) => {
                 if let Some(rest) = tag.name.strip_prefix('/') {
@@ -202,7 +204,8 @@ impl Text {
     /// ```
     pub fn from_markup(markup: &str) -> Result<Text, MarkupError> {
         let (plain, spans) = parse(markup)?;
-        let mut text = Text::new(plain);
+        let mut text = Text::new("");
+        text.plain = plain;
         text.spans = spans;
         Ok(text)
     }
@@ -225,13 +228,19 @@ pub fn escape(text: &str) -> String {
     while let Some(found) = text[search..].find('[') {
         let open = search + found;
         search = open + 1;
-        let Some(end) = tag_end(text, open) else {
-            continue;
-        };
         let mut run_start = open;
         while run_start > position && bytes[run_start - 1] == b'\\' {
             run_start -= 1;
         }
+        let Some(end) = tag_end(text, open) else {
+            // A backslash before a bracket that starts no tag is still eaten when printed.
+            if run_start < open {
+                out.push_str(&text[position..open]);
+                out.push('\\');
+                position = open;
+            }
+            continue;
+        };
         out.push_str(&text[position..run_start]);
         let slashes = &text[run_start..open];
         out.push_str(slashes);
@@ -299,6 +308,24 @@ mod tests {
         );
         let err = parse("[bold]a[/italic]").unwrap_err();
         assert!(err.to_string().contains("'[/italic]' at position 7"));
+    }
+
+    #[test]
+    fn control_characters_are_dropped_before_spans_are_placed() {
+        let text = Text::from_markup("a\u{7}\r[bold]b[/]c").unwrap();
+        assert_eq!(text.plain(), "abc");
+        assert_eq!((text.spans()[0].start, text.spans()[0].end), (1, 2));
+    }
+
+    #[test]
+    fn escape_protects_a_backslash_before_a_bracket_that_starts_no_tag() {
+        for text in ["\\[x", "a\\\\[b", "\\[", "[1] \\[2]"] {
+            assert_eq!(
+                Text::from_markup(&escape(text)).unwrap().plain(),
+                text,
+                "{text}"
+            );
+        }
     }
 
     #[test]

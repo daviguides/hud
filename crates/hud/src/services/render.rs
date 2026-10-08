@@ -1,10 +1,34 @@
 //! Text to styled runs, and styled runs to bytes.
 
-use hud_width::cell_width;
+use hud_width::{cell_width, clusters};
 
 use super::measure::{set_cell_size, wrap};
 use super::style::emit;
 use crate::model::{Capabilities, Justify, Segment, Style, Text};
+
+/// Byte offsets where a grapheme cluster of `text` starts, and its length at the end.
+fn cluster_starts(text: &str) -> Vec<usize> {
+    let mut starts = Vec::new();
+    let mut at = 0;
+    for cluster in clusters(text) {
+        starts.push(at);
+        at += cluster.len();
+    }
+    starts.push(at);
+    starts
+}
+
+/// The last cluster start at or before `offset`.
+fn snap_down(starts: &[usize], offset: usize) -> usize {
+    let index = starts.partition_point(|&start| start <= offset);
+    starts[index.saturating_sub(1)]
+}
+
+/// The first cluster start at or after `offset`.
+fn snap_up(starts: &[usize], offset: usize) -> usize {
+    let index = starts.partition_point(|&start| start < offset);
+    starts[index.min(starts.len() - 1)]
+}
 
 /// Splits one wrapped line into runs wherever a span starts or ends, each run carrying the
 /// combination of every style in force there, the line's own style first.
@@ -27,9 +51,16 @@ fn line_segments(line: &Text, out: &mut Vec<Segment>) {
         styles.push(&line.style);
         bounds.push((0, len));
     }
+    // A span that starts or ends inside a grapheme cluster covers the whole cluster, so a run
+    // never holds half of one and the cells of the runs add up to the cells of the line.
+    let starts = (!line.plain.is_ascii()).then(|| cluster_starts(&line.plain));
     for span in &line.spans {
         styles.push(&span.style);
-        bounds.push((span.start.min(len), span.end.min(len)));
+        let (start, end) = (span.start.min(len), span.end.min(len));
+        bounds.push(match &starts {
+            Some(starts) => (snap_down(starts, start), snap_up(starts, end)),
+            None => (start, end),
+        });
     }
     // Style 0 is the null style of the whole line; the rest are numbered from 1.
     let mut events: Vec<(usize, bool, usize)> = Vec::with_capacity(bounds.len() * 2 + 2);
@@ -255,6 +286,19 @@ mod tests {
             "\x1b[1mx\x1b[0m y\n"
         );
         assert_eq!(ansi(markup, 100, &caps(ColorSystem::None, false)), "x y\n");
+    }
+
+    #[test]
+    fn a_span_inside_a_cluster_covers_the_whole_cluster() {
+        let caps = caps(ColorSystem::None, true);
+        assert_eq!(
+            ansi("[bold]e[/]\u{301}x", 100, &caps),
+            "\x1b[1me\u{301}\x1b[0mx\n"
+        );
+        assert_eq!(
+            ansi("a[bold]\u{1F1E7}[/]\u{1F1F7}b", 100, &caps),
+            "a\x1b[1m\u{1F1E7}\u{1F1F7}\x1b[0mb\n"
+        );
     }
 
     #[test]
