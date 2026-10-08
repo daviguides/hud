@@ -64,21 +64,33 @@ fn divide(text: &Text, offsets: &[usize]) -> Vec<Text> {
     lines
 }
 
-/// Drops spans past the end of the text and shortens the ones that run over it.
-fn trim_spans(text: &mut Text) {
-    let len = text.plain.len();
-    text.spans.retain(|span| span.start < len);
-    for span in &mut text.spans {
-        span.end = span.end.min(len).max(span.start);
-    }
-}
-
+/// Replaces the plain text. When it gets shorter, spans keep the characters they covered and
+/// are clipped to the new length, counting characters, so text cut short or ended with an
+/// ellipsis keeps its styles on character boundaries.
 fn set_plain(text: &mut Text, plain: String) {
-    let shorter = plain.len() < text.plain.len();
-    text.plain = plain;
-    if shorter {
-        trim_spans(text);
+    let new_chars = plain.chars().count();
+    if new_chars < text.plain.chars().count() && !text.spans.is_empty() {
+        let offsets: Vec<usize> = plain
+            .char_indices()
+            .map(|(at, _)| at)
+            .chain(core::iter::once(plain.len()))
+            .collect();
+        let old = &text.plain;
+        let count = |at: usize| old[..at].chars().count();
+        text.spans = text
+            .spans
+            .iter()
+            .filter_map(|span| {
+                let start = count(span.start);
+                (start < new_chars).then(|| Span {
+                    start: offsets[start],
+                    end: offsets[count(span.end).min(new_chars).max(start)],
+                    style: span.style.clone(),
+                })
+            })
+            .collect();
     }
+    text.plain = plain;
 }
 
 /// `(byte offset, word)` for each `\s*\S+\s*` run of `text`.
@@ -246,7 +258,7 @@ fn rstrip_end(line: &mut Text, size: usize) {
 
 /// `text` cut to exactly `total` cells: whole clusters up to the width, and a space when a wide
 /// cluster would straddle the edge.
-fn set_cell_size(text: &str, total: usize) -> String {
+pub(crate) fn set_cell_size(text: &str, total: usize) -> String {
     let mut out = String::new();
     let mut used = 0;
     for cluster in clusters(text) {
@@ -399,21 +411,27 @@ fn justify_lines(lines: &mut [Text], width: usize, justify: Justify, overflow: O
 /// Breaks `text` into lines for a `width`-cell terminal: at newlines, at word boundaries (or
 /// inside a word that is longer than a line), with tabs expanded, then justified and cropped.
 pub(crate) fn wrap(text: &Text, width: usize) -> Vec<Text> {
-    let no_wrap = text.no_wrap || text.overflow == Overflow::Ignore;
+    let ignore = text.overflow == Overflow::Ignore;
+    let no_wrap = text.no_wrap || ignore;
     let mut lines = Vec::new();
     for mut line in split_newlines(text) {
         if line.plain.contains('\t') {
             expand_tabs(&mut line, text.tab_size);
         }
+        if ignore {
+            lines.push(line);
+            continue;
+        }
         let mut pieces = if no_wrap {
             vec![line]
         } else {
             let offsets = divide_line(&line.plain, width, text.overflow == Overflow::Fold);
-            divide(&line, &offsets)
+            let mut pieces = divide(&line, &offsets);
+            for piece in &mut pieces {
+                rstrip_end(piece, width);
+            }
+            pieces
         };
-        for piece in &mut pieces {
-            rstrip_end(piece, width);
-        }
         justify_lines(&mut pieces, width, text.justify, text.overflow);
         for piece in &mut pieces {
             truncate(piece, width, text.overflow, false);

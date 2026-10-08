@@ -1,6 +1,8 @@
 //! Text to styled runs, and styled runs to bytes.
 
-use super::measure::wrap;
+use hud_width::cell_width;
+
+use super::measure::{set_cell_size, wrap};
 use super::style::emit;
 use crate::model::{Capabilities, Segment, Style, Text};
 
@@ -92,6 +94,55 @@ pub(crate) fn render_text_ending(text: &Text, width: usize, end: &str) -> Vec<Se
                 text: separator.to_string(),
                 style: Style::new(),
             });
+        }
+    }
+    out
+}
+
+/// Cuts every line of `segments` to `width` cells, dropping what is past it, as printing does:
+/// a line that fits is left alone, and a run that crosses the edge keeps the cells before it.
+pub(crate) fn crop_lines(segments: Vec<Segment>, width: usize) -> Vec<Segment> {
+    let mut out = Vec::with_capacity(segments.len());
+    let mut used = 0usize;
+    let mut full = false;
+    for segment in segments {
+        let mut rest = segment.text.as_str();
+        while !rest.is_empty() {
+            let (piece, newline) = match rest.split_once('\n') {
+                Some((piece, tail)) => {
+                    rest = tail;
+                    (piece, true)
+                }
+                None => {
+                    let piece = rest;
+                    rest = "";
+                    (piece, false)
+                }
+            };
+            if !piece.is_empty() && !full {
+                let cells = cell_width(piece);
+                if used + cells <= width {
+                    out.push(Segment {
+                        text: piece.to_string(),
+                        style: segment.style.clone(),
+                    });
+                    used += cells;
+                } else {
+                    out.push(Segment {
+                        text: set_cell_size(piece, width - used),
+                        style: segment.style.clone(),
+                    });
+                    full = true;
+                }
+            }
+            if newline {
+                out.push(Segment {
+                    text: "\n".to_string(),
+                    style: Style::new(),
+                });
+                used = 0;
+                full = false;
+            }
         }
     }
     out

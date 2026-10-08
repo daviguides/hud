@@ -1,0 +1,6 @@
+{
+ "rich": "15.0.0",
+ "seed": 20261008,
+ "generator": "bench/scripts/gen_oracle_vectors.py",
+ "note": "Differential oracle vectors, not the gate. Regenerate with bench/.venv/bin/python."
+}

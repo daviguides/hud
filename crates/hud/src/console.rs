@@ -7,7 +7,7 @@ use std::sync::OnceLock;
 
 use crate::integrations::{self, Probe, SystemProbe};
 use crate::model::{Capabilities, ColorSystem, Renderable, Segment, Stream, Text};
-use crate::services::render::{render_text, render_text_ending, to_ansi, to_plain};
+use crate::services::render::{crop_lines, render_text, render_text_ending, to_ansi, to_plain};
 use crate::services::resolve::resolve;
 
 /// Resolves capabilities through a [`Probe`] and remembers the answer per stream.
@@ -115,12 +115,14 @@ impl Console {
 
     /// What [`Console::print`] would write: the bytes for this console's profile.
     pub fn render_to_string<R: Renderable + ?Sized>(&self, renderable: &R) -> String {
-        to_ansi(&renderable.render(usize::from(self.caps.width)), &self.caps)
+        let width = usize::from(self.caps.width);
+        to_ansi(&crop_lines(renderable.render(width), width), &self.caps)
     }
 
     /// The same output with no escape sequences.
     pub fn render_to_plain<R: Renderable + ?Sized>(&self, renderable: &R) -> String {
-        to_plain(&renderable.render(usize::from(self.caps.width)))
+        let width = usize::from(self.caps.width);
+        to_plain(&crop_lines(renderable.render(width), width))
     }
 }
 

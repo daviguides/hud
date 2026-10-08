@@ -36,7 +36,8 @@ No character is assigned there.
 ### D-003: fold and truncate never split a cluster
 
 Rich's `chop_cells` can cut inside flags and Indic conjuncts. `hud_width::fold` and
-`truncate` cut only between clusters, by construction.
+`truncate` cut only between clusters, by construction. The text printer folds long words with
+`fold`, so a flag at the fold stays whole where Rich puts one half on each line.
 
 - Remove when: never. This is the assertiveness gate.
 
@@ -93,8 +94,14 @@ its text is kept, which is what Rich does for names missing from its theme.
 
 ### D-024: widths count cells, not characters
 
-Where Rich compares the number of characters with a width (`rstrip_end`), hud compares cells; the
-two agree on text with no wide characters.
+Where Rich compares the number of characters with a width (`rstrip_end`, which cuts the
+whitespace a line has beyond the width), hud compares cells. The two agree on text with no
+combining marks. With one (`e` followed by U+0301 is two characters and one cell) Rich cuts a
+cell too many and the line ends one cell short of the width, which also changes how `full`
+justification spreads spaces. Measured over 900 random Unicode vectors: 10 differ, every one
+with a combining mark or a flag in the input (`tests/oracle.rs`).
+
+- Remove when: Rich counts cells there.
 
 ### D-030: color names and palettes are data from Rich
 
