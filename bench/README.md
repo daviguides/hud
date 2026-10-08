@@ -46,3 +46,4 @@ Each candidate gets its own crate and adapters (written in the next step, one fo
 | `tasks.py`, `gen_task_specs.py`, `loc.py` | DX tasks: run, goldens, statements, LOC rule |
 | `speed.py` | output verification, S1 whole-process timing, S2-S4 in-process timing, bootstrap CI, ratios |
 | `adoption.py`, `docs_coverage.py`, `api_surface.py` | compile time / binary size / dependencies; rustdoc coverage and doctests; name parity and API friction |
+| `docs_mirror.py` | docs.rs-equivalent mirror (no `src/` pages) for the DX first-try test; prompt in `spec/dx-prompt.md` |
