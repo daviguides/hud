@@ -8,9 +8,9 @@ use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
 use hud::{
-    Align, BarColumn, Body, BoxStyle, ColorSystem, Column, Console, Justify, MofNCompleteColumn,
-    Overflow, Padding, Panel, Progress, ProgressBuilder, SpinnerColumn, Style, Table,
-    TaskProgressColumn, Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn, Tree,
+    Align, BarColumn, Body, BoxStyle, ColorSystem, Column, Console, ErrorReport, Justify,
+    MofNCompleteColumn, Overflow, Padding, Panel, Progress, ProgressBuilder, SpinnerColumn, Style,
+    Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn, Tree,
 };
 use serde_json::Value;
 
@@ -520,7 +520,18 @@ fn tree_from(node: &Value) -> Result<Tree, String> {
     Ok(root)
 }
 
-/// `(id, input, message)` of every panel or tree vector whose bytes differ from Rich.
+fn error_from(node: &Value) -> ErrorReport {
+    let mut report = ErrorReport::new(node["message"].as_str().unwrap());
+    for cause in node["causes"].as_array().unwrap() {
+        report = report.cause(cause.as_str().unwrap());
+    }
+    if let Some(hint) = node["hint"].as_str() {
+        report = report.hint(hint);
+    }
+    report
+}
+
+/// `(id, input, message)` of every panel, tree or error vector whose bytes differ from Rich.
 fn widget_mismatches(name: &str) -> (usize, Vec<(String, String, String)>) {
     let rows = fixture(name);
     let mut bad = Vec::new();
@@ -535,6 +546,7 @@ fn widget_mismatches(name: &str) -> (usize, Vec<(String, String, String)>) {
         let console = console(width, system(row["color_system"].as_str().unwrap()));
         let rendered = match row["kind"].as_str().unwrap() {
             "panel" => panel_from(node).map(|p| console.render_to_string(&p)),
+            "error" => Ok(console.render_to_string(&error_from(node))),
             _ => tree_from(node).map(|t| console.render_to_string(&t)),
         };
         match rendered {
@@ -585,6 +597,11 @@ fn ascii_trees_match_rich() {
     assert_all_match("tree_ascii.jsonl");
 }
 
+#[test]
+fn ascii_error_reports_match_rich() {
+    assert_all_match("error_ascii.jsonl");
+}
+
 fn assert_only_explained_differences(name: &str) {
     let rows = fixture(name);
     let (total, bad) = widget_mismatches(name);
@@ -602,6 +619,7 @@ fn assert_only_explained_differences(name: &str) {
         );
         let got = match row["kind"].as_str().unwrap() {
             "panel" => console.render_to_string(&panel_from(&row["node"]).unwrap()),
+            "error" => console.render_to_string(&error_from(&row["node"])),
             _ => console.render_to_string(&tree_from(&row["node"]).unwrap()),
         };
         if explained_by_wide_characters(input, row["ansi"].as_str().unwrap(), &got) {
@@ -637,6 +655,11 @@ fn unicode_panels_differ_from_rich_only_where_the_deviations_say_so() {
 #[test]
 fn unicode_trees_differ_from_rich_only_where_the_deviations_say_so() {
     assert_only_explained_differences("tree_unicode.jsonl");
+}
+
+#[test]
+fn unicode_error_reports_differ_from_rich_only_where_the_deviations_say_so() {
+    assert_only_explained_differences("error_unicode.jsonl");
 }
 
 fn progress_builder(row: &Value, clock: &Arc<Mutex<f64>>) -> ProgressBuilder {

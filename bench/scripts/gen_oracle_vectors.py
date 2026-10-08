@@ -549,6 +549,59 @@ def main_progress():
             write(name, pool.map(render_progress_case, cases, chunksize=1))
 
 
+ERROR_PIECES = ["[bold]x[/]", "[red", "a]b", "\\", "\t", "\u0007", "\n", "  ", "/etc/hud/config.toml",
+                "No such file or directory (os error 2)", "os error 2", "connection reset by peer"]
+
+
+def error_text(rng, unicode_words):
+    pool = ASCII_WORDS + (UNICODE_WORDS if unicode_words else [])
+    out = []
+    for _ in range(rng.randrange(1, 14)):
+        r = rng.random()
+        out.append(rng.choice(ERROR_PIECES) if r < 0.15 else rng.choice(pool))
+        out.append(rng.choice([" ", " ", " ", "  ", ""]))
+    return "".join(out).strip(" ") or "x"
+
+
+def make_error_case(rng, index, unicode_words):
+    return {
+        "id": f"{'eu' if unicode_words else 'ea'}-{index:04d}",
+        "kind": "error",
+        "node": {
+            "t": "error",
+            "message": error_text(rng, unicode_words),
+            "causes": [error_text(rng, unicode_words) for _ in range(rng.choice([0, 0, 1, 1, 2, 3, 5]))],
+            "hint": error_text(rng, unicode_words) if rng.random() < 0.5 else None,
+        },
+        "width": rng.choice([10, 16, 20, 30, 40, 60, 80, 100, 120]),
+        "color_system": rng.choice(["truecolor", "256", "standard", "none"]),
+    }
+
+
+def render_error_case(case):
+    from render_reference import build, make_console
+
+    console = make_console(case["width"], case["color_system"])
+    try:
+        console.print(build(case["node"]))
+    except Exception as error:
+        return {**case, "error": type(error).__name__}
+    return {**case, "ansi": console.file.getvalue()}
+
+
+def main_errors():
+    """Error report vectors only (v0.6); the rest of the fixtures are left as they are."""
+    rng = random.Random(SEED + 6)
+    OUT.mkdir(parents=True, exist_ok=True)
+    jobs = {
+        "error_ascii.jsonl": [make_error_case(rng, i, False) for i in range(1200)],
+        "error_unicode.jsonl": [make_error_case(rng, i, True) for i in range(400)],
+    }
+    with Pool(8, maxtasksperchild=1) as pool:
+        for name, cases in jobs.items():
+            write(name, pool.map(render_error_case, cases, chunksize=1))
+
+
 def write(name, rows):
     path = OUT / name
     with path.open("w") as f:
@@ -589,4 +642,4 @@ def main():
 
 
 if __name__ == "__main__":
-    {"widgets": main_widgets, "progress": main_progress}.get(sys.argv[1] if sys.argv[1:] else "", main)()
+    {"widgets": main_widgets, "progress": main_progress, "errors": main_errors}.get(sys.argv[1] if sys.argv[1:] else "", main)()
