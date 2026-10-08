@@ -391,6 +391,37 @@ a `ValueError`. `Group` items do not receive the height of a region.
 
 - Remove when: a case in the corpus needs one of them.
 
+### D-049: JSON describes content, not looks, and writes cells as plain strings
+
+The scope text of v0.8 said "table rows as objects keyed by column". The document `hud/1` writes a table as `columns` (header and justify) and `rows` as arrays of strings, in column order, because two columns may share a header and a row may be shorter than the columns; an object keyed by header would lose both. Every text field is a plain string: markup is read and its tags are removed, so a cell `[bold]x[/]` is `"x"`. There is no style, color, width, wrapping, box, spacing option or timing in the document, which is why the same value gives the same bytes on every console. A column with no justify set is `left`, as in the rendered column.
+
+- Why: JSON is read by programs; what they need is what a value says. Rich has no JSON oracle, so the expected output is the written spec (`bench/spec/structured-json.md`) and an independent Python writer (`gen_structured_cases.py`).
+- Remove when: a consumer needs styles or spans in the document; that is a new schema version (`hud/2`), not a change of `hud/1`.
+
+### D-050: `Display` and `hud::println!` do not follow the format; the redraw of `Live` and `Progress` does not either
+
+`Console::print`, `try_print` and `render_to_string` write in the console's format and `render_as` in any format. The `Display` impls (`println!("{table}")`) and the `hud::println!` macro keep building text for the standard output profile: the macro reads its argument as markup, and a document printed through it would be read as markup too. The frames that `Live` and `Progress` write to their own writer follow the capabilities only (`Format::Plain` and `Format::Json` do not apply to a redraw stream: corpus 3 `live` and `progress_live` are outside S4, changelog 48). A `Progress` or `Layout` that is only a region of another renderable is rendered as a value, in every format.
+
+- Remove when: a use case needs a document from `println!`, or a redraw of a live display as a sequence of documents.
+
+### D-051: the JSON writer is our own and `serde` is not used
+
+Own minimal writer and reader in `services/json.rs` (about 300 lines with the parser, no dependency) over the `Node` type. Measured by `adoption.py` on the table hello: +1.89 s of compile time, +252 KB and 6 transitive crates, against +1.85 s, +218 KB and 6 for v0.3's table hello; `serde_json` would add `serde`, `itoa`, `ryu` and `memchr` and pull the crate toward the serde API for a document of ten node types. The writer is the canonical form of Python's `json.dumps(indent=2, ensure_ascii=False)`, proved against an independent Python oracle on 700 nested cases; the reader accepts the documents hud writes (non-negative integers, no floating point) and nothing more.
+
+- Remove when: a field that needs floating point or a negative number enters the schema.
+
+### D-052: `Format::Plain` drops the escape character and the C1 controls of the data
+
+Plain text leaves out U+001B and U+0080 to U+009F wherever they appear in the printed data, so a log or a terminal cannot receive an escape sequence through plain output because a string carried one. `render_to_plain` keeps the data as it is (it removes only what hud adds). Found by the structured fuzz (changelog 50): every random input with a literal escape character made "plain has no `ESC` byte" fail. Python Rich passes such characters through; hud's rich output does too, which is the Rich behavior and unchanged.
+
+- Remove when: never as a default; `Format::Rich` stays byte-compatible with Rich.
+
+### D-053: a renderable that does not describe itself is its plain rendering at width 80
+
+`Renderable::node` has a default: a text node holding the plain rendering at width 80, trailing spaces trimmed. A custom renderable still appears in a document, without structure and with width-dependent line breaks. Every widget of this crate overrides it. `Body` is itself a renderable (it was only a wrapper), so a value built from text, a table or a layout can be printed or described on its own.
+
+- Remove when: a use case needs structure from custom renderables; they implement `node`.
+
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 
 - **Windows.** Implemented on a branch through safe wrappers, see D-W1. Size, virtual terminal
