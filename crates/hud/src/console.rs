@@ -6,9 +6,10 @@ use std::io;
 use std::sync::OnceLock;
 
 use crate::integrations::{self, Probe, SystemProbe};
-use crate::model::{Capabilities, ColorSystem, Renderable, Segment, Stream, Text};
+use crate::model::{Capabilities, ColorSystem, Renderable, Segment, Stream, Table, Text};
 use crate::services::render::{crop_lines, render_text, render_text_ending, to_ansi, to_plain};
 use crate::services::resolve::resolve;
+use crate::services::table::render_table;
 
 /// Resolves capabilities through a [`Probe`] and remembers the answer per stream.
 pub(crate) struct Resolver<P> {
@@ -186,6 +187,12 @@ impl Renderable for Text {
     }
 }
 
+impl Renderable for Table {
+    fn render(&self, width: usize) -> Vec<Segment> {
+        render_table(self, width)
+    }
+}
+
 impl Renderable for str {
     fn render(&self, width: usize) -> Vec<Segment> {
         match Text::from_markup(self) {
@@ -214,6 +221,17 @@ impl fmt::Display for Text {
         let caps = capabilities(Stream::Stdout);
         let segments = render_text_ending(self, usize::from(caps.width), "");
         f.write_str(&to_ansi(&segments, &caps))
+    }
+}
+
+/// Renders for the standard output profile without the final newline, so `println!("{table}")`
+/// prints the table once.
+impl fmt::Display for Table {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let caps = capabilities(Stream::Stdout);
+        let width = usize::from(caps.width);
+        let ansi = to_ansi(&crop_lines(render_table(self, width), width), &caps);
+        f.write_str(ansi.strip_suffix('\n').unwrap_or(&ansi))
     }
 }
 

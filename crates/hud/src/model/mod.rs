@@ -6,6 +6,7 @@ mod error;
 pub(crate) mod palette;
 mod segment;
 mod style;
+mod table;
 mod text;
 
 pub use capabilities::{Capabilities, ColorSystem, EnvSnapshot, Stream, StreamInfo};
@@ -13,5 +14,6 @@ pub use color::Color;
 pub use error::{MarkupError, StyleError};
 pub use segment::{Renderable, Segment};
 pub use style::{Attribute, Style};
+pub use table::{BoxStyle, Column, Table};
 pub(crate) use text::clean;
 pub use text::{Justify, Overflow, Span, Text};

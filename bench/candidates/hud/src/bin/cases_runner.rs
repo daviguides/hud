@@ -5,10 +5,10 @@
 use std::fs;
 use std::path::PathBuf;
 
-use hud::{ColorSystem, Console, Style, Text};
+use hud::{BoxStyle, Column, ColorSystem, Console, Justify, Style, Table, Text};
 use serde_json::{Value, json};
 
-const CLAIMED: &[&str] = &["style", "markup"];
+const CLAIMED: &[&str] = &["style", "markup", "table"];
 
 fn color_system(name: &str) -> ColorSystem {
     match name {
@@ -20,9 +20,57 @@ fn color_system(name: &str) -> ColorSystem {
     }
 }
 
+fn box_style(name: &str) -> Option<BoxStyle> {
+    Some(match name {
+        "rounded" => BoxStyle::Rounded,
+        "ascii" => BoxStyle::Ascii,
+        "simple" => BoxStyle::Simple,
+        "heavy" => BoxStyle::Heavy,
+        "double" => BoxStyle::Double,
+        "minimal" => BoxStyle::Minimal,
+        "square" => BoxStyle::Square,
+        "heavy_head" => BoxStyle::HeavyHead,
+        _ => return None,
+    })
+}
+
+fn justify(name: &str) -> Justify {
+    match name {
+        "center" => Justify::Center,
+        "right" => Justify::Right,
+        _ => Justify::Left,
+    }
+}
+
+fn table(node: &Value) -> Option<Table> {
+    let mut table = Table::new()
+        .box_style(box_style(node["box"].as_str()?)?)
+        .show_lines(node["show_lines"].as_bool().unwrap_or(false));
+    if let Some(title) = node["title"].as_str() {
+        table = table.title(title);
+    }
+    if let Some(caption) = node["caption"].as_str() {
+        table = table.caption(caption);
+    }
+    for column in node["columns"].as_array()? {
+        let mut built = Column::new(column["header"].as_str()?)
+            .justify(justify(column["justify"].as_str().unwrap_or("left")))
+            .no_wrap(column["no_wrap"].as_bool().unwrap_or(false));
+        if let Some(style) = column["style"].as_str().filter(|s| !s.is_empty()) {
+            built = built.style(Style::parse(style).ok()?);
+        }
+        table.add_column(built);
+    }
+    for row in node["rows"].as_array()? {
+        table.add_row(row.as_array()?.iter().map(|cell| cell.as_str().unwrap_or("")));
+    }
+    Some(table)
+}
+
 fn render(case: &Value) -> Option<String> {
     let node = &case["renderable"];
-    if node["t"].as_str()? != "text" {
+    let kind = node["t"].as_str()?;
+    if kind != "text" && kind != "table" {
         return None;
     }
     let system = color_system(case["color_system"].as_str()?);
@@ -32,6 +80,9 @@ fn render(case: &Value) -> Option<String> {
         .color_system(system)
         .attributes(system != ColorSystem::None)
         .build();
+    if kind == "table" {
+        return Some(console.render_to_string(&table(node)?));
+    }
     let text = match node["markup"].as_str() {
         Some(markup) => Text::from_markup(markup).ok()?,
         None => Text::styled(
