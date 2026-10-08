@@ -1,27 +1,7 @@
 {
- "added_compile_s": 2.3134304580744356,
- "added_binary_bytes": 218336,
+ "added_compile_s": 1.8870316669344902,
+ "added_binary_bytes": 251904,
  "transitive_deps": 6,
- "candidate": {
-  "compile_s_median": 2.486265000072308,
-  "compile_s_runs": [
-   2.8341634169919416,
-   2.486265000072308,
-   2.4442415420198813
-  ],
-  "binary_bytes": 553872,
-  "transitive_deps": 6
- },
- "baseline": {
-  "compile_s_median": 0.1728345419978723,
-  "compile_s_runs": [
-   0.1747571249725297,
-   0.1699043749831617,
-   0.1728345419978723
-  ],
-  "binary_bytes": 335536,
-  "transitive_deps": 0
- },
  "thresholds": {
   "added_compile_s": 15,
   "added_binary_bytes": 1500000,
