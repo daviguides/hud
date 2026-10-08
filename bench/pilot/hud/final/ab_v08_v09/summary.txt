@@ -1,0 +1,6 @@
+S1: new (v0.9) / old (v0.8.0) = 0.967 (95% CI 0.931 to 1.013); median 1.949 ms -> 1.881 ms; under_load=False
+S2: new (v0.9) / old (v0.8.0) = 0.982 (95% CI 0.973 to 0.996); median 20.487 ms -> 20.122 ms; under_load=False
+S3: new (v0.9) / old (v0.8.0) = 0.994 (95% CI 0.983 to 1.005); median 1.432 ms -> 1.424 ms; under_load=False
+S4: new (v0.9) / old (v0.8.0) = 1.014 (95% CI 1.000 to 1.026); median 1.670 ms -> 1.693 ms; under_load=False
+S2 JSON/rich = 0.438 (95% CI 0.434 to 0.441); rich 19.87 ms, json 8.71 ms; under_load=False
+loads: S1-0=2.76, S1-1=2.76, S1-2=2.76, S1-3=2.76, S2-0=2.76, S2-1=2.76, S2-2=2.76, S2-3=2.7, S3-0=2.7, S3-1=2.7, S3-2=2.7, S3-3=2.7, S4-0=2.7, S4-1=2.7, S4-2=2.7, S4-3=2.7, S2json-0=2.8, S2json-1=2.8, S2json-2=2.8, S2json-3=2.8

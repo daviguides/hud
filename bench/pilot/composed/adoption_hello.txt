@@ -1,5 +1,5 @@
 {
- "added_compile_s": 2.6394070419482887,
+ "added_compile_s": 1.5773518750211224,
  "added_binary_bytes": 311296,
  "transitive_deps": 25,
  "thresholds": {

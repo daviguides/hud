@@ -196,3 +196,8 @@ hud entered the same evaluation as a candidate under the rules above; the pilot 
 | LOC median / name parity (by name, by signature) | 11 / 72.5%, 65.0% | rs-rich 15 / 87.5% by name |
 | Adoption (hello table) / docs | +2.31 s, +218 KB, 6 deps / 129 of 129 | composed +0.31 MB, 25 deps |
 | Verdict | Engine GO; API NO-GO on name parity by signature only | none passes both gates |
+
+
+## Appended 2026-10-08: same-session re-measurement with hud 1.0 (no pilot record rewritten)
+
+The five pilot candidates were timed again in the same session as hud (`pilot/tables.md`, `pilot/speed_conditions.log`; loads 2.04 to 3.94, none under load). Their static records (correctness, assertiveness, capability, tasks, API) are those above and did not change; their verdicts stand: all five are NO-GO as engines. Speed against Python Rich in this session: `rs-rich` S1 0.083x, S2 0.127x, S3 0.130x, S4 0.139x; `rich_rust` S1 0.975x, S2 0.086x, S3 0.394x, S4 0.313x; the others differ from the golden in S1, S2 and S4 and are not ranked there. hud against the best verified candidate: S2 0.227x, S3 0.175x, S4 0.295x; hud's own verdict and the final tables are in `EVALUATION-RESULTS.md`.

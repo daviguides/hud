@@ -1,0 +1,32 @@
+{
+ "runs": {
+  "t09-structured": {
+   "terminal": true,
+   "pipe_default": true,
+   "pipe_plain": true,
+   "pipe_json": true
+  },
+  "t10-composition": {
+   "main": true
+  },
+  "t11-width-mix": {
+   "main": true
+  }
+ },
+ "tasks_passing": 3,
+ "tasks": 3,
+ "runs_passing": 6,
+ "runs_total": 6,
+ "loc": {
+  "t09-structured": 9,
+  "t10-composition": 24,
+  "t11-width-mix": 12
+ },
+ "python_loc": {
+  "t09-structured": 32,
+  "t10-composition": 24,
+  "t11-width-mix": 9
+ },
+ "loc_median_passing": 12,
+ "python_loc_median": 24
+}

@@ -1,0 +1,6 @@
+S1 valid under the schema: 700/700; equal to the Python oracle: 700/700
+S2 in-process: 0 mismatches over 175000 renders (5 widths x 50 repeats); two processes equal: 700/700
+S3 canonical: 700/700; library round trip failures: 0
+S4 plain vs stripped rich: corpus4 700/700 (no ESC 700/700); corpus1 210/210; table_unicode 12/12; corpus3 columns+layout 60/60
+S4 total: 982/982
+unsupported cases: 0; failures listed: 0

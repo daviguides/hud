@@ -1,0 +1,46 @@
+{
+ "corpus4": {
+  "cases": 700,
+  "s1_valid": 700,
+  "s1_equals_oracle": 700,
+  "s3_canonical": 700,
+  "s2_process_equal": 700,
+  "s4_plain_no_esc": 700,
+  "s4_plain_equals_stripped_rich": 700,
+  "runner_report": {
+   "cases": 700,
+   "determinism_mismatches": 0,
+   "json_renders": 175000,
+   "repeats": 50,
+   "roundtrip_failures": 0,
+   "unsupported": [],
+   "widths": [
+    20,
+    40,
+    80,
+    100,
+    200
+   ]
+  },
+  "failures": [],
+  "failure_count": 0
+ },
+ "corpus1": {
+  "cases": 210,
+  "no_esc": 210,
+  "equals_stripped_rich": 210,
+  "failures": []
+ },
+ "table_unicode": {
+  "cases": 12,
+  "no_esc": 12,
+  "equals_stripped_rich": 12,
+  "failures": []
+ },
+ "corpus3_columns_layout": {
+  "cases": 60,
+  "no_esc": 60,
+  "equals_stripped_rich": 60,
+  "failures": []
+ }
+}

@@ -1,0 +1,7 @@
+{
+ "idle_reached": true,
+ "load1_at_start": 3.3427734375,
+ "waited_s": 0,
+ "s4": "{'n': 60, 'median_ms': 1.6453745, 'ci95_ms': [1.622541, 1.669875]}",
+ "load1_after_s4": 3.23486328125
+}

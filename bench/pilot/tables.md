@@ -22,30 +22,30 @@
 
 | workload | candidate | verified | median ms | vs Python Rich (CI) | vs best verified Rust candidate (CI) |
 |---|---|---|---|---|---|
-| S1 | Python Rich 15.0.0 | reference | 26.16 | 1 | n/a |
-| S1 | rich_rust 0.2.3 | yes | 24.42 | 0.933 [0.918, 0.952] | 10.69 [10.19, 10.94] |
-| S1 | rs-rich 0.0.9 | yes | 2.28 | 0.087 [0.085, 0.092] | (best) |
-| S1 | richrs 0.2.1 | NO: output differs from the golden, workload discarded; informational timing of different work | 4.09 | 0.156 [0.153, 0.162] (not comparable) | not ranked |
-| S1 | rich-rs 1.3.0 | NO: output differs from the golden, workload discarded; informational timing of different work | 5.26 | 0.201 [0.182, 0.218] (not comparable) | not ranked |
-| S1 | composed (owo-colors + comfy-table + indicatif) | NO: output differs from the golden, workload discarded; informational timing of different work | 1.88 | 0.072 [0.070, 0.075] (not comparable) | not ranked |
-| S2 | Python Rich 15.0.0 | reference | 1059.80 | 1 | n/a |
-| S2 | rich_rust 0.2.3 | yes | 89.44 | 0.084 [0.083, 0.085] | (best) |
-| S2 | rs-rich 0.0.9 | yes | 133.96 | 0.126 [0.125, 0.127] | 1.50 [1.48, 1.51] |
-| S2 | richrs 0.2.1 | NO: output differs from the golden, workload discarded; informational timing of different work | 29.82 | 0.028 [0.028, 0.028] (not comparable) | not ranked |
-| S2 | rich-rs 1.3.0 | NO: output differs from the golden, workload discarded; informational timing of different work | 600.51 | 0.567 [0.561, 0.572] (not comparable) | not ranked |
-| S2 | composed (owo-colors + comfy-table + indicatif) | NO: output differs from the golden, workload discarded; informational timing of different work | 21.41 | 0.020 [0.020, 0.020] (not comparable) | not ranked |
-| S3 | Python Rich 15.0.0 | reference | 690.10 | 1 | n/a |
-| S3 | rich_rust 0.2.3 | yes | 267.55 | 0.388 [0.381, 0.393] | 35.85 [35.46, 36.34] |
-| S3 | rs-rich 0.0.9 | yes | 90.03 | 0.130 [0.128, 0.132] | 12.06 [11.91, 12.19] |
-| S3 | richrs 0.2.1 | yes | 8.44 | 0.012 [0.012, 0.012] | 1.13 [1.12, 1.15] |
-| S3 | rich-rs 1.3.0 | yes | 2866.25 | 4.153 [4.066, 4.260] | 384.06 [378.37, 394.94] |
-| S3 | composed (owo-colors + comfy-table + indicatif) | yes | 7.46 | 0.011 [0.011, 0.011] | (best) |
-| S4 | Python Rich 15.0.0 | reference | 43.55 | 1 | n/a |
-| S4 | rich_rust 0.2.3 | yes | 12.97 | 0.298 [0.295, 0.306] | 2.21 [2.12, 2.31] |
-| S4 | rs-rich 0.0.9 | yes | 5.87 | 0.135 [0.130, 0.141] | (best) |
-| S4 | richrs 0.2.1 | NO: output differs from the golden, workload discarded; informational timing of different work | 3.40 | 0.078 [0.077, 0.080] (not comparable) | not ranked |
-| S4 | rich-rs 1.3.0 | NO: output differs from the golden, workload discarded; informational timing of different work | 17.14 | 0.394 [0.387, 0.403] (not comparable) | not ranked |
-| S4 | composed (owo-colors + comfy-table + indicatif) | NO: output differs from the golden, workload discarded; informational timing of different work | 1.85 | 0.043 [0.042, 0.043] (not comparable) | not ranked |
+| S1 | Python Rich 15.0.0 | reference | 24.52 | 1 | n/a |
+| S1 | rich_rust 0.2.3 | yes | 23.90 | 0.975 [0.914, 0.994] | 11.80 [11.32, 12.02] |
+| S1 | rs-rich 0.0.9 | yes | 2.03 | 0.083 [0.078, 0.084] | (best) |
+| S1 | richrs 0.2.1 | NO: output differs from the golden, workload discarded; informational timing of different work | 4.09 | 0.167 [0.158, 0.172] (not comparable) | not ranked |
+| S1 | rich-rs 1.3.0 | NO: output differs from the golden, workload discarded; informational timing of different work | 5.26 | 0.215 [0.192, 0.233] (not comparable) | not ranked |
+| S1 | composed (owo-colors + comfy-table + indicatif) | NO: output differs from the golden, workload discarded; informational timing of different work | 1.88 | 0.077 [0.072, 0.079] (not comparable) | not ranked |
+| S2 | Python Rich 15.0.0 | reference | 1036.71 | 1 | n/a |
+| S2 | rich_rust 0.2.3 | yes | 88.68 | 0.086 [0.085, 0.086] | (best) |
+| S2 | rs-rich 0.0.9 | yes | 132.03 | 0.127 [0.126, 0.128] | 1.49 [1.47, 1.50] |
+| S2 | richrs 0.2.1 | NO: output differs from the golden, workload discarded; informational timing of different work | 29.82 | 0.029 [0.028, 0.029] (not comparable) | not ranked |
+| S2 | rich-rs 1.3.0 | NO: output differs from the golden, workload discarded; informational timing of different work | 600.51 | 0.579 [0.575, 0.585] (not comparable) | not ranked |
+| S2 | composed (owo-colors + comfy-table + indicatif) | NO: output differs from the golden, workload discarded; informational timing of different work | 21.41 | 0.021 [0.021, 0.021] (not comparable) | not ranked |
+| S3 | Python Rich 15.0.0 | reference | 682.02 | 1 | n/a |
+| S3 | rich_rust 0.2.3 | yes | 268.65 | 0.394 [0.387, 0.396] | 34.25 [33.89, 34.75] |
+| S3 | rs-rich 0.0.9 | yes | 88.53 | 0.130 [0.127, 0.130] | 11.29 [11.15, 11.44] |
+| S3 | richrs 0.2.1 | yes | 7.98 | 0.012 [0.011, 0.012] | 1.02 [1.01, 1.04] |
+| S3 | rich-rs 1.3.0 | yes | 2868.96 | 4.207 [4.077, 4.263] | 365.75 [355.37, 372.38] |
+| S3 | composed (owo-colors + comfy-table + indicatif) | yes | 7.84 | 0.012 [0.011, 0.012] | (best) |
+| S4 | Python Rich 15.0.0 | reference | 41.13 | 1 | n/a |
+| S4 | rich_rust 0.2.3 | yes | 12.86 | 0.313 [0.303, 0.326] | 2.26 [2.21, 2.31] |
+| S4 | rs-rich 0.0.9 | yes | 5.70 | 0.139 [0.133, 0.145] | (best) |
+| S4 | richrs 0.2.1 | NO: output differs from the golden, workload discarded; informational timing of different work | 3.40 | 0.083 [0.080, 0.086] (not comparable) | not ranked |
+| S4 | rich-rs 1.3.0 | NO: output differs from the golden, workload discarded; informational timing of different work | 17.14 | 0.417 [0.401, 0.435] (not comparable) | not ranked |
+| S4 | composed (owo-colors + comfy-table + indicatif) | NO: output differs from the golden, workload discarded; informational timing of different work | 1.85 | 0.045 [0.043, 0.047] (not comparable) | not ranked |
 
 ### dx
 
@@ -61,12 +61,12 @@
 
 | candidate | project | added compile s (gate 15) | added stripped bytes (gate 1 500 000) | transitive deps (gate 60) | pass |
 |---|---|---|---|---|---|
-| rich_rust 0.2.3 | hello | 4.90 | 2,037,072 | 60 | FAIL |
-| rs-rich 0.0.9 | hello | 5.96 | 2,414,976 | 50 | FAIL |
-| rs-rich 0.0.9 | hello_nodefault | 4.32 | 2,264,704 | 21 | FAIL |
-| richrs 0.2.1 | hello | 4.17 | 155,264 | 44 | pass |
-| rich-rs 1.3.0 | hello | 7.99 | 392,288 | 82 | FAIL |
-| composed (owo-colors + comfy-table + indicatif) | hello | 1.56 | 311,296 | 25 | pass |
+| rich_rust 0.2.3 | hello | 4.07 | 2,037,072 | 60 | FAIL |
+| rs-rich 0.0.9 | hello | 6.00 | 2,414,976 | 50 | FAIL |
+| rs-rich 0.0.9 | hello_nodefault | 4.07 | 2,264,704 | 21 | FAIL |
+| richrs 0.2.1 | hello | 3.85 | 155,264 | 44 | pass |
+| rich-rs 1.3.0 | hello | 8.14 | 392,288 | 82 | FAIL |
+| composed (owo-colors + comfy-table + indicatif) | hello | 1.58 | 311,296 | 25 | pass |
 
 ### docs
 

@@ -1,0 +1,27 @@
+{
+  "features": {
+    "spinner": {
+      "pass": 146,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 146,
+      "rate": 1.0
+    },
+    "status": {
+      "pass": 36,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 36,
+      "rate": 1.0
+    }
+  },
+  "overall": {
+    "pass": 182,
+    "denominator": 182,
+    "rate": 1.0,
+    "style_markup_100": true
+  },
+  "failures": []
+}

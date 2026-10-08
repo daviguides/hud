@@ -1,0 +1,149 @@
+{
+ "seeds": [
+  20261008,
+  1,
+  2
+ ],
+ "count": 5000,
+ "features": {
+  "style": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "markup": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "width": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "capability": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "table": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "panel": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "tree": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "progress": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "error": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "padding": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "textops": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "update": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "colorparse": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_text": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_table": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_panel": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_tree": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_progress": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_error": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_padding": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_columns": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_layout": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  },
+  "structured_group": {
+   "inputs": 15000,
+   "panics": 0,
+   "violations": 0,
+   "first": null
+  }
+ },
+ "pass": true
+}
