@@ -62,6 +62,49 @@ On a terminal, `NO_COLOR` removes color only; bold, italic and underline stay
 `FORCE_COLOR` and `CLICOLOR_FORCE` do not enable styling on `TERM=dumb`: that terminal has
 no color depth. The standards are silent; this follows Rich.
 
+## Style, markup and text (`hud`)
+
+### D-020: hyperlinks carry no id
+
+Rich writes `ESC ] 8 ; id=<random> ; url ESC \`, so the bytes change from run to run. hud writes
+`ESC ] 8 ; ; url ESC \` (no id), which is valid and deterministic. A link wrapped over two
+lines is two links; the id only tied them together in the terminal.
+
+- Remove when: a multi-line link needs to stay one hover target; a stable id derived from the URL and the offset would then be added.
+
+### D-021: markup that does not parse prints as written
+
+Rich raises `MarkupError` when a closing tag has nothing to close. `hud::println!` and
+`Console::print` never fail and never panic: the string is printed literally. `Text::from_markup`
+returns the error for callers that want it.
+
+### D-022: emoji codes are not replaced
+
+Rich replaces `:smile:` with the emoji in markup. hud prints the text as written; the corpus
+configures Rich with the replacement off for the same reason.
+
+- Remove when: a user asks for it; it would be an opt-in on `Text::from_markup`.
+
+### D-023: theme style names are not known
+
+Rich resolves names of its default theme (`[repr.number]`, `[strong]`, `[reset]`, ...) as well as
+style strings. hud knows only style strings. An unknown name is a style that changes nothing and
+its text is kept, which is what Rich does for names missing from its theme.
+
+### D-024: widths count cells, not characters
+
+Where Rich compares the number of characters with a width (`rstrip_end`), hud compares cells; the
+two agree on text with no wide characters.
+
+### D-030: color names and palettes are data from Rich
+
+The 235 color names and the standard and 256-color palettes in `model/palette.rs` are extracted
+from Rich 15.0.0, with its license notice in `THIRD_PARTY_NOTICES.md`, because they are the
+interface that makes a name written for Rich work here and the downgrade identical. No code is
+copied.
+
+- Remove when: never needed to remove; regenerate with `bench/scripts/gen_palette.py` if the pinned Rich changes.
+
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 
 - **Windows.** v0.1 resolves the size from `COLUMNS` and `LINES` and falls back to 80x24; it

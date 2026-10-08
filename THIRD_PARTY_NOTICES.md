@@ -72,6 +72,41 @@ authorization of the copyright holder.
 ## Python Rich
 
 hud is an independent implementation and contains no Rich code. Rich 15.0.0 (MIT, Copyright
-(c) 2020 Will McGugan) is used as a measuring instrument: the files under `bench/golden/` are
-the bytes it produced for inputs written in this project. Its name and version are recorded in
-`bench/golden/manifest.json`.
+(c) 2020 Will McGugan) is used as a measuring instrument: the files under `bench/golden/` and
+`crates/hud/tests/fixtures/` are the bytes it produced for inputs written in this project. Its
+name and version are recorded in `bench/golden/manifest.json`.
+
+### Color names and palettes (data extracted from Rich)
+
+`crates/hud/src/model/palette.rs` holds three tables extracted as data from Rich 15.0.0 by
+`bench/scripts/gen_palette.py`: the 235 color names with their palette numbers, the RGB values
+of the 16 standard colors that truecolor and 256-color values are matched against when
+downgraded, and the RGB values of the 256-color palette. They are the contract that makes
+`[grey50]`, `[navy_blue]` and the color downgrade produce the same bytes as Rich, so a name
+written for Rich works in hud. Generation or rewriting was not an option for the names: they
+are an interface, not an algorithm. No Rich code is copied; the file header names the source.
+The Rich license notice, which travels with these tables:
+
+```
+MIT License
+
+Copyright (c) 2020 Will McGugan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

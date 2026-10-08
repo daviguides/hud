@@ -1,6 +1,7 @@
 //! The only layer that reads the environment or asks the operating system.
 
 mod env;
+mod sink;
 mod tty;
 
 use crate::model::{EnvSnapshot, Stream, StreamInfo};
@@ -25,4 +26,9 @@ impl Probe for SystemProbe {
     fn stream_info(&self, stream: Stream) -> StreamInfo {
         tty::stream_info(stream)
     }
+}
+
+/// Writes `text` to `stream`, flushing, and reports the error instead of hiding it.
+pub(crate) fn write(stream: Stream, text: &str) -> std::io::Result<()> {
+    sink::write(stream, text)
 }
