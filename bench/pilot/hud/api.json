@@ -1,0 +1,26 @@
+{
+ "parity_hit": 28,
+ "parity_total": 40,
+ "parity": 0.7,
+ "missing": [
+  "Console.width",
+  "Console.is_terminal",
+  "Console.color_system",
+  "Console.no_color",
+  "Console.force_terminal",
+  "Color.parse",
+  "Text.truncate",
+  "Text.wrap",
+  "box",
+  "box.ROUNDED",
+  "markup.escape",
+  "cell_len"
+ ],
+ "friction": {
+  "public_functions": 285,
+  "more_than_3_positional": 0,
+  "with_option_params": 0,
+  "none_padding": 0
+ },
+ "none_padding_candidates": []
+}

@@ -2,6 +2,7 @@
    5 candidates/hud/src/bin/t02_panel.rs
   21 candidates/hud/src/bin/t03_progress.rs
   14 candidates/hud/src/bin/t04_tree.rs
+   8 candidates/hud/src/bin/t05_error.rs
    5 candidates/hud/src/bin/t06_markup.rs
   16 candidates/hud/src/bin/t07_pipe.rs
    3 candidates/hud/src/bin/t08_env.rs

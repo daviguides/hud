@@ -1,11 +1,58 @@
-# hud (own engine), results of v0.1 to v0.5
+# hud (own engine), results of v0.1 to v0.6 (part A)
 
 Candidate adapters in `src/bin/`: `width_runner` and `cap` (v0.1), `cases_runner`, `t06_markup`,
-`t08_env`, `bench` (S4) and `fuzz` (v0.2), `t01_table`, `t07_pipe`, `s1_table` and S2 in `bench` (v0.3), `t02_panel`, `t04_tree`, `cases_runner --widgets` and a `panel` and `tree` feature in `fuzz` (v0.4), `t03_progress`, S3 in `bench`, `hello_progress` and a `progress` feature in `fuzz` (v0.5), built from the workspace crates by path. Everything below
+`t08_env`, `bench` (S4) and `fuzz` (v0.2), `t01_table`, `t07_pipe`, `s1_table` and S2 in `bench` (v0.3), `t02_panel`, `t04_tree`, `cases_runner --widgets` and a `panel` and `tree` feature in `fuzz` (v0.4), `t03_progress`, S3 in `bench`, `hello_progress` and a `progress` feature in `fuzz` (v0.5), `t05_error`, `hello_error`, `error` in `cases_runner` and an `error` feature in `fuzz` (v0.6), built from the workspace crates by path. Everything below
 was produced by the shared scripts of `bench/scripts/` under the corrected harness
-(`bench/CHANGELOG.md` entries 1 to 23). Raw outputs: `bench/pilot/hud/`. hud claims only what it
-implements: width, fold, truncate and capability (v0.1), style and markup (v0.2), table (v0.3), panel and tree (v0.4), progress (v0.5). Every other
+(`bench/CHANGELOG.md` entries 1 to 27). Raw outputs: `bench/pilot/hud/`. hud claims only what it
+implements: width, fold, truncate and capability (v0.1), style and markup (v0.2), table (v0.3), panel and tree (v0.4), progress (v0.5), error report (v0.6). Every other
 file is missing, which means unsupported, never a pass.
+
+## v0.6 part A: error report and the cumulative regression (`foundation/features.md`)
+
+v0.6 has two parts. Part A is the `ErrorReport` (plus the public `Group` it is built from), the
+regression of every criterion of v0.1 to v0.5 and the readiness for the first full evaluation
+(`bench/EVALUATION-READINESS.md`). **Part B, not done here and not claimed:** the speed gates S1 to
+S4 on an idle machine for hud and the five pilot candidates, the DX first-try runs with real models,
+and the verdict. The machine was an interactive desktop at load 3.3 to 12 during part A, so no
+timing was taken.
+
+| Criterion | Result | Threshold | Verdict |
+|---|---|---|---|
+| Correctness, error (`compare.py`, corpus 1) | **30 / 30** byte-identical (0 to 4 causes, a hint in 8 of them, widths 40 to 120, every color system) | error 30/30 | pass |
+| Correctness, all seven features claimed | **210 / 210 = 100%** (style, markup, table, panel, tree, progress, error 30 / 30 each); style and markup 100%; `table_unicode` 12 / 12 | at least 98% overall, style and markup 100% | pass |
+| Task t05 (a panel with a cause chain, 100 columns, pipe) | PASS, **8 lines of code** (Python Rich 12) | pass | pass |
+| All 8 tasks | t01 to t08 PASS (t08 in both of its runs); LOC per task 15, 5, 21, 14, 8, 5, 16, 3, **median 11** (Python Rich 12 = 0.92x, rs-rich 15 = 0.73x) | all pass, median at most 12 | pass |
+| Fuzz, all nine features (style, markup, width, capability, table, panel, tree, progress, error) | 4 seeds x 20 000 = **80 000 inputs each, 0 panics, 0 violated properties** (`pilot/hud/fuzz_v06.json`) | zero panics, at least 1 000 inputs per feature | pass |
+| Fuzz, error properties are not vacuous | removing the blank line before the hint in the renderer was caught in **477 of 3 000** inputs (lines below the structural minimum); a `from_error` that drops a cause is caught by the equality with the report built by hand | detects a regression | pass |
+| Oracle vs Rich, error (`gen_oracle_vectors.py errors`, `crates/hud/tests/oracle.rs`) | ASCII 1 200 vectors **byte-identical**; Unicode 400 vectors, **8 differ, all with a flag or a combining mark** (D-003, D-024), 0 unexplained | no unexplained difference | pass |
+| Width (`width_check.py`) | **496 / 500 = 99.2%** (the 4 are D-001); fold 0 splits in 20 000, truncate 0 splits; tables **0 / 97** rows misaligned; panels and trees **0 / 704** rows wider than the terminal, 0 panel rows misaligned | at least 99%, 0 splits, 0 misaligned | pass |
+| Capability (`capability.py check`) | **40 / 40**, 8 of 8 runs after the pty reader fix (changelog 24); the pilot candidates score the same under the fixed reader (31, 31, 5, 22, 22) | 40 / 40 | pass |
+| API check (`api_surface.py`) | 285 public functions, **0 with more than 3 positional parameters, 0 with `Option` parameters meant as `None`**; `Progress`, `Task`, `ErrorReport` and `Group`: 22 methods, **0 take `&mut self`, 0 return a `Result`** | zero | pass |
+| Name parity by name (`api_surface.py parity`) | **28 / 40 = 70%** (`Group` added; 12 missing: five `Console` getters, `Color.parse`, `Text.truncate`, `Text.wrap`, `box`, `box.ROUNDED`, `markup.escape`, `cell_len`) | at least 70% (target 90%) | pass by name; v0.7 re-reviews by signature |
+| Adoption, error hello (`adoption.py`) | **+2.0 s, +219 KB, 6 crates** (at load 3.6 to 12; the other hellos +2.0 to 2.2 s, +185 to 288 KB, 6 crates) | 15 s, 1.5 MB, 60 (targets 3 s, 400 KB, 10) | pass |
+| Docs | `hud` **129 / 129** documented, **29 / 29** with an example, 37 doctests, 0 ignored; `hud-width` 16 / 16, 8 / 8, 8 doctests | 100%, 0 ignored | pass |
+| DX runner, dry run with the mock agent | **8 of 8** tasks `success` through the real pipeline (t05 was `unsupported` in v0.5), 0 `harness_error`, 0 `protocol_violation`; `pilot/hud/dx_dry_run_v06.txt`. No model was called, so first-try success is not measured | pipeline check | pass (no verdict) |
+| Layers and lints | `cargo xtask check-layers` ok, `clippy --all-targets -D warnings` clean, `fmt --check` clean, 69 + 13 + 6 + 37 tests and doctests pass | green | pass |
+
+Not measured here, and not claimed: S1, S2, S3 and S4 for v0.6 (the v0.3 to v0.5 records stand for
+the code they measured: S1 0.064x Python Rich, S2 0.148x rs-rich, S3 0.204x the composition, S4 0.280x
+rs-rich; nothing in the hot paths changed), axis 4 first-try success and the LOC comparison against
+the best existing candidate by the agents' own solutions, and the verdict.
+
+What the error report is. A red rounded `Error` panel; the message in bold; if there are causes, a
+blank line, `Caused by:` in dim and one `    <n>: <cause>` line per cause from 0; if there is a hint,
+a blank line and `hint: <hint>` in cyan. It is a `Group` of `Text`s inside a `Panel`, so wrapping,
+cluster-correct truncation and color downgrade are the ones every other widget has. Message, causes
+and hint are plain text, never markup (D-040). `ErrorReport::from_error` takes the causes from
+`source()` (D-041) and `hud::report(result)` ends a `main` that returns an `ExitCode` (D-042).
+The oracle found no defect this time: the report is a composition of widgets already checked against
+Rich by thousands of vectors, and the first run of the 210 cases was 210 / 210.
+
+Two harness defects found and fixed during the regression (`bench/CHANGELOG.md` 24 and 25), neither
+touching a threshold or a golden. The pty reader lost the whole output of a fast command about one
+run in 600 on macOS (a `printf hello` probe: 1 of 600 before, 0 of 1 500 after); it made the
+capability matrix read 38 or 39 of 40 in 3 of 10 runs. And a self-test assumed that hud has no t05
+solution.
 
 ## v0.5 exit criteria (`foundation/features.md`)
 
@@ -345,6 +392,13 @@ rm -rf results/hud/correctness && $B/cases_runner cases/correctness.jsonl result
 .venv/bin/python scripts/adoption.py candidates/hud/hello_styled
 .venv/bin/python scripts/docs_coverage.py .. hud
 .venv/bin/python scripts/gen_oracle_vectors.py && (cd .. && cargo test -p hud --test oracle)   # then git checkout the markup fixtures: only their link ids change
+# v0.6
+$B/cases_runner cases/correctness.jsonl results/hud/correctness && .venv/bin/python scripts/compare.py results/hud/correctness
+.venv/bin/python scripts/tasks.py check t05-error $B/t05_error
+.venv/bin/python scripts/gen_oracle_vectors.py errors && (cd .. && cargo test -p hud --test oracle error)
+.venv/bin/python scripts/fuzz.py --seeds 20261008 1 2 3 --count 20000 -- $B/fuzz
+.venv/bin/python scripts/adoption.py candidates/hud/hello_error
+.venv/bin/python scripts/dx_runner.py estimate; .venv/bin/python scripts/dx_runner.py run --dry-run --repeats 1 --stress-repeats 0   # the mock agent; no model is called
 # v0.5
 $B/cases_runner cases/correctness.jsonl results/hud/correctness && .venv/bin/python scripts/compare.py results/hud/correctness
 .venv/bin/python scripts/tasks.py check t03-progress $B/t03_progress

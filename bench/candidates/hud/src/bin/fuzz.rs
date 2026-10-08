@@ -1,13 +1,13 @@
 // fuzz [--seed S] [--count N]   (bench/scripts/fuzz.py drives it)
 // Zero-panic check: N seeded random inputs per feature (style parse, markup parse and render,
-// width and segmentation, capability resolution, table, panel and tree rendering), plus a few properties that must hold on every
+// width and segmentation, capability resolution, table, panel, tree, progress and error rendering), plus a few properties that must hold on every
 // input. Prints one JSON line per feature and exits 1 on any panic or violated property.
 use std::io::Write;
 use std::panic::{self, AssertUnwindSafe};
 use std::sync::{Arc, Mutex};
 
 use hud::{
-    Align, BarColumn, Body, BoxStyle, Column, ColorSystem, Console, EnvSnapshot, Justify,
+    Align, BarColumn, Body, BoxStyle, Column, ColorSystem, Console, EnvSnapshot, ErrorReport, Justify,
     MofNCompleteColumn, Overflow, Padding, Panel, Progress, Renderable, SpinnerColumn, StreamInfo,
     Style, Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn,
     Tree, cell_width, clusters, escape, fold, pad, resolve, truncate,
@@ -289,6 +289,75 @@ fn panel_case(rng: &mut Rng, _: &str) -> Option<String> {
     (widths.len() > 1).then(|| format!("panel lines of different widths {widths:?}: {plain:?}"))
 }
 
+#[derive(Debug)]
+struct Chain {
+    message: String,
+    source: Option<Box<Chain>>,
+}
+
+impl std::fmt::Display for Chain {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.message)
+    }
+}
+
+impl std::error::Error for Chain {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        self.source.as_deref().map(|c| c as &(dyn std::error::Error + 'static))
+    }
+}
+
+fn error_case(rng: &mut Rng, input: &str) -> Option<String> {
+    let mut report = ErrorReport::new(input);
+    let causes: Vec<String> = (0..rng.below(5)).map(|_| random_string(rng)).collect();
+    for cause in &causes {
+        report = report.cause(cause.clone());
+    }
+    let hint = rng.chance(50).then(|| random_string(rng));
+    if let Some(hint) = &hint {
+        report = report.hint(hint.clone());
+    }
+    let mut chain: Option<Box<Chain>> = None;
+    for cause in causes.iter().rev() {
+        chain = Some(Box::new(Chain { message: cause.clone(), source: chain }));
+    }
+    let top = Chain { message: input.to_string(), source: chain };
+    let mut by_hand = ErrorReport::new(input);
+    for cause in &causes {
+        by_hand = by_hand.cause(cause.clone());
+    }
+    if ErrorReport::from_error(&top) != by_hand {
+        return Some("from_error is not the report built from the same chain by hand".to_string());
+    }
+    let console = console(rng);
+    let width = usize::from(console.capabilities().width);
+    let plain = console.render_to_plain(&report);
+    for line in plain.split('\n') {
+        if cell_width(line) > width {
+            return Some(format!("a printed line is {} cells wide at width {width}: {line:?}", cell_width(line)));
+        }
+    }
+    let ansi = console.render_to_string(&report);
+    if !console.capabilities().emits_escapes() && ansi != plain {
+        return Some("a console that shows nothing wrote escape sequences".to_string());
+    }
+    let wide = Console::builder().width(2000).plain().build();
+    let plain = wide.render_to_plain(&report);
+    let widths: std::collections::BTreeSet<usize> = plain
+        .strip_suffix('\n')
+        .unwrap_or(&plain)
+        .split('\n')
+        .map(cell_width)
+        .collect();
+    let _ = report.measure(width);
+    if widths.len() > 1 {
+        return Some(format!("error report lines of different widths {widths:?}: {plain:?}"));
+    }
+    let least = 3 + if causes.is_empty() { 0 } else { 2 + causes.len() } + if hint.is_some() { 2 } else { 0 };
+    let lines = plain.matches('\n').count();
+    (lines < least).then(|| format!("{lines} lines printed for a report that needs at least {least}: {plain:?}"))
+}
+
 fn tree_case(rng: &mut Rng, _: &str) -> Option<String> {
     let mut nodes = 0;
     let tree = random_tree(rng, 0, &mut nodes);
@@ -522,7 +591,7 @@ fn main() {
     let seed: u64 = get("--seed").map_or(20_261_008, |v| v.parse().unwrap());
     let count: usize = get("--count").map_or(5000, |v| v.parse().unwrap());
     panic::set_hook(Box::new(|_| {}));
-    let cases: [(&str, Case); 8] = [
+    let cases: [(&str, Case); 9] = [
         ("style", style_case),
         ("markup", markup_case),
         ("width", width_case),
@@ -531,6 +600,7 @@ fn main() {
         ("panel", panel_case),
         ("tree", tree_case),
         ("progress", progress_case),
+        ("error", error_case),
     ];
     let mut ok = true;
     for (feature, case) in cases {

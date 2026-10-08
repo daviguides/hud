@@ -1,13 +1,12 @@
 {
   "features": {
     "error": {
-      "not_claimed": 30,
-      "pass": 0,
+      "pass": 30,
       "fail": 0,
       "unsupported": 0,
       "missing": 0,
-      "denominator": 0,
-      "rate": null
+      "denominator": 30,
+      "rate": 1.0
     },
     "markup": {
       "pass": 30,
@@ -26,13 +25,12 @@
       "rate": 1.0
     },
     "progress": {
-      "not_claimed": 30,
-      "pass": 0,
+      "pass": 30,
       "fail": 0,
       "unsupported": 0,
       "missing": 0,
-      "denominator": 0,
-      "rate": null
+      "denominator": 30,
+      "rate": 1.0
     },
     "style": {
       "pass": 30,
@@ -60,8 +58,8 @@
     }
   },
   "overall": {
-    "pass": 150,
-    "denominator": 150,
+    "pass": 210,
+    "denominator": 210,
     "rate": 1.0,
     "style_markup_100": true
   },

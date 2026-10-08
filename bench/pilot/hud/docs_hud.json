@@ -1,13 +1,13 @@
 {
  "crate": "hud",
- "raw_total_row": "| Total                               |        126 |     100.0% |         26 |     100.0% |",
- "documented": 126,
+ "raw_total_row": "| Total                               |        129 |     100.0% |         29 |     100.0% |",
+ "documented": 129,
  "documented_pct": 100.0,
- "with_examples": 26,
+ "with_examples": 29,
  "with_examples_pct": 100.0,
  "doctests": {
   "result": "ok",
-  "passed": 32,
+  "passed": 37,
   "failed": 0,
   "ignored": 0,
   "source": "workspace member"

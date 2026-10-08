@@ -1,8 +1,8 @@
-error       0/  0    n/a {'not_claimed': 30}
+error      30/ 30 100.0% 
 markup     30/ 30 100.0% 
 panel      30/ 30 100.0% 
 progress   30/ 30 100.0% 
 style      30/ 30 100.0% 
 table      30/ 30 100.0% 
 tree       30/ 30 100.0% 
-overall   180/180 100.0%; style+markup 100%: True
+overall   210/210 100.0%; style+markup 100%: True

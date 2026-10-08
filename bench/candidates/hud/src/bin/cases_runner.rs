@@ -6,12 +6,12 @@ use std::fs;
 use std::path::PathBuf;
 
 use hud::{
-    BarColumn, BoxStyle, ColorSystem, Column, Console, Justify, MofNCompleteColumn, Padding, Panel,
+    BarColumn, BoxStyle, ColorSystem, Column, Console, ErrorReport, Justify, MofNCompleteColumn, Padding, Panel,
     Progress, Style, Table, TaskProgressColumn, Text, TextColumn, Tree,
 };
 use serde_json::{Value, json};
 
-const CLAIMED: &[&str] = &["style", "markup", "table", "panel", "tree", "progress"];
+const CLAIMED: &[&str] = &["style", "markup", "table", "panel", "tree", "progress", "error"];
 
 fn color_system(name: &str) -> ColorSystem {
     match name {
@@ -131,10 +131,21 @@ fn progress(node: &Value, console: &Console) -> Option<Progress> {
     Some(progress)
 }
 
+fn error_report(node: &Value) -> Option<ErrorReport> {
+    let mut report = ErrorReport::new(node["message"].as_str()?);
+    for cause in node["causes"].as_array()? {
+        report = report.cause(cause.as_str()?);
+    }
+    if let Some(hint) = node["hint"].as_str() {
+        report = report.hint(hint);
+    }
+    Some(report)
+}
+
 fn render(case: &Value) -> Option<String> {
     let node = &case["renderable"];
     let kind = node["t"].as_str()?;
-    if !matches!(kind, "text" | "table" | "panel" | "tree" | "progress") {
+    if !matches!(kind, "text" | "table" | "panel" | "tree" | "progress" | "error") {
         return None;
     }
     let system = color_system(case["color_system"].as_str()?);
@@ -149,6 +160,7 @@ fn render(case: &Value) -> Option<String> {
         "panel" => return Some(console.render_to_string(&panel(node)?)),
         "tree" => return Some(console.render_to_string(&tree(node)?)),
         "progress" => return Some(console.render_to_string(&progress(node, &console)?)),
+        "error" => return Some(console.render_to_string(&error_report(node)?)),
         _ => {}
     }
     let text = match node["markup"].as_str() {

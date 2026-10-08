@@ -102,6 +102,19 @@
     "valid_but_not_maximal": 0
   },
   "tables": {
-    "supported": false
+    "supported": true,
+    "tables": 12,
+    "missing": 0,
+    "misaligned_rows": 0,
+    "rows": 97,
+    "tables_with_misalignment": 0
+  },
+  "widgets": {
+    "supported": true,
+    "outputs": 36,
+    "missing": 0,
+    "rows": 704,
+    "rows_wider_than_terminal": 0,
+    "panel_rows_misaligned": 0
   }
 }
