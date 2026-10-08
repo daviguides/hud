@@ -3,11 +3,13 @@
 
 use hud_width::cell_width;
 
-use super::frame::{BOTTOM, MID, TOP, box_rows, markup_text, rule, run, split_lines};
+use super::frame::{BOTTOM, MID, TOP, adjust_line, box_rows, markup_text, rule, run, split_lines};
 use super::layout::{Measurement, measure_renderable};
 use super::measure::{expand_tabs, pad_left, pad_right, truncate};
 use super::render::render_text_ending;
-use crate::model::{Align, Measure, Padding, Panel, Renderable, Segment, Span, Style, Text};
+use crate::model::{
+    Align, Capabilities, Measure, Padding, Panel, Renderable, Segment, Span, Style, Text,
+};
 
 /// A body with blank space around it, as the panel prints it: the body fills the width that is
 /// left, shorter lines are padded, and the sides and the blank lines are spaces.
@@ -189,6 +191,77 @@ fn edge(
 /// Renders `panel` for a console `width` cells wide: the top edge, the body between the sides,
 /// the bottom edge.
 pub(crate) fn render_panel(panel: &Panel, width: usize) -> Vec<Segment> {
+    render_panel_in(panel, width, None)
+}
+
+/// A line of `width` plain spaces.
+fn blank_line(width: usize) -> Vec<Segment> {
+    vec![run(" ".repeat(width), &Style::new())]
+}
+
+/// The body's lines when the panel has `height` lines to fill (Rich passes the height of a layout
+/// region down): the body is cropped or padded with blank lines to the room inside the panel,
+/// padding included, and so is the panel's inside.
+fn body_lines_in(
+    panel: &Panel,
+    child_width: usize,
+    height: usize,
+    caps: &Capabilities,
+) -> Vec<Vec<Segment>> {
+    let child_height = height.saturating_sub(2);
+    let Padding {
+        top,
+        right,
+        bottom,
+        left,
+    } = panel.padding;
+    let inner_width = child_width.saturating_sub(left + right);
+    let inner_height = child_height.saturating_sub(top + bottom);
+    let null = Style::new();
+    let mut inner = if inner_width == 0 {
+        Vec::new()
+    } else {
+        split_lines(
+            panel.body.0.render_region(inner_width, inner_height, caps),
+            inner_width,
+            Some(&null),
+        )
+    };
+    if !panel.padding.is_none() {
+        inner.truncate(inner_height);
+        while inner.len() < inner_height {
+            inner.push(blank_line(inner_width));
+        }
+    }
+    let mut lines = Vec::with_capacity(inner.len() + top + bottom);
+    lines.extend((0..top).map(|_| blank_line(child_width)));
+    for mut line in inner {
+        if left > 0 {
+            line.insert(0, run(" ".repeat(left), &null));
+        }
+        if right > 0 {
+            line.push(run(" ".repeat(right), &null));
+        }
+        lines.push(line);
+    }
+    lines.extend((0..bottom).map(|_| blank_line(child_width)));
+    lines.truncate(child_height);
+    while lines.len() < child_height {
+        lines.push(blank_line(child_width));
+    }
+    for line in &mut lines {
+        adjust_line(line, child_width, &null, true);
+    }
+    lines
+}
+
+/// Like [`render_panel`], for a box `region` lines tall when there is one: the panel then fills
+/// the region from its top edge to its bottom edge.
+pub(crate) fn render_panel_in(
+    panel: &Panel,
+    width: usize,
+    region: Option<(usize, &Capabilities)>,
+) -> Vec<Segment> {
     let rows = box_rows(panel.box_style);
     let border = &panel.border_style;
     let title = title_of(&panel.title, border);
@@ -203,12 +276,12 @@ pub(crate) fn render_panel(panel: &Panel, width: usize) -> Vec<Segment> {
         child_width = room.min(child_width.max(cell_width(&title.plain) + 2));
     }
     let total = child_width + 2;
-    let lines = if child_width == 0 {
-        Vec::new()
-    } else {
-        with_padding(panel, |body| {
+    let lines = match region {
+        Some((height, caps)) if height > 0 => body_lines_in(panel, child_width, height, caps),
+        _ if child_width == 0 => Vec::new(),
+        _ => with_padding(panel, |body| {
             split_lines(body.render(child_width), child_width, Some(&Style::new()))
-        })
+        }),
     };
 
     let newline = || run("\n", &Style::new());

@@ -10,11 +10,11 @@ pub use console::{Console, ConsoleBuilder, capabilities, report};
 pub use hud_width as width;
 pub use hud_width::{cell_width, cell_width_of_cluster, clusters, fold, pad, truncate};
 pub use model::{
-    Align, Attribute, BarColumn, Body, BoxStyle, Capabilities, Color, ColorSystem, Column,
-    EnvSnapshot, ErrorReport, Group, Justify, MarkupError, Measure, MofNCompleteColumn, Overflow,
-    Padding, Panel, ProgressColumn, Renderable, Segment, Span, SpinnerColumn, Stream, StreamInfo,
-    Style, StyleError, Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn,
-    TimeRemainingColumn, Tree,
+    Align, Attribute, BarColumn, Body, BoxStyle, Capabilities, Color, ColorSystem, Column, Columns,
+    EnvSnapshot, ErrorReport, Group, Justify, Layout, MarkupError, Measure, MofNCompleteColumn,
+    Overflow, Padding, Panel, ProgressColumn, Renderable, Segment, Span, SpinnerColumn, Stream,
+    StreamInfo, Style, StyleError, Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn,
+    TimeRemainingColumn, Tree, VerticalOverflow,
 };
 pub use progress::{Progress, ProgressBuilder, Task, Track, track};
 pub use services::markup::escape;

@@ -7,7 +7,8 @@ use super::table::{BoxStyle, Table};
 use super::text::Text;
 use super::tree::Tree;
 
-/// Where a panel's title or subtitle sits on its border.
+/// Where something sits in the room it has: a panel's title or subtitle on its border, an item
+/// in the cell of a [`Columns`](crate::Columns).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
 pub enum Align {
     /// Next to the left corner.
@@ -84,12 +85,25 @@ impl Padding {
 ///
 /// A string is read as markup. Anything else goes through [`Body::new`].
 #[derive(Clone)]
-pub struct Body(pub(crate) Arc<dyn Renderable + Send + Sync>);
+pub struct Body(
+    pub(crate) Arc<dyn Renderable + Send + Sync>,
+    pub(crate) Option<Arc<Text>>,
+);
 
 impl Body {
     /// Wraps any renderable as a panel body.
     pub fn new<R: Renderable + Send + Sync + 'static>(renderable: R) -> Body {
-        Body(Arc::new(renderable))
+        Body(Arc::new(renderable), None)
+    }
+
+    /// Wraps text, remembering it as text: the cells of a grid lay text out as the cell asks
+    /// (left-justified, ellipsis at the edge), which a plain renderable cannot be told.
+    pub(crate) fn from_text(text: Text) -> Body {
+        let text = Arc::new(text);
+        Body(
+            Arc::clone(&text) as Arc<dyn Renderable + Send + Sync>,
+            Some(text),
+        )
     }
 }
 
@@ -101,19 +115,19 @@ impl fmt::Debug for Body {
 
 impl From<&str> for Body {
     fn from(markup: &str) -> Body {
-        Body::new(markup.to_string())
+        Body::from_text(Text::from_markup(markup).unwrap_or_else(|_| Text::new(markup)))
     }
 }
 
 impl From<String> for Body {
     fn from(markup: String) -> Body {
-        Body::new(markup)
+        Body::from(markup.as_str())
     }
 }
 
 impl From<Text> for Body {
     fn from(text: Text) -> Body {
-        Body::new(text)
+        Body::from_text(text)
     }
 }
 
