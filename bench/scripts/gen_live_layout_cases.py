@@ -197,8 +197,35 @@ def live_cases():
     return cases
 
 
+def progress_live_cases():
+    """Progress displays driven by events with no clock: the bytes of a Rich Progress, built on Live."""
+    rng = random.Random(304)
+    cases = []
+    for i in range(12):
+        c = base("progress_live", i, rng)
+        tasks = rng.randint(1, 3)
+        events = []
+        remaining = []
+        for t in range(tasks):
+            total = rng.choice([4, 8, 10, 20])
+            events.append({"op": "add", "description": words(rng, rng.randint(1, 2)), "total": total})
+            remaining.append(total)
+            for _ in range(rng.randint(1, 3)):
+                if rng.random() < 0.5:
+                    step = rng.randint(1, max(1, remaining[t] // 2))
+                    events.append({"op": "advance", "task": t, "amount": step})
+                else:
+                    events.append({"op": "update", "task": t, "completed": rng.randint(0, remaining[t])})
+                if rng.random() < 0.7:
+                    events.append({"op": "refresh"})
+        c["renderable"] = {"t": "progress_live", "bar_width": rng.choice([10, 20, 30]), "events": events,
+                           "transient": i % 3 == 2, "terminal": i % 4 != 3}
+        cases.append(c)
+    return cases
+
+
 def main():
-    cases = columns_cases() + layout_cases() + live_cases()
+    cases = columns_cases() + layout_cases() + live_cases() + progress_live_cases()
     OUT.parent.mkdir(parents=True, exist_ok=True)
     with OUT.open("w") as f:
         for c in cases:

@@ -67,3 +67,14 @@ The reference runs `Live(frames[0], console=..., auto_refresh=False, transient=.
 ## Expected behavior of the redraw (from Rich, for the record)
 
 On a terminal: the cursor is hidden at the start; every refresh writes `CR`, `ESC [ 2 K` and, for each earlier line but the first, `ESC [ 1 A ESC [ 2 K` (nothing on the first frame), then the lines of the frame separated by newlines with no newline after the last; the end redraws the last frame in full (vertical overflow `visible`), writes a newline, shows the cursor and, when transient, writes `CR` and `ESC [ 1 A ESC [ 2 K` once per line. A frame taller than the console with `ellipsis` keeps `height - 1` lines and ends with a line of `...` centered, in bold red; with `crop` it keeps `height` lines. On a stream that is not a terminal nothing is written until the end, and then only the last frame unless transient. The goldens are the definition; this paragraph only explains them.
+
+### `progress_live`
+
+| field | meaning |
+|---|---|
+| `bar_width` | width of the bar, as in the base `progress` node |
+| `events` | `{"op": "add", "description", "total"}`, `{"op": "advance", "task", "amount"}`, `{"op": "update", "task", "completed"}` or `{"op": "refresh"}`; `task` is the index of an earlier `add` |
+| `transient` | clear the display when it ends |
+| `terminal` | whether the stream is a terminal |
+
+Columns, in order: description, bar, percentage, completed over total. The reference runs `Progress(..., auto_refresh=False, transient=...)`, `start()`, the events, `stop()`, and keeps every byte written to the stream. `add` refreshes, as Rich does; `advance` and `update` do not.

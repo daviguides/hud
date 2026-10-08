@@ -459,8 +459,12 @@ impl Core {
                 self.frame(&mut out, &caps, &mut buffer);
                 buffer.push('\n');
             }
-        } else if !self.transient {
-            self.frame(&mut out, &caps, &mut buffer);
+        } else {
+            // Rich ends a display that is not interactive with a line break, even when it shows
+            // nothing.
+            if !self.transient {
+                self.frame(&mut out, &caps, &mut buffer);
+            }
             buffer.push('\n');
         }
         out.stopped = true;

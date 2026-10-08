@@ -17,6 +17,7 @@ from rich.columns import Columns
 from rich.console import Console
 from rich.layout import Layout
 from rich.live import Live
+from rich.progress import BarColumn, MofNCompleteColumn, Progress, TaskProgressColumn, TextColumn
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from render_reference import COLOR_SYSTEMS, build as build_base  # noqa: E402
@@ -94,9 +95,39 @@ def render_live(case):
     return console.file.getvalue().encode("utf-8")
 
 
+def render_progress_live(case):
+    node = case["renderable"]
+    console = make_console(case, terminal=node.get("terminal", True))
+    progress = Progress(
+        TextColumn("{task.description}"),
+        BarColumn(bar_width=node["bar_width"]),
+        TaskProgressColumn(),
+        MofNCompleteColumn(),
+        console=console,
+        auto_refresh=False,
+        transient=node.get("transient", False),
+    )
+    ids = []
+    progress.start()
+    for event in node["events"]:
+        op = event["op"]
+        if op == "add":
+            ids.append(progress.add_task(event["description"], total=event["total"]))
+        elif op == "advance":
+            progress.advance(ids[event["task"]], event["amount"])
+        elif op == "update":
+            progress.update(ids[event["task"]], completed=event["completed"])
+        elif op == "refresh":
+            progress.refresh()
+    progress.stop()
+    return console.file.getvalue().encode("utf-8")
+
+
 def render_case(case):
     if case["renderable"]["t"] == "live":
         return render_live(case)
+    if case["renderable"]["t"] == "progress_live":
+        return render_progress_live(case)
     console = make_console(case)
     console.print(build(case["renderable"]))
     return console.file.getvalue().encode("utf-8")
