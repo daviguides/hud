@@ -6,6 +6,10 @@ Used to generate golden fixtures and as the harness self-test (Rich must score
 
 import io
 import json
+import os
+import subprocess
+import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from rich import box as rbox
@@ -121,19 +125,38 @@ def load_cases(path):
         return [json.loads(line) for line in f if line.strip()]
 
 
+def render_case_isolated(case):
+    """Render one case in a fresh interpreter.
+
+    Rich caches a Style's ANSI codes on the Style object on first use whatever the color system, and
+    Style.parse is lru_cached, so rendering cases one after another in one process makes a case's bytes
+    depend on which color depth earlier cases used. A fresh process per case removes that order dependence.
+    """
+    out = subprocess.run([sys.executable, str(Path(__file__).resolve()), "--one"], input=json.dumps(case).encode(),
+                         stdout=subprocess.PIPE, check=True)
+    return out.stdout
+
+
 def main():
     import argparse
 
     ap = argparse.ArgumentParser(description="Render a declarative corpus with Python Rich")
-    ap.add_argument("cases", type=Path)
-    ap.add_argument("outdir", type=Path)
+    ap.add_argument("cases", type=Path, nargs="?")
+    ap.add_argument("outdir", type=Path, nargs="?")
+    ap.add_argument("--one", action="store_true", help="render the case JSON on stdin to stdout (internal)")
     args = ap.parse_args()
+    if args.one:
+        sys.stdout.buffer.write(render_case(json.loads(sys.stdin.read())))
+        return
     args.outdir.mkdir(parents=True, exist_ok=True)
-    n = 0
-    for case in load_cases(args.cases):
-        (args.outdir / f"{case['id']}.ansi").write_bytes(render_case(case))
-        n += 1
-    print(f"{n} cases rendered into {args.outdir}")
+    cases = load_cases(args.cases)
+
+    def one(case):
+        (args.outdir / f"{case['id']}.ansi").write_bytes(render_case_isolated(case))
+
+    with ThreadPoolExecutor(max_workers=min(8, os.cpu_count() or 1)) as pool:
+        list(pool.map(one, cases))
+    print(f"{len(cases)} cases rendered into {args.outdir}, one fresh process per case")
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 
 ## Statement
 
-Print three lines with inline styles. Line 1: "Deploy" in bold, "ok" in green, "3.2s" in italic yellow. Line 2: "outer inner deep outer" where the whole line is bold, "inner deep" is also italic and "deep" is also underlined. Line 3: " FAIL " in bold red on white background, then "retry" struck through, then plain " in 5s". The check compares the final screen of a 100 column truecolor terminal cell by cell (character, color, bold, italic, underline, strikethrough). No automatic highlighting of numbers or other tokens: only the styles stated here.
+Print three lines with inline styles. Line 1 is exactly "Deploy ok in 3.2s": "Deploy" is bold, "ok" is green, "3.2s" is italic yellow, and every other character (the spaces and "in") is plain. Line 2: "outer inner deep outer" where the whole line is bold, "inner deep" is also italic and "deep" is also underlined. Line 3 is exactly " FAIL  retry in 5s" (two spaces after FAIL): " FAIL " (one space on each side of the word) is bold red on white background, then one plain space, then "retry" struck through, then plain " in 5s". The check compares the final screen of a 100 column truecolor terminal cell by cell (character, color, bold, italic, underline, strikethrough). No automatic highlighting of numbers or other tokens: only the styles stated here.
 
 ## Run `main`
 

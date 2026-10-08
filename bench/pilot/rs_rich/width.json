@@ -1,0 +1,188 @@
+{
+  "width": {
+    "supported": true,
+    "total": 500,
+    "agree": 500,
+    "rate": 1.0,
+    "contested_agree": 13,
+    "contested_total": 13,
+    "by_category": {
+      "ambiguous": {
+        "agree": 40,
+        "total": 40
+      },
+      "ascii": {
+        "agree": 30,
+        "total": 30
+      },
+      "cjk": {
+        "agree": 70,
+        "total": 70
+      },
+      "combining": {
+        "agree": 50,
+        "total": 50
+      },
+      "control": {
+        "agree": 30,
+        "total": 30
+      },
+      "emoji": {
+        "agree": 61,
+        "total": 61
+      },
+      "emoji_tone": {
+        "agree": 40,
+        "total": 40
+      },
+      "emoji_zwj": {
+        "agree": 50,
+        "total": 50
+      },
+      "flags": {
+        "agree": 30,
+        "total": 30
+      },
+      "keycaps": {
+        "agree": 15,
+        "total": 15
+      },
+      "mixed": {
+        "agree": 54,
+        "total": 54
+      },
+      "zero_width": {
+        "agree": 30,
+        "total": 30
+      }
+    },
+    "wrong": []
+  },
+  "fold": {
+    "supported": true,
+    "total": 20000,
+    "missing": 0,
+    "grapheme_splits": 176,
+    "concat_mismatch": 0,
+    "line_too_wide": 0,
+    "valid_but_not_greedy": 262,
+    "examples": [
+      {
+        "id": "w-0251",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0252",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0253",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0254",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0255",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0256",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0257",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0258",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0259",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0260",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0261",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0262",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0263",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0264",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0265",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0266",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0266",
+        "w": 3,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0267",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0267",
+        "w": 3,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0267",
+        "w": 5,
+        "problem": "grapheme split"
+      }
+    ]
+  },
+  "truncate": {
+    "supported": true,
+    "total": 20000,
+    "missing": 0,
+    "grapheme_splits": 119,
+    "not_a_prefix": 0,
+    "valid_but_not_maximal": 271
+  },
+  "tables": {
+    "supported": true,
+    "tables": 12,
+    "missing": 0,
+    "misaligned_rows": 0,
+    "rows": 97,
+    "tables_with_misalignment": 0
+  }
+}

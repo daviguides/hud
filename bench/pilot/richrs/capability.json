@@ -1,0 +1,672 @@
+[
+  {
+    "id": "cap-truecolor-unset-tty",
+    "ok": true,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-truecolor-unset-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-truecolor-NO_COLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "NO_COLOR removes color, keeps bold (no-color.org)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-truecolor-NO_COLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-truecolor-FORCE_COLOR-tty",
+    "ok": true,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-truecolor-FORCE_COLOR-pipe",
+    "ok": true,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-truecolor-CLICOLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "CLICOLOR=0 disables color on a tty (bixense)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-truecolor-CLICOLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "CLICOLOR=0 disables color on a tty (bixense)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-truecolor-CLICOLOR_FORCE-tty",
+    "ok": true,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-truecolor-CLICOLOR_FORCE-pipe",
+    "ok": true,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-unset-tty",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "256"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-unset-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-NO_COLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "NO_COLOR removes color, keeps bold (no-color.org)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-NO_COLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-FORCE_COLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "256"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-FORCE_COLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "256"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-CLICOLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "CLICOLOR=0 disables color on a tty (bixense)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-CLICOLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "CLICOLOR=0 disables color on a tty (bixense)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-CLICOLOR_FORCE-tty",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "256"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-256-CLICOLOR_FORCE-pipe",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "256"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-unset-tty",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "standard"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-unset-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-NO_COLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "NO_COLOR removes color, keeps bold (no-color.org)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-NO_COLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-FORCE_COLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "standard"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-FORCE_COLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "standard"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-CLICOLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "CLICOLOR=0 disables color on a tty (bixense)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-CLICOLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "CLICOLOR=0 disables color on a tty (bixense)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-CLICOLOR_FORCE-tty",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "standard"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-16-CLICOLOR_FORCE-pipe",
+    "ok": false,
+    "want": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "standard"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-unset-tty",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-unset-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-NO_COLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-NO_COLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-FORCE_COLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "standards_silent: forced color on TERM=dumb; follows Rich (no escapes)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-FORCE_COLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "standards_silent: forced color on TERM=dumb; follows Rich (no escapes)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-CLICOLOR-tty",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "CLICOLOR=0 disables color on a tty (bixense)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-CLICOLOR-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "CLICOLOR=0 disables color on a tty (bixense)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-CLICOLOR_FORCE-tty",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "standards_silent: forced color on TERM=dumb; follows Rich (no escapes)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  },
+  {
+    "id": "cap-none-CLICOLOR_FORCE-pipe",
+    "ok": false,
+    "want": {
+      "escapes": false,
+      "bold": false,
+      "color_class": "none"
+    },
+    "got": {
+      "escapes": true,
+      "bold": true,
+      "color_class": "truecolor"
+    },
+    "notes": [
+      "standards_silent: forced color on TERM=dumb; follows Rich (no escapes)"
+    ],
+    "bytes": "\u001b[38;2;255;136;0m\u001b[1mx\u001b[0m\n"
+  }
+]

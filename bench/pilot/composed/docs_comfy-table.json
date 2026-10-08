@@ -1,0 +1,15 @@
+{
+ "crate": "comfy-table",
+ "raw_total_row": "| Total                               |         88 |      80.0% |          4 |     100.0% |",
+ "documented": 88,
+ "documented_pct": 80.0,
+ "with_examples": 4,
+ "with_examples_pct": 100.0,
+ "doctests": {
+  "result": "ok",
+  "passed": 33,
+  "failed": 0,
+  "ignored": 0,
+  "source": "published crate source copy"
+ }
+}

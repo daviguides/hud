@@ -1,8 +1,8 @@
               ╷           ╷                  ╷                                                                          
  [1m [0m[1m   Shell   [0m[1m [0m│[1m [0m[1mStream   [0m[1m [0m│[1m [0m[1m             Psi[0m[1m [0m│[1m [0m[1m                                  Mu                                   [0m[1m [0m 
 ╶─────────────┼───────────┼──────────────────┼─────────────────────────────────────────────────────────────────────────╴
-     23611    │[91m [0m[91mtokio    [0m[91m [0m│ clap index token │                                  6356                                    
+     23611    │[38;5;208m [0m[38;5;208mtokio    [0m[38;5;208m [0m│ clap index token │                                  6356                                    
 ╶─────────────┼───────────┼──────────────────┼─────────────────────────────────────────────────────────────────────────╴
-  tokio theta │[91m [0m[91msyn route[0m[91m [0m│             [32mwarn[0m │ alpha xi chi parser kappa render worker theta thread stream zeta sigma   
-              │[91m           [0m│                  │                             buffer omicron                               
+  tokio theta │[38;5;208m [0m[38;5;208msyn route[0m[38;5;208m [0m│             [32mwarn[0m │ alpha xi chi parser kappa render worker theta thread stream zeta sigma   
+              │[38;5;208m           [0m│                  │                             buffer omicron                               
               ╵           ╵                  ╵                                                                          

@@ -11,7 +11,7 @@ Environment for every speed run (`SPEED_ENV`): `FORCE_COLOR=1 COLORTERM=truecolo
 
 ## Output verification (before any timing)
 
-A workload counts for a candidate only if its output equals the golden; otherwise it measures different work and is discarded for that candidate (evaluation.md, pilot validity 2). S1, S2, S4: byte-identical to `golden/speed/` (S2, S4 gzipped). S3: the final screen of a 100 column terminal (cursor movement and erase interpreted), text only, equals `golden/speed/s3.screen.txt`; frame emission between the first and the last frame is the candidate's own. Differences on S1, S2 or S4 are listed as `documented_deviation` and the workload is then compared against candidates with the same deviation only.
+A workload counts for a candidate only if its output equals the golden; otherwise it measures different work and is discarded for that candidate (evaluation.md, pilot validity 2). S1, S2, S4: byte-identical to `golden/speed/` (S2, S4 gzipped). S3: the final screen of a 100 column terminal (cursor movement and erase interpreted), text only, equals `golden/speed/s3.screen.txt`, AND the stream shows at least 1 000 distinct values of the first task's completed counter (`task 0 ... N/12500`, ANSI stripped; Python Rich shows 1 001, `golden/speed/s3.frames.json`), so a candidate that never animates and only prints the final frame does not pass; how a library moves the cursor between frames is its own. Differences on S1, S2 or S4 are listed as `documented_deviation` and the workload is then compared against candidates with the same deviation only.
 
 ## Adapters
 

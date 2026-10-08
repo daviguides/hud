@@ -1,0 +1,32 @@
+{
+ "parity_hit": 27,
+ "parity_total": 40,
+ "parity": 0.675,
+ "missing": [
+  "Console.no_color",
+  "Console.force_terminal",
+  "Text.from_markup",
+  "Panel.fit",
+  "Tree.add",
+  "Progress.add_task",
+  "Progress.advance",
+  "Progress.update",
+  "BarColumn",
+  "TextColumn",
+  "TaskProgressColumn",
+  "MofNCompleteColumn",
+  "SpinnerColumn"
+ ],
+ "friction": {
+  "public_functions": 1355,
+  "more_than_3_positional": 10,
+  "with_option_params": 27,
+  "none_padding": 4
+ },
+ "none_padding_candidates": [
+  "rich_rust:::apply_style",
+  "rich_rust:::adjust_line_length",
+  "rich_rust:::clamp",
+  "rich_rust:Measurement::clamp"
+ ]
+}

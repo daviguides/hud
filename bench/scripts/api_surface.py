@@ -1,6 +1,6 @@
 """Public API metrics of a candidate crate from rustdoc JSON: name parity with Rich and API friction.
 
-  api_surface.py json <project-dir> <crate>      writes and prints the rustdoc JSON path (nightly rustdoc)
+  api_surface.py json <project-dir> <crate>      writes and prints the rustdoc JSON path (nightly rustdoc, lib target; file named by the lib name)
   api_surface.py parity <rustdoc.json>           which of the 40 Rich names exist (normalized exact match)
   api_surface.py friction <rustdoc.json>         public functions with >3 positional params or Option params
 
@@ -15,6 +15,9 @@ import subprocess
 import sys
 from collections import defaultdict
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from common import crate_info  # noqa: E402
 
 BENCH = Path(__file__).resolve().parent.parent
 
@@ -106,9 +109,10 @@ def main():
     mode = sys.argv[1]
     if mode == "json":
         project, crate = Path(sys.argv[2]), sys.argv[3]
-        subprocess.run(["cargo", "+nightly", "rustdoc", "-p", crate, "--", "-Z", "unstable-options",
+        subprocess.run(["cargo", "+nightly", "rustdoc", "-p", crate, "--lib", "--", "-Z", "unstable-options",
                         "--output-format", "json"], cwd=project, check=True, capture_output=True)
-        print(project / "target" / "doc" / (crate.replace("-", "_") + ".json"))
+        info = crate_info(project, crate)
+        print(info["target_dir"] / "doc" / (info["lib_name"].replace("-", "_") + ".json"))
     elif mode == "parity":
         found = parity(load(sys.argv[2]))
         hit = sum(found.values())

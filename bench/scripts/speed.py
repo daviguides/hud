@@ -14,6 +14,7 @@ import argparse
 import gzip
 import json
 import os
+import re
 import subprocess
 import sys
 import threading
@@ -23,13 +24,14 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent))
-from common import BENCH  # noqa: E402
+from common import BENCH, strip_ansi  # noqa: E402
 from tasks import screen_snapshot, screen_text  # noqa: E402
 
 SPEED_ENV = {"FORCE_COLOR": "1", "COLORTERM": "truecolor", "TERM": "xterm-256color", "COLUMNS": "100"}
 INPUTS = {"S2": BENCH / "cases" / "speed" / "s2_table.tsv", "S3": None, "S4": BENCH / "cases" / "speed" / "s4_lines.txt"}
 GOLDEN = BENCH / "golden" / "speed"
 MIN_SAMPLES = 30
+MIN_S3_FRAMES = 1000  # spec/speed.md: one frame after every 100th of 100 000 updates
 WARMUP = 5
 RNG = np.random.default_rng(20261008)
 
@@ -61,15 +63,32 @@ def normalize(workload, data: bytes):
     return screen_text(screen_snapshot(data)).encode() if workload == "S3" else data
 
 
+def frames_observed(data: bytes) -> int:
+    """Distinct values the first task's completed counter takes in the stream (S3 columns: `task 0 ... N/12500`).
+
+    Python Rich shows 1 001 (the 1 000 frames plus the initial 0). A candidate that renders only the final
+    frame shows 1. Independent of how a library moves the cursor or spells its escape sequences.
+    """
+    text = strip_ansi(data).decode("utf-8", "replace")
+    return len(set(re.findall(r"task 0\b[^\n]*?\b(\d+)/12500", text)))
+
+
 def verify(workload, cmd):
-    """Output must equal the golden (S3: final screen text) or the workload is discarded for this candidate."""
+    """Output must equal the golden or the workload is discarded for this candidate.
+
+    S3: the final screen text equals the golden AND the stream shows at least MIN_S3_FRAMES distinct
+    intermediate counter values, so a candidate that never animates measures different work.
+    """
     argv = list(cmd) if workload == "S1" else workload_cmd(cmd, workload, ["--emit"])
-    got = normalize(workload, run_capture(argv).stdout)
+    raw = run_capture(argv).stdout
+    got = normalize(workload, raw)
     gp = golden_paths(workload)
     want = gzip.decompress(gp.read_bytes()) if gp.suffix == ".gz" else gp.read_bytes()
     if workload == "S3":
         want = want.rstrip(b"\n")
-    return got == want, len(got), len(want)
+        frames = frames_observed(raw)
+        return got == want and frames >= MIN_S3_FRAMES, len(got), len(want), f"frames observed {frames} (need >= {MIN_S3_FRAMES})"
+    return got == want, len(got), len(want), ""
 
 
 def bootstrap_ci(samples, stat=np.median, n=5000):
@@ -129,7 +148,10 @@ def make_golden(py_cmd):
     bench = [py_cmd[0], str(BENCH / "reference/python/speed/bench.py")]
     for w in ("S2", "S4"):
         golden_paths(w).write_bytes(gzip.compress(run_capture(workload_cmd(bench, w, ["--emit"])).stdout, mtime=0))
-    golden_paths("S3").write_text(screen_text(screen_snapshot(run_capture(workload_cmd(bench, "S3", ["--emit"])).stdout)) + "\n")
+    s3_raw = run_capture(workload_cmd(bench, "S3", ["--emit"])).stdout
+    golden_paths("S3").write_text(screen_text(screen_snapshot(s3_raw)) + "\n")
+    (GOLDEN / "s3.frames.json").write_text(json.dumps({"reference_frames_observed": frames_observed(s3_raw),
+                                                       "min_frames": MIN_S3_FRAMES}, indent=1) + "\n")
     print("speed goldens ->", GOLDEN)
 
 
@@ -162,12 +184,12 @@ def main():
         print("ratio A/B median %.3f  CI95 [%.3f, %.3f]" % ratio_ci(a, b))
         return
     if args.mode == "verify":
-        ok, got, want = verify(args.workload, cmd)
-        print(("EQUAL" if ok else "DIFFERENT"), args.workload, got, "bytes vs", want)
+        ok, got, want, note = verify(args.workload, cmd)
+        print(("EQUAL" if ok else "DIFFERENT"), args.workload, got, "bytes vs", want, note)
         raise SystemExit(0 if ok else 1)
-    ok, got, want = verify(args.workload, cmd)
+    ok, got, want, note = verify(args.workload, cmd)
     if not ok:
-        print(f"{args.workload}: output differs from the golden ({got} vs {want} bytes): workload discarded for this candidate")
+        print(f"{args.workload}: output differs from the golden ({got} vs {want} bytes) {note}: workload discarded for this candidate")
         raise SystemExit(2)
     if args.workload == "S1":
         samples = time_s1(cmd, runs=args.iterations + WARMUP)

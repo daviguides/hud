@@ -3,6 +3,7 @@
 import gzip
 import json
 import re
+import subprocess
 import unicodedata
 from pathlib import Path
 
@@ -91,3 +92,14 @@ def fold_ref(text: str, w: int):
 
 def truncate_ref(text: str, w: int) -> str:
     return fold_ref(text, w)[0]
+
+
+def crate_info(project, crate):
+    """Resolve a dependency of `project` through cargo metadata: its lib target name (which can differ from the
+    package name, e.g. package rs-rich, lib `rich`), its source directory and the target directory."""
+    meta = json.loads(subprocess.run(["cargo", "metadata", "--format-version", "1"], cwd=project,
+                                     capture_output=True, text=True, check=True).stdout)
+    pkg = next(p for p in meta["packages"] if p["name"] == crate)
+    lib = next(t for t in pkg["targets"] if any(k in ("lib", "rlib", "proc-macro") for k in t["kind"]))
+    return {"lib_name": lib["name"], "src_dir": Path(pkg["manifest_path"]).parent,
+            "target_dir": Path(meta["target_directory"]), "version": pkg["version"]}

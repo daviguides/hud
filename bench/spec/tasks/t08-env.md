@@ -2,7 +2,7 @@
 
 ## Statement
 
-Print the single line "error ok plain" where "error" is bold red and "ok" is green. The same unchanged program is run three ways and each result must equal its target: (a) on a terminal with NO_COLOR=1 (no colors; bold is allowed to remain), (b) piped with FORCE_COLOR=1 and COLORTERM=truecolor (colors present), (c) piped with neither variable (plain text, no escape bytes). No automatic highlighting of numbers or other tokens: only the styles stated here.
+Print the single line "error ok plain" where "error" is bold red and "ok" is green. The same unchanged program is run three ways and each result must equal its target: (a) on a terminal with NO_COLOR=1 (no colors, bold stays: NO_COLOR removes color only, not text attributes), (b) piped with FORCE_COLOR=1 and COLORTERM=truecolor (colors present), (c) piped with neither variable (plain text, no escape bytes). No automatic highlighting of numbers or other tokens: only the styles stated here.
 
 ## Run `no_color_tty`
 

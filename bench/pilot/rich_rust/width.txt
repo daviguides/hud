@@ -1,0 +1,5 @@
+width: 318/500 (63.6%); contested 0/13
+fold: splits=797 concat_bad=0 too_wide=127 not_greedy=255 missing=0 of 20000
+truncate: splits=623 not_prefix=0 not_maximal=355 missing=0
+tables: misaligned rows 22/98 in 9/12 tables
+unsupported: none

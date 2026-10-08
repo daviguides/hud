@@ -1,0 +1,46 @@
+{
+ "runs": {
+  "t01-table": {
+   "main": false
+  },
+  "t02-panel": {
+   "main": false
+  },
+  "t03-progress": {
+   "main": true
+  },
+  "t04-tree": {
+   "main": false
+  },
+  "t05-error": {
+   "main": false
+  },
+  "t06-markup": {
+   "main": true
+  },
+  "t07-pipe": {
+   "main": false
+  },
+  "t08-env": {
+   "no_color_tty": true,
+   "force_color_pipe": true,
+   "plain_pipe": true
+  }
+ },
+ "tasks_passing": 3,
+ "runs_passing": 5,
+ "runs_total": 10,
+ "loc": {
+  "t01-table": 19,
+  "t02-panel": 15,
+  "t03-progress": 20,
+  "t04-tree": 19,
+  "t05-error": 18,
+  "t06-markup": 7,
+  "t07-pipe": 29,
+  "t08-env": 14
+ },
+ "loc_median_passing": 14,
+ "python_loc_median": 12.0,
+ "loc_ratio_vs_python": 1.1666666666666667
+}

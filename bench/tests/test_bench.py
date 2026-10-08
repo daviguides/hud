@@ -49,6 +49,26 @@ def test_rich_scores_100_percent_on_its_own_corpus(tmp_path):
     assert overall["rate"] == 1.0 and overall["style_markup_100"] and not failures
 
 
+def test_goldens_do_not_depend_on_render_order():
+    """Rich caches a Style's ANSI codes on first use whatever the color system, which polluted 28 goldens when all
+    cases shared a process. The goldens are one fresh process per case: re-rendering three of the formerly polluted
+    cases (style-008, progress-001, table-020) in a fresh process must reproduce them byte for byte."""
+    import render_reference as rr
+    cases = {c["id"]: c for c in load_jsonl(BENCH / "cases" / "correctness.jsonl")}
+    for cid in ("style-008", "progress-001", "table-020"):
+        golden = (BENCH / "golden" / "correctness" / f"{cid}.ansi").read_bytes()
+        assert rr.render_case_isolated(cases[cid]) == golden
+
+
+def test_s3_frame_check_rejects_a_candidate_that_never_animates():
+    import speed
+    final_only = b"task 0 " + b"\x1b[32m" + b"12500/12500\n"
+    assert speed.frames_observed(final_only) == 1
+    animated = b"".join(b"task 0 \x1b[2K %d/12500\n\x1b[1A" % k for k in range(0, 12500, 12))
+    assert speed.frames_observed(animated) >= speed.MIN_S3_FRAMES
+    assert speed.frames_observed(animated) >= 1000
+
+
 def test_compare_detects_difference_and_never_counts_unsupported_as_pass(tmp_path):
     shutil.copytree(BENCH / "golden" / "correctness", tmp_path / "c")
     cand = tmp_path / "c"

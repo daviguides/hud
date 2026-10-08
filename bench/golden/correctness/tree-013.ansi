@@ -1,9 +1,9 @@
 [1mrepo[0m
-[91m┣━━ [0mtracing/
-[91m┃   [0m[91m┗━━ [0msyn.rs
-[91m┣━━ [0m[36mbytes/[0m
-[91m┃   [0m[91m┣━━ [0mrayon.rs
-[91m┃   [0m[91m┣━━ [0mserde.rs
-[91m┃   [0m[91m┗━━ [0m[1mhyper.rs[0m
-[91m┗━━ [0mrayon/
-[91m    [0m[91m┗━━ [0mtracing.rs
+[38;5;208m┣━━ [0mtracing/
+[38;5;208m┃   [0m[38;5;208m┗━━ [0msyn.rs
+[38;5;208m┣━━ [0m[36mbytes/[0m
+[38;5;208m┃   [0m[38;5;208m┣━━ [0mrayon.rs
+[38;5;208m┃   [0m[38;5;208m┣━━ [0mserde.rs
+[38;5;208m┃   [0m[38;5;208m┗━━ [0m[1mhyper.rs[0m
+[38;5;208m┗━━ [0mrayon/
+[38;5;208m    [0m[38;5;208m┗━━ [0mtracing.rs

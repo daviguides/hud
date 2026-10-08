@@ -1,0 +1,30 @@
+{
+ "parity_hit": 27,
+ "parity_total": 40,
+ "parity": 0.675,
+ "missing": [
+  "Console.no_color",
+  "Console.force_terminal",
+  "Text.from_markup",
+  "Text.wrap",
+  "box",
+  "box.ROUNDED",
+  "BarColumn",
+  "TextColumn",
+  "TaskProgressColumn",
+  "MofNCompleteColumn",
+  "SpinnerColumn",
+  "Group",
+  "cell_len"
+ ],
+ "friction": {
+  "public_functions": 729,
+  "more_than_3_positional": 6,
+  "with_option_params": 19,
+  "none_padding": 2
+ },
+ "none_padding_candidates": [
+  "richrs:::update",
+  "richrs:Progress::update"
+ ]
+}

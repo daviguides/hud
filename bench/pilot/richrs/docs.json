@@ -1,0 +1,15 @@
+{
+ "crate": "richrs",
+ "raw_total_row": "| Total                               |        616 |     100.0% |          0 |       0.0% |",
+ "documented": 616,
+ "documented_pct": 100.0,
+ "with_examples": 0,
+ "with_examples_pct": 0.0,
+ "doctests": {
+  "result": "ok",
+  "passed": 0,
+  "failed": 0,
+  "ignored": 23,
+  "source": "published crate source copy"
+ }
+}

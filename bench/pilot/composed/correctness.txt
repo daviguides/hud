@@ -1,0 +1,8 @@
+error      30/ 30 100.0% 
+markup     25/ 30  83.3% {'fail': 5}
+panel      21/ 30  70.0% {'fail': 9}
+progress    3/ 30  10.0% {'fail': 27}
+style      17/ 30  56.7% {'fail': 13}
+table       1/ 30   3.3% {'fail': 29}
+tree       30/ 30 100.0% 
+overall   127/210 60.5%; style+markup 100%: False

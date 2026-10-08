@@ -1,0 +1,15 @@
+{
+ "crate": "indicatif",
+ "raw_total_row": "| Total                               |         53 |      88.3% |          5 |      21.7% |",
+ "documented": 53,
+ "documented_pct": 88.3,
+ "with_examples": 5,
+ "with_examples_pct": 21.7,
+ "doctests": {
+  "result": "ok",
+  "passed": 14,
+  "failed": 0,
+  "ignored": 7,
+  "source": "published crate source copy"
+ }
+}

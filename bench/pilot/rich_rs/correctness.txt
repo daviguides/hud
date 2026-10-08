@@ -1,0 +1,8 @@
+error       7/ 30  23.3% {'fail': 23}
+markup     12/ 30  40.0% {'fail': 18}
+panel      12/ 30  40.0% {'fail': 18}
+progress    7/ 30  23.3% {'fail': 23}
+style      16/ 30  53.3% {'fail': 14}
+table       5/ 27  18.5% {'fail': 22, 'excluded_documented_deviation': 3}
+tree        7/ 30  23.3% {'fail': 23}
+overall   66/207 31.9%; style+markup 100%: False

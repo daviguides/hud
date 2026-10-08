@@ -1,0 +1,15 @@
+{
+ "crate": "rich_rust",
+ "raw_total_row": "| Total                               |       1016 |      88.1% |         24 |       2.9% |",
+ "documented": 1016,
+ "documented_pct": 88.1,
+ "with_examples": 24,
+ "with_examples_pct": 2.9,
+ "doctests": {
+  "result": "ok",
+  "passed": 30,
+  "failed": 0,
+  "ignored": 37,
+  "source": "published crate source copy"
+ }
+}

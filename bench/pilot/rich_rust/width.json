@@ -1,0 +1,489 @@
+{
+  "width": {
+    "supported": true,
+    "total": 500,
+    "agree": 318,
+    "rate": 0.636,
+    "contested_agree": 0,
+    "contested_total": 13,
+    "by_category": {
+      "ambiguous": {
+        "agree": 40,
+        "total": 40
+      },
+      "ascii": {
+        "agree": 30,
+        "total": 30
+      },
+      "cjk": {
+        "agree": 70,
+        "total": 70
+      },
+      "combining": {
+        "agree": 34,
+        "total": 50
+      },
+      "control": {
+        "agree": 27,
+        "total": 30
+      },
+      "emoji": {
+        "agree": 28,
+        "total": 61
+      },
+      "emoji_tone": {
+        "agree": 0,
+        "total": 40
+      },
+      "emoji_zwj": {
+        "agree": 2,
+        "total": 50
+      },
+      "flags": {
+        "agree": 30,
+        "total": 30
+      },
+      "keycaps": {
+        "agree": 0,
+        "total": 15
+      },
+      "mixed": {
+        "agree": 32,
+        "total": 54
+      },
+      "zero_width": {
+        "agree": 25,
+        "total": 30
+      }
+    },
+    "wrong": [
+      {
+        "id": "w-0110",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0111",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0112",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0118",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0119",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0120",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0123",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0124",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0128",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0129",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0130",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0131",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0132",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0133",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0138",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0139",
+        "want": 2,
+        "got": 1,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0141",
+        "want": 4,
+        "got": 3,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0142",
+        "want": 4,
+        "got": 3,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0143",
+        "want": 8,
+        "got": 7,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0145",
+        "want": 7,
+        "got": 5,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0146",
+        "want": 9,
+        "got": 8,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0147",
+        "want": 6,
+        "got": 4,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0149",
+        "want": 10,
+        "got": 8,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0150",
+        "want": 8,
+        "got": 7,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0151",
+        "want": 6,
+        "got": 5,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0152",
+        "want": 8,
+        "got": 7,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0153",
+        "want": 4,
+        "got": 3,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0154",
+        "want": 8,
+        "got": 7,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0156",
+        "want": 6,
+        "got": 5,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0157",
+        "want": 8,
+        "got": 5,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0158",
+        "want": 9,
+        "got": 8,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0159",
+        "want": 6,
+        "got": 5,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0160",
+        "want": 10,
+        "got": 9,
+        "category": "emoji"
+      },
+      {
+        "id": "w-0161",
+        "want": 2,
+        "got": 8,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0162",
+        "want": 2,
+        "got": 6,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0163",
+        "want": 2,
+        "got": 6,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0164",
+        "want": 2,
+        "got": 4,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0165",
+        "want": 2,
+        "got": 4,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0166",
+        "want": 2,
+        "got": 4,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0167",
+        "want": 2,
+        "got": 6,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0168",
+        "want": 2,
+        "got": 3,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0169",
+        "want": 2,
+        "got": 3,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0170",
+        "want": 2,
+        "got": 3,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0172",
+        "want": 2,
+        "got": 6,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0173",
+        "want": 2,
+        "got": 6,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0174",
+        "want": 2,
+        "got": 6,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0175",
+        "want": 2,
+        "got": 5,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0176",
+        "want": 2,
+        "got": 7,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0177",
+        "want": 2,
+        "got": 3,
+        "category": "emoji_zwj"
+      },
+      {
+        "id": "w-0178",
+        "want": 2,
+        "got": 3,
+        "category": "emoji_zwj"
+      }
+    ]
+  },
+  "fold": {
+    "supported": true,
+    "total": 20000,
+    "missing": 0,
+    "grapheme_splits": 797,
+    "concat_mismatch": 0,
+    "line_too_wide": 127,
+    "valid_but_not_greedy": 255,
+    "examples": [
+      {
+        "id": "w-0161",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 2,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 3,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 4,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 5,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 6,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 7,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 2,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 3,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 4,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 5,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 2,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 3,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 4,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 5,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0164",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0164",
+        "w": 2,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0164",
+        "w": 3,
+        "problem": "grapheme split"
+      }
+    ]
+  },
+  "truncate": {
+    "supported": true,
+    "total": 20000,
+    "missing": 0,
+    "grapheme_splits": 623,
+    "not_a_prefix": 0,
+    "valid_but_not_maximal": 355
+  },
+  "tables": {
+    "supported": true,
+    "tables": 12,
+    "missing": 0,
+    "misaligned_rows": 22,
+    "rows": 98,
+    "tables_with_misalignment": 9
+  }
+}

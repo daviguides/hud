@@ -1,0 +1,19 @@
+MISMATCH cap-truecolor-NO_COLOR-tty: want {'escapes': True, 'bold': True, 'color_class': 'none'} got {'escapes': False, 'bold': False, 'color_class': 'none'}
+MISMATCH cap-truecolor-FORCE_COLOR-tty: want {'escapes': True, 'bold': True, 'color_class': 'truecolor'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-truecolor-FORCE_COLOR-pipe: want {'escapes': True, 'bold': True, 'color_class': 'truecolor'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-truecolor-CLICOLOR-tty: want {'escapes': False, 'bold': False, 'color_class': 'none'} got {'escapes': True, 'bold': True, 'color_class': 'truecolor'}
+MISMATCH cap-truecolor-CLICOLOR_FORCE-tty: want {'escapes': True, 'bold': True, 'color_class': 'truecolor'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-truecolor-CLICOLOR_FORCE-pipe: want {'escapes': True, 'bold': True, 'color_class': 'truecolor'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-256-NO_COLOR-tty: want {'escapes': True, 'bold': True, 'color_class': 'none'} got {'escapes': False, 'bold': False, 'color_class': 'none'}
+MISMATCH cap-256-FORCE_COLOR-tty: want {'escapes': True, 'bold': True, 'color_class': '256'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-256-FORCE_COLOR-pipe: want {'escapes': True, 'bold': True, 'color_class': '256'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-256-CLICOLOR-tty: want {'escapes': False, 'bold': False, 'color_class': 'none'} got {'escapes': True, 'bold': True, 'color_class': '256'}
+MISMATCH cap-256-CLICOLOR_FORCE-tty: want {'escapes': True, 'bold': True, 'color_class': '256'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-256-CLICOLOR_FORCE-pipe: want {'escapes': True, 'bold': True, 'color_class': '256'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-16-NO_COLOR-tty: want {'escapes': True, 'bold': True, 'color_class': 'none'} got {'escapes': False, 'bold': False, 'color_class': 'none'}
+MISMATCH cap-16-CLICOLOR-tty: want {'escapes': False, 'bold': False, 'color_class': 'none'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-none-FORCE_COLOR-tty: want {'escapes': False, 'bold': False, 'color_class': 'none'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-none-FORCE_COLOR-pipe: want {'escapes': False, 'bold': False, 'color_class': 'none'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-none-CLICOLOR_FORCE-tty: want {'escapes': False, 'bold': False, 'color_class': 'none'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+MISMATCH cap-none-CLICOLOR_FORCE-pipe: want {'escapes': False, 'bold': False, 'color_class': 'none'} got {'escapes': True, 'bold': True, 'color_class': 'standard'}
+capability matrix: 22/40 cells match the written expectation

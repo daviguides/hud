@@ -1,0 +1,15 @@
+{
+ "crate": "owo-colors",
+ "raw_total_row": "| Total                               |        138 |     100.0% |         20 |       5.5% |",
+ "documented": 138,
+ "documented_pct": 100.0,
+ "with_examples": 20,
+ "with_examples_pct": 5.5,
+ "doctests": {
+  "result": "ok",
+  "passed": 62,
+  "failed": 0,
+  "ignored": 0,
+  "source": "published crate source copy"
+ }
+}
