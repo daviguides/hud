@@ -1,0 +1,210 @@
+{"id": "style-000", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "style-001", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "style-002", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["color-downgrade-missing"]}
+{"id": "style-003", "feature": "style", "result": "pass"}
+{"id": "style-004", "feature": "style", "result": "pass"}
+{"id": "style-005", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "style-006", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "no-wrap"]}
+{"id": "style-007", "feature": "style", "result": "pass"}
+{"id": "style-008", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["style-rendering"]}
+{"id": "style-009", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["color-downgrade-missing"]}
+{"id": "style-010", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["color-downgrade-missing"]}
+{"id": "style-011", "feature": "style", "result": "pass"}
+{"id": "style-012", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "style-013", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["color-downgrade-missing"]}
+{"id": "style-014", "feature": "style", "result": "pass"}
+{"id": "style-015", "feature": "style", "result": "pass"}
+{"id": "style-016", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "style-017", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "style-018", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "style-019", "feature": "style", "result": "pass"}
+{"id": "style-020", "feature": "style", "result": "pass"}
+{"id": "style-021", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["color-downgrade-missing"]}
+{"id": "style-022", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "style-023", "feature": "style", "result": "pass"}
+{"id": "style-024", "feature": "style", "result": "pass"}
+{"id": "style-025", "feature": "style", "result": "unsupported", "class": "candidate_failure", "reason": "invalid color: unknown color name: 'grey50'"}
+{"id": "style-026", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "style-027", "feature": "style", "result": "pass"}
+{"id": "style-028", "feature": "style", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "style-029", "feature": "style", "result": "pass"}
+{"id": "markup-000", "feature": "markup", "result": "pass"}
+{"id": "markup-001", "feature": "markup", "result": "pass"}
+{"id": "markup-002", "feature": "markup", "result": "pass"}
+{"id": "markup-003", "feature": "markup", "result": "pass"}
+{"id": "markup-004", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-005", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-006", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["color-downgrade-missing"]}
+{"id": "markup-007", "feature": "markup", "result": "pass"}
+{"id": "markup-008", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-009", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["color-downgrade-missing"]}
+{"id": "markup-010", "feature": "markup", "result": "pass"}
+{"id": "markup-011", "feature": "markup", "result": "pass"}
+{"id": "markup-012", "feature": "markup", "result": "pass"}
+{"id": "markup-013", "feature": "markup", "result": "pass"}
+{"id": "markup-014", "feature": "markup", "result": "pass"}
+{"id": "markup-015", "feature": "markup", "result": "pass"}
+{"id": "markup-016", "feature": "markup", "result": "pass"}
+{"id": "markup-017", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-018", "feature": "markup", "result": "pass"}
+{"id": "markup-019", "feature": "markup", "result": "unsupported", "class": "candidate_failure", "reason": "invalid color: unknown color name: 'grey50'"}
+{"id": "markup-020", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-021", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-022", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-023", "feature": "markup", "result": "pass"}
+{"id": "markup-024", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-025", "feature": "markup", "result": "pass"}
+{"id": "markup-026", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-027", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-028", "feature": "markup", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "markup-029", "feature": "markup", "result": "pass"}
+{"id": "table-000", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "show-lines-ignored", "title-caption", "no-wrap"]}
+{"id": "table-001", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "no-wrap"]}
+{"id": "table-002", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "no-wrap"]}
+{"id": "table-003", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "title-caption", "no-wrap"]}
+{"id": "table-004", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored"]}
+{"id": "table-005", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "column-justify-ignored", "show-lines-ignored", "no-wrap"]}
+{"id": "table-006", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "title-caption", "no-wrap"]}
+{"id": "table-007", "feature": "table", "result": "unsupported", "class": "candidate_failure", "reason": "no `heavy_head` box in BoxChars"}
+{"id": "table-008", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored"]}
+{"id": "table-009", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "title-caption", "no-wrap"]}
+{"id": "table-010", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "show-lines-ignored", "no-wrap"]}
+{"id": "table-011", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "no-wrap"]}
+{"id": "table-012", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "title-caption", "no-wrap"]}
+{"id": "table-013", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "no-wrap"]}
+{"id": "table-014", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "column-justify-ignored", "title-caption"]}
+{"id": "table-015", "feature": "table", "result": "unsupported", "class": "candidate_failure", "reason": "no `heavy_head` box in BoxChars"}
+{"id": "table-016", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "no-wrap"]}
+{"id": "table-017", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "no-wrap"]}
+{"id": "table-018", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "title-caption", "no-wrap"]}
+{"id": "table-019", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "no-wrap"]}
+{"id": "table-020", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "show-lines-ignored", "no-wrap"]}
+{"id": "table-021", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "title-caption"]}
+{"id": "table-022", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "column-justify-ignored", "no-wrap"]}
+{"id": "table-023", "feature": "table", "result": "unsupported", "class": "candidate_failure", "reason": "no `heavy_head` box in BoxChars"}
+{"id": "table-024", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "title-caption", "no-wrap"]}
+{"id": "table-025", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "show-lines-ignored"]}
+{"id": "table-026", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "no-wrap"]}
+{"id": "table-027", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "title-caption"]}
+{"id": "table-028", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "column-justify-ignored", "title-caption", "no-wrap"]}
+{"id": "table-029", "feature": "table", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "column-justify-ignored"]}
+{"id": "panel-000", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned"]}
+{"id": "panel-001", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned"]}
+{"id": "panel-002", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned", "no-wrap"]}
+{"id": "panel-003", "feature": "panel", "result": "pass"}
+{"id": "panel-004", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-005", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned", "no-wrap"]}
+{"id": "panel-006", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned", "no-wrap"]}
+{"id": "panel-007", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-008", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-009", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned", "no-wrap"]}
+{"id": "panel-010", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned", "no-wrap"]}
+{"id": "panel-011", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "panel-012", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-013", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-014", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned", "no-wrap"]}
+{"id": "panel-015", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-016", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-017", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-018", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-019", "feature": "panel", "result": "pass"}
+{"id": "panel-020", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-021", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned", "no-wrap"]}
+{"id": "panel-022", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned", "no-wrap"]}
+{"id": "panel-023", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "no `heavy_head` box in BoxChars"}
+{"id": "panel-024", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-025", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned"]}
+{"id": "panel-026", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "title-left-aligned", "no-wrap"]}
+{"id": "panel-027", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-028", "feature": "panel", "result": "unsupported", "class": "candidate_failure", "reason": "Panel::new takes Into<Text>; no nested renderable body"}
+{"id": "panel-029", "feature": "panel", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "title-left-aligned", "no-wrap"]}
+{"id": "tree-000", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-001", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-002", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-003", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-004", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-005", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-006", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "tree-indent-2-cols"]}
+{"id": "tree-007", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-008", "feature": "tree", "result": "pass"}
+{"id": "tree-009", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "tree-indent-2-cols"]}
+{"id": "tree-010", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "tree-011", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-012", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "tree-013", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "tree-indent-2-cols"]}
+{"id": "tree-014", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "color-downgrade-missing", "tree-indent-2-cols"]}
+{"id": "tree-015", "feature": "tree", "result": "pass"}
+{"id": "tree-016", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-017", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-018", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-019", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-020", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-021", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-022", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["tree-indent-2-cols"]}
+{"id": "tree-023", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-024", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": true, "tags": ["sgr-spelling-only"]}
+{"id": "tree-025", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["tree-indent-2-cols"]}
+{"id": "tree-026", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-027", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-028", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "tree-029", "feature": "tree", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "tree-indent-2-cols"]}
+{"id": "progress-000", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-001", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-002", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-003", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-004", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-005", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-006", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-007", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-008", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-009", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-010", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-011", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-012", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-013", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-014", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-015", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-016", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-017", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-018", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-019", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-020", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-021", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["progress-layout"]}
+{"id": "progress-022", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-023", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-024", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-025", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-026", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-027", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-028", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "progress-029", "feature": "progress", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "progress-layout"]}
+{"id": "error-000", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-001", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-002", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-003", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-004", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-005", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-006", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-007", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-008", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-009", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-010", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-011", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-012", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-013", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-014", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-015", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-016", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-017", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-018", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-019", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-020", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-021", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-022", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-023", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-024", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-025", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-026", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout"]}
+{"id": "error-027", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-028", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}
+{"id": "error-029", "feature": "error", "result": "fail", "class": "candidate_failure", "screen_equal": false, "tags": ["text-layout", "no-wrap"]}

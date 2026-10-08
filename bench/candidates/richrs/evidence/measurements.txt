@@ -1,0 +1,39 @@
+# machine record
+Apple M5 Pro
+51539607552
+ProductName:		macOS
+ProductVersion:		26.7
+BuildVersion:		25G229
+rustc 1.94.0 (4a4ef493e 2026-03-02)
+cargo 1.94.0 (85eff7c80 2026-01-15)
+ 1:00  up 15 days,  1:58, 28 users, load averages: 4,85 5,23 3,95
+
+# DX tasks (tasks.py check)
+FAIL t01-table/main
+FAIL t02-panel/main
+PASS t03-progress/main
+FAIL t04-tree/main
+FAIL t05-error/main
+PASS t06-markup/main
+FAIL t07-pipe/main
+PASS t08-env/no_color_tty
+PASS t08-env/force_color_pipe
+PASS t08-env/plain_pipe
+
+# LOC
+  19 candidates/richrs/src/bin/t01.rs
+  15 candidates/richrs/src/bin/t02.rs
+  20 candidates/richrs/src/bin/t03.rs
+  19 candidates/richrs/src/bin/t04.rs
+  18 candidates/richrs/src/bin/t05.rs
+   7 candidates/richrs/src/bin/t06.rs
+  29 candidates/richrs/src/bin/t07.rs
+  14 candidates/richrs/src/bin/t08.rs
+
+# name parity
+name parity (existence by name): 27/40 = 68%
+missing: ['Console.no_color', 'Console.force_terminal', 'Text.from_markup', 'Text.wrap', 'box', 'box.ROUNDED', 'BarColumn', 'TextColumn', 'TaskProgressColumn', 'MofNCompleteColumn', 'SpinnerColumn', 'Group', 'cell_len']
+# friction
+public functions: 729; >3 positional: 6; with Option params: 19; None-padding candidates: 2
+   ::update 5 ['completed', 'advance', 'total', 'visible']
+   Progress::update 5 ['completed', 'advance', 'total', 'visible']

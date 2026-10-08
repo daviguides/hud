@@ -1,0 +1,9 @@
+╭─ Error ──────────────────────────────────────────────────────────────────────────────────────────╮
+│ could not read config                                                                            │
+│                                                                                                  │
+│ Caused by:                                                                                       │
+│     0: No such file or directory (os error 2)                                                    │
+│     1: path: /etc/hud/config.toml                                                                │
+│                                                                                                  │
+│ hint: run again with --verbose for details                                                       │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯

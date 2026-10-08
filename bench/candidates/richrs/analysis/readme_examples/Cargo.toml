@@ -1,0 +1,10 @@
+[package]
+name = "readme-examples-richrs"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+richrs = "=0.2.1"
+
+[workspace]

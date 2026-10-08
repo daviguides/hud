@@ -1,0 +1,638 @@
+{
+ "style-000": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "style-001": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "style-002": {
+  "class": "candidate_bug",
+  "reason": "color-downgrade-missing"
+ },
+ "style-005": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "style-006": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,no-wrap"
+ },
+ "style-008": {
+  "class": "candidate_bug",
+  "reason": "style-rendering"
+ },
+ "style-009": {
+  "class": "candidate_bug",
+  "reason": "color-downgrade-missing"
+ },
+ "style-010": {
+  "class": "candidate_bug",
+  "reason": "color-downgrade-missing"
+ },
+ "style-012": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "style-013": {
+  "class": "candidate_bug",
+  "reason": "color-downgrade-missing"
+ },
+ "style-016": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "style-017": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "style-018": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "style-021": {
+  "class": "candidate_bug",
+  "reason": "color-downgrade-missing"
+ },
+ "style-022": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "style-026": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "style-028": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-004": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-005": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-006": {
+  "class": "candidate_bug",
+  "reason": "color-downgrade-missing"
+ },
+ "markup-008": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-009": {
+  "class": "candidate_bug",
+  "reason": "color-downgrade-missing"
+ },
+ "markup-017": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-020": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-021": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-022": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-024": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-026": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-027": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "markup-028": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "table-000": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,show-lines-ignored,title-caption,no-wrap"
+ },
+ "table-001": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,no-wrap"
+ },
+ "table-002": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,no-wrap"
+ },
+ "table-003": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,title-caption,no-wrap"
+ },
+ "table-004": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored"
+ },
+ "table-005": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,column-justify-ignored,show-lines-ignored,no-wrap"
+ },
+ "table-006": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,title-caption,no-wrap"
+ },
+ "table-008": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored"
+ },
+ "table-009": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,title-caption,no-wrap"
+ },
+ "table-010": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,show-lines-ignored,no-wrap"
+ },
+ "table-011": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,no-wrap"
+ },
+ "table-012": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,title-caption,no-wrap"
+ },
+ "table-013": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,no-wrap"
+ },
+ "table-014": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,column-justify-ignored,title-caption"
+ },
+ "table-016": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,no-wrap"
+ },
+ "table-017": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,no-wrap"
+ },
+ "table-018": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,title-caption,no-wrap"
+ },
+ "table-019": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,no-wrap"
+ },
+ "table-020": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,show-lines-ignored,no-wrap"
+ },
+ "table-021": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,title-caption"
+ },
+ "table-022": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,column-justify-ignored,no-wrap"
+ },
+ "table-024": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,title-caption,no-wrap"
+ },
+ "table-025": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,show-lines-ignored"
+ },
+ "table-026": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,no-wrap"
+ },
+ "table-027": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,title-caption"
+ },
+ "table-028": {
+  "class": "candidate_bug",
+  "reason": "text-layout,column-justify-ignored,title-caption,no-wrap"
+ },
+ "table-029": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,column-justify-ignored"
+ },
+ "panel-000": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned"
+ },
+ "panel-001": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned"
+ },
+ "panel-002": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned,no-wrap"
+ },
+ "panel-005": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned,no-wrap"
+ },
+ "panel-006": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned,no-wrap"
+ },
+ "panel-009": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned,no-wrap"
+ },
+ "panel-010": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned,no-wrap"
+ },
+ "panel-011": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "panel-014": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned,no-wrap"
+ },
+ "panel-021": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned,no-wrap"
+ },
+ "panel-022": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned,no-wrap"
+ },
+ "panel-025": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned"
+ },
+ "panel-026": {
+  "class": "candidate_bug",
+  "reason": "text-layout,title-left-aligned,no-wrap"
+ },
+ "panel-029": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,title-left-aligned,no-wrap"
+ },
+ "tree-000": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-001": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-002": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-003": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-004": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-005": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-006": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,tree-indent-2-cols"
+ },
+ "tree-007": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-009": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,tree-indent-2-cols"
+ },
+ "tree-010": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "tree-011": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-012": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "tree-013": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,tree-indent-2-cols"
+ },
+ "tree-014": {
+  "class": "candidate_bug",
+  "reason": "text-layout,color-downgrade-missing,tree-indent-2-cols"
+ },
+ "tree-016": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-017": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-018": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-019": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-020": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-021": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-022": {
+  "class": "candidate_bug",
+  "reason": "tree-indent-2-cols"
+ },
+ "tree-023": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-024": {
+  "class": "candidate_bug",
+  "reason": "sgr-spelling-only"
+ },
+ "tree-025": {
+  "class": "candidate_bug",
+  "reason": "tree-indent-2-cols"
+ },
+ "tree-026": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-027": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-028": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "tree-029": {
+  "class": "candidate_bug",
+  "reason": "text-layout,tree-indent-2-cols"
+ },
+ "progress-000": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-001": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-002": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-003": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-004": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-005": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-006": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-007": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-008": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-009": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-010": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-011": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-012": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-013": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-014": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-015": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-016": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-017": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-018": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-019": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-020": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-021": {
+  "class": "candidate_bug",
+  "reason": "progress-layout"
+ },
+ "progress-022": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-023": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-024": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-025": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-026": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-027": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-028": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "progress-029": {
+  "class": "candidate_bug",
+  "reason": "text-layout,progress-layout"
+ },
+ "error-000": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-001": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-002": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-003": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-004": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-005": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-006": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-007": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-008": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-009": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-010": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-011": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-012": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-013": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-014": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-015": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-016": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-017": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-018": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-019": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-020": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-021": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-022": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-023": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-024": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-025": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-026": {
+  "class": "candidate_bug",
+  "reason": "text-layout"
+ },
+ "error-027": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-028": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ },
+ "error-029": {
+  "class": "candidate_bug",
+  "reason": "text-layout,no-wrap"
+ }
+}

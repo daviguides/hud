@@ -1,0 +1,13 @@
+use richrs::prelude::*;
+use std::time::Duration;
+
+fn main() -> Result<()> {
+    let mut live = Live::new();
+
+    for i in 0..10 {
+        live.update(&format!("Count: {}", i))?;
+        std::thread::sleep(Duration::from_millis(500));
+    }
+
+    Ok(())
+}
