@@ -2,7 +2,9 @@
 
 import gzip
 import json
+import os
 import re
+import select
 import subprocess
 import unicodedata
 from pathlib import Path
@@ -103,3 +105,42 @@ def crate_info(project, crate):
     lib = next(t for t in pkg["targets"] if any(k in ("lib", "rlib", "proc-macro") for k in t["kind"]))
     return {"lib_name": lib["name"], "src_dir": Path(pkg["manifest_path"]).parent,
             "target_dir": Path(meta["target_directory"]), "version": pkg["version"]}
+
+
+def read_pty(master, slave, proc, timeout=120):
+    """Everything `proc` wrote to the pty, however fast it exits.
+
+    On macOS the last close of the slave side can discard output the master has not read yet, so
+    the parent keeps its own slave descriptor open until the process is gone and the master is
+    drained; reading until EIO (the old way) lost the whole output of about one run in 600.
+    """
+    import time
+
+    chunks = []
+    deadline = time.monotonic() + timeout
+    try:
+        while True:
+            ready, _, _ = select.select([master], [], [], 0.05)
+            if ready:
+                data = os.read(master, 65536)
+                if not data:
+                    break
+                chunks.append(data)
+                continue
+            if proc.poll() is not None:
+                while select.select([master], [], [], 0)[0]:
+                    data = os.read(master, 65536)
+                    if not data:
+                        break
+                    chunks.append(data)
+                break
+            if time.monotonic() > deadline:
+                proc.kill()
+                raise subprocess.TimeoutExpired(proc.args, timeout)
+    except OSError:
+        pass
+    finally:
+        proc.wait(timeout=timeout)
+        os.close(slave)
+        os.close(master)
+    return b"".join(chunks)

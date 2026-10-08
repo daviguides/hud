@@ -23,7 +23,7 @@ import termios
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from common import BENCH  # noqa: E402
+from common import BENCH, read_pty  # noqa: E402
 
 DEPTHS = {
     "truecolor": {"TERM": "xterm-256color", "COLORTERM": "truecolor"},
@@ -115,19 +115,7 @@ def run_cell(cmd, cell, cwd=None):
     fcntl.ioctl(slave, termios.TIOCSWINSZ, struct.pack("HHHH", 24, 100, 0, 0))
     proc = subprocess.Popen(cmd, env=env, cwd=cwd, stdin=subprocess.DEVNULL, stdout=slave,
                             stderr=subprocess.DEVNULL, close_fds=True)
-    os.close(slave)
-    chunks = []
-    while True:
-        try:
-            data = os.read(master, 65536)
-        except OSError:
-            break
-        if not data:
-            break
-        chunks.append(data)
-    proc.wait(timeout=60)
-    os.close(master)
-    return b"".join(chunks).replace(b"\r\n", b"\n")
+    return read_pty(master, slave, proc, 60).replace(b"\r\n", b"\n")
 
 
 def check(cmd, cwd=None, outdir=None):

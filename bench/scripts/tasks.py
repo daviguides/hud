@@ -21,7 +21,7 @@ from pathlib import Path
 import pyte
 
 sys.path.insert(0, str(Path(__file__).parent))
-from common import BENCH  # noqa: E402
+from common import BENCH, read_pty  # noqa: E402
 
 SPEC = json.loads((BENCH / "spec" / "tasks.json").read_text())
 COLS, ROWS = SPEC["terminal"]["cols"], SPEC["terminal"]["rows"]
@@ -44,19 +44,7 @@ def capture(cmd, run, cwd=None, timeout=120):
     fcntl.ioctl(slave, termios.TIOCSWINSZ, struct.pack("HHHH", ROWS, COLS, 0, 0))
     proc = subprocess.Popen(cmd, env=env, cwd=cwd, stdin=subprocess.DEVNULL, stdout=slave,
                             stderr=subprocess.DEVNULL, close_fds=True)
-    os.close(slave)
-    chunks = []
-    while True:
-        try:
-            data = os.read(master, 65536)
-        except OSError:
-            break
-        if not data:
-            break
-        chunks.append(data)
-    proc.wait(timeout=timeout)
-    os.close(master)
-    return b"".join(chunks)
+    return read_pty(master, slave, proc, timeout)
 
 
 COLOR_NAMES = {"brown": "yellow", "brightbrown": "brightyellow"}

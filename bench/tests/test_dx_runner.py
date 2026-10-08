@@ -137,5 +137,6 @@ def test_dry_run_pipeline_classifies_a_good_a_broken_a_wrong_and_a_peeking_agent
 
 def test_a_task_without_a_solution_is_unsupported_not_a_pass(hud, prepared):
     work, mirror, sandbox = prepared
-    row = dx.one_run(hud, dx.MockAgent(hud), "mock", "t05-error", 1, work, mirror, sandbox, dx.load_config()["limits"])
+    without = {**hud, "solutions": {t: path for t, path in hud["solutions"].items() if t != "t05-error"}}
+    row = dx.one_run(without, dx.MockAgent(without), "mock", "t05-error", 1, work, mirror, sandbox, dx.load_config()["limits"])
     assert row["status"] == "unsupported"

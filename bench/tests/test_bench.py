@@ -176,6 +176,12 @@ def test_capability_expectation_is_written_independently_of_rich():
     assert "34/40" in out
 
 
+def test_pty_runner_never_loses_the_output_of_a_fast_command():
+    cell = next(c for c in capability.matrix() if c["stream"] != "pipe")
+    lost = [i for i in range(400) if capability.run_cell(["/usr/bin/printf", "hello"], cell) != b"hello"]
+    assert not lost, f"{len(lost)} of 400 runs lost the output"
+
+
 def test_capability_classifier():
     assert capability.classify(b"\x1b[1;38;2;255;136;0mx\x1b[0m\n") == {"escapes": True, "bold": True, "color_class": "truecolor"}
     assert capability.classify(b"\x1b[1m\x1b[38;5;208mx\x1b[0m") == {"escapes": True, "bold": True, "color_class": "256"}

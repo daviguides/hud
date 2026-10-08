@@ -93,6 +93,16 @@ CANDIDATES = {
         "s1": [c("candidates/composed/target/release/s1")],
         "bench": [c("candidates/composed/target/release/bench")],
     },
+    "hud": {
+        "root": "candidates/hud", "crates": ["hud"], "hello": ["hello_table"],
+        "cases": lambda out: [c("candidates/hud/target/release/cases_runner"), CASES, out],
+        "width": lambda out: [c("candidates/hud/width_all.sh"), out],
+        "cap": c("candidates/hud/target/release/cap"),
+        "tasks": seq(c("candidates/hud/target/release"), RS_RICH_T),
+        "loc": seq("candidates/hud/src/bin", RS_RICH_T, ".rs"),
+        "s1": [c("candidates/hud/target/release/s1_table")],
+        "bench": [c("candidates/hud/target/release/bench")],
+    },
 }
 
 
