@@ -1,7 +1,7 @@
 [package]
 name = "hud"
-version = "0.1.0"
-description = "Functional terminal UX for Rust: capability detection, cell width and, as the milestones land, styled output, tables, panels and progress."
+version = "1.0.0"
+description = "Functional terminal UX for Rust: styled text, tables, panels, trees, progress, live displays and layouts, byte for byte what Python Rich writes, as rich text, plain text or JSON."
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
@@ -9,10 +9,9 @@ repository.workspace = true
 readme = "../../README.md"
 keywords = ["terminal", "cli", "tui", "table", "ansi"]
 categories = ["command-line-interface"]
-publish = false
 
 [dependencies]
-hud-width = { path = "../hud-width", version = "0.1.0" }
+hud-width = { path = "../hud-width", version = "1.0.0" }
 
 [target.'cfg(unix)'.dependencies]
 rustix = { version = "1", default-features = false, features = ["std", "termios"] }

@@ -29,7 +29,7 @@ dependencies = [
 
 [[package]]
 name = "hud"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "enable-ansi-support",
  "hud-width",
@@ -40,7 +40,7 @@ dependencies = [
 
 [[package]]
 name = "hud-width"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "serde_json",
 ]

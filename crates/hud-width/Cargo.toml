@@ -1,6 +1,6 @@
 [package]
 name = "hud-width"
-version = "0.1.0"
+version = "1.0.0"
 description = "Terminal cell width and grapheme-cluster segmentation: width, fold, truncate and pad that never split a cluster. no_std, zero dependencies."
 edition.workspace = true
 rust-version.workspace = true
@@ -9,7 +9,6 @@ repository.workspace = true
 readme = "README.md"
 keywords = ["unicode", "width", "grapheme", "terminal", "no_std"]
 categories = ["text-processing", "no-std"]
-publish = false
 
 [dependencies]
 

@@ -1,21 +1,25 @@
 # hud
 
-Functional terminal UX for Rust: capability detection, cell width and, milestone by milestone, styled output, tables, panels, trees, progress and error reports, built to be read at a glance.
+Functional terminal UX for Rust: capability detection, cell width, styled output, tables, panels, trees, progress, live displays, layouts, status spinners and error reports, as rich text, plain text or JSON, built to be read at a glance.
 
-**Status: in development, not published.** The name `hud` is reserved on crates.io; nothing is released until the project reaches a stable version. The crates in this workspace are marked `publish = false`.
+**Status: 1.0.** The public API is frozen under semantic versioning; see [STABILITY.md](STABILITY.md). The crates are `hud` and `hud-width`, released together.
 
 ## Install
 
-Not yet published. Until a stable release, depend on the repository:
+```sh
+cargo add hud
+```
+
+or, in `Cargo.toml`:
 
 ```toml
 [dependencies]
-hud = { git = "https://github.com/daviguides/hud" }
+hud = "1"
 ```
 
 The crate needs Rust 1.85 or newer (edition 2024) and has no required features. `hud-width`, the cell width and grapheme-cluster crate underneath it, builds without `std` and without dependencies.
 
-## What works today (v0.9)
+## What it does
 
 - **`hud-width`**: terminal cell width and grapheme-cluster segmentation (UAX #29, Unicode 17). `fold`, `truncate` and `pad` cut only between clusters. `no_std`, no dependencies.
 - **`hud`**: styled text. `Style` parses `"bold red on #223344"`, markup (`[bold]ok[/]`, nested tags, `\[` for a bracket) builds a `Text`, and a `Console` prints it wrapped to the terminal width, with tabs, justification and overflow, in the colors the terminal has (truecolor, 256, 16 or none; `NO_COLOR` removes color and keeps bold). Output is byte for byte what Python Rich writes for the same markup, checked against its goldens and thousands of random vectors.
