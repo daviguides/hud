@@ -1,0 +1,11 @@
+public functions: 1336; >3 positional: 49; with Option params: 128; None-padding candidates: 39
+   ::export_svg_with 6 ['code_format']
+   ::open 4 ['total', 'task']
+   ::update 3 ['text', 'style', 'speed']
+   ::render 7 ['time', 'path', 'line_no', 'link_path']
+   ::line_range 2 ['start', 'end']
+   ::export_html_with 4 ['code_format']
+   ::render_lines_wrapped 6 ['width']
+   ::render_lines_styled 4 ['style']
+   ::render_renderables 7 ['time', 'path', 'line_no', 'link_path']
+   ::reset 4 ['total']

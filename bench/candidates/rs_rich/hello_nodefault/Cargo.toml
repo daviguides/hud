@@ -1,0 +1,10 @@
+[package]
+name = "rs_rich_hello_nodefault"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+rs-rich = { version = "=0.0.9", default-features = false }

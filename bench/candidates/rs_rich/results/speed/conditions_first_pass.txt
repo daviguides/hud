@@ -1,0 +1,21 @@
+First pass (log overwritten by the S3 rerun script; content copied from its output):
+machine: Apple M5 Pro, 51539607552 bytes, macOS 26.7
+rustc: rustc 1.94.0 (4a4ef493e 2026-03-02); cargo: cargo 1.94.0 (85eff7c80 2026-01-15)
+start: 2026-10-08T03:54:57Z load: load averages: 3,69 3,03 2,72
+[03:54:57] S1 rs_rich busy-before=[] load=3,69 3,03 2,72
+[03:54:57] S1 rs_rich done busy-after=[]
+[03:54:57] S1 python busy-before=[] load=3,69 3,03 2,72
+[03:54:58] S1 python done busy-after=[]
+[03:54:58] S2 rs_rich busy-before=[] load=3,69 3,03 2,72
+[03:55:03] S2 rs_rich done busy-after=[]
+[03:55:03] S2 python busy-before=[] load=3,48 3,00 2,71
+[03:55:44] S2 python done busy-after=[]
+[03:55:44] S3 rs_rich busy-before=[] load=6,95 4,02 3,10
+[03:55:48] S3 rs_rich done busy-after=[75124 ]      <- contaminated, S3 pair discarded and rerun
+[03:55:48] S3 python busy-before=[75124 ] load=6,95 4,02 3,10
+[03:56:17] S3 python done busy-after=[]
+[03:56:17] S4 rs_rich busy-before=[] load=6,24 4,12 3,17
+[03:56:17] S4 rs_rich done busy-after=[]
+[03:56:17] S4 python busy-before=[] load=6,24 4,12 3,17
+[03:56:19] S4 python done busy-after=[]
+end: 2026-10-08T03:56:19Z

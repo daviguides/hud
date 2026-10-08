@@ -1,0 +1,114 @@
+{
+ "style-008": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "table-005": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "table-020": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "table-029": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "panel-004": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "panel-012": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "panel-016": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "panel-029": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "tree-009": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "tree-013": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-001": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-004": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-005": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-006": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-009": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-010": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-013": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-014": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-016": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-017": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-018": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-021": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-022": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-024": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-025": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-026": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-028": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ },
+ "progress-029": {
+  "class": "reference_quirk",
+  "reason": "golden depends on render order (Rich caches a Style's ANSI codes on first use, whatever the color system); a fresh Rich process renders exactly the candidate's bytes"
+ }
+}

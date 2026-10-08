@@ -1,0 +1,376 @@
+{
+  "features": {
+    "error": {
+      "pass": 30,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 1.0
+    },
+    "markup": {
+      "pass": 30,
+      "fail": 0,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 1.0
+    },
+    "panel": {
+      "pass": 26,
+      "fail": 4,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 0.8666666666666667
+    },
+    "progress": {
+      "pass": 12,
+      "fail": 18,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 0.4
+    },
+    "style": {
+      "pass": 29,
+      "fail": 1,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 0.9666666666666667
+    },
+    "table": {
+      "pass": 27,
+      "fail": 3,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 0.9
+    },
+    "tree": {
+      "pass": 28,
+      "fail": 2,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 30,
+      "rate": 0.9333333333333333
+    }
+  },
+  "overall": {
+    "pass": 182,
+    "denominator": 210,
+    "rate": 0.8666666666666667,
+    "style_markup_100": false
+  },
+  "failures": [
+    {
+      "id": "style-008",
+      "feature": "style",
+      "class": "unclassified",
+      "byte_offset": 3,
+      "line": 1,
+      "want": "\u001b[37mlayer route lexer\u001b[0m\n",
+      "got": "\u001b[38;2;128;128;128mlayer route lexer\u001b[0m\n",
+      "want_len": 27,
+      "got_len": 41
+    },
+    {
+      "id": "table-005",
+      "feature": "table",
+      "class": "unclassified",
+      "byte_offset": 730,
+      "line": 4,
+      "want": "\n     23611    │\u001b[91m \u001b[0m\u001b[91mtokio    \u001b[0m\u001b[91m \u001b[0m│ ",
+      "got": "\n     23611    │\u001b[38;5;208m \u001b[0m\u001b[38;5;208mtokio    \u001b[0m\u001b[",
+      "want_len": 1652,
+      "got_len": 1694
+    },
+    {
+      "id": "table-020",
+      "feature": "table",
+      "class": "unclassified",
+      "byte_offset": 461,
+      "line": 4,
+      "want": "��═══╣\n║\u001b[91m \u001b[0m\u001b[91m               70028       ",
+      "got": "��═══╣\n║\u001b[38;2;255;136;0m \u001b[0m\u001b[38;2;255;136;0m   ",
+      "want_len": 2539,
+      "got_len": 2815
+    },
+    {
+      "id": "table-029",
+      "feature": "table",
+      "class": "unclassified",
+      "byte_offset": 291,
+      "line": 4,
+      "want": "�────╴\n \u001b[91m \u001b[0m\u001b[91m  \u001b[0m\u001b[31mskip\u001b[0m\u001b[91m \u001b[",
+      "got": "�────╴\n \u001b[38;5;208m \u001b[0m\u001b[38;5;208m  \u001b[0m\u001b[31mskip",
+      "want_len": 416,
+      "got_len": 434
+    },
+    {
+      "id": "panel-004",
+      "feature": "panel",
+      "class": "unclassified",
+      "byte_offset": 2,
+      "line": 1,
+      "want": "\u001b[91m╔═\u001b[0m\u001b[91m═══════�",
+      "got": "\u001b[38;2;255;136;0m╔═\u001b[0m\u001b[38;2;255;136;",
+      "want_len": 563,
+      "got_len": 707
+    },
+    {
+      "id": "panel-012",
+      "feature": "panel",
+      "class": "unclassified",
+      "byte_offset": 2,
+      "line": 1,
+      "want": "\u001b[91m╔═\u001b[0m\u001b[91m═══════�",
+      "got": "\u001b[38;2;255;136;0m╔═\u001b[0m\u001b[38;2;255;136;",
+      "want_len": 1329,
+      "got_len": 1617
+    },
+    {
+      "id": "panel-016",
+      "feature": "panel",
+      "class": "unclassified",
+      "byte_offset": 2,
+      "line": 1,
+      "want": "\u001b[91m╭─\u001b[0m\u001b[91m───────�",
+      "got": "\u001b[38;2;255;136;0m╭─\u001b[0m\u001b[38;2;255;136;",
+      "want_len": 1833,
+      "got_len": 2121
+    },
+    {
+      "id": "panel-029",
+      "feature": "panel",
+      "class": "unclassified",
+      "byte_offset": 2,
+      "line": 1,
+      "want": "\u001b[91m  \u001b[0m\u001b[91m          \u001b[0m\u001b[91m xi \u001b[0",
+      "got": "\u001b[38;5;208m  \u001b[0m\u001b[38;5;208m          \u001b[0m",
+      "want_len": 253,
+      "got_len": 325
+    },
+    {
+      "id": "tree-009",
+      "feature": "tree",
+      "class": "unclassified",
+      "byte_offset": 16,
+      "line": 2,
+      "want": "\u001b[36msrc/\u001b[0m\n\u001b[91m┗━━ \u001b[0mclap.rs\n",
+      "got": "\u001b[36msrc/\u001b[0m\n\u001b[38;5;208m┗━━ \u001b[0mclap.rs\n",
+      "want_len": 41,
+      "got_len": 47
+    },
+    {
+      "id": "tree-013",
+      "feature": "tree",
+      "class": "unclassified",
+      "byte_offset": 15,
+      "line": 2,
+      "want": "\u001b[1mrepo\u001b[0m\n\u001b[91m┣━━ \u001b[0mtracing/\n\u001b[91m┃   \u001b[0",
+      "got": "\u001b[1mrepo\u001b[0m\n\u001b[38;5;208m┣━━ \u001b[0mtracing/\n\u001b[38;5;2",
+      "want_len": 323,
+      "got_len": 401
+    },
+    {
+      "id": "progress-001",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 17,
+      "line": 1,
+      "want": "tau omicron \u001b[38;2;249;38;114m━━━━━━━━━",
+      "got": "tau omicron \u001b[38;5;197m━━━━━━━━━━━�",
+      "want_len": 825,
+      "got_len": 776
+    },
+    {
+      "id": "progress-004",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 232,
+      "line": 2,
+      "want": "0\u001b[0m\nbuild build \u001b[90m━━━━━━━━━━━━�",
+      "got": "0\u001b[0m\nbuild build \u001b[38;2;114;156;31m━━━━━━━━",
+      "want_len": 821,
+      "got_len": 834
+    },
+    {
+      "id": "progress-005",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 17,
+      "line": 1,
+      "want": "xi          \u001b[38;2;249;38;114m━━━━━━━━━",
+      "got": "xi          \u001b[38;5;197m━━━━━━━━━━━�",
+      "want_len": 685,
+      "got_len": 669
+    },
+    {
+      "id": "progress-006",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 15,
+      "line": 1,
+      "want": "alpha buffer \u001b[38;5;237m━━━━━━━━━━�",
+      "got": "alpha buffer \u001b[90m━━━━━━━━━━━━\u001b",
+      "want_len": 368,
+      "got_len": 312
+    },
+    {
+      "id": "progress-009",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 19,
+      "line": 1,
+      "want": "theta sigma   \u001b[38;2;249;38;114m━━━━━━━\u001b[0m\u001b[",
+      "got": "theta sigma   \u001b[38;5;197m━━━━━━━\u001b[0m\u001b[38;5;23",
+      "want_len": 621,
+      "got_len": 584
+    },
+    {
+      "id": "progress-010",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 14,
+      "line": 1,
+      "want": "lexer zeta  \u001b[38;2;249;38;114m━━━━━━━━",
+      "got": "lexer zeta  \u001b[91m━━━━━━━━━\u001b[0m\u001b[90m�",
+      "want_len": 555,
+      "got_len": 460
+    },
+    {
+      "id": "progress-013",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 211,
+      "line": 3,
+      "want": "\nlambda lexer  \u001b[38;2;249;38;114m━━━━━━━━\u001b[0",
+      "got": "\nlambda lexer  \u001b[38;5;197m━━━━━━━━\u001b[0m\u001b[38;5",
+      "want_len": 465,
+      "got_len": 444
+    },
+    {
+      "id": "progress-014",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 18,
+      "line": 1,
+      "want": "theta           \u001b[38;2;249;38;114m━━━━━━━━",
+      "got": "theta           \u001b[91m━━━━━━━━━━━━�",
+      "want_len": 450,
+      "got_len": 393
+    },
+    {
+      "id": "progress-016",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 159,
+      "line": 2,
+      "want": "00\u001b[0m\nkappa zeta \u001b[90m━━━━━━━━━━━━�",
+      "got": "00\u001b[0m\nkappa zeta \u001b[38;2;114;156;31m━━━━━━━━",
+      "want_len": 381,
+      "got_len": 394
+    },
+    {
+      "id": "progress-017",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 123,
+      "line": 2,
+      "want": "0/20  \u001b[0m\nparser \u001b[90m━━━━━━━━━━━━�",
+      "got": "0/20  \u001b[0m\nparser \u001b[38;5;70m━━━━━━━━━━�",
+      "want_len": 330,
+      "got_len": 340
+    },
+    {
+      "id": "progress-018",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 18,
+      "line": 1,
+      "want": "queue lambda    \u001b[38;2;249;38;114m━━━━━━━━",
+      "got": "queue lambda    \u001b[91m━━━━━━━━━━━━�",
+      "want_len": 380,
+      "got_len": 330
+    },
+    {
+      "id": "progress-021",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 13,
+      "line": 1,
+      "want": "epsilon xi \u001b[90m━━━━━━━━━━━━�",
+      "got": "epsilon xi \u001b[38;5;70m━━━━━━━━━━�",
+      "want_len": 170,
+      "got_len": 175
+    },
+    {
+      "id": "progress-022",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 16,
+      "line": 1,
+      "want": "shell omicron \u001b[38;2;249;38;114m━━━━━━━━",
+      "got": "shell omicron \u001b[91m━━━━━━━━━━━━�",
+      "want_len": 640,
+      "got_len": 540
+    },
+    {
+      "id": "progress-024",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 154,
+      "line": 2,
+      "want": "\u001b[0m\ndelta        \u001b[90m━━━━━━━━━━━━�",
+      "got": "\u001b[0m\ndelta        \u001b[38;2;114;156;31m━━━━━━━━",
+      "want_len": 235,
+      "got_len": 248
+    },
+    {
+      "id": "progress-025",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 17,
+      "line": 1,
+      "want": "theta       \u001b[38;2;249;38;114m━━━━━━━━━",
+      "got": "theta       \u001b[38;5;197m━━━━━━━━━━━�",
+      "want_len": 865,
+      "got_len": 830
+    },
+    {
+      "id": "progress-026",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 9,
+      "line": 1,
+      "want": "worker \u001b[38;2;249;38;114m━━━━━━━\u001b[0",
+      "got": "worker \u001b[91m━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m",
+      "want_len": 252,
+      "got_len": 188
+    },
+    {
+      "id": "progress-028",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 16,
+      "line": 1,
+      "want": "worker stream \u001b[90m━━━━━━━━━━\u001b[0m \u001b[",
+      "got": "worker stream \u001b[38;2;114;156;31m━━━━━━━━",
+      "want_len": 255,
+      "got_len": 294
+    },
+    {
+      "id": "progress-029",
+      "feature": "progress",
+      "class": "unclassified",
+      "byte_offset": 10,
+      "line": 1,
+      "want": "omicron \u001b[90m━━━━━━━━━━━━�",
+      "got": "omicron \u001b[38;5;70m━━━━━━━━━━�",
+      "want_len": 562,
+      "got_len": 560
+    }
+  ]
+}
