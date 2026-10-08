@@ -17,6 +17,10 @@ hud-width = { path = "../hud-width", version = "0.1.0" }
 [target.'cfg(unix)'.dependencies]
 rustix = { version = "1", default-features = false, features = ["std", "termios"] }
 
+[target.'cfg(windows)'.dependencies]
+terminal_size = "0.4"
+enable-ansi-support = "0.3"
+
 [lints]
 workspace = true
 

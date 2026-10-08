@@ -18,6 +18,7 @@ use crate::services::report::{measure_report, render_report};
 use crate::services::resolve::resolve;
 use crate::services::table::{measure_table, render_table};
 use crate::services::tree::{measure_tree, render_tree};
+use crate::services::winenv::apply_windows;
 
 /// Resolves capabilities through a [`Probe`] and remembers the answer per stream.
 pub(crate) struct Resolver<P> {
@@ -40,7 +41,14 @@ impl<P: Probe> Resolver<P> {
             Stream::Stdout => &self.stdout,
             Stream::Stderr => &self.stderr,
         };
-        *cell.get_or_init(|| resolve(&self.probe.env_snapshot(), self.probe.stream_info(stream)))
+        *cell.get_or_init(|| {
+            let info = self.probe.stream_info(stream);
+            let mut env = self.probe.env_snapshot();
+            if let Some(facts) = self.probe.windows_facts() {
+                env = apply_windows(env, &facts, info.is_tty);
+            }
+            resolve(&env, info)
+        })
     }
 }
 

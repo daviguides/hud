@@ -16,8 +16,31 @@ pub(super) fn stream_info(stream: Stream) -> StreamInfo {
     }
 }
 
+/// `GetConsoleMode` answers "is this a console" and `GetConsoleScreenBufferInfo` the size of the
+/// visible window, both through safe wrappers (`std` and `terminal_size`).
+#[cfg(windows)]
+pub(super) fn stream_info(stream: Stream) -> StreamInfo {
+    use std::io::IsTerminal;
+    let (is_tty, size) = match stream {
+        Stream::Stdout => (
+            std::io::stdout().is_terminal(),
+            terminal_size::terminal_size_of(std::io::stdout()),
+        ),
+        Stream::Stderr => (
+            std::io::stderr().is_terminal(),
+            terminal_size::terminal_size_of(std::io::stderr()),
+        ),
+    };
+    StreamInfo {
+        is_tty,
+        size: size.and_then(|(width, height)| {
+            (width.0 > 0 && height.0 > 0).then_some((width.0, height.0))
+        }),
+    }
+}
+
 /// Without a platform size call the size is left to `COLUMNS`, `LINES` and the defaults.
-#[cfg(not(unix))]
+#[cfg(not(any(unix, windows)))]
 pub(super) fn stream_info(stream: Stream) -> StreamInfo {
     use std::io::IsTerminal;
     let is_tty = match stream {
