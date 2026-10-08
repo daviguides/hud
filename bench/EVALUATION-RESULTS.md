@@ -153,3 +153,78 @@ Self-test of the harness after the changes: `pytest -q` in `bench/` (result in t
 ## Harness self-test after all changes
 
 `.venv/bin/python -m pytest -q` in `bench/`: 32 passed. The test that exercises `dx_runner.py run --execute` now points `HUD_DX_MODELS` at an unpinned copy of the models file, so a pinned file can never start a real run from a test.
+
+---
+
+# v0.7: the evaluation repeated on the changed API
+
+Candidate: `hud` workspace at the commits `2d56cdc` and `68a5453` (v0.7: API hardening, merge of the Windows and adoption tracks), same corpus, thresholds, runner, models and instrument as v0.6 (`evaluation.md` is unchanged). Instrument changes of this round are changelog 33 to 38; none touches a golden, a threshold or a pass criterion. Raw records: `pilot/hud/` (v0.6 records are in git history at `56f73e8`), `pilot/hud/dx_v07/`, `pilot/hud/ab_v06_v07/`, `pilot/*/speed/` (same-session re-measure of every arm), `spec/name_parity_signatures_v07.json`.
+
+## Verdict
+
+| Entry | v0.6 | v0.7 | Rule |
+|---|---|---|---|
+| Engine: own engine | GO | **GO** | engine rule 3: gates 1 and 2 pass, S1 to S4 thresholds hold |
+| API: hud's own API | NO-GO on name parity only | **GO** | API rule: first-try, LOC, name parity by name and by recognizable signature, friction, adoption and docs all meet their thresholds |
+
+## What changed in the API, and why (causes from the v0.6 decomposition)
+
+| Cause (v0.6) | Change | Evidence |
+|---|---|---|
+| C2: same name, different signature or role | `Text::stylize(style, range)` (style first, open ranges); `Progress::update(&task)` returns a `TaskUpdate` builder with `total`, `completed`, `advance`, `description`, `visible`, `refresh`; `Padding::new(renderable, pad)` is Rich's wrapper and the spacing value is `Pad` | `tests/padding.rs` (9 cases byte-identical to Rich), the Rich progress oracle now drives every event through `Progress::update` (all vectors pass), `tests/api.rs` |
+| C3: missing names Rust can express | `Console::{width, is_terminal, color_system, no_color, force_terminal}`, `Color::parse`, `Text::{truncate, wrap}`, `cell_len` | `tests/api.rs`; `Text::truncate` matches Rich on the three cases checked against the pinned Rich |
+| C1: measurement | fixed in v0.6 (changelog 30), unchanged | n/a |
+| Not changed | `box`, `box.ROUNDED` stay misses (Rust reserved word) | maximum reachable 38/40 |
+
+Decisions kept visible: `Text::wrap(width)` has no console argument (styles are typed, D-044), so the review counts it as NOT recognizable rather than bending the API to pass; `Progress::update` does not support Rich's `**fields` (D-045).
+
+## Name parity (unchanged instrument)
+
+| | v0.6 | v0.7 | Threshold |
+|---|---|---|---|
+| By existence of the name (matcher, changelog 30) | 29/40 = 72.5% | **38/40 = 95.0%** (missing: `box`, `box.ROUNDED`) | at least 70% |
+| By recognizable signature (criterion of `name_parity_signatures.json`, review v2) | 26/40 = 65.0% | **37/40 = 92.5%** | at least 70% (target 90%) |
+| Sensitivity | needed 2 contested items | 34/40 = 85.0% with every contested item rejected (`Text.stylize`, `Progress.update`, `Console.force_terminal`) | at least 70% |
+
+The review of version 2 was written before the DX run and applies the same criterion text to all 40 names; `scripts/parity_review_check.py` confirms it covers exactly the 40 names and agrees with the matcher on existence.
+
+## Axis 4: DX (real agents, same protocol as v0.6)
+
+| Metric | Result | Threshold |
+|---|---|---|
+| First-try success, primary model `claude-sonnet-5-5`, 8 tasks x 5 | **40/40 = 100%** (95% CI over tasks [1.0, 1.0]) | at least 80% |
+| Stress model `claude-haiku-5-5`, 8 tasks x 3 | 24/24 = 100% (reported, adds no threshold) | none |
+| LOC median over tasks (primary) | 11 (t01 15, t02 8, t03 23, t04 14, t05 8, t06 5, t07 30, t08 3) | at most 12, and at most 0.80x rs-rich's 15 |
+| API friction | 324 public functions; 0 with more than 3 positional parameters; 0 with `Option` parameters (0 padded `None`) | zero padded `None` |
+| Adoption (hello table) | +2.31 s compile, +218 KB, 6 transitive crates | at most 15 s, 1.5 MB, 60 |
+| Docs | 132/132 items documented, 32/32 with an example, 45 doctests pass, 0 ignored | 100% / 100% compiling doctests |
+| Fuzz | 13 features x 15 000 inputs (3 seeds): 0 panics, 0 violated properties | zero panics, at least 1000 per feature |
+
+Cost of the run: US$6.51 (Sonnet US$5.96 over 41 runs, Haiku US$0.55 over 25 runs, counting the two excluded attempts).
+
+Exclusions, all classified and rerun as the protocol says: Sonnet `t03-progress #1` called a tool named `Rust` that does not exist (the CLI answered "No such tool available") and Haiku `t07-pipe #2` tried a `Write` tool; both are `protocol_violation`, excluded, and their reruns succeeded (`run_resume.log`). The runner documented the rerun but did not implement it (v0.6 had no exclusions), so changelog 37 adds `--resume`, which reruns exactly the runs without a counted result and keeps the excluded rows and their transcripts.
+
+Reading the DX result honestly: first-try success was already 100% in v0.6, so the metric is at its ceiling and cannot show an improvement; it shows that the changes (and the new README and docs of the adoption track, changelog entry 36) did not regress it. The name-parity gain is a vocabulary gain for Rich users arriving from Python, which the agent runs do not sample (the same limit as in v0.6).
+
+## Axes 1 to 3: no regression
+
+| Axis | v0.7 | v0.6 | Threshold |
+|---|---|---|---|
+| Correctness, 210 goldens | 210/210 = 100% (style and markup 100%); `table_unicode` 12/12 | same | 98% (target 100%) |
+| Width | 496/500 = 99.2% (the 4 misses are D-001) | same | 99% |
+| Grapheme splits, fold and truncate | 0 of 20 000 and 0 | same | 0 |
+| Misaligned table rows / rows wider than the terminal | 0/97, 0/704 | same | 0 |
+| Capability matrix | 40/40 | same | 100% |
+| Tasks t01 to t08 | 8/8 pass | same | all pass |
+| S1 first byte vs Python Rich (CI) | 0.070 [0.068, 0.071] | 0.079 | at most 0.10x |
+| S2 vs best existing Rust (CI) | 0.238 [0.232, 0.244] (rich_rust) | 0.237 | at most 0.80x, CI at most 1.00 |
+| S3 vs best existing Rust (CI) | 0.198 [0.194, 0.203] (composed) | 0.196 | same |
+| S4 vs best existing Rust (CI) | 0.311 [0.297, 0.317] (rs-rich) | 0.290 | same |
+
+Speed conditions: one session, every arm (Python Rich, hud and the five pilot candidates) measured one at a time by `pilot.py speed S1,S2,S3,S4`, 1-minute load average between 2.75 and 4.00 at the starts, no `cargo` or `rustc` running, 0 lines `PROCEEDED UNDER LOAD`, every hud output EQUAL to its golden (S3 1 000 of 1 000 frames). The machine is a shared desktop, so this is not an idle window: the thresholds are read on same-session ratios, as in v0.6, and the guard of the driver (load at most 4.0) held at every start.
+
+Version to version, interleaved on the same session (`pilot/hud/ab_v06_v07/`, 60 samples per arm and workload; v0.7 over v0.6): S1 0.976 [0.958, 1.007], S2 1.012 [0.989, 1.038], S3 1.034 [1.013, 1.050], S4 0.986 [0.974, 1.017]. The 3% on S3 is real (the display now skips hidden tasks, one atomic read per task per frame) and small against the 25% regression rule.
+
+## What the evidence says about the next step
+
+The next step comes from what was measured, not from a list: the API gate that failed in v0.6 is closed by the changes its causes asked for, and nothing else measured is below its threshold. The open items are not API gates: `Text::wrap` has no console argument (D-044), `box` and `box.ROUNDED` cannot exist in Rust, and first-try success is at its ceiling, so the DX metric will not detect a regression smaller than one failed run in 40 until the task suite is made harder. v0.8 (structured output) starts from here.

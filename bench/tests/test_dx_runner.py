@@ -145,3 +145,27 @@ def test_a_task_without_a_solution_is_unsupported_not_a_pass(hud, prepared):
     without = {**hud, "solutions": {t: path for t, path in hud["solutions"].items() if t != "t05-error"}}
     row = dx.one_run(without, dx.MockAgent(without), "mock", "t05-error", 1, work, mirror, sandbox, dx.load_config()["limits"])
     assert row["status"] == "unsupported"
+
+
+def test_resume_reruns_only_what_has_no_counted_result_and_keeps_the_excluded_evidence(tmp_path):
+    base = [PY, str(BENCH / "scripts" / "dx_runner.py"), "run", "--dry-run", "--tasks", "t06-markup", "t08-env",
+            "--repeats", "1", "--stress-repeats", "0", "--work", str(tmp_path)]
+    first = tmp_path / "first.jsonl"
+    # t06 is read by a peeking agent (excluded); t08 is not run by this first pass because the file will be built by hand
+    subprocess.run([*base, "--mock", "peek", "--out", str(first)], capture_output=True, text=True, check=True)
+    rows = [json.loads(line) for line in first.read_text().splitlines()]
+    assert {r["status"] for r in rows} == {"protocol_violation"}
+    keep = {**rows[0], "task": "t08-env", "status": "success", "reason": None}
+    first.write_text("\n".join(json.dumps(r) for r in [rows[0], keep]) + "\n")
+    second = tmp_path / "second.jsonl"
+    subprocess.run([*base, "--mock", "solution", "--resume", str(first), "--out", str(second)],
+                   capture_output=True, text=True, check=True)
+    merged = [json.loads(line) for line in second.read_text().splitlines()]
+    by_task = {}
+    for r in merged:
+        by_task.setdefault(r["task"], []).append(r["status"])
+    assert by_task["t08-env"] == ["success"], "a counted run is not run again"
+    assert by_task["t06-markup"] == ["protocol_violation", "success"], "the excluded row stays and the rerun is added"
+    assert (tmp_path / "runs" / "mock-primary-t06-markup-1.excluded1").exists()
+    summary = dx.report(merged)
+    assert summary["mock-primary"]["runs"] == 2 and summary["mock-primary"]["excluded"]["protocol_violation"] == 1

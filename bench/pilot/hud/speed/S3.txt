@@ -1,2 +1,2 @@
 EQUAL S3 919 bytes vs 919 frames matched 1000 of 1000 (need >= 900)
-{'n': 30, 'median_ms': 2.1752085, 'ci95_ms': [2.1567295, 2.2038755]}
+{'n': 30, 'median_ms': 1.4676255, 'ci95_ms': [1.4415835, 1.501021]}

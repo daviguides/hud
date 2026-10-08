@@ -1,11 +1,11 @@
 {
  "S1": {
-  "hud_median_ms": 2.989083,
-  "python_median_ms": 37.855625,
-  "ratio_python": 0.0789600752860374,
+  "hud_median_ms": 1.7407915,
+  "python_median_ms": 25.006542,
+  "ratio_python": 0.06961344355409077,
   "ci_python": [
-   0.07674588249281951,
-   0.0842611290257495
+   0.06784120869799515,
+   0.07116024309252364
   ],
   "best_existing": "rs_rich",
   "verified_existing": [
@@ -15,34 +15,34 @@
   "threshold": "median <= 0.10x Python Rich; no regression above 25% against the best existing",
   "point_ok": true,
   "ci_ok": true,
-  "ratio_best": 1.01038002281658,
+  "ratio_best": 0.8456515624567347,
   "ci_best": [
-   0.9829498031072537,
-   1.0783986016967217
+   0.8131018312639501,
+   0.8738161737077396
   ],
-  "best_median_ms": 2.958375,
+  "best_median_ms": 2.058521,
   "no_regress_ok": true,
   "gate": true
  },
  "S2": {
-  "hud_median_ms": 31.643,
-  "python_median_ms": 1608.8130005,
-  "ratio_python": 0.019668538226733454,
+  "hud_median_ms": 21.057208,
+  "python_median_ms": 1032.204854,
+  "ratio_python": 0.020400221834260043,
   "ci_python": [
-   0.019390453670677755,
-   0.02013858942661479
+   0.01995443706712838,
+   0.02093597923348638
   ],
   "best_existing": "rich_rust",
   "verified_existing": [
    "rich_rust",
    "rs_rich"
   ],
-  "ratio_best": 0.23662121387737095,
+  "ratio_best": 0.2377333090683749,
   "ci_best": [
-   0.23080153571590253,
-   0.24241542993216308
+   0.23229548673346737,
+   0.24421204125803656
   ],
-  "best_median_ms": 133.7285,
+  "best_median_ms": 88.5749165,
   "point_ok": true,
   "ci_ok": true,
   "no_regress_ok": true,
@@ -50,12 +50,12 @@
   "threshold": "median <= 0.80x best, CI upper <= 1.00, no regression above 25%"
  },
  "S3": {
-  "hud_median_ms": 2.1752085,
-  "python_median_ms": 1051.0048335,
-  "ratio_python": 0.0020696465236570197,
+  "hud_median_ms": 1.4676255,
+  "python_median_ms": 678.3586255,
+  "ratio_python": 0.0021634950081430046,
   "ci_python": [
-   0.001995813521689234,
-   0.002104202606953482
+   0.0021203928718874147,
+   0.0022124859550749117
   ],
   "best_existing": "composed",
   "verified_existing": [
@@ -65,12 +65,12 @@
    "richrs",
    "rs_rich"
   ],
-  "ratio_best": 0.19566432329751027,
+  "ratio_best": 0.19807459613951545,
   "ci_best": [
-   0.19119965433848424,
-   0.19935177163995724
+   0.19438175639149188,
+   0.20316928435562834
   ],
-  "best_median_ms": 11.117042,
+  "best_median_ms": 7.4094585,
   "point_ok": true,
   "ci_ok": true,
   "no_regress_ok": true,
@@ -78,24 +78,24 @@
   "threshold": "median <= 0.80x best, CI upper <= 1.00, no regression above 25%"
  },
  "S4": {
-  "hud_median_ms": 2.5293335,
-  "python_median_ms": 59.976021,
-  "ratio_python": 0.04217241253800415,
+  "hud_median_ms": 1.781646,
+  "python_median_ms": 42.507583,
+  "ratio_python": 0.04191360397978874,
   "ci_python": [
-   0.04118684031874834,
-   0.04343508768864579
+   0.04001141340768302,
+   0.04381621366002547
   ],
   "best_existing": "rs_rich",
   "verified_existing": [
    "rich_rust",
    "rs_rich"
   ],
-  "ratio_best": 0.29014852521544615,
+  "ratio_best": 0.3107126927897978,
   "ci_best": [
-   0.2831581181261561,
-   0.2997750101663922
+   0.2971529718980568,
+   0.317267357694119
   ],
-  "best_median_ms": 8.717375,
+  "best_median_ms": 5.7340625,
   "point_ok": true,
   "ci_ok": true,
   "no_regress_ok": true,

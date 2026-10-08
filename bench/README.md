@@ -47,5 +47,6 @@ Each candidate has its own crate and adapters under `candidates/<name>/` (rich_r
 | `tasks.py`, `gen_task_specs.py`, `loc.py` | DX tasks: run, goldens, statements, LOC rule |
 | `speed.py` | output verification, S1 whole-process timing, S2-S4 in-process timing, bootstrap CI, ratios |
 | `adoption.py`, `docs_coverage.py`, `api_surface.py` | compile time / binary size / dependencies; rustdoc coverage and doctests; name parity and API friction |
+| `parity_review_check.py` | checks that a name-parity signature review covers exactly the 40 names and agrees with the matcher |
 | `pilot.py`, `pilot_report.py` | run every candidate through the same code (`static`, `timed`, `speed`, `unverified`) and build the cross-candidate tables |
 | `docs_mirror.py` | docs.rs-equivalent mirror (no `src/` pages) for the DX first-try test; prompt in `spec/dx-prompt.md` |

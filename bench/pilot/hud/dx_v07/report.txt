@@ -1,0 +1,74 @@
+{
+ "claude-haiku-5-5": {
+  "runs": 24,
+  "success": 24,
+  "first_try": 1.0,
+  "per_task": {
+   "t01-table": 1.0,
+   "t02-panel": 1.0,
+   "t03-progress": 1.0,
+   "t04-tree": 1.0,
+   "t05-error": 1.0,
+   "t06-markup": 1.0,
+   "t07-pipe": 1.0,
+   "t08-env": 1.0
+  },
+  "median_loc_per_task": {
+   "t01-table": 15,
+   "t02-panel": 5,
+   "t03-progress": 21,
+   "t04-tree": 14,
+   "t05-error": 10,
+   "t06-markup": 26,
+   "t07-pipe": 16,
+   "t08-env": 3
+  },
+  "ci95_over_tasks": [
+   1.0,
+   1.0
+  ],
+  "excluded": {
+   "harness_error": 0,
+   "protocol_violation": 1,
+   "unsupported": 0
+  },
+  "pipeline_check": true,
+  "gate": "inconclusive (pipeline check)"
+ },
+ "claude-sonnet-5-5": {
+  "runs": 40,
+  "success": 40,
+  "first_try": 1.0,
+  "per_task": {
+   "t01-table": 1.0,
+   "t02-panel": 1.0,
+   "t03-progress": 1.0,
+   "t04-tree": 1.0,
+   "t05-error": 1.0,
+   "t06-markup": 1.0,
+   "t07-pipe": 1.0,
+   "t08-env": 1.0
+  },
+  "median_loc_per_task": {
+   "t01-table": 15,
+   "t02-panel": 8,
+   "t03-progress": 23,
+   "t04-tree": 14,
+   "t05-error": 8,
+   "t06-markup": 5,
+   "t07-pipe": 30,
+   "t08-env": 3
+  },
+  "ci95_over_tasks": [
+   1.0,
+   1.0
+  ],
+  "excluded": {
+   "harness_error": 0,
+   "protocol_violation": 1,
+   "unsupported": 0
+  },
+  "pipeline_check": false,
+  "gate": "pass"
+ }
+}

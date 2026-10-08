@@ -13,7 +13,7 @@ of the task checked with scripts/tasks.py. The transcript is audited: a tool oth
 outside the mirror, is a protocol violation and the run is discarded and counts for nothing until rerun.
 
 Classification: success; `candidate_failure` (no code, compile error, wrong output, literal output); `harness_error`
-(sandbox or mirror problem: excluded, rerun); `protocol_violation` (excluded, rerun); `unsupported` (the candidate
+(sandbox or mirror problem: excluded, rerun); `protocol_violation` (excluded, rerun; `run --resume FILE` reruns exactly those); `unsupported` (the candidate
 has no solution to give the mock for the task). `--execute` is the mode switch between the dry run (mock agent, no model called) and the real run (models called). The
 protocol, the models and the token spend are pre-authorized by the owner: a real run needs both model ids pinned in
 spec/dx-models.json or given on the command line, prints the token and cost estimate as information, and starts. It
@@ -406,10 +406,23 @@ def cmd_run(args):
     est = estimate(config, mirror, tasks)
     print("estimate (assumptions in spec/dx-models.json):", json.dumps(est["plan"]), file=sys.stderr)
     rows = []
+    done = set()
+    if args.resume:
+        rows = [json.loads(line) for line in Path(args.resume).read_text().splitlines() if line.strip()]
+        done = {(r["model"], r["task"], r["repeat"]) for r in rows if r["status"] in ("success", "candidate_failure")}
     started = time.time()
     for model, repeats in plan:
         for task in tasks:
             for repeat in range(1, repeats + 1):
+                if (model, task, repeat) in done:
+                    continue
+                kept = work / "runs" / f"{model}-{task}-{repeat}"
+                if kept.exists():
+                    # the excluded attempt stays on disk as evidence; the rerun gets the directory
+                    n = 1
+                    while kept.with_name(f"{kept.name}.excluded{n}").exists():
+                        n += 1
+                    kept.rename(kept.with_name(f"{kept.name}.excluded{n}"))
                 rows.append(one_run(candidate, agent, model, task, repeat, work, mirror, sandbox, limits))
                 print(f"{model} {task} #{repeat}: {rows[-1]['status']}" + (f" ({rows[-1]['reason']})" if rows[-1]["reason"] else ""),
                       file=sys.stderr)
@@ -441,6 +454,7 @@ def main():
     run.add_argument("--primary-model")
     run.add_argument("--stress-model")
     run.add_argument("--out")
+    run.add_argument("--resume", help="a runs file: keep its counted runs, rerun only what has no counted result (excluded or missing); excluded rows stay in the file")
     rep = sub.add_parser("report")
     rep.add_argument("runs")
     args = ap.parse_args()
