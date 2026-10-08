@@ -35,6 +35,7 @@ pub struct Column {
     pub(crate) header: String,
     pub(crate) justify: Justify,
     pub(crate) style: Style,
+    pub(crate) header_style: Style,
     pub(crate) no_wrap: bool,
     pub(crate) overflow: Overflow,
     pub(crate) width: Option<usize>,
@@ -49,6 +50,7 @@ impl Column {
             header: header.into(),
             justify: Justify::Left,
             style: Style::new(),
+            header_style: Style::new(),
             no_wrap: false,
             overflow: Overflow::Ellipsis,
             width: None,
@@ -68,6 +70,13 @@ impl Column {
     #[must_use]
     pub fn style(mut self, style: Style) -> Column {
         self.style = style;
+        self
+    }
+
+    /// A style added to this column's header over the table's header style.
+    #[must_use]
+    pub fn header_style(mut self, style: Style) -> Column {
+        self.header_style = style;
         self
     }
 
@@ -137,20 +146,43 @@ impl From<String> for Column {
 /// assert!(plain.contains("Build report"));
 /// assert!(plain.contains("┃ Crate "));
 /// ```
-#[derive(Clone, Debug, Default, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Table {
     pub(crate) title: Option<String>,
     pub(crate) caption: Option<String>,
     pub(crate) box_style: BoxStyle,
     pub(crate) show_lines: bool,
+    pub(crate) header_style: Style,
     pub(crate) columns: Vec<Column>,
     pub(crate) rows: Vec<Vec<String>>,
 }
 
+impl Default for Table {
+    fn default() -> Table {
+        Table {
+            title: None,
+            caption: None,
+            box_style: BoxStyle::default(),
+            show_lines: false,
+            header_style: Style::new().bold(),
+            columns: Vec::new(),
+            rows: Vec::new(),
+        }
+    }
+}
+
 impl Table {
-    /// An empty table with heavy-head borders.
+    /// An empty table with heavy-head borders and bold headers.
     pub fn new() -> Table {
         Table::default()
+    }
+
+    /// The style of every header, in place of the default bold; a column's own header style is
+    /// added over it.
+    #[must_use]
+    pub fn header_style(mut self, style: Style) -> Table {
+        self.header_style = style;
+        self
     }
 
     /// The text centered above the table, read as markup.

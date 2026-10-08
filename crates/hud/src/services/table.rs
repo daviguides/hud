@@ -298,26 +298,45 @@ pub(crate) fn render_table(table: &Table, width: usize) -> Vec<Segment> {
     out.push(run(rule(rows[TOP], &widths), &null));
     out.push(newline());
     let body_rows = table.rows.len();
-    let header_style = Style::new().bold();
+    let header_styles: Vec<Style> = table
+        .columns
+        .iter()
+        .map(|column| table.header_style.combine(&column.header_style))
+        .collect();
     for row_index in 0..=body_rows {
         let first = row_index == 0;
         let last = row_index == body_rows;
         let mut cells: Vec<Vec<Vec<Segment>>> = Vec::with_capacity(count);
-        for (column, (column_texts, &column_width)) in
-            table.columns.iter().zip(texts.iter().zip(&widths))
+        for (column_index, (column, (column_texts, &column_width))) in table
+            .columns
+            .iter()
+            .zip(texts.iter().zip(&widths))
+            .enumerate()
         {
-            let base = if first { &header_style } else { &column.style };
+            let base = if first {
+                &header_styles[column_index]
+            } else {
+                &column.style
+            };
             cells.push(cell_lines(&column_texts[row_index], column_width, base));
         }
         let height = cells.iter().map(Vec::len).max().unwrap_or(0);
-        for ((column, &column_width), lines) in
-            table.columns.iter().zip(&widths).zip(cells.iter_mut())
+        for (column_index, ((column, &column_width), lines)) in table
+            .columns
+            .iter()
+            .zip(&widths)
+            .zip(cells.iter_mut())
+            .enumerate()
         {
             let missing = height - lines.len();
             if missing == 0 {
                 continue;
             }
-            let base = if first { &header_style } else { &column.style };
+            let base = if first {
+                &header_styles[column_index]
+            } else {
+                &column.style
+            };
             let blanks = (0..missing).map(|_| vec![run(" ".repeat(column_width), base)]);
             if first {
                 let mut padded: Vec<Vec<Segment>> = blanks.collect();
