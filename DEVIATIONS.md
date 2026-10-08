@@ -103,6 +103,29 @@ with a combining mark or a flag in the input (`tests/oracle.rs`).
 
 - Remove when: Rich counts cells there.
 
+### D-025: `escape` also protects a backslash before a bracket that starts no tag
+
+Rich's `escape` leaves `\[x` alone and prints `[x`, because its markup parser eats any backslash
+before a bracket. hud's `escape` adds one, so `Text::from_markup(&escape(s)).plain() == s` for
+any `s` that does not end in a backslash (checked by the fuzz mode).
+
+### D-026: a `Text` keeps its own justify, overflow, no_wrap, tab size and end when printed
+
+Rich's `Console.print` joins plain `Text` arguments into a new one, which drops those settings,
+and wraps `justify=` in an `Align` of the whole block. hud prints a `Text` as the renderable it
+is: its settings apply, and `Console::print` has no justify argument. The differential vectors
+render through a `Group` in Rich for the same reason.
+
+### D-027: a span that starts or ends inside a grapheme cluster covers the whole cluster
+
+Rich splits the cluster between two runs, so the line is measured and written in pieces that
+disagree with the whole (a base letter and its combining mark can end up in different escape
+sequences). hud moves the span edges to the cluster edges, so a run never holds half a cluster
+and the widths of the runs add up to the width of the line. Only text with a tag in the middle
+of a cluster is affected.
+
+- Remove when: never; it follows from the assertiveness gate.
+
 ### D-030: color names and palettes are data from Rich
 
 The 235 color names and the standard and 256-color palettes in `model/palette.rs` are extracted

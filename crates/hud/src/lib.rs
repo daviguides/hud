@@ -36,6 +36,10 @@ macro_rules! println {
 }
 
 /// Like [`println!`] on standard error.
+///
+/// ```
+/// hud::eprintln!("[yellow]warning[/]: {} files skipped", 3);
+/// ```
 #[macro_export]
 macro_rules! eprintln {
     () => {
