@@ -2,10 +2,11 @@
 
   dx_runner.py estimate [--candidate hud]
   dx_runner.py run --dry-run [--candidate hud] [--tasks t03-progress ...] [--repeats N] [--mock solution|broken|wrong|peek]
-  dx_runner.py run --execute --primary-model ID [--stress-model ID] [--yes]   (spends tokens; see below)
+  dx_runner.py run --execute --primary-model ID [--stress-model ID]   (real-run mode: calls the models)
   dx_runner.py report runs.jsonl
 
-Per run: a run directory whose only content is a symlink to the docs mirror and to the README (scripts/docs_mirror.py);
+Per run: a run directory whose only content is a real copy of the docs mirror and of the README (scripts/docs_mirror.py;
+symlinks are not followed by the agent's file tools), outside any git checkout so no ancestor exposes repository files;
 the prompt of spec/dx-prompt.md; an agent that may use Read, Grep and Glob and nothing else; its reply, whose last rust
 block is the program; a sandbox crate where the program is built once (`cargo build --locked --offline`); every run
 of the task checked with scripts/tasks.py. The transcript is audited: a tool other than Read, Grep or Glob, or a path
@@ -13,9 +14,10 @@ outside the mirror, is a protocol violation and the run is discarded and counts 
 
 Classification: success; `candidate_failure` (no code, compile error, wrong output, literal output); `harness_error`
 (sandbox or mirror problem: excluded, rerun); `protocol_violation` (excluded, rerun); `unsupported` (the candidate
-has no solution to give the mock for the task). A real run needs `--execute`, both model ids pinned in
-spec/dx-models.json or given on the command line, and prints the token and cost estimate first (`--yes` skips the
-question). The dry run and every test use the mock agent: no model is called.
+has no solution to give the mock for the task). `--execute` is the mode switch between the dry run (mock agent, no model called) and the real run (models called). The
+protocol, the models and the token spend are pre-authorized by the owner: a real run needs both model ids pinned in
+spec/dx-models.json or given on the command line, prints the token and cost estimate as information, and starts. It
+never asks for a confirmation. The dry run and every test use the mock agent.
 """
 
 import argparse
@@ -171,7 +173,7 @@ class MockAgent:
 class ClaudeCli:
     """The Claude Code CLI in print mode with Read, Grep and Glob only. Not run by any test: it spends tokens."""
 
-    def __init__(self, isolation="bare"):
+    def __init__(self, isolation="safe"):
         self.isolation = isolation
 
     def command(self, prompt, run_dir, model, limits):
@@ -181,8 +183,8 @@ class ClaudeCli:
                "--max-turns", str(limits["max_turns"])]
         if limits.get("max_budget_usd_per_run"):
             cmd += ["--max-budget-usd", str(limits["max_budget_usd_per_run"])]
-        if self.isolation == "bare":
-            cmd.append("--bare")
+        if self.isolation == "safe":
+            cmd.append("--safe-mode")
         return cmd
 
     def run(self, prompt, run_dir, task_id, model, limits):
@@ -253,9 +255,9 @@ def one_run(candidate, agent, model, task_id, repeat, work, mirror, sandbox, lim
     if run_dir.exists():
         shutil.rmtree(run_dir)
     run_dir.mkdir(parents=True)
-    (run_dir / "docs").symlink_to(Path(mirror) / "docs")
+    shutil.copytree(Path(mirror) / "docs", run_dir / "docs")
     if (Path(mirror) / "README.md").exists():
-        (run_dir / "README.md").symlink_to(Path(mirror) / "README.md")
+        shutil.copy2(Path(mirror) / "README.md", run_dir / "README.md")
     row = {"candidate": candidate["name"], "model": model, "task": task_id, "repeat": repeat, "status": None,
            "reason": None, "loc": None, "usage": None}
     if task_id not in candidate["solutions"] and isinstance(agent, MockAgent):
@@ -266,7 +268,7 @@ def one_run(candidate, agent, model, task_id, repeat, work, mirror, sandbox, lim
         return {**row, "status": "harness_error", "reason": f"agent: {error}"}
     row["usage"] = got["usage"]
     (run_dir / "transcript.jsonl").write_text("\n".join(json.dumps(e) for e in got["events"]) + "\n")
-    docs_read, violations = audit(got["events"], run_dir, Path(mirror))
+    docs_read, violations = audit(got["events"], run_dir, run_dir)
     if violations:
         return {**row, "status": "protocol_violation", "reason": "; ".join(violations[:3])}
     if not docs_read:
@@ -293,7 +295,7 @@ def one_run(candidate, agent, model, task_id, repeat, work, mirror, sandbox, lim
 # --------------------------------------------------------------------------------------------------
 
 def load_config():
-    return json.loads((SPEC / "dx-models.json").read_text())
+    return json.loads(Path(os.environ.get("HUD_DX_MODELS") or SPEC / "dx-models.json").read_text())
 
 
 def estimate(config, mirror=None, tasks=None):
@@ -393,6 +395,9 @@ def cmd_run(args):
     else:
         if not primary or not stress:
             sys.exit("a real run needs both model ids: set them in spec/dx-models.json or pass --primary-model and --stress-model")
+        for parent in [work.resolve(), *work.resolve().parents]:
+            if (parent / ".git").exists():
+                sys.exit(f"a real run needs --work outside any git checkout (found {parent / '.git'}): an ancestor would expose repository files to the agent")
         agent = ClaudeCli(config["isolation"])
         plan = [(primary, repeats_primary), (stress, repeats_stress)]
     plan = [(model, repeats) for model, repeats in plan if repeats > 0]
@@ -400,9 +405,6 @@ def cmd_run(args):
     sandbox = prepare_sandbox(candidate, work / "sandbox")
     est = estimate(config, mirror, tasks)
     print("estimate (assumptions in spec/dx-models.json):", json.dumps(est["plan"]), file=sys.stderr)
-    if args.execute and not args.yes:
-        if input("run the real agent? [y/N] ").strip().lower() != "y":
-            sys.exit("not confirmed")
     rows = []
     started = time.time()
     for model, repeats in plan:
@@ -433,7 +435,6 @@ def main():
     run = sub.choices["run"]
     run.add_argument("--dry-run", action="store_true")
     run.add_argument("--execute", action="store_true")
-    run.add_argument("--yes", action="store_true")
     run.add_argument("--mock", default="solution", choices=["solution", "broken", "wrong", "peek"])
     run.add_argument("--repeats", type=int)
     run.add_argument("--stress-repeats", type=int)

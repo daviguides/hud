@@ -1,6 +1,7 @@
 """Self-tests of the DX first-try runner (evaluation.md, pilot validity rule 4): no model is ever called."""
 
 import json
+import os
 import subprocess
 import sys
 
@@ -103,14 +104,18 @@ def test_estimate_prints_tokens_and_a_cost_only_when_prices_are_configured():
 
 
 def test_the_real_agent_can_only_read_and_never_runs_without_the_flags(tmp_path):
-    cmd = dx.ClaudeCli("bare").command("prompt", tmp_path, "some-model", dx.load_config()["limits"])
-    assert cmd[:2] == ["claude", "-p"] and "--bare" in cmd
+    cmd = dx.ClaudeCli("safe").command("prompt", tmp_path, "some-model", dx.load_config()["limits"])
+    assert cmd[:2] == ["claude", "-p"] and "--safe-mode" in cmd
     assert cmd[cmd.index("--tools") + 1] == "Read,Grep,Glob"
     assert cmd[cmd.index("--permission-mode") + 1] == "dontAsk"
     assert "Bash" not in " ".join(cmd) and "--max-turns" in cmd
+    unpinned = dx.load_config()
+    unpinned["primary"]["id"] = unpinned["stress"]["id"] = None
+    (tmp_path / "unpinned.json").write_text(json.dumps(unpinned))
+    env = {**os.environ, "HUD_DX_MODELS": str(tmp_path / "unpinned.json")}
     for argv, text in ((["run"], "choose --dry-run"), (["run", "--execute"], "needs both model ids")):
         proc = subprocess.run([PY, str(BENCH / "scripts" / "dx_runner.py"), *argv, "--work", str(tmp_path)],
-                              capture_output=True, text=True)
+                              capture_output=True, text=True, env=env)
         assert proc.returncode != 0 and text in proc.stderr
 
 

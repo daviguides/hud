@@ -1,6 +1,6 @@
 # hud: first full evaluation, readiness
 
-State after v0.6 part A. The thresholds and decision rules are the pre-registered ones in `~/work/projects/daviguides/hud/foundation/evaluation.md`; nothing below changes one. This file lists what is still to be done before hud can receive a verdict, what only the user can do, and the commands in order.
+State after v0.6 part A. The thresholds and decision rules are the pre-registered ones in `~/work/projects/daviguides/hud/foundation/evaluation.md`; nothing below changes one. This file lists what is still to be done before hud can receive a verdict and the commands in order. The evaluation runs autonomously: the protocol, the models and the token spend are pre-authorized by the owner, and nothing here waits for a go.
 
 ## What is done and what is open
 
@@ -12,23 +12,26 @@ State after v0.6 part A. The thresholds and decision rules are the pre-registere
 | 4 DX | **partly measured**: 8 / 8 tasks pass, LOC median 11 (Python Rich 12, rs-rich 15), name parity 28 / 40 = 70% by name, 0 padded functions, adoption +2.0 s / +219 KB / 6 crates, docs 100%. **Open: first-try success**, which needs real models | `pilot/hud/tasks.json`, `pilot/hud/api.json`, `pilot/hud/dx_dry_run_v06.txt` |
 | Verdict | not issued: speed and first-try are open, so the engine and API entries stay INCONCLUSIVE (evaluation.md, pilot validity 7) | |
 
-## What the user must do
+## Autonomous procedure
 
-1. **Quiet the machine for the speed pass.** Evaluation rule 1: one machine, no concurrent builds or other benchmark arms. In practice: close the other Claude Code sessions, editors and browsers, stop anything compiling, and start only when `uptime` shows a 1-minute load average under 1.0 for several minutes. The driver (`scripts/pilot.py`, `wait_idle`) waits for no `cargo`/`rustc` process and a load average of at most 4.0, and after 30 minutes it proceeds anyway and writes `PROCEEDED UNDER LOAD` in the log; 4.0 is looser than rule 1, and that line marks a row taken under load, which has to be re-measured alone, so keep the machine quiet until the log is clean. Do not touch the machine while it runs (the duration was not measured: each workload is 30 iterations for six candidates and Python Rich, plus the adoption builds).
-2. **Pin the two models and confirm the token budget for the DX test.** `bench/spec/dx-models.json` has `primary.id` and `stress.id` set to `null` and the runner refuses a real run until both are set. Per the decided protocol: your primary daily model (5 repeats per task, the 80% gate is read on it) and one smaller model (3 repeats, reported only). Also fill `estimate.prices_usd_per_mtok` if you want a dollar figure: without prices the estimate is tokens only.
+Nothing in this evaluation waits for a confirmation, an approval or the owner. Speed and DX are run by the procedure below; a blocker is reported as the deliverable for that step while the remaining steps continue.
 
-   Estimate printed by `dx_runner.py estimate` (assumptions in `dx-models.json`: 12 turns, 10 doc pages of about 4 300 tokens and a 1 067-token README read per run, 6 000 tokens of system context, 3 000 output tokens per run):
+1. **Wait for an idle window, record load, run.** One machine, no concurrent builds or other benchmark arms (evaluation rule 1). Before each timing run poll `uptime` and the process list until there is no `cargo`/`rustc` and the 1-minute load average is at or under the driver limit (`scripts/pilot.py`, `wait_idle`: 4.0, a patience of 30 minutes per row, then it proceeds and writes `PROCEEDED UNDER LOAD` in the log). Record the load at every run. A row taken under load is re-measured alone in the next window; if no clean window comes within the waiting budget, the lowest-load window is used, the loads are recorded, and the speed gate is INCONCLUSIVE with those numbers. Never stop to ask.
+2. **Models are pinned in `spec/dx-models.json`** and recorded in the changelog: primary `claude-sonnet-5-5` (5 repeats per task, the 80% gate is read on it) and stress `claude-haiku-5-5` (3 repeats, reported only). The protocol, the models and the token spend are pre-authorized by the owner.
+3. **The token and cost estimate is informational.** `dx_runner.py` prints it before the first call and starts; it does not ask. `--execute` is the mode switch between the dry run (mock agent, no model called) and the real run (models called), not an approval.
 
-   | Model | Runs | Input tokens | Output tokens | Cost |
-   |---|---|---|---|---|
-   | primary | 40 (8 tasks x 5) | 15 243 720 | 120 000 | not computed (no prices) |
-   | stress | 24 (8 tasks x 3) | 9 146 232 | 72 000 | not computed (no prices) |
+Estimate printed by `dx_runner.py estimate` (assumptions in `dx-models.json`: 12 turns, 10 doc pages of about 4 300 tokens and a 1 067-token README read per run, 6 000 tokens of system context, 3 000 output tokens per run):
 
-   Input tokens are counted without prompt caching, so they are an upper bound for the cached part. The runner prints this estimate again before the first call and asks for confirmation (`--yes` skips the question).
+| Model | Runs | Input tokens | Output tokens | Cost |
+|---|---|---|---|---|
+| primary | 40 (8 tasks x 5) | 15 243 720 | 120 000 | not computed (no prices) |
+| stress | 24 (8 tasks x 3) | 9 146 232 | 72 000 | not computed (no prices) |
+
+Input tokens are counted without prompt caching, so they are an upper bound for the cached part. Fill `estimate.prices_usd_per_mtok` only if a dollar figure is wanted in the printout.
 
 ## Steps, in order
 
-Everything runs from `bench/` with `.venv/bin/python`; the candidates' release binaries are built in place.
+Everything runs autonomously from `bench/` with `.venv/bin/python`; the candidates' release binaries are built in place.
 
 **0. Preflight (the machine need not be quiet).**
 
@@ -56,7 +59,7 @@ Reading the speed thresholds (evaluation.md, axis 3):
 - S2, S3, S4 at most 0.80x the best existing Rust candidate with CI upper bound at most 1.00, and no workload more than 25% slower than it. The evaluation text says "the best existing Rust candidate that passed both gates"; no pilot candidate passed both (`PILOT-RESULTS.md`), so the reference is the fastest pilot candidate whose output is verified equal for that workload, which is how the absolute targets of `features.md` (S2 71.6 ms, S3 5.97 ms, S4 4.70 ms) were derived. State this reading in the report; it does not change a threshold.
 - A workload counts only if hud's output is EQUAL to the golden (`speed.py verify`; S1 to S4 are EQUAL today, S3 with 1 000 of 1 000 frames).
 
-**2. DX first-try (needs the models and the budget).**
+**2. DX first-try (pre-authorized, runs without a go).**
 
 ```bash
 .venv/bin/python scripts/dx_runner.py estimate                       # tokens, again
@@ -82,10 +85,10 @@ Write the result as `bench/HUD-RESULTS.md` in the style of `PILOT-RESULTS.md`: p
 - [ ] `cargo test --workspace`, `cargo xtask check-layers`, clippy and fmt green on the commit to be measured; the commit hash is recorded in the report
 - [ ] `pytest -q` in `bench/` green (the pty reader fix is in: changelog 24)
 - [ ] `pilot.py static` run for all six; the five pilot candidates unchanged against `PILOT-RESULTS.md`
-- [ ] User quiet-machine confirmation; `uptime` load under 1.0; no `cargo`/`rustc`, editor builds or other sessions working
+- [ ] Idle window found by polling (no `cargo`/`rustc`, load at or under the driver limit), load recorded at every run
 - [ ] `pilot.py timed` complete; `speed_conditions.log` has no `PROCEEDED UNDER LOAD`; hud's four outputs EQUAL
 - [ ] `pilot_report.py` includes hud; S1 against Python Rich and S2 to S4 against the fastest verified pilot candidate, with CI bounds
-- [ ] `dx-models.json`: both model ids pinned by the user, prices filled if a dollar figure is wanted, token budget confirmed
+- [ ] `dx-models.json`: both model ids pinned (pre-authorized), estimate printed as information
 - [ ] Smoke test of the Claude CLI invocation on one task before the full run
 - [ ] Full DX run: 8 x 5 on the primary model, 8 x 3 on the stress model; every `harness_error` and `protocol_violation` rerun
 - [ ] Signature review of the 28 matched Rich names

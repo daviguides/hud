@@ -17,6 +17,7 @@ hud/                                  # this repo, code only
 ## Rules
 
 - Name is `hud` (decided). Own engine (decided): no wrapper or facade over any existing Rich port. `rs-rich` is the conformance oracle and a study reference only.
+- Evaluation protocol, models and token spend are pre-authorized by the owner; never stop to ask for a go. A blocker is reported as the deliverable while the remaining steps continue.
 - Every claim is measured. GO/NO-GO criteria are written before the benchmark runs and cover four axes: speed, correctness, width/Unicode assertiveness, DX.
 - Architecture follows Shodo Rust conventions: layers with strict dependency direction, services free of terminal and CLI framework imports.
 - Edition 2024, clippy `all = deny`.
