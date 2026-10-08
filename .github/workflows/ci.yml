@@ -2,7 +2,7 @@ name: ci
 
 on:
   push:
-    branches: [main, "parallel/**"]
+    branches: [main, "parallel/**", "release/**"]
   pull_request:
 
 env:
@@ -22,6 +22,7 @@ jobs:
         env:
           RUSTDOCFLAGS: -D warnings
       - run: cargo xtask check-layers
+      - run: cargo xtask check-copies
       - name: examples build
         run: cargo build --workspace --examples
       - name: generated tables are up to date

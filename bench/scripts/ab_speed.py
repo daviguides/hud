@@ -1,4 +1,5 @@
-"""Criterion S10 of v0.8: speed A/B, hud v0.8 (this checkout) against hud v0.7 (a worktree of tag v0.7.0), alternating.
+"""Speed A/B: hud (this checkout, "new") against an older build ("old", a worktree of a tag), alternating. Criterion S10 of v0.8
+(new = v0.8, old = v0.7.0) and criterion 4 of status-criteria.md (new = v0.9, old = v0.8.0).
 
   ab_speed.py --old DIR_OF_V07_RELEASE_BINARIES [--rounds 4] [--out DIR]
 
@@ -104,7 +105,7 @@ def main():
     for w in ("S1", "S2", "S3", "S4"):
         r = result[w]
         if "ratio_new_over_old" in r:
-            lines.append(f"{w}: v0.8/v0.7 = {r['ratio_new_over_old']:.3f} (95% CI {r['ci95'][0]:.3f} to {r['ci95'][1]:.3f}); "
+            lines.append(f"{w}: new/old = {r['ratio_new_over_old']:.3f} (95% CI {r['ci95'][0]:.3f} to {r['ci95'][1]:.3f}); "
                          f"median {r['median_old_ms']:.3f} ms -> {r['median_new_ms']:.3f} ms; under_load={r['under_load']}")
         else:
             lines.append(f"{w}: output not verified {r['verified']}")

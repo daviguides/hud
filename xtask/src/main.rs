@@ -1,6 +1,6 @@
 //! Development tasks for hud: Unicode table generation and layer checks.
 //!
-//! Usage: `cargo xtask <gen-width|check-layers>`.
+//! Usage: `cargo xtask <gen-width|check-layers|sync-copies|check-copies>`.
 
 use std::collections::HashMap;
 use std::fs;
@@ -18,7 +18,11 @@ fn main() -> ExitCode {
     let result = match task.as_str() {
         "gen-width" => gen_width(),
         "check-layers" => check_layers(),
-        _ => Err("usage: cargo xtask <gen-width|check-layers>".to_string()),
+        "sync-copies" => sync_copies(),
+        "check-copies" => check_copies(),
+        _ => {
+            Err("usage: cargo xtask <gen-width|check-layers|sync-copies|check-copies>".to_string())
+        }
     };
     match result {
         Ok(()) => ExitCode::SUCCESS,
@@ -34,6 +38,51 @@ fn root() -> PathBuf {
         .parent()
         .map(Path::to_path_buf)
         .unwrap_or_default()
+}
+
+// ---------------------------------------------------------------------------
+// Files a published crate carries from the repository root. `cargo package` ships what is inside
+// the crate directory and a crate can only `include_str!` a file inside itself, so the README of
+// `hud` and the two license files live in the crate directories as copies of the ones at the root
+// of the repository; the copies are checked in CI and written by `sync-copies`.
+// ---------------------------------------------------------------------------
+
+const COPIES: &[(&str, &str)] = &[
+    ("README.md", "crates/hud/README.md"),
+    ("LICENSE-MIT", "crates/hud/LICENSE-MIT"),
+    ("LICENSE-APACHE", "crates/hud/LICENSE-APACHE"),
+    ("LICENSE-MIT", "crates/hud-width/LICENSE-MIT"),
+    ("LICENSE-APACHE", "crates/hud-width/LICENSE-APACHE"),
+];
+
+fn sync_copies() -> Res<()> {
+    for (source, copy) in COPIES {
+        let (source, copy) = (root().join(source), root().join(copy));
+        fs::copy(&source, &copy).map_err(|e| format!("{}: {e}", copy.display()))?;
+        println!("{} written from {}", copy.display(), source.display());
+    }
+    Ok(())
+}
+
+fn check_copies() -> Res<()> {
+    let mut stale = Vec::new();
+    for (source, copy) in COPIES {
+        let (source, copy) = (root().join(source), root().join(copy));
+        let want = fs::read(&source).map_err(|e| format!("{}: {e}", source.display()))?;
+        let have = fs::read(&copy).unwrap_or_default();
+        if want != have {
+            stale.push(copy.display().to_string());
+        }
+    }
+    if stale.is_empty() {
+        println!("check-copies: ok");
+        Ok(())
+    } else {
+        Err(format!(
+            "{} differ from the files at the root; run `cargo xtask sync-copies`",
+            stale.join(", ")
+        ))
+    }
 }
 
 // ---------------------------------------------------------------------------

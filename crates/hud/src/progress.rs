@@ -679,6 +679,12 @@ impl Drop for Inner {
 /// shared reference. The display ends, and the cursor comes back, when [`Progress::finish`] is
 /// called or the last handle is dropped.
 ///
+/// A `Progress` prints its own display, to the console it was built with, when it ends. To use
+/// it only as a piece of something else (a body of a [`Layout`](crate::Layout) or a
+/// [`Panel`](crate::Panel), or `Console::print(&progress)`), build it with
+/// [`disable(true)`](ProgressBuilder::disable): it then draws nothing by itself and the screen
+/// shows it once, where you placed it.
+///
 /// ```
 /// use hud::{Console, Progress};
 ///
@@ -687,6 +693,21 @@ impl Drop for Inner {
 /// build.advance(3);
 /// let console = Console::builder().width(60).plain().build();
 /// assert!(console.render_to_plain(&progress).contains("75%"));
+/// ```
+///
+/// As a region of a layout:
+///
+/// ```
+/// use hud::{Body, Console, Layout, Progress};
+///
+/// let progress = Progress::builder().disable(true).build();
+/// progress.add_task("build", 4).advance(4);
+/// let screen = Layout::column([
+///     Layout::new("[bold]header[/]").size(1),
+///     Layout::new(Body::new(progress)),
+/// ]);
+/// let console = Console::builder().width(40).height(3).plain().build();
+/// assert!(console.render_to_plain(&screen).contains("100%"));
 /// ```
 #[derive(Clone)]
 pub struct Progress {
