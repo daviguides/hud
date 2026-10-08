@@ -73,6 +73,55 @@ On a terminal, `NO_COLOR` removes color only; bold, italic and underline stay
 `FORCE_COLOR` and `CLICOLOR_FORCE` do not enable styling on `TERM=dumb`: that terminal has
 no color depth. The standards are silent; this follows Rich.
 
+### D-W1: Windows runs on safe wrappers, not on `windows-sys` directly
+
+`foundation/architecture.md` names `windows-sys` as the Windows dependency. Every `windows-sys`
+call is `unsafe`, and `unsafe_code` is forbidden in both crates, so the platform calls go through
+two safe wrappers that carry the `unsafe` themselves:
+
+| Crate | Used for | Downloads (total) | MSRV |
+|---|---|---|---|
+| `terminal_size` 0.4 | console window size (`GetConsoleScreenBufferInfo`) | 218 million | 1.71 |
+| `enable-ansi-support` 0.3 | virtual terminal processing, through `CONOUT$` so it works when stdout or stderr is redirected | 8.5 million | 1.71 |
+
+Cost, all behind `cfg(windows)`: four crates (`terminal_size`, `enable-ansi-support`, and the
+`windows-sys` 0.61 and `windows-link` 0.2 they share, one version of each). Unix and `wasm32`
+build exactly as before: `hud` keeps `rustix`, and `hud-width` keeps zero dependencies.
+`enable-ansi-support` was picked over `anstyle-query` because `anstyle-query` enables virtual
+terminal processing on stdout and then stderr and stops at the first failure, which leaves a
+console stderr without it when stdout is a pipe.
+
+How a Windows console becomes a capability: the probe reads the window size and `is_terminal`
+(two OS calls per stream, resolved once per process), enables virtual terminal processing once
+(`OnceLock`) and reads `WT_SESSION`, `ConEmuANSI`, `ANSICON` and `TERM_PROGRAM`. The pure
+service `services::winenv::apply_windows` folds those facts into the `EnvSnapshot` the portable
+resolver already uses, so precedence is decided in one place:
+
+- Windows Terminal and the VS Code terminal get `COLORTERM=truecolor`.
+- A terminal stream with `TERM` unset gets `xterm-256color` when virtual terminal processing is
+  on or the host translates ANSI (Windows Terminal, ConEmu with `ConEmuANSI=ON`, a named
+  `TERM_PROGRAM`), `xterm` under ANSICON alone, and `dumb` for a console that cannot take escape
+  sequences: no styling and no redraw, even when forced.
+- A `TERM` the user set (MSYS, Cygwin, WSL interop) is kept. A pipe keeps `TERM` unset, so
+  `FORCE_COLOR` styles it with the standard colors as on Unix (CI logs).
+- `NO_COLOR` keeps bold, italic and underline, as everywhere.
+
+Limits, by design:
+
+- Only virtual terminal sequences are emitted; the legacy console API is not used.
+- There is no Windows build detection: a plain console is treated as 256 colors, the depth every
+  build with virtual terminal processing supports, although builds from 15063 do 24-bit.
+- `enable-ansi-support` opens `CONOUT$` and never closes the handle (one handle per process), and
+  the console mode stays on until the process exits.
+- The size is the visible console window, not the screen buffer.
+
+The cells are the 14 unit tests of `services::winenv` (run on every platform because the service
+is pure) and `tests/windows_console.rs` (Windows only); the CI jobs `windows` and `windows-msrv`
+run both on `windows-latest`.
+
+- Remove when: the standard library gains console size and virtual terminal control, or a
+  zero-dependency safe route appears.
+
 ## Style, markup and text (`hud`)
 
 ### D-020: hyperlinks carry no id
@@ -283,10 +332,9 @@ no `fit` option. The error report uses it with the layout above and matches Rich
 
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 
-- **Windows.** v0.1 resolves the size from `COLUMNS` and `LINES` and falls back to 80x24; it
-  does not enable virtual terminal processing. Both need platform calls that are not
-  implemented yet and cannot be verified on the development machine. No Windows build target
-  has been exercised.
+- **Windows.** Implemented on a branch through safe wrappers, see D-W1. Size, virtual terminal
+  processing and capability facts are covered by unit tests on every platform and by the
+  `windows` CI jobs; a real console is only exercised by CI.
 - **Release.** The v0.1 milestone text asks for crates.io releases of `hud-width` and `hud`.
   By decision of the project owner nothing is published before a stable version; both crates
   carry `publish = false`.

@@ -13,3 +13,4 @@ pub(crate) mod resolve;
 pub(crate) mod style;
 pub(crate) mod table;
 pub(crate) mod tree;
+pub(crate) mod winenv;

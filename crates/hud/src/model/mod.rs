@@ -6,6 +6,7 @@ mod error;
 mod group;
 pub(crate) mod palette;
 mod panel;
+mod platform;
 mod progress;
 mod report;
 mod segment;
@@ -19,6 +20,7 @@ pub use color::Color;
 pub use error::{MarkupError, StyleError};
 pub use group::Group;
 pub use panel::{Align, Body, Padding, Panel};
+pub(crate) use platform::WindowsFacts;
 pub(crate) use progress::TaskSnapshot;
 pub use progress::{
     BarColumn, MofNCompleteColumn, ProgressColumn, SpinnerColumn, TaskProgressColumn, TextColumn,
