@@ -42,14 +42,20 @@ impl Times {
         self.start.map(|start| now - start)
     }
 
+    /// Drops the samples older than the period.
     fn prune(&mut self, now: f64, period: f64) {
         let oldest = now - period;
         while self.samples.front().is_some_and(|&(at, _)| at < oldest) {
             self.samples.pop_front();
         }
+    }
+
+    /// Adds a sample, dropping the oldest when there are too many.
+    fn push(&mut self, at: f64, amount: u64) {
         while self.samples.len() >= MAX_SAMPLES {
             self.samples.pop_front();
         }
+        self.samples.push_back((at, amount));
     }
 
     fn speed(&self) -> Option<f64> {
@@ -98,11 +104,14 @@ impl TaskCell {
         }
     }
 
+    /// Forgets samples that are too old and, when steps were made, records them.
     fn sample(&self, amount: u64) {
         let now = (self.shared.clock)();
         let mut times = lock(&self.times);
         times.prune(now, self.shared.period);
-        times.samples.push_back((now, amount));
+        if amount > 0 {
+            times.push(now, amount);
+        }
     }
 
     fn check_finished(&self, completed: u64) {
@@ -131,8 +140,8 @@ impl TaskCell {
 
     fn set_completed(&self, completed: u64) {
         let before = self.completed.swap(completed, Ordering::Relaxed);
-        if self.shared.track_speed && completed > before {
-            self.sample(completed - before);
+        if self.shared.track_speed {
+            self.sample(completed.saturating_sub(before));
         }
         self.check_finished(completed);
     }
@@ -144,6 +153,9 @@ impl TaskCell {
             times.samples.clear();
             times.finished = None;
             self.finished.store(false, Ordering::Release);
+        }
+        if self.shared.track_speed {
+            self.sample(0);
         }
         self.check_finished(self.completed.load(Ordering::Relaxed));
     }

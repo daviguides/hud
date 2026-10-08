@@ -5,9 +5,12 @@
 use std::fs;
 use std::path::PathBuf;
 
+use std::sync::{Arc, Mutex};
+
 use hud::{
-    Align, Body, BoxStyle, ColorSystem, Column, Console, Justify, Overflow, Padding, Panel, Style,
-    Table, Text, Tree,
+    Align, BarColumn, Body, BoxStyle, ColorSystem, Column, Console, Justify, MofNCompleteColumn,
+    Overflow, Padding, Panel, Progress, ProgressBuilder, SpinnerColumn, Style, Table,
+    TaskProgressColumn, Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn, Tree,
 };
 use serde_json::Value;
 
@@ -634,4 +637,134 @@ fn unicode_panels_differ_from_rich_only_where_the_deviations_say_so() {
 #[test]
 fn unicode_trees_differ_from_rich_only_where_the_deviations_say_so() {
     assert_only_explained_differences("tree_unicode.jsonl");
+}
+
+fn progress_builder(row: &Value, clock: &Arc<Mutex<f64>>) -> ProgressBuilder {
+    let clock = Arc::clone(clock);
+    let mut builder = Progress::builder()
+        .clock(move || *clock.lock().unwrap())
+        .disable(true);
+    for column in row["columns"].as_array().unwrap() {
+        builder = match column["t"].as_str().unwrap() {
+            "text" => builder.column(TextColumn::new(column["template"].as_str().unwrap())),
+            "bar" => builder.column(match column["bar_width"].as_u64() {
+                Some(width) => BarColumn::new().bar_width(width as usize),
+                None => BarColumn::new().full_width(),
+            }),
+            "percent" => builder.column(TaskProgressColumn::new()),
+            "mofn" => builder
+                .column(MofNCompleteColumn::new().separator(column["separator"].as_str().unwrap())),
+            "elapsed" => builder.column(TimeElapsedColumn::new()),
+            "remaining" => builder.column(
+                TimeRemainingColumn::new()
+                    .compact(column["compact"].as_bool().unwrap())
+                    .elapsed_when_finished(column["elapsed_when_finished"].as_bool().unwrap()),
+            ),
+            _ => builder.column(
+                SpinnerColumn::new()
+                    .speed(column["speed"].as_f64().unwrap())
+                    .finished_text(column["finished_text"].as_str().unwrap()),
+            ),
+        };
+    }
+    builder
+}
+
+/// Replays the events of a vector on a fake clock and renders twice, like the generator: the
+/// first render starts the spinner, the second is the one compared.
+fn progress_output(row: &Value) -> String {
+    let clock = Arc::new(Mutex::new(0.0_f64));
+    let progress = progress_builder(row, &clock).build();
+    let mut tasks = Vec::new();
+    for event in row["events"].as_array().unwrap() {
+        let event = event.as_array().unwrap();
+        *clock.lock().unwrap() = event[0].as_f64().unwrap();
+        let number = event[2].as_u64().unwrap() as usize;
+        match event[1].as_str().unwrap() {
+            "add" => {
+                let task = &row["tasks"][number];
+                tasks.push(progress.add_task(
+                    task["description"].as_str().unwrap(),
+                    task["total"].as_u64().unwrap(),
+                ));
+            }
+            "advance" => tasks[number].advance(event[3].as_u64().unwrap()),
+            "update" => tasks[number].set_completed(event[3].as_u64().unwrap()),
+            _ => tasks[number].set_total(event[3].as_u64().unwrap()),
+        }
+    }
+    let width = row["width"].as_u64().unwrap() as u16;
+    let console = console(width, system(row["color_system"].as_str().unwrap()));
+    *clock.lock().unwrap() = row["first"].as_f64().unwrap();
+    let _ = console.render_to_string(&progress);
+    *clock.lock().unwrap() = row["now"].as_f64().unwrap();
+    console.render_to_string(&progress)
+}
+
+/// `(id, input, message)` of every progress vector whose bytes differ from Rich.
+fn progress_mismatches(name: &str) -> (usize, Vec<(String, String, String)>) {
+    let rows = fixture(name);
+    let mut bad = Vec::new();
+    for row in &rows {
+        if row.get("error").is_some() {
+            continue;
+        }
+        let id = row["id"].as_str().unwrap();
+        let got = progress_output(row);
+        let want = row["ansi"].as_str().unwrap();
+        if got != want {
+            let input = row["tasks"].to_string();
+            bad.push((
+                id.to_string(),
+                input,
+                format!(
+                    "{id} w={} {} columns {}\n   events {}\n   want {want:?}\n   got  {got:?}",
+                    row["width"], row["color_system"], row["columns"], row["events"]
+                ),
+            ));
+        }
+    }
+    (rows.len(), bad)
+}
+
+#[test]
+fn ascii_progress_matches_rich() {
+    let (total, bad) = progress_mismatches("progress_ascii.jsonl");
+    assert!(
+        bad.is_empty(),
+        "{} of {total} ascii progress vectors differ, first:\n{}",
+        bad.len(),
+        bad.iter()
+            .take(6)
+            .map(|b| b.2.clone())
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
+}
+
+#[test]
+fn unicode_progress_differs_from_rich_only_where_d003_or_d024_say_so() {
+    let (total, bad) = progress_mismatches("progress_unicode.jsonl");
+    let unexplained: Vec<_> = bad
+        .iter()
+        .filter(|(_, input, message)| {
+            !explained(input) && !explained_by_wide_characters(input, "", message)
+        })
+        .collect();
+    eprintln!(
+        "{total} unicode progress vectors: {} differ, {} unexplained",
+        bad.len(),
+        unexplained.len()
+    );
+    assert!(
+        unexplained.is_empty(),
+        "{} unexplained unicode progress vectors, first:\n{}",
+        unexplained.len(),
+        unexplained
+            .iter()
+            .take(6)
+            .map(|b| b.2.clone())
+            .collect::<Vec<_>>()
+            .join("\n")
+    );
 }

@@ -419,6 +419,136 @@ def main_widgets():
             write(name, pool.map(render_widget_case, cases, chunksize=1))
 
 
+PROGRESS_TEMPLATES = ["{task.description}", "{task.description}", "[bold]{task.description}[/]",
+                      "{task.completed}/{task.total} {task.description}", "{task.description} ({task.total})",
+                      "[red]{task.completed}[/] done"]
+PROGRESS_TOTALS = [1, 2, 3, 5, 10, 12, 20, 99, 100, 120, 250, 1000, 12500]
+PROGRESS_GAPS = [0, 0.5, 1, 2, 5, 29, 31, 60, 3600, 90000]
+FINISHED_TEXTS = [" ", "[green]ok[/]", "done"]
+
+
+def make_progress_columns(rng):
+    pool = [
+        {"t": "text", "template": rng.choice(PROGRESS_TEMPLATES)},
+        {"t": "bar", "bar_width": rng.choice([None, 4, 10, 20, 30, 40])},
+        {"t": "percent"},
+        {"t": "mofn", "separator": rng.choice(["/", " of ", "|"])},
+        {"t": "elapsed"},
+        {"t": "remaining", "compact": rng.random() < 0.5, "elapsed_when_finished": rng.random() < 0.3},
+        {"t": "spinner", "speed": rng.choice([1.0, 2.0, 0.5]), "finished_text": rng.choice(FINISHED_TEXTS)},
+    ]
+    chosen = rng.sample(pool, rng.randrange(1, 6))
+    if rng.random() < 0.7 and not any(c["t"] == "text" for c in chosen):
+        chosen.insert(0, pool[0])
+    return chosen
+
+
+def make_progress_case(rng, index, unicode_words):
+    words = ASCII_WORDS + (UNICODE_WORDS if unicode_words else [])
+    start = rng.choice([0.0, 100.0, 1000.5])
+    tasks, events = [], []
+    for _ in range(rng.choice([0, 1, 1, 2, 3, 4, 6])):
+        total = rng.choice(PROGRESS_TOTALS)
+        description = " ".join(rng.choice(words) for _ in range(rng.randrange(1, 4)))
+        tasks.append({"description": description, "total": total})
+    for number, task in enumerate(tasks):
+        events.append([start, "add", number])
+    clock, state = start, [{"completed": 0, "total": task["total"]} for task in tasks]
+    for _ in range(rng.randrange(0, 12) if tasks else 0):
+        number = rng.randrange(len(tasks))
+        clock += rng.choice(PROGRESS_GAPS)
+        now = state[number]
+        kind = rng.random()
+        if kind < 0.6 and now["completed"] < now["total"]:
+            amount = rng.randrange(1, now["total"] - now["completed"] + 1)
+            now["completed"] += amount
+            events.append([clock, "advance", number, amount])
+        elif kind < 0.85:
+            value = rng.randrange(0, now["total"] + 1)
+            now["completed"] = value
+            events.append([clock, "update", number, value])
+        else:
+            total = rng.choice([t for t in PROGRESS_TOTALS if t >= now["completed"]] or [now["total"]])
+            now["total"] = total
+            events.append([clock, "total", number, total])
+    first = clock + rng.choice(PROGRESS_GAPS)
+    return {
+        "id": f"{'g' if unicode_words else 'h'}{'u' if unicode_words else 'a'}-{index:04d}",
+        "kind": "progress",
+        "columns": make_progress_columns(rng),
+        "tasks": tasks,
+        "events": events,
+        "first": first,
+        "now": first + rng.choice([0, 0.04, 0.085, 0.4, 1.0, 7.3]),
+        "width": rng.choice([20, 30, 40, 60, 80, 100, 120]),
+        "color_system": rng.choice(["truecolor", "256", "standard", "none"]),
+    }
+
+
+def render_progress_case(case):
+    import io
+
+    from rich.console import Console
+    from rich.progress import (BarColumn, MofNCompleteColumn, Progress, SpinnerColumn, TaskProgressColumn,
+                               TextColumn, TimeElapsedColumn, TimeRemainingColumn)
+
+    from render_reference import make_console
+
+    def column(spec):
+        kind = spec["t"]
+        if kind == "text":
+            return TextColumn(spec["template"])
+        if kind == "bar":
+            return BarColumn(bar_width=spec["bar_width"])
+        if kind == "percent":
+            return TaskProgressColumn()
+        if kind == "mofn":
+            return MofNCompleteColumn(separator=spec["separator"])
+        if kind == "elapsed":
+            return TimeElapsedColumn()
+        if kind == "remaining":
+            return TimeRemainingColumn(compact=spec["compact"], elapsed_when_finished=spec["elapsed_when_finished"])
+        return SpinnerColumn(speed=spec["speed"], finished_text=spec["finished_text"])
+
+    now = [0.0]
+    try:
+        progress = Progress(*[column(c) for c in case["columns"]], get_time=lambda: now[0], auto_refresh=False,
+                            console=Console(file=io.StringIO(), _environ={}))
+        ids = []
+        for at, kind, number, *rest in case["events"]:
+            now[0] = at
+            if kind == "add":
+                task = case["tasks"][number]
+                ids.append(progress.add_task(task["description"], total=task["total"]))
+            elif kind == "advance":
+                progress.advance(ids[number], rest[0])
+            elif kind == "update":
+                progress.update(ids[number], completed=rest[0])
+            else:
+                progress.update(ids[number], total=rest[0])
+        now[0] = case["first"]
+        make_console(case["width"], case["color_system"]).print(progress.get_renderable())
+        now[0] = case["now"]
+        console = make_console(case["width"], case["color_system"])
+        console.print(progress.get_renderable())
+    except Exception as error:
+        return {**case, "error": type(error).__name__}
+    return {**case, "ansi": console.file.getvalue()}
+
+
+def main_progress():
+    """Progress vectors only (v0.5): a fake clock, the same events replayed in Rich and in hud."""
+    rng = random.Random(SEED + 5)
+    OUT.mkdir(parents=True, exist_ok=True)
+    jobs = {
+        "progress_ascii.jsonl": [make_progress_case(rng, i, False) for i in range(1200)],
+        "progress_unicode.jsonl": [make_progress_case(rng, i, True) for i in range(300)],
+    }
+    with Pool(8, maxtasksperchild=1) as pool:
+        for name, cases in jobs.items():
+            write(name, pool.map(render_progress_case, cases, chunksize=1))
+
+
 def write(name, rows):
     path = OUT / name
     with path.open("w") as f:
@@ -459,4 +589,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main_widgets() if sys.argv[1:] == ["widgets"] else main()
+    {"widgets": main_widgets, "progress": main_progress}.get(sys.argv[1] if sys.argv[1:] else "", main)()
