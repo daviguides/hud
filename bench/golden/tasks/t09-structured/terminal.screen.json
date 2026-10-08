@@ -1,0 +1,114 @@
+[
+ [
+  {
+   "text": "┏━━━━━━┳━━━━━━━┓                                                                                    ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ],
+ [
+  {
+   "text": "┃",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": " Name ",
+   "fg": "default",
+   "bg": "default",
+   "bold": true,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": "┃",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": " Count ",
+   "fg": "default",
+   "bg": "default",
+   "bold": true,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  },
+  {
+   "text": "┃                                                                                    ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ],
+ [
+  {
+   "text": "┡━━━━━━╇━━━━━━━┩                                                                                    ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ],
+ [
+  {
+   "text": "│ api  │    12 │                                                                                    ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ],
+ [
+  {
+   "text": "│ cli  │     7 │                                                                                    ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ],
+ [
+  {
+   "text": "└──────┴───────┘                                                                                    ",
+   "fg": "default",
+   "bg": "default",
+   "bold": false,
+   "italic": false,
+   "underline": false,
+   "strike": false,
+   "reverse": false
+  }
+ ]
+]

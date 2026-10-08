@@ -9,6 +9,7 @@ dependencies = [
     "regex>=2024.11.6",
     "pyte>=0.8.2",
     "numpy>=2.0",
+    "jsonschema>=4.23",
 ]
 
 [dependency-groups]

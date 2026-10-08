@@ -167,6 +167,93 @@
           "check": "bytes"
         }
       ]
+    },
+    {
+      "id": "t09-structured",
+      "title": "One print call, three formats",
+      "ref": "reference/python/tasks/t09_structured.py",
+      "statement": "Build a table with two columns, Name (left aligned) and Count (right aligned), and two rows: api, 12 and cli, 7. Print it with exactly one print call and nothing else. The format of the output (rich text, plain text or JSON) is chosen by the environment through the variable HUD_FORMAT, so the same program must produce all four outputs below; your program must not read HUD_FORMAT itself. The runs: `terminal` (a terminal, HUD_FORMAT unset): the final screen equals the target; `pipe_default` (a pipe, HUD_FORMAT unset): the bytes equal the target; `pipe_plain` (a pipe with FORCE_COLOR=1, HUD_FORMAT=plain): the bytes equal the target, with no escape sequence; `pipe_json` (a pipe, HUD_FORMAT=json): the bytes equal the JSON document below, exactly.",
+      "runs": [
+        {
+          "name": "terminal",
+          "stream": "tty",
+          "env": {
+            "TERM": "xterm-256color",
+            "COLORTERM": "truecolor"
+          },
+          "check": "screen"
+        },
+        {
+          "name": "pipe_default",
+          "stream": "pipe",
+          "env": {
+            "COLUMNS": "100",
+            "TERM": "xterm-256color",
+            "COLORTERM": "truecolor"
+          },
+          "check": "bytes"
+        },
+        {
+          "name": "pipe_plain",
+          "stream": "pipe",
+          "env": {
+            "COLUMNS": "100",
+            "TERM": "xterm-256color",
+            "COLORTERM": "truecolor",
+            "FORCE_COLOR": "1",
+            "HUD_FORMAT": "plain"
+          },
+          "check": "bytes"
+        },
+        {
+          "name": "pipe_json",
+          "stream": "pipe",
+          "env": {
+            "COLUMNS": "100",
+            "TERM": "xterm-256color",
+            "COLORTERM": "truecolor",
+            "HUD_FORMAT": "json"
+          },
+          "check": "bytes"
+        }
+      ]
+    },
+    {
+      "id": "t10-composition",
+      "title": "Nested renderables in a layout",
+      "ref": "reference/python/tasks/t10_composition.py",
+      "statement": "Print one screen made with a layout. The area is split into two rows. The bottom row is exactly 4 lines tall and holds a progress display with two finished tasks: \"build\" (10 of 10) and \"test\" (40 of 40); each line shows the description, a 20 cell wide bar and the percentage, nothing else. The top row takes all the remaining height and is split into two columns of equal size: the left one holds a table with columns Crate and Version and the rows (hud, 0.1.0) and (hud-width, 0.1.0); the right one holds a panel titled \"Status\" that contains the text \"All checks passed\". The check compares the bytes written to a pipe; the console is 100 columns by 40 lines (the variables COLUMNS and LINES say so) and the layout fills those 40 lines. The output must be exactly the target below.",
+      "runs": [
+        {
+          "name": "main",
+          "stream": "pipe",
+          "env": {
+            "NO_COLOR": "1",
+            "COLUMNS": "100",
+            "LINES": "40",
+            "TERM": "xterm-256color"
+          },
+          "check": "bytes"
+        }
+      ]
+    },
+    {
+      "id": "t11-width-mix",
+      "title": "Wide characters in a table inside a panel",
+      "ref": "reference/python/tasks/t11_width_mix.py",
+      "statement": "Print a panel titled \"Release notes\" that contains a table with three columns, Locale, Greeting and Note, all left aligned, and four rows: (ja, こんにちは世界, wide characters), (ko, 안녕하세요, wide characters), (pt, Olá, mundo, one accent) and (emoji, 🚀 launch 🎉, two wide symbols). Use the crate's panel and table facilities. The characters of the first two rows and the emoji occupy two terminal cells each, so every border must still line up. The output must be exactly the target below.",
+      "runs": [
+        {
+          "name": "main",
+          "stream": "pipe",
+          "env": {
+            "NO_COLOR": "1",
+            "COLUMNS": "100",
+            "TERM": "xterm-256color"
+          },
+          "check": "bytes"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "schema": "hud/1",
+  "content": {
+    "type": "table",
+    "title": null,
+    "caption": null,
+    "columns": [
+      {
+        "header": "Name",
+        "justify": "left"
+      },
+      {
+        "header": "Count",
+        "justify": "right"
+      }
+    ],
+    "rows": [
+      [
+        "api",
+        "12"
+      ],
+      [
+        "cli",
+        "7"
+      ]
+    ]
+  }
+}
