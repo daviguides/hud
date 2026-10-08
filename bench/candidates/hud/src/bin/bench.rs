@@ -1,9 +1,12 @@
 // bench --workload S2|S3|S4 [--input FILE] [--emit | --warmup W --iterations N]  (spec/speed.md)
-// hud claims S4 (v0.2) and S2 (v0.3); S3 needs Progress (v0.5), so it exits 2.
+// hud claims S4 (v0.2), S2 (v0.3) and S3 (v0.5).
 use std::io::Write;
 use std::time::Instant;
 
-use hud::{Color, Column, Console, Justify, Style, Table};
+use hud::{
+    BarColumn, Color, Column, Console, Justify, MofNCompleteColumn, Progress, Style, Table,
+    TaskProgressColumn, TextColumn,
+};
 
 fn s4(lines: &[String]) {
     let console = Console::stdout();
@@ -34,18 +37,36 @@ fn s2(rows: &[Vec<String>]) {
     Console::stdout().print(&table);
 }
 
+fn s3() {
+    let progress = Progress::builder()
+        .column(TextColumn::new("{task.description}"))
+        .column(BarColumn::new().bar_width(30))
+        .column(TaskProgressColumn::new())
+        .column(MofNCompleteColumn::new())
+        .auto_refresh(false)
+        .build();
+    let tasks: Vec<_> = (0..8).map(|i| progress.add_task(format!("task {i}"), 12_500)).collect();
+    for k in 0..100_000usize {
+        tasks[k % 8].advance(1);
+        if k % 100 == 99 {
+            progress.refresh();
+        }
+    }
+    progress.finish();
+}
+
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
     let get = |flag: &str| args.iter().position(|a| a == flag).map(|i| args[i + 1].clone());
     let workload = get("--workload").expect("--workload");
-    if workload != "S4" && workload != "S2" {
+    if !matches!(workload.as_str(), "S2" | "S3" | "S4") {
         eprintln!("hud does not implement {workload} yet");
         std::process::exit(2);
     }
     let emit = args.iter().any(|a| a == "--emit");
     let warmup: usize = get("--warmup").map_or(5, |v| v.parse().unwrap());
     let iterations: usize = get("--iterations").map_or(30, |v| v.parse().unwrap());
-    let text = std::fs::read_to_string(get("--input").expect("--input")).unwrap();
+    let text = get("--input").map_or_else(String::new, |path| std::fs::read_to_string(path).unwrap());
     let lines: Vec<String> = text.lines().map(str::to_string).collect();
     let rows: Vec<Vec<String>> = if workload == "S2" {
         text.lines()
@@ -56,10 +77,10 @@ fn main() {
         Vec::new()
     };
     let run = |lines: &[String], rows: &[Vec<String>]| {
-        if workload == "S2" {
-            s2(rows);
-        } else {
-            s4(lines);
+        match workload.as_str() {
+            "S2" => s2(rows),
+            "S3" => s3(),
+            _ => s4(lines),
         }
     };
 

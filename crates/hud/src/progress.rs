@@ -16,7 +16,7 @@ use crate::model::{
     BarColumn, Capabilities, ColorSystem, Justify, ProgressColumn, Renderable, Segment, Stream,
     Style, TaskProgressColumn, TaskSnapshot, Text, TextColumn, TimeRemainingColumn,
 };
-use crate::services::progress::{Frame, render_lines};
+use crate::services::progress::{FastPlan, Frame, render_lines};
 use crate::services::render::{crop_lines, render_text_ending, to_ansi};
 
 type Clock = Arc<dyn Fn() -> f64 + Send + Sync>;
@@ -68,6 +68,9 @@ struct Shared {
     clock: Clock,
     track_speed: bool,
     period: f64,
+    /// Bumped whenever a description, a total or the set of tasks changes, so cached layouts
+    /// can tell they are stale.
+    layout_version: AtomicU64,
 }
 
 struct TaskCell {
@@ -136,6 +139,7 @@ impl TaskCell {
 
     fn set_total(&self, total: u64) {
         if self.total.swap(total, Ordering::Relaxed) != total {
+            self.shared.layout_version.fetch_add(1, Ordering::Relaxed);
             let mut times = lock(&self.times);
             times.samples.clear();
             times.finished = None;
@@ -202,6 +206,10 @@ impl Task {
     /// Changes the description, read as markup.
     pub fn set_description(&self, description: impl Into<String>) {
         *lock(&self.cell.description) = description.into();
+        self.cell
+            .shared
+            .layout_version
+            .fetch_add(1, Ordering::Relaxed);
     }
 
     /// Marks every step done.
@@ -235,12 +243,26 @@ impl fmt::Debug for Task {
     }
 }
 
+/// What a cached plan was built for.
+#[derive(Clone, Copy, PartialEq, Eq)]
+struct PlanKey {
+    version: u64,
+    width: usize,
+    color_system: ColorSystem,
+    attributes: bool,
+    rows: usize,
+}
+
 struct Out {
     writer: Option<Box<dyn Write + Send>>,
     started: bool,
     stopped: bool,
     height: usize,
     origins: Vec<Option<f64>>,
+    plan_key: Option<PlanKey>,
+    plan: Option<FastPlan>,
+    pairs: Vec<(u64, u64)>,
+    buffer: String,
 }
 
 struct Core {
@@ -258,15 +280,18 @@ const HIDE_CURSOR: &str = "\x1b[?25l";
 const SHOW_CURSOR: &str = "\x1b[?25h";
 
 impl Core {
-    fn frame_lines(&self, out: &mut Out, caps: &Capabilities, width: usize) -> Vec<Vec<Segment>> {
-        let now = (self.shared.clock)();
-        let snapshots: Vec<TaskSnapshot> = self
-            .tasks
+    fn snapshots(&self, now: f64) -> Vec<TaskSnapshot> {
+        self.tasks
             .read()
             .unwrap_or_else(PoisonError::into_inner)
             .iter()
             .map(|task| task.snapshot(now))
-            .collect();
+            .collect()
+    }
+
+    fn frame_lines(&self, out: &mut Out, caps: &Capabilities, width: usize) -> Vec<Vec<Segment>> {
+        let now = (self.shared.clock)();
+        let snapshots = self.snapshots(now);
         let origins: Vec<f64> = self
             .columns
             .iter()
@@ -300,26 +325,25 @@ impl Core {
         }
     }
 
-    /// The lines as bytes, a newline between them and none after the last.
+    /// The lines as bytes, each ended by a newline.
     fn ansi(lines: Vec<Vec<Segment>>, caps: &Capabilities, width: usize) -> String {
         let mut flat = Vec::new();
-        for (index, line) in lines.into_iter().enumerate() {
-            if index > 0 {
-                flat.push(Segment {
-                    text: "\n".to_string(),
-                    style: Style::new(),
-                });
-            }
+        for line in lines {
             flat.extend(line);
+            flat.push(Segment {
+                text: "\n".to_string(),
+                style: Style::new(),
+            });
         }
         to_ansi(&crop_lines(flat, width), caps)
     }
 
-    /// Cuts a frame taller than the terminal, ending it with an ellipsis line.
+    /// Cuts a frame that would not leave the terminal a line for the cursor, ending it with an
+    /// ellipsis line.
     fn fit_height(lines: &mut Vec<Vec<Segment>>, caps: &Capabilities, width: usize) {
-        let height = usize::from(caps.height).max(2);
-        if lines.len() > height {
-            lines.truncate(height - 1);
+        let room = usize::from(caps.height).saturating_sub(1).max(1);
+        if lines.len() > room {
+            lines.truncate(room.saturating_sub(1));
             let text = Text::new("...").justify(Justify::Center);
             let mut line = render_text_ending(&text, width, "");
             line.retain(|segment| !segment.text.is_empty());
@@ -327,12 +351,77 @@ impl Core {
         }
     }
 
+    /// Moves the cursor back to the top of a frame of `height` lines and clears it.
     fn erase(buffer: &mut String, height: usize) {
-        buffer.push('\r');
-        if height > 1 {
-            buffer.push_str(&format!("\x1b[{}A", height - 1));
+        if height > 0 {
+            buffer.push('\r');
+            buffer.push_str("\x1b[");
+            buffer.push_str(&height.to_string());
+            buffer.push_str("A\x1b[J");
         }
-        buffer.push_str("\x1b[J");
+    }
+
+    /// Appends the current frame, a newline after every line, and returns how many lines it
+    /// has. Displays of the common shape are assembled from cached pieces.
+    fn frame(&self, out: &mut Out, caps: &Capabilities, buffer: &mut String) -> usize {
+        let width = usize::from(caps.width);
+        if let Some(height) = self.fast_frame(out, caps, width, buffer) {
+            return height;
+        }
+        let mut lines = self.frame_lines(out, caps, width);
+        Self::fit_height(&mut lines, caps, width);
+        let height = lines.len();
+        buffer.push_str(&Self::ansi(lines, caps, width));
+        height
+    }
+
+    fn fast_frame(
+        &self,
+        out: &mut Out,
+        caps: &Capabilities,
+        width: usize,
+        buffer: &mut String,
+    ) -> Option<usize> {
+        let tasks = self.tasks.read().unwrap_or_else(PoisonError::into_inner);
+        let key = PlanKey {
+            version: self.shared.layout_version.load(Ordering::Relaxed),
+            width,
+            color_system: caps.color_system,
+            attributes: caps.attributes,
+            rows: tasks.len(),
+        };
+        if out.plan_key != Some(key) {
+            out.plan_key = Some(key);
+            out.plan = None;
+            let room = usize::from(caps.height).saturating_sub(1);
+            if tasks.len() <= room {
+                let now = (self.shared.clock)();
+                let snapshots: Vec<TaskSnapshot> =
+                    tasks.iter().map(|task| task.snapshot(now)).collect();
+                let origins = vec![0.0; self.columns.len()];
+                out.plan = FastPlan::build(
+                    &Frame {
+                        columns: &self.columns,
+                        tasks: &snapshots,
+                        now,
+                        spinner_origins: &origins,
+                        draw_track: caps.color_system != ColorSystem::None,
+                    },
+                    width,
+                    caps.color_system,
+                    caps.attributes,
+                );
+            }
+        }
+        let plan = out.plan.as_mut()?;
+        out.pairs.clear();
+        out.pairs.extend(tasks.iter().map(|task| {
+            (
+                task.completed.load(Ordering::Relaxed),
+                task.total.load(Ordering::Relaxed),
+            )
+        }));
+        plan.render(&out.pairs, buffer).then_some(tasks.len())
     }
 
     fn draw(&self, out: &mut Out) {
@@ -340,19 +429,17 @@ impl Core {
             return;
         }
         let caps = *self.console.capabilities();
-        let width = usize::from(caps.width);
-        let mut lines = self.frame_lines(out, &caps, width);
-        Self::fit_height(&mut lines, &caps, width);
-        let mut buffer = String::new();
+        let mut buffer = std::mem::take(&mut out.buffer);
+        buffer.clear();
         if out.started {
             Self::erase(&mut buffer, out.height);
         } else {
             buffer.push_str(HIDE_CURSOR);
             out.started = true;
         }
-        out.height = lines.len();
-        buffer.push_str(&Self::ansi(lines, &caps, width));
+        out.height = self.frame(out, &caps, &mut buffer);
         self.write(out, &buffer);
+        out.buffer = buffer;
     }
 
     fn refresh(&self) {
@@ -366,33 +453,34 @@ impl Core {
             return;
         }
         let caps = *self.console.capabilities();
-        let width = usize::from(caps.width);
-        let mut lines = self.frame_lines(&mut out, &caps, width);
-        Self::fit_height(&mut lines, &caps, width);
-        out.stopped = true;
-        if self.disable {
-            return;
-        }
         let mut buffer = String::new();
         if self.interactive {
-            if !out.started && lines.is_empty() {
+            if !out.started
+                && self
+                    .tasks
+                    .read()
+                    .unwrap_or_else(PoisonError::into_inner)
+                    .is_empty()
+            {
+                out.stopped = true;
                 return;
             }
             if out.started {
                 Self::erase(&mut buffer, out.height);
             }
             if !self.transient {
-                buffer.push_str(&Self::ansi(lines, &caps, width));
-                buffer.push('\n');
+                self.frame(&mut out, &caps, &mut buffer);
             }
             if out.started {
                 buffer.push_str(SHOW_CURSOR);
             }
-        } else if !self.transient && !lines.is_empty() {
-            buffer.push_str(&Self::ansi(lines, &caps, width));
-            buffer.push('\n');
+        } else if !self.transient {
+            self.frame(&mut out, &caps, &mut buffer);
         }
-        self.write(&mut out, &buffer);
+        out.stopped = true;
+        if !self.disable {
+            self.write(&mut out, &buffer);
+        }
     }
 
     fn render_once(&self, width: usize, caps: &Capabilities) -> Vec<Segment> {
@@ -518,6 +606,11 @@ impl Progress {
             .write()
             .unwrap_or_else(PoisonError::into_inner)
             .push(Arc::clone(&cell));
+        self.inner
+            .core
+            .shared
+            .layout_version
+            .fetch_add(1, Ordering::Relaxed);
         if let Some(interval) = self.inner.auto_refresh {
             let mut refresher = lock(&self.inner.refresher);
             if refresher.is_none() {
@@ -751,6 +844,7 @@ impl ProgressBuilder {
                 clock,
                 track_speed,
                 period: self.speed_period,
+                layout_version: AtomicU64::new(0),
             }),
             columns,
             tasks: RwLock::new(Vec::new()),
@@ -764,6 +858,10 @@ impl ProgressBuilder {
                 stopped: false,
                 height: 0,
                 origins,
+                plan_key: None,
+                plan: None,
+                pairs: Vec::new(),
+                buffer: String::new(),
             }),
         });
         Progress {
@@ -928,7 +1026,7 @@ mod tests {
         progress.finish();
         let text = capture.text();
         assert!(text.starts_with("\x1b[?25l"));
-        assert!(text.contains("\r\x1b[1A\x1b[J"));
+        assert!(text.contains("\r\x1b[2A\x1b[J"));
         assert!(text.ends_with("\n\x1b[?25h"));
         assert_eq!(text.matches("\x1b[?25h").count(), 1);
     }
@@ -946,7 +1044,7 @@ mod tests {
         let task = progress.add_task("x", 1);
         task.advance(1);
         progress.finish();
-        assert!(capture.text().ends_with("\r\x1b[J\x1b[?25h"));
+        assert!(capture.text().ends_with("\r\x1b[1A\x1b[J\x1b[?25h"));
     }
 
     #[test]
