@@ -1,0 +1,26 @@
+{
+ "idle_reached": true,
+ "load1_at_start_S1": 1.73,
+ "load1_after_S1": 1.73,
+ "load1_at_start_S2": 1.99,
+ "load1_after_S2": 1.99,
+ "cargo_or_rustc_running": false,
+ "note": "sequential runs, S1 then S2, machine otherwise idle (other sessions idle), load average (1 min) from `uptime` before and after each",
+ "s1": {
+  "first_byte_median_ms": 1.667375,
+  "first_byte_ci95_ms": [
+   1.641125,
+   1.7002163
+  ],
+  "total_median_ms": 1.816312,
+  "n": 60
+ },
+ "s2": {
+  "median_ms": 19.8774375,
+  "ci95_ms": [
+   19.7512495,
+   20.1605
+  ],
+  "n": 60
+ }
+}

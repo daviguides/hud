@@ -1,0 +1,31 @@
+{
+ "added_compile_s": 1.8509674988454208,
+ "added_binary_bytes": 218400,
+ "transitive_deps": 6,
+ "candidate": {
+  "compile_s_median": 2.016965957940556,
+  "compile_s_runs": [
+   2.3420039999764413,
+   2.016965957940556,
+   1.972036916995421
+  ],
+  "binary_bytes": 553936,
+  "transitive_deps": 6
+ },
+ "baseline": {
+  "compile_s_median": 0.16599845909513533,
+  "compile_s_runs": [
+   0.16550995805300772,
+   0.16769745794590563,
+   0.16599845909513533
+  ],
+  "binary_bytes": 335536,
+  "transitive_deps": 0
+ },
+ "thresholds": {
+  "added_compile_s": 15,
+  "added_binary_bytes": 1500000,
+  "transitive_deps": 60
+ },
+ "pass": true
+}

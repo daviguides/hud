@@ -44,13 +44,12 @@
       "rate": 1.0
     },
     "table": {
-      "not_claimed": 30,
-      "pass": 0,
+      "pass": 30,
       "fail": 0,
       "unsupported": 0,
       "missing": 0,
-      "denominator": 0,
-      "rate": null
+      "denominator": 30,
+      "rate": 1.0
     },
     "tree": {
       "not_claimed": 30,
@@ -63,8 +62,8 @@
     }
   },
   "overall": {
-    "pass": 60,
-    "denominator": 60,
+    "pass": 90,
+    "denominator": 90,
     "rate": 1.0,
     "style_markup_100": true
   },
