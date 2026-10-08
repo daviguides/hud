@@ -24,6 +24,7 @@ version = "0.1.0"
 dependencies = [
  "hud-width",
  "rustix",
+ "serde_json",
 ]
 
 [[package]]
