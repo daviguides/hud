@@ -8,14 +8,18 @@ use std::sync::OnceLock;
 
 use crate::integrations::{self, Probe, SystemProbe};
 use crate::model::{
-    Capabilities, ColorSystem, ErrorReport, Measure, Padding, Panel, Renderable, Segment, Stream,
-    Table, Text, Tree,
+    Capabilities, ColorSystem, Columns, ErrorReport, Layout, Measure, Padding, Panel, Renderable,
+    Segment, Stream, Table, Text, Tree,
 };
+use crate::services::columns::render_columns;
 use crate::services::layout::measure_text;
-use crate::services::panel::{measure_padding, measure_panel, render_padding, render_panel};
+use crate::services::panel::{
+    measure_padding, measure_panel, render_padding, render_panel, render_panel_in,
+};
 use crate::services::render::{crop_lines, render_text, render_text_ending, to_ansi, to_plain};
 use crate::services::report::{measure_report, render_report};
 use crate::services::resolve::resolve;
+use crate::services::split::render_layout;
 use crate::services::table::{measure_table, render_table};
 use crate::services::tree::{measure_tree, render_tree};
 use crate::services::winenv::apply_windows;
@@ -281,6 +285,10 @@ impl Renderable for Panel {
         render_panel(self, width)
     }
 
+    fn render_region(&self, width: usize, height: usize, caps: &Capabilities) -> Vec<Segment> {
+        render_panel_in(self, width, Some((height, caps)))
+    }
+
     fn measure(&self, max_width: usize) -> Measure {
         measure_panel(self, max_width)
     }
@@ -326,6 +334,31 @@ impl Renderable for ErrorReport {
     }
 }
 
+impl Renderable for Columns {
+    fn render(&self, width: usize) -> Vec<Segment> {
+        render_columns(self, width, None)
+    }
+
+    fn render_with(&self, width: usize, caps: &Capabilities) -> Vec<Segment> {
+        render_columns(self, width, Some(caps))
+    }
+}
+
+impl Renderable for Layout {
+    fn render(&self, width: usize) -> Vec<Segment> {
+        let caps = capabilities(Stream::Stdout);
+        render_layout(self, width, usize::from(caps.height), &caps)
+    }
+
+    fn render_with(&self, width: usize, caps: &Capabilities) -> Vec<Segment> {
+        render_layout(self, width, usize::from(caps.height), caps)
+    }
+
+    fn render_region(&self, width: usize, height: usize, caps: &Capabilities) -> Vec<Segment> {
+        render_layout(self, width, height, caps)
+    }
+}
+
 impl<T: Renderable + ?Sized> Renderable for &T {
     fn render(&self, width: usize) -> Vec<Segment> {
         (**self).render(width)
@@ -333,6 +366,10 @@ impl<T: Renderable + ?Sized> Renderable for &T {
 
     fn render_with(&self, width: usize, caps: &Capabilities) -> Vec<Segment> {
         (**self).render_with(width, caps)
+    }
+
+    fn render_region(&self, width: usize, height: usize, caps: &Capabilities) -> Vec<Segment> {
+        (**self).render_region(width, height, caps)
     }
 
     fn measure(&self, max_width: usize) -> Measure {
@@ -391,6 +428,32 @@ impl fmt::Display for ErrorReport {
 impl fmt::Display for Tree {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         display_block(f, &render_tree(self, display_width()))
+    }
+}
+
+/// Renders for the standard output profile without the final newline, like [`Table`].
+impl fmt::Display for Columns {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let caps = capabilities(Stream::Stdout);
+        display_block(
+            f,
+            &render_columns(self, usize::from(caps.width), Some(&caps)),
+        )
+    }
+}
+
+/// Renders for the standard output profile without the final newline, like [`Table`]: as many
+/// lines as the terminal has rows.
+impl fmt::Display for Layout {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let caps = capabilities(Stream::Stdout);
+        let segments = render_layout(
+            self,
+            usize::from(caps.width),
+            usize::from(caps.height),
+            &caps,
+        );
+        display_block(f, &segments)
     }
 }
 

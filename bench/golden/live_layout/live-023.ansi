@@ -1,0 +1,37 @@
+[?25l                 
+  Key     Value  
+ ─────────────── 
+  bytes     738  
+  syn       978  
+  clap      963  
+  tokio     200  
+  syn         9  
+  rayon      29  
+  tokio     905  
+  rayon     236  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                   
+  Key       Value  
+ ───────────────── 
+  regex       928  
+  clap        653  
+  serde       155  
+  tokio       902  
+  rayon       889  
+  anyhow      121  
+  clap        432  
+  tracing     186  
+  tracing     438  
+                   [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                   
+  Key       Value  
+ ───────────────── 
+  regex       928  
+  clap        653  
+  serde       155  
+  tokio       902  
+  rayon       889  
+  anyhow      121  
+  clap        432  
+  tracing     186  
+  tracing     438  
+                   
+[?25h[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K

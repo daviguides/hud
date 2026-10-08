@@ -1,0 +1,120 @@
+{
+  "width": {
+    "supported": true,
+    "total": 500,
+    "agree": 496,
+    "rate": 0.992,
+    "contested_agree": 13,
+    "contested_total": 13,
+    "by_category": {
+      "ambiguous": {
+        "agree": 40,
+        "total": 40
+      },
+      "ascii": {
+        "agree": 30,
+        "total": 30
+      },
+      "cjk": {
+        "agree": 70,
+        "total": 70
+      },
+      "combining": {
+        "agree": 50,
+        "total": 50
+      },
+      "control": {
+        "agree": 30,
+        "total": 30
+      },
+      "emoji": {
+        "agree": 61,
+        "total": 61
+      },
+      "emoji_tone": {
+        "agree": 40,
+        "total": 40
+      },
+      "emoji_zwj": {
+        "agree": 50,
+        "total": 50
+      },
+      "flags": {
+        "agree": 30,
+        "total": 30
+      },
+      "keycaps": {
+        "agree": 15,
+        "total": 15
+      },
+      "mixed": {
+        "agree": 54,
+        "total": 54
+      },
+      "zero_width": {
+        "agree": 26,
+        "total": 30
+      }
+    },
+    "wrong": [
+      {
+        "id": "w-0348",
+        "want": 5,
+        "got": 6,
+        "category": "zero_width"
+      },
+      {
+        "id": "w-0356",
+        "want": 5,
+        "got": 6,
+        "category": "zero_width"
+      },
+      {
+        "id": "w-0358",
+        "want": 4,
+        "got": 5,
+        "category": "zero_width"
+      },
+      {
+        "id": "w-0360",
+        "want": 4,
+        "got": 5,
+        "category": "zero_width"
+      }
+    ]
+  },
+  "fold": {
+    "supported": true,
+    "total": 20000,
+    "missing": 0,
+    "grapheme_splits": 0,
+    "concat_mismatch": 0,
+    "line_too_wide": 0,
+    "valid_but_not_greedy": 0,
+    "examples": []
+  },
+  "truncate": {
+    "supported": true,
+    "total": 20000,
+    "missing": 0,
+    "grapheme_splits": 0,
+    "not_a_prefix": 0,
+    "valid_but_not_maximal": 0
+  },
+  "tables": {
+    "supported": true,
+    "tables": 12,
+    "missing": 0,
+    "misaligned_rows": 0,
+    "rows": 97,
+    "tables_with_misalignment": 0
+  },
+  "widgets": {
+    "supported": true,
+    "outputs": 36,
+    "missing": 0,
+    "rows": 704,
+    "rows_wider_than_terminal": 0,
+    "panel_rows_misaligned": 0
+  }
+}

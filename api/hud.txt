@@ -96,6 +96,10 @@ pub fn hud::ProgressColumn::from(hud::TimeRemainingColumn) -> hud::ProgressColum
 pub enum hud::Stream
 pub hud::Stream::Stderr
 pub hud::Stream::Stdout
+pub enum hud::VerticalOverflow
+pub hud::VerticalOverflow::Crop
+pub hud::VerticalOverflow::Ellipsis
+pub hud::VerticalOverflow::Visible
 pub struct hud::BarColumn
 impl hud::BarColumn
 pub fn hud::BarColumn::bar_width(self, usize) -> hud::BarColumn
@@ -108,15 +112,19 @@ impl core::convert::From<hud::BarColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::BarColumn) -> hud::ProgressColumn
 impl core::default::Default for hud::BarColumn
 pub fn hud::BarColumn::default() -> hud::BarColumn
-pub struct hud::Body(_)
+pub struct hud::Body(_, _)
 impl hud::Body
 pub fn hud::Body::new<R: hud::Renderable + core::marker::Send + core::marker::Sync + 'static>(R) -> hud::Body
 impl core::convert::From<&str> for hud::Body
 pub fn hud::Body::from(&str) -> hud::Body
 impl core::convert::From<alloc::string::String> for hud::Body
 pub fn hud::Body::from(alloc::string::String) -> hud::Body
+impl core::convert::From<hud::Columns> for hud::Body
+pub fn hud::Body::from(hud::Columns) -> hud::Body
 impl core::convert::From<hud::Group> for hud::Body
 pub fn hud::Body::from(hud::Group) -> hud::Body
+impl core::convert::From<hud::Layout> for hud::Body
+pub fn hud::Body::from(hud::Layout) -> hud::Body
 impl core::convert::From<hud::Padding> for hud::Body
 pub fn hud::Body::from(hud::Padding) -> hud::Body
 impl core::convert::From<hud::Panel> for hud::Body
@@ -153,6 +161,31 @@ impl core::convert::From<&str> for hud::Column
 pub fn hud::Column::from(&str) -> hud::Column
 impl core::convert::From<alloc::string::String> for hud::Column
 pub fn hud::Column::from(alloc::string::String) -> hud::Column
+pub struct hud::Columns
+impl hud::Columns
+pub fn hud::Columns::align(self, hud::Align) -> hud::Columns
+pub fn hud::Columns::column_first(self, bool) -> hud::Columns
+pub fn hud::Columns::equal(self, bool) -> hud::Columns
+pub fn hud::Columns::expand(self, bool) -> hud::Columns
+pub fn hud::Columns::new<I>(I) -> hud::Columns where I: core::iter::traits::collect::IntoIterator, <I as core::iter::traits::collect::IntoIterator>::Item: core::convert::Into<hud::Body>
+pub fn hud::Columns::padding(self, impl core::convert::Into<hud::Pad>) -> hud::Columns
+pub fn hud::Columns::push(self, impl core::convert::Into<hud::Body>) -> hud::Columns
+pub fn hud::Columns::right_to_left(self, bool) -> hud::Columns
+pub fn hud::Columns::title(self, impl core::convert::Into<alloc::string::String>) -> hud::Columns
+pub fn hud::Columns::width(self, usize) -> hud::Columns
+impl core::convert::From<hud::Columns> for hud::Body
+pub fn hud::Body::from(hud::Columns) -> hud::Body
+impl core::convert::From<hud::Columns> for hud::Layout
+pub fn hud::Layout::from(hud::Columns) -> hud::Layout
+impl core::default::Default for hud::Columns
+pub fn hud::Columns::default() -> hud::Columns
+impl core::fmt::Display for hud::Columns
+pub fn hud::Columns::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+impl hud::Renderable for hud::Columns
+pub fn hud::Columns::measure(&self, usize) -> hud::Measure
+pub fn hud::Columns::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Columns::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Columns::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub struct hud::Console
 impl hud::Console
 pub fn hud::Console::builder() -> hud::ConsoleBuilder
@@ -198,6 +231,7 @@ pub fn hud::ErrorReport::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt:
 impl hud::Renderable for hud::ErrorReport
 pub fn hud::ErrorReport::measure(&self, usize) -> hud::Measure
 pub fn hud::ErrorReport::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::ErrorReport::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::ErrorReport::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub struct hud::Group
 impl hud::Group
@@ -205,10 +239,85 @@ pub fn hud::Group::new() -> hud::Group
 pub fn hud::Group::push(self, impl core::convert::Into<hud::Body>) -> hud::Group
 impl core::convert::From<hud::Group> for hud::Body
 pub fn hud::Body::from(hud::Group) -> hud::Body
+impl core::convert::From<hud::Group> for hud::Layout
+pub fn hud::Layout::from(hud::Group) -> hud::Layout
 impl hud::Renderable for hud::Group
 pub fn hud::Group::measure(&self, usize) -> hud::Measure
 pub fn hud::Group::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Group::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Group::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub struct hud::Layout
+impl hud::Layout
+pub fn hud::Layout::column(impl core::iter::traits::collect::IntoIterator<Item = hud::Layout>) -> hud::Layout
+pub fn hud::Layout::empty() -> hud::Layout
+pub fn hud::Layout::get(&self, &str) -> core::option::Option<&hud::Layout>
+pub fn hud::Layout::get_mut(&mut self, &str) -> core::option::Option<&mut hud::Layout>
+pub fn hud::Layout::minimum_size(self, usize) -> hud::Layout
+pub fn hud::Layout::name(self, impl core::convert::Into<alloc::string::String>) -> hud::Layout
+pub fn hud::Layout::new(impl core::convert::Into<hud::Body>) -> hud::Layout
+pub fn hud::Layout::ratio(self, usize) -> hud::Layout
+pub fn hud::Layout::row(impl core::iter::traits::collect::IntoIterator<Item = hud::Layout>) -> hud::Layout
+pub fn hud::Layout::size(self, usize) -> hud::Layout
+pub fn hud::Layout::split_column(&mut self, impl core::iter::traits::collect::IntoIterator<Item = hud::Layout>)
+pub fn hud::Layout::split_row(&mut self, impl core::iter::traits::collect::IntoIterator<Item = hud::Layout>)
+pub fn hud::Layout::unsplit(&mut self)
+pub fn hud::Layout::update(&mut self, impl core::convert::Into<hud::Body>)
+pub fn hud::Layout::visible(self, bool) -> hud::Layout
+impl core::convert::From<&str> for hud::Layout
+pub fn hud::Layout::from(&str) -> hud::Layout
+impl core::convert::From<alloc::string::String> for hud::Layout
+pub fn hud::Layout::from(alloc::string::String) -> hud::Layout
+impl core::convert::From<hud::Columns> for hud::Layout
+pub fn hud::Layout::from(hud::Columns) -> hud::Layout
+impl core::convert::From<hud::Group> for hud::Layout
+pub fn hud::Layout::from(hud::Group) -> hud::Layout
+impl core::convert::From<hud::Layout> for hud::Body
+pub fn hud::Body::from(hud::Layout) -> hud::Body
+impl core::convert::From<hud::Panel> for hud::Layout
+pub fn hud::Layout::from(hud::Panel) -> hud::Layout
+impl core::convert::From<hud::Table> for hud::Layout
+pub fn hud::Layout::from(hud::Table) -> hud::Layout
+impl core::convert::From<hud::Text> for hud::Layout
+pub fn hud::Layout::from(hud::Text) -> hud::Layout
+impl core::convert::From<hud::Tree> for hud::Layout
+pub fn hud::Layout::from(hud::Tree) -> hud::Layout
+impl core::fmt::Display for hud::Layout
+pub fn hud::Layout::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+impl core::ops::index::Index<&str> for hud::Layout
+pub type hud::Layout::Output = hud::Layout
+pub fn hud::Layout::index(&self, &str) -> &hud::Layout
+impl core::ops::index::IndexMut<&str> for hud::Layout
+pub fn hud::Layout::index_mut(&mut self, &str) -> &mut hud::Layout
+impl hud::Renderable for hud::Layout
+pub fn hud::Layout::measure(&self, usize) -> hud::Measure
+pub fn hud::Layout::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Layout::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Layout::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub struct hud::Live
+impl hud::Live
+pub fn hud::Live::builder() -> hud::LiveBuilder
+pub fn hud::Live::is_started(&self) -> bool
+pub fn hud::Live::new(impl core::convert::Into<hud::Body>) -> hud::Live
+pub fn hud::Live::refresh(&self)
+pub fn hud::Live::start(&self)
+pub fn hud::Live::stop(&self)
+pub fn hud::Live::update(&self, impl core::convert::Into<hud::Body>)
+impl core::fmt::Debug for hud::Live
+pub fn hud::Live::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub struct hud::LiveBuilder
+impl hud::LiveBuilder
+pub fn hud::LiveBuilder::auto_refresh(self, bool) -> hud::LiveBuilder
+pub fn hud::LiveBuilder::build(self) -> hud::Live
+pub fn hud::LiveBuilder::console(self, hud::Console) -> hud::LiveBuilder
+pub fn hud::LiveBuilder::disable(self, bool) -> hud::LiveBuilder
+pub fn hud::LiveBuilder::interactive(self, bool) -> hud::LiveBuilder
+pub fn hud::LiveBuilder::refresh_per_second(self, f64) -> hud::LiveBuilder
+pub fn hud::LiveBuilder::renderable(self, impl core::convert::Into<hud::Body>) -> hud::LiveBuilder
+pub fn hud::LiveBuilder::transient(self, bool) -> hud::LiveBuilder
+pub fn hud::LiveBuilder::vertical_overflow(self, hud::VerticalOverflow) -> hud::LiveBuilder
+pub fn hud::LiveBuilder::writer(self, impl core::io::write::Write + core::marker::Send + 'static) -> hud::LiveBuilder
+impl core::fmt::Debug for hud::LiveBuilder
+pub fn hud::LiveBuilder::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 pub struct hud::MarkupError
 impl core::error::Error for hud::MarkupError
 impl core::fmt::Display for hud::MarkupError
@@ -248,6 +357,7 @@ pub fn hud::Padding::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Res
 impl hud::Renderable for hud::Padding
 pub fn hud::Padding::measure(&self, usize) -> hud::Measure
 pub fn hud::Padding::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Padding::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Padding::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub struct hud::Panel
 impl hud::Panel
@@ -263,11 +373,14 @@ pub fn hud::Panel::title(self, impl core::convert::Into<alloc::string::String>) 
 pub fn hud::Panel::title_align(self, hud::Align) -> hud::Panel
 impl core::convert::From<hud::Panel> for hud::Body
 pub fn hud::Body::from(hud::Panel) -> hud::Body
+impl core::convert::From<hud::Panel> for hud::Layout
+pub fn hud::Layout::from(hud::Panel) -> hud::Layout
 impl core::fmt::Display for hud::Panel
 pub fn hud::Panel::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl hud::Renderable for hud::Panel
 pub fn hud::Panel::measure(&self, usize) -> hud::Measure
 pub fn hud::Panel::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Panel::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Panel::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub struct hud::Progress
 impl hud::Progress
@@ -288,6 +401,7 @@ pub fn hud::Progress::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Re
 impl hud::Renderable for hud::Progress
 pub fn hud::Progress::measure(&self, usize) -> hud::Measure
 pub fn hud::Progress::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Progress::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Progress::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub struct hud::ProgressBuilder
 impl hud::ProgressBuilder
@@ -372,6 +486,8 @@ pub fn hud::Table::show_lines(self, bool) -> hud::Table
 pub fn hud::Table::title(self, impl core::convert::Into<alloc::string::String>) -> hud::Table
 impl core::convert::From<hud::Table> for hud::Body
 pub fn hud::Body::from(hud::Table) -> hud::Body
+impl core::convert::From<hud::Table> for hud::Layout
+pub fn hud::Layout::from(hud::Table) -> hud::Layout
 impl core::default::Default for hud::Table
 pub fn hud::Table::default() -> hud::Table
 impl core::fmt::Display for hud::Table
@@ -379,6 +495,7 @@ pub fn hud::Table::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Resul
 impl hud::Renderable for hud::Table
 pub fn hud::Table::measure(&self, usize) -> hud::Measure
 pub fn hud::Table::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Table::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Table::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub struct hud::Task
 impl hud::Task
@@ -435,6 +552,8 @@ pub fn hud::Text::truncate(&mut self, usize, hud::Overflow, bool)
 pub fn hud::Text::wrap(&self, usize) -> alloc::vec::Vec<hud::Text>
 impl core::convert::From<hud::Text> for hud::Body
 pub fn hud::Body::from(hud::Text) -> hud::Body
+impl core::convert::From<hud::Text> for hud::Layout
+pub fn hud::Layout::from(hud::Text) -> hud::Layout
 impl core::default::Default for hud::Text
 pub fn hud::Text::default() -> hud::Text
 impl core::fmt::Display for hud::Text
@@ -442,6 +561,7 @@ pub fn hud::Text::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl hud::Renderable for hud::Text
 pub fn hud::Text::measure(&self, usize) -> hud::Measure
 pub fn hud::Text::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Text::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Text::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub struct hud::TextColumn
 impl hud::TextColumn
@@ -487,59 +607,84 @@ impl core::convert::From<alloc::string::String> for hud::Tree
 pub fn hud::Tree::from(alloc::string::String) -> hud::Tree
 impl core::convert::From<hud::Tree> for hud::Body
 pub fn hud::Body::from(hud::Tree) -> hud::Body
+impl core::convert::From<hud::Tree> for hud::Layout
+pub fn hud::Layout::from(hud::Tree) -> hud::Layout
 impl core::fmt::Display for hud::Tree
 pub fn hud::Tree::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl hud::Renderable for hud::Tree
 pub fn hud::Tree::measure(&self, usize) -> hud::Measure
 pub fn hud::Tree::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Tree::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Tree::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub trait hud::Renderable
 pub fn hud::Renderable::measure(&self, usize) -> hud::Measure
 pub fn hud::Renderable::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Renderable::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Renderable::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for alloc::string::String
 pub fn alloc::string::String::measure(&self, usize) -> hud::Measure
 pub fn alloc::string::String::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn alloc::string::String::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn alloc::string::String::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+impl hud::Renderable for hud::Columns
+pub fn hud::Columns::measure(&self, usize) -> hud::Measure
+pub fn hud::Columns::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Columns::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Columns::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::ErrorReport
 pub fn hud::ErrorReport::measure(&self, usize) -> hud::Measure
 pub fn hud::ErrorReport::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::ErrorReport::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::ErrorReport::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::Group
 pub fn hud::Group::measure(&self, usize) -> hud::Measure
 pub fn hud::Group::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Group::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Group::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+impl hud::Renderable for hud::Layout
+pub fn hud::Layout::measure(&self, usize) -> hud::Measure
+pub fn hud::Layout::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Layout::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Layout::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::Padding
 pub fn hud::Padding::measure(&self, usize) -> hud::Measure
 pub fn hud::Padding::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Padding::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Padding::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::Panel
 pub fn hud::Panel::measure(&self, usize) -> hud::Measure
 pub fn hud::Panel::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Panel::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Panel::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::Progress
 pub fn hud::Progress::measure(&self, usize) -> hud::Measure
 pub fn hud::Progress::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Progress::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Progress::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::Table
 pub fn hud::Table::measure(&self, usize) -> hud::Measure
 pub fn hud::Table::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Table::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Table::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::Text
 pub fn hud::Text::measure(&self, usize) -> hud::Measure
 pub fn hud::Text::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Text::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Text::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::Tree
 pub fn hud::Tree::measure(&self, usize) -> hud::Measure
 pub fn hud::Tree::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Tree::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Tree::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for str
 pub fn str::measure(&self, usize) -> hud::Measure
 pub fn str::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn str::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn str::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl<T: hud::Renderable + ?core::marker::Sized> hud::Renderable for &T
 pub fn &T::measure(&self, usize) -> hud::Measure
 pub fn &T::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn &T::render_region(&self, usize, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn &T::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::capabilities(hud::Stream) -> hud::Capabilities
 pub fn hud::cell_len(&str) -> usize

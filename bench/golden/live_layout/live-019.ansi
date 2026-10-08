@@ -1,0 +1,32 @@
+[?25l                  
+  Key      Value  
+ ──────────────── 
+  bytes      232  
+  syn        876  
+  anyhow     662  
+  bytes      898  [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                  
+  Key      Value  
+ ──────────────── 
+  clap       630  
+  hyper      762  
+  serde       64  
+  bytes      784  [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                   
+  Key       Value  
+ ───────────────── 
+  clap        326  
+  tokio       508  
+  hyper       421  
+  anyhow      297  [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                   
+  Key       Value  
+ ───────────────── 
+  clap        326  
+  tokio       508  
+  hyper       421  
+  anyhow      297  
+  hyper        77  
+  hyper       335  
+  tracing     399  
+  syn         710  
+  rayon       192  
+                   
+[?25h

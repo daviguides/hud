@@ -32,6 +32,14 @@ pub trait Renderable {
         self.render(width)
     }
 
+    /// Like [`Renderable::render_with`] for a box `height` lines tall. Most widgets are as tall
+    /// as their content and keep this default; a [`Layout`](crate::Layout) fills the height it is
+    /// given, so one placed inside another layout takes the height of its region.
+    fn render_region(&self, width: usize, height: usize, caps: &Capabilities) -> Vec<Segment> {
+        let _ = height;
+        self.render_with(width, caps)
+    }
+
     /// The widths this renderable can be printed in, given that no more than `max_width` cells
     /// are available. A panel that fits its content asks for this. The default says any width
     /// from nothing up to `max_width`, which makes a fitting panel take all of it.

@@ -402,17 +402,17 @@ const TOTALS: &[u64] = &[0, 1, 2, 9, 10, 99, 100, 12_500, 1_000_000, u64::MAX];
 const CLOCKS: &[f64] = &[0.0, 0.5, 1.0, 29.0, 31.0, 3600.0, 90_000.0, 1e12, -5.0, f64::NAN, f64::INFINITY];
 
 /// A frame's bytes without what is written to put it in place: the cursor hide of the first
-/// draw or the erase of the previous frame.
+/// draw and the erase of the previous frame (`CR`, then `ESC [ 2 K` and, for each earlier line,
+/// `ESC [ 1 A ESC [ 2 K`).
 fn frame_of(written: &str) -> &str {
-    if let Some(rest) = written.strip_prefix("\x1b[?25l") {
-        return rest;
-    }
-    if written.starts_with('\r') {
-        if let Some(at) = written.find("\x1b[J") {
-            return &written[at + "\x1b[J".len()..];
+    let mut rest = written.strip_prefix("\x1b[?25l").unwrap_or(written);
+    if let Some(erased) = rest.strip_prefix("\r\x1b[2K") {
+        rest = erased;
+        while let Some(erased) = rest.strip_prefix("\x1b[1A\x1b[2K") {
+            rest = erased;
         }
     }
-    written
+    rest
 }
 
 fn progress_case(rng: &mut Rng, input: &str) -> Option<String> {
@@ -505,7 +505,8 @@ fn progress_case(rng: &mut Rng, input: &str) -> Option<String> {
     } else {
         // A frame taller than the terminal is cut on purpose, with an ellipsis line.
         let want = console.render_to_string(&progress);
-        if want.matches('\n').count() < height && frame_of(drawn) != want {
+        let want = want.strip_suffix('\n').unwrap_or(&want);
+        if want.matches('\n').count() + 1 < height && frame_of(drawn) != want {
             return Some(format!("the live frame differs from a render at width {width}: want {want:?} got {:?}", frame_of(drawn)));
         }
     }

@@ -90,7 +90,7 @@ fn cell_text(markup: &str, column: &Column) -> Text {
 }
 
 /// A title or caption centered over `width` cells.
-fn annotation(markup: &str, style: Style, width: usize) -> Vec<Segment> {
+pub(crate) fn annotation(markup: &str, style: Style, width: usize) -> Vec<Segment> {
     let mut text = markup_text(markup);
     text.style = style;
     text.justify = Justify::Center;

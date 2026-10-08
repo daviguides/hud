@@ -1,0 +1,50 @@
+[?25l                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  rayon     943  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  regex     967  
+  tokio     406  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                   
+ [1m [0m[1mKey    [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ───────────────── 
+  bytes       938  
+  regex       876  
+  tracing     528  
+                   [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                  
+ [1m [0m[1mKey   [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ──────────────── 
+  anyhow     474  
+  regex      882  
+  syn        371  
+  anyhow     985  
+                  [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  syn       215  
+  clap       63  
+  regex     137  
+  serde     906  
+  regex     547  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                  
+ [1m [0m[1mKey   [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ──────────────── 
+  serde      711  
+  clap       435  
+  clap       748  
+  anyhow     108  
+  tokio      541  
+  tokio      370  
+                  [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                  
+ [1m [0m[1mKey   [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ──────────────── 
+  serde      711  
+  clap       435  
+  clap       748  
+  anyhow     108  
+  tokio      541  
+  tokio      370  
+                  
+[?25h

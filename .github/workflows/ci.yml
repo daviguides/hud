@@ -74,6 +74,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: zero panics and no violated property, seeded
         run: cargo run --release --manifest-path bench/candidates/hud/Cargo.toml --bin fuzz -- --count 2000
+      - name: the same for columns, layout and live
+        run: cargo run --release --manifest-path bench/candidates/hud/Cargo.toml --bin fuzz_live_layout -- --count 2000
 
   deny:
     runs-on: ubuntu-latest

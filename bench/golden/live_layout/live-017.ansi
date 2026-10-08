@@ -1,0 +1,31 @@
+[?25l                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  tokio     721  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  serde     626  
+  hyper     176  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                 
+ [1m [0m[1mKey  [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ─────────────── 
+  syn       223  
+  hyper     101  
+  hyper     794  
+                 [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                  
+ [1m [0m[1mKey   [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ──────────────── 
+  anyhow     101  
+  regex      186  
+  serde      624  
+  regex        9  
+                  [2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K                  
+ [1m [0m[1mKey   [0m[1m [0m [1m [0m[1mValue[0m[1m [0m 
+ ──────────────── 
+  anyhow     101  
+  regex      186  
+  serde      624  
+  regex        9  
+                  
+[?25h[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K

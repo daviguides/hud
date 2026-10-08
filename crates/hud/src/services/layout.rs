@@ -281,9 +281,19 @@ fn collapse_widths(mut widths: Vec<i64>, wrapable: &[bool], max_width: i64) -> V
 /// `wrapable[i]` says whether the column may give cells up when the total does not fit.
 pub(crate) fn arrange(
     wrapable: &[bool],
-    mut measure: impl FnMut(usize, i64) -> Measurement,
+    measure: impl FnMut(usize, i64) -> Measurement,
     available: i64,
 ) -> Vec<usize> {
+    arrange_total(wrapable, measure, available).0
+}
+
+/// Like [`arrange`], with the total the widths had before they were measured again within their
+/// reduced size: Rich compares that total, not the final one, with the room left to expand into.
+pub(crate) fn arrange_total(
+    wrapable: &[bool],
+    mut measure: impl FnMut(usize, i64) -> Measurement,
+    available: i64,
+) -> (Vec<usize>, i64) {
     let ranges: Vec<Measurement> = (0..wrapable.len())
         .map(|index| measure(index, available))
         .collect();
@@ -299,6 +309,7 @@ pub(crate) fn arrange(
             let excess = total - available;
             let ones = vec![1; widths.len()];
             widths = ratio_reduce(excess, &ones, &widths, &widths);
+            total = widths.iter().sum();
         }
         widths = widths
             .iter()
@@ -306,7 +317,33 @@ pub(crate) fn arrange(
             .map(|(index, &width)| measure(index, width).max)
             .collect();
     }
-    widths.iter().map(|&width| width.max(0) as usize).collect()
+    (
+        widths.iter().map(|&width| width.max(0) as usize).collect(),
+        total,
+    )
+}
+
+/// Divides `total` between slots in proportion to `ratios`, giving each the ceiling of its share
+/// of what is left; the shares add up to `total`.
+pub(crate) fn ratio_distribute(total: i64, ratios: &[i64]) -> Vec<i64> {
+    let mut total_ratio: i64 = ratios.iter().sum();
+    if total_ratio <= 0 {
+        return vec![0; ratios.len()];
+    }
+    let mut remaining = total;
+    let mut out = Vec::with_capacity(ratios.len());
+    for &ratio in ratios {
+        let share = if total_ratio > 0 {
+            (((ratio * remaining) as f64) / total_ratio as f64).ceil() as i64
+        } else {
+            remaining
+        };
+        let distributed = share.max(0);
+        out.push(distributed);
+        total_ratio -= ratio;
+        remaining -= distributed;
+    }
+    out
 }
 
 /// The width of every column, padding included and borders not, for `available` cells.

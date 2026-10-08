@@ -2,8 +2,11 @@
 
 mod capabilities;
 mod color;
+mod columns;
 mod error;
 mod group;
+mod layout;
+mod live;
 mod padding;
 pub(crate) mod palette;
 mod panel;
@@ -18,8 +21,12 @@ mod tree;
 
 pub use capabilities::{Capabilities, ColorSystem, EnvSnapshot, Stream, StreamInfo};
 pub use color::Color;
+pub use columns::Columns;
 pub use error::{MarkupError, StyleError};
 pub use group::Group;
+pub use layout::Layout;
+pub(crate) use layout::Splitter;
+pub use live::VerticalOverflow;
 pub use padding::Padding;
 pub use panel::{Align, Body, Pad, Panel};
 pub(crate) use platform::WindowsFacts;

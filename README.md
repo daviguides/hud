@@ -20,6 +20,7 @@ The crate needs Rust 1.85 or newer (edition 2024) and has no required features. 
 - **`hud-width`**: terminal cell width and grapheme-cluster segmentation (UAX #29, Unicode 17). `fold`, `truncate` and `pad` cut only between clusters. `no_std`, no dependencies.
 - **`hud`**: styled text. `Style` parses `"bold red on #223344"`, markup (`[bold]ok[/]`, nested tags, `\[` for a bracket) builds a `Text`, and a `Console` prints it wrapped to the terminal width, with tabs, justification and overflow, in the colors the terminal has (truecolor, 256, 16 or none; `NO_COLOR` removes color and keeps bold). Output is byte for byte what Python Rich writes for the same markup, checked against its goldens and thousands of random vectors.
 - **`hud`**: `Table`, `Panel` and `Tree` with Rich's boxes, padding and width arrangement, aligned on cells, never on characters; `Progress` with the bar, percentage, count, elapsed, remaining and spinner columns, handles you can clone and advance from any thread, and a display that redraws in place on a terminal and prints once anywhere else; `Group` stacks renderables, and `ErrorReport` prints an error with its causes and a hint, from any `std::error::Error`. Every one is byte for byte what Python Rich writes, checked against its goldens and thousands of random vectors.
+- **`hud`**: `Columns` arranges any items in as many columns as fit, `Layout` divides the terminal into rows and columns by size and ratio, and `Live` redraws any renderable in place; `Live` and `Progress` write the same bytes Rich writes, frame by frame (corpus 3, and thousands of random vectors).
 - **`hud`**: one resolver decides what a stream can show (color depth, `NO_COLOR`, `FORCE_COLOR`, `CLICOLOR`, `CLICOLOR_FORCE`, `TERM=dumb`, pipes, terminal size), with the precedence written in one place.
 
 ```rust
@@ -46,6 +47,32 @@ let task = progress.add_task("Downloading", 100);
 for _ in 0..100 {
     task.advance(1);
 }
+```
+
+```rust
+use hud::{Columns, Console, Layout, Panel};
+
+let columns = Columns::new(["clap", "serde", "tokio", "hyper", "rayon", "regex"]);
+let console = Console::builder().width(40).height(6).plain().build();
+println!("{}", console.render_to_plain(&columns));
+
+let layout = Layout::column([
+    Layout::new(Panel::new("[bold]hud[/]")).name("header").size(3),
+    Layout::row([Layout::new(columns), Layout::new("a second pane")]).name("body"),
+]);
+console.print(&layout);
+```
+
+```rust,no_run
+use hud::{Live, Table};
+
+let live = Live::new("starting");
+live.start();
+for step in 1..=3 {
+    live.update(Table::new().column("step").row([step.to_string()]));
+    live.refresh();
+}
+live.stop();
 ```
 
 ```rust,no_run
@@ -106,7 +133,7 @@ The harness, goldens and the other candidates measured the same way are in `benc
 
 ```text
 crates/hud-width/   cell width, clusters, fold, truncate, pad (no_std)
-crates/hud/         capabilities, style, markup, text, console, table, panel, tree, progress and error report
+crates/hud/         capabilities, style, markup, text, console, table, panel, tree, progress, error report, columns, layout and live
 xtask/              cargo xtask gen-width | check-layers
 bench/              corpus, goldens, harness, candidate adapters
 DEVIATIONS.md       every deliberate difference from Rich
