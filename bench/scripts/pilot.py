@@ -3,6 +3,9 @@
   pilot.py static [candidate ...]     correctness, width, capability, tasks, LOC, API surface (deterministic axes)
   pilot.py timed  [candidate ...]     adoption cost and speed S1-S4 for each candidate and Python Rich, sequentially,
                                        only while the machine is idle (guard below); every run records the load
+  pilot.py speed WORKLOADS [candidate ...]   only the speed part, for the listed workloads (e.g. S3 or S1,S2,S3,S4)
+  pilot.py unverified [candidate ...]  times the workloads whose output differs from the golden, into
+                                       <W>.unverified.json (different work: informational, never ranked)
 
 Per-candidate invocation details (adapter paths, argument order) are data in CANDIDATES; the measurement code is
 shared. Results land in `pilot/<candidate>/` (committed) and raw outputs in `results/<candidate>/` (ignored).
@@ -211,9 +214,9 @@ def speed_cmd(name, workload):
     return cfg["s1"] if workload == "S1" else cfg["bench"]
 
 
-def timed(names):
+def timed(names, adoption=True, workloads=("S1", "S2", "S3", "S4")):
     log = []
-    for name in names:
+    for name in names if adoption else []:
         raw, pilot = out_dirs(name)
         sp = pilot / "speed"
         sp.mkdir(exist_ok=True)
@@ -223,7 +226,7 @@ def timed(names):
             r = run([PY, "scripts/adoption.py", str(BENCH / cfg["root"] / hello), "--out", str(pilot / f"adoption_{hello}.json")])
             log.append(f"{name} adoption {hello}: end load1={load1():.2f} busy={busy()}")
             (pilot / f"adoption_{hello}.txt").write_text(r.stdout + r.stderr)
-    for workload in ("S1", "S2", "S3", "S4"):
+    for workload in workloads:
         for name in names + ["python"]:
             cmd = speed_cmd(name, workload)
             sp = BENCH / "pilot" / name / "speed"
@@ -233,17 +236,40 @@ def timed(names):
             t = run([PY, "scripts/speed.py", "time", workload, "--iterations", "30", "--out", str(sp / f"{workload}.json"), "--"] + cmd)
             log.append(f"{name} {workload}: verify={v.stdout.strip()!r} end load1={load1():.2f} busy={busy()}")
             (sp / f"{workload}.txt").write_text(v.stdout + v.stderr + t.stdout + t.stderr)
-    (BENCH / "pilot" / "speed_conditions.log").write_text("\n".join(log) + "\n")
+    logfile = BENCH / "pilot" / ("speed_conditions.log" if adoption else "speed_conditions_" + "_".join(workloads) + ".log")
+    logfile.write_text("\n".join(log) + "\n")
+    print("\n".join(log))
+
+
+def unverified(names):
+    log = []
+    for workload in ("S1", "S2", "S4"):
+        for name in names:
+            if (BENCH / "pilot" / name / "speed" / f"{workload}.json").exists():
+                continue
+            cmd = speed_cmd(name, workload)
+            sp = BENCH / "pilot" / name / "speed"
+            wait_idle(log, f"{name} {workload} (unverified)")
+            run([PY, "scripts/speed.py", "time", workload, "--iterations", "30", "--unverified", "--out",
+                 str(sp / f"{workload}.unverified.json"), "--"] + cmd)
+            log.append(f"{name} {workload} unverified: end load1={load1():.2f} busy={busy()}")
+    (BENCH / "pilot" / "speed_conditions_unverified.log").write_text("\n".join(log) + "\n")
     print("\n".join(log))
 
 
 def main():
-    mode, names = sys.argv[1], sys.argv[2:] or list(CANDIDATES)
+    mode, names = sys.argv[1], sys.argv[2:]
+    names = names or ([] if mode == "speed" else list(CANDIDATES))
     if mode == "static":
         for n in names:
             static(n)
     elif mode == "timed":
         timed(names)
+    elif mode == "unverified":
+        unverified(names or list(CANDIDATES))
+    elif mode == "speed":
+        workloads = tuple(names[0].split(","))
+        timed(names[1:] or list(CANDIDATES), adoption=False, workloads=workloads)
     else:
         raise SystemExit(__doc__)
 

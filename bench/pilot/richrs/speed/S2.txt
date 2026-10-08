@@ -1,0 +1,2 @@
+DIFFERENT S2 1088573 bytes vs 1088681 
+S2: output differs from the golden (1088573 vs 1088681 bytes) : workload discarded for this candidate

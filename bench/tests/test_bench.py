@@ -60,13 +60,31 @@ def test_goldens_do_not_depend_on_render_order():
         assert rr.render_case_isolated(cases[cid]) == golden
 
 
-def test_s3_frame_check_rejects_a_candidate_that_never_animates():
+def test_s3_frame_check_separates_animation_from_final_frame_only():
     import speed
-    final_only = b"task 0 " + b"\x1b[32m" + b"12500/12500\n"
-    assert speed.frames_observed(final_only) == 1
-    animated = b"".join(b"task 0 \x1b[2K %d/12500\n\x1b[1A" % k for k in range(0, 12500, 12))
-    assert speed.frames_observed(animated) >= speed.MIN_S3_FRAMES
-    assert speed.frames_observed(animated) >= 1000
+
+    def line(task, count):
+        return f"task {task} " + "\u2501" * 30 + f" {count * 100 // 12500:3d}% {count:5d}/12500"
+
+    def counts(f):
+        return [(100 * f + 7 - t) // 8 for t in range(8)]
+
+    # full redraw: back to the top of the block, rewrite all 8 lines, 1000 frames
+    full = b"".join((b"\x1b[7A\r" if f > 1 else b"") + "\r\n".join(line(t, c) for t, c in enumerate(counts(f))).encode()
+                    for f in range(1, 1001))
+    assert speed.frames_matched(full) >= speed.MIN_S3_FRAMES
+    # changed cells only: after the first frame, rewrite just the first row's completed counter
+    first = "\r\n".join(line(t, 0) for t in range(8)).encode()
+    col = len("task 0 ") + 30 + 6
+    cells = first + b"".join(b"\x1b[7A\r\x1b[%dC%5d\x1b[7B" % (col, (100 * f + 7) // 8) for f in range(1, 1001))
+    assert speed.frames_matched(cells) >= speed.MIN_S3_FRAMES
+    # half the frames
+    half = b"".join((b"\x1b[7A\r" if f > 1 else b"") + "\r\n".join(line(t, c) for t, c in enumerate(counts(f))).encode()
+                    for f in range(2, 1001, 2))
+    assert speed.frames_matched(half) < speed.MIN_S3_FRAMES
+    # final frame only
+    final = "\r\n".join(line(t, 12500) for t in range(8)).encode()
+    assert speed.frames_matched(final) <= 2
 
 
 def test_compare_detects_difference_and_never_counts_unsupported_as_pass(tmp_path):

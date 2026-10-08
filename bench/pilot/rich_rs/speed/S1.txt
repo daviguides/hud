@@ -1,0 +1,2 @@
+DIFFERENT S1 877 bytes vs 943 
+S1: output differs from the golden (877 vs 943 bytes) : workload discarded for this candidate

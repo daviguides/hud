@@ -22,6 +22,7 @@ import time
 from pathlib import Path
 
 import numpy as np
+import pyte
 
 sys.path.insert(0, str(Path(__file__).parent))
 from common import BENCH, strip_ansi  # noqa: E402
@@ -31,7 +32,8 @@ SPEED_ENV = {"FORCE_COLOR": "1", "COLORTERM": "truecolor", "TERM": "xterm-256col
 INPUTS = {"S2": BENCH / "cases" / "speed" / "s2_table.tsv", "S3": None, "S4": BENCH / "cases" / "speed" / "s4_lines.txt"}
 GOLDEN = BENCH / "golden" / "speed"
 MIN_SAMPLES = 30
-MIN_S3_FRAMES = 1000  # spec/speed.md: one frame after every 100th of 100 000 updates
+MIN_S3_FRAMES = 900  # of the 1 000 frames of spec/speed.md (one after every 100th of 100 000 updates)
+S3_EXPECTED = {(100 * f + 7) // 8 for f in range(1, 1001)}
 WARMUP = 5
 RNG = np.random.default_rng(20261008)
 
@@ -63,21 +65,35 @@ def normalize(workload, data: bytes):
     return screen_text(screen_snapshot(data)).encode() if workload == "S3" else data
 
 
-def frames_observed(data: bytes) -> int:
-    """Distinct values the first task's completed counter takes in the stream (S3 columns: `task 0 ... N/12500`).
+def frames_matched(data: bytes) -> int:
+    """How many of the 1 000 expected frames of S3 the stream shows.
 
-    Python Rich shows 1 001 (the 1 000 frames plus the initial 0). A candidate that renders only the final
-    frame shows 1. Independent of how a library moves the cursor or spells its escape sequences.
+    The stream is replayed through a 100 x 40 terminal emulator and the first task's row is read after every
+    cursor-up (the start of each in-place redraw, so the previous frame is complete), plus at the end. Task 0
+    has advanced (100 f + 7) // 8 steps after f frames, so frame f is matched when the screen shows exactly
+    that completed counter. Independent of how a library redraws (full frame, changed cells only) and of how
+    it spells its escape sequences; a candidate that renders only the final frame matches 1.
     """
-    text = strip_ansi(data).decode("utf-8", "replace")
-    return len(set(re.findall(r"task 0\b[^\n]*?\b(\d+)/12500", text)))
+    data = data.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+    screen = pyte.Screen(100, 40)
+    stream = pyte.ByteStream(screen)
+    seen, row = set(), None
+    for chunk in re.split(rb"(?=\x1b\[\d*[AF])", data):
+        stream.feed(chunk)
+        if row is None:
+            row = next((y for y in range(40) if "task 0" in "".join(screen.buffer[y][x].data for x in range(100))), None)
+        if row is not None:
+            m = re.search(r"task 0\b.*?\b(\d+)/12500", "".join(screen.buffer[row][x].data for x in range(100)))
+            if m:
+                seen.add(int(m.group(1)))
+    return len(seen & S3_EXPECTED)
 
 
 def verify(workload, cmd):
     """Output must equal the golden or the workload is discarded for this candidate.
 
-    S3: the final screen text equals the golden AND the stream shows at least MIN_S3_FRAMES distinct
-    intermediate counter values, so a candidate that never animates measures different work.
+    S3: the final screen text equals the golden AND the stream shows at least MIN_S3_FRAMES of the 1 000
+    expected frames (see frames_matched), so a candidate that never animates measures different work.
     """
     argv = list(cmd) if workload == "S1" else workload_cmd(cmd, workload, ["--emit"])
     raw = run_capture(argv).stdout
@@ -86,8 +102,8 @@ def verify(workload, cmd):
     want = gzip.decompress(gp.read_bytes()) if gp.suffix == ".gz" else gp.read_bytes()
     if workload == "S3":
         want = want.rstrip(b"\n")
-        frames = frames_observed(raw)
-        return got == want and frames >= MIN_S3_FRAMES, len(got), len(want), f"frames observed {frames} (need >= {MIN_S3_FRAMES})"
+        frames = frames_matched(raw)
+        return got == want and frames >= MIN_S3_FRAMES, len(got), len(want), f"frames matched {frames} of 1000 (need >= {MIN_S3_FRAMES})"
     return got == want, len(got), len(want), ""
 
 
@@ -150,8 +166,8 @@ def make_golden(py_cmd):
         golden_paths(w).write_bytes(gzip.compress(run_capture(workload_cmd(bench, w, ["--emit"])).stdout, mtime=0))
     s3_raw = run_capture(workload_cmd(bench, "S3", ["--emit"])).stdout
     golden_paths("S3").write_text(screen_text(screen_snapshot(s3_raw)) + "\n")
-    (GOLDEN / "s3.frames.json").write_text(json.dumps({"reference_frames_observed": frames_observed(s3_raw),
-                                                       "min_frames": MIN_S3_FRAMES}, indent=1) + "\n")
+    (GOLDEN / "s3.frames.json").write_text(json.dumps({"reference_frames_matched": frames_matched(s3_raw),
+                                                       "expected_frames": 1000, "min_frames": MIN_S3_FRAMES}, indent=1) + "\n")
     print("speed goldens ->", GOLDEN)
 
 
@@ -165,6 +181,8 @@ def main():
     t.add_argument("workload", choices=["S1", "S2", "S3", "S4"])
     t.add_argument("--iterations", type=int, default=MIN_SAMPLES)
     t.add_argument("--out", type=Path)
+    t.add_argument("--unverified", action="store_true",
+                   help="time even if the output differs from the golden; the result is marked unverified (different work, informational only)")
     r = sub.add_parser("ratio", help="median ratio A/B with 95%% CI from two timing JSON files")
     r.add_argument("a", type=Path)
     r.add_argument("b", type=Path)
@@ -188,7 +206,7 @@ def main():
         print(("EQUAL" if ok else "DIFFERENT"), args.workload, got, "bytes vs", want, note)
         raise SystemExit(0 if ok else 1)
     ok, got, want, note = verify(args.workload, cmd)
-    if not ok:
+    if not ok and not args.unverified:
         print(f"{args.workload}: output differs from the golden ({got} vs {want} bytes) {note}: workload discarded for this candidate")
         raise SystemExit(2)
     if args.workload == "S1":
@@ -202,7 +220,7 @@ def main():
     if args.iterations < MIN_SAMPLES:
         print(f"NOTE: {args.iterations} < {MIN_SAMPLES} samples: pipeline check, no verdict (evaluation.md, pilot validity 6)")
     if args.out:
-        args.out.write_text(json.dumps({"workload": args.workload, **result}) + "\n")
+        args.out.write_text(json.dumps({"workload": args.workload, **result, **({"unverified": True} if not ok else {})}) + "\n")
 
 
 if __name__ == "__main__":

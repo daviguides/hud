@@ -18,11 +18,12 @@ Reference: Python Rich 15.0.0 (pinned in `pyproject.toml`, `uv.lock`), recorded 
 | `golden/` | Rich output: `correctness/`, `table_unicode/`, `width/width_ref.jsonl`, `capability/`, `tasks/`, `speed/`, `manifest.json` |
 | `reference/python/` | Rich solutions of the 8 DX tasks (the LOC baseline), the capability one-liner, speed adapters |
 | `scripts/` | generators, comparison, checkers, timing, adoption cost, docs and API metrics |
-| `results/` | candidate runs (git-ignored) |
+| `results/` | raw candidate runs (git-ignored) |
+| `pilot/` | committed per-candidate results of the corrected pass (`pilot/<candidate>/*.json`), `tables.md`, `summary.json`, `machine.txt`, speed conditions logs |
 
 ## What a candidate provides
 
-Each candidate gets its own crate and adapters (written in the next step, one fork per candidate; none exist yet).
+Each candidate has its own crate and adapters under `candidates/<name>/` (rich_rust, rs_rich, richrs, rich_rs, composed). Results of the first pilot: [PILOT-RESULTS.md](PILOT-RESULTS.md); harness changes after the first candidate pass: [CHANGELOG.md](CHANGELOG.md).
 
 | adapter | contract | checked by |
 |---|---|---|
@@ -46,4 +47,5 @@ Each candidate gets its own crate and adapters (written in the next step, one fo
 | `tasks.py`, `gen_task_specs.py`, `loc.py` | DX tasks: run, goldens, statements, LOC rule |
 | `speed.py` | output verification, S1 whole-process timing, S2-S4 in-process timing, bootstrap CI, ratios |
 | `adoption.py`, `docs_coverage.py`, `api_surface.py` | compile time / binary size / dependencies; rustdoc coverage and doctests; name parity and API friction |
+| `pilot.py`, `pilot_report.py` | run every candidate through the same code (`static`, `timed`, `speed`, `unverified`) and build the cross-candidate tables |
 | `docs_mirror.py` | docs.rs-equivalent mirror (no `src/` pages) for the DX first-try test; prompt in `spec/dx-prompt.md` |
