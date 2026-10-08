@@ -45,12 +45,14 @@ def render():
         "//! `THIRD_PARTY_NOTICES.md`.",
         "",
         "/// One animation: its name, the milliseconds a frame lasts and its frames.",
+        "#[derive(Debug)]",
         "pub(crate) struct SpinnerData {",
         "    pub(crate) name: &'static str,",
         "    pub(crate) interval: f64,",
         "    pub(crate) frames: &'static [&'static str],",
         "}",
         "",
+        "#[rustfmt::skip]",
         "pub(crate) const SPINNERS: &[SpinnerData] = &[",
     ]
     for name in sorted(SPINNERS):

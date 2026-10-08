@@ -95,7 +95,7 @@ def test_the_gate_is_read_only_on_a_full_sample():
 def test_estimate_prints_tokens_and_a_cost_only_when_prices_are_configured():
     config = dx.load_config()
     plain = dx.estimate(config)
-    assert [p["runs"] for p in plain["plan"]] == [8 * 5, 8 * 3]
+    assert [p["runs"] for p in plain["plan"]] == [11 * 5, 11 * 3]  # the 11 tasks of the v0.8 suite
     assert all(p["cost_usd"] is None for p in plain["plan"])
     config["primary"]["id"] = "m"
     config["estimate"]["prices_usd_per_mtok"] = {"m": {"input": 3.0, "output": 15.0}}
