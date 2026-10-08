@@ -1,11 +1,89 @@
-# hud (own engine), results of v0.1 to v0.4
+# hud (own engine), results of v0.1 to v0.5
 
 Candidate adapters in `src/bin/`: `width_runner` and `cap` (v0.1), `cases_runner`, `t06_markup`,
-`t08_env`, `bench` (S4) and `fuzz` (v0.2), `t01_table`, `t07_pipe`, `s1_table` and S2 in `bench` (v0.3), `t02_panel`, `t04_tree`, `cases_runner --widgets` and a `panel` and `tree` feature in `fuzz` (v0.4), built from the workspace crates by path. Everything below
+`t08_env`, `bench` (S4) and `fuzz` (v0.2), `t01_table`, `t07_pipe`, `s1_table` and S2 in `bench` (v0.3), `t02_panel`, `t04_tree`, `cases_runner --widgets` and a `panel` and `tree` feature in `fuzz` (v0.4), `t03_progress`, S3 in `bench`, `hello_progress` and a `progress` feature in `fuzz` (v0.5), built from the workspace crates by path. Everything below
 was produced by the shared scripts of `bench/scripts/` under the corrected harness
-(`bench/CHANGELOG.md` entries 1 to 15). Raw outputs: `bench/pilot/hud/`. hud claims only what it
-implements: width, fold, truncate and capability (v0.1), style and markup (v0.2), table (v0.3), panel and tree (v0.4). Every other
+(`bench/CHANGELOG.md` entries 1 to 23). Raw outputs: `bench/pilot/hud/`. hud claims only what it
+implements: width, fold, truncate and capability (v0.1), style and markup (v0.2), table (v0.3), panel and tree (v0.4), progress (v0.5). Every other
 file is missing, which means unsupported, never a pass.
+
+## v0.5 exit criteria (`foundation/features.md`)
+
+| Criterion | Result | Threshold | Verdict |
+|---|---|---|---|
+| Correctness, progress (`compare.py`, corpus 1) | **30 / 30** byte-identical (1 to 5 tasks, bars of 10 to 40 cells, totals 10 to 1 000, every color system, widths 40 to 120, 5 of them collapsing columns) | progress 30/30 | pass |
+| Claimed-feature correctness (style, markup, table, panel, tree, progress) | **180 / 180** = 100%; `table_unicode` 12 / 12 (error is not claimed) | at least 98%, style and markup 100% | pass |
+| Task t03 (three tasks that finish, 100 columns terminal) | PASS (screen check), 21 lines of code (Python Rich 22, 0.95x; Rich's also sleeps 5 ms a step) | pass | pass |
+| S3 output (`speed.py verify S3`) | **EQUAL**: final screen 919 bytes, **1 000 of 1 000** expected frames (Python Rich 1 000) | at least 900 frames | pass |
+| S3 median | **2.110 ms** (95% CI 2.094 to 2.124) at load 2.5; Python Rich 1 037.6 ms in the same session (0.002x); composition (`indicatif`) 11.03 ms in the same loaded session, **0.204x** (CI 0.201 to 0.207) | at most 5.97 ms, and at most 0.80x the best existing with CI upper bound at most 1.00 | pass (see the conditions below) |
+| API check (`api_surface.py idiom`, changelog 21) | `Progress` and `Task`: 16 public methods, **0 take `&mut self`, 0 return a `Result`**; the whole crate has 0 functions with more than 3 positional parameters and 0 `Option` parameters | zero | pass |
+| Agent runner built, self-tested, dry-run on hud | `scripts/dx_runner.py` (changelog 22): 13 self-tests; dry run with the mock agent through the real pipeline (docs mirror, prompt, audit, sandbox build, `tasks.py check`): **7 of 7** supported tasks `success`, t05 `unsupported`; a broken program, a wrong output and a read outside the mirror are classified `candidate_failure` (twice) and `protocol_violation` | built, self-tested, dry-run | pass; no model was called, so first-try success is not measured |
+| Fuzz, progress | 80 000 inputs (4 seeds x 20 000): **0 panics, 0 violated properties** (columns of every kind, descriptions and separators from the random strings, totals from 0 to `u64::MAX`, clocks that are negative, `NaN` and infinite, every console width including 0; properties: no printed line wider than the console, no escape bytes on a console that shows nothing, a stream that is not interactive draws nothing before it ends, and the live frame equals a render when it fits the terminal). A mutation of the cached path (one space less in the count cell) was caught in 42 of 3 000 inputs | zero panics on at least 1 000 inputs | pass |
+| Cumulative v0.1 to v0.4 criteria | style 30 / 30, markup 30 / 30, table 30 / 30 and 12 / 12 (0 of 97 rows misaligned), panel 30 / 30, tree 30 / 30, t01 t02 t04 t06 t07 t08 PASS, width 496 / 500 = 99.2%, 0 splits in 20 000 fold and 20 000 truncate cases, 0 of 704 panel and tree rows wider than the terminal, capability 40 / 40, S1, S2 and S4 outputs EQUAL (943, 1 088 681 and 46 698 bytes), fuzz 0 panics in all eight features | unchanged | pass |
+
+### Speed: the conditions
+
+`pilot/hud/speed_conditions_v05.json`. The machine is an interactive desktop with other sessions open:
+1-minute load average 2.5 to 3.2 during the runs (the v0.2 and v0.3 records were taken at 1.7 to 3.3),
+no `cargo` or `rustc` of this work running, S1, S2, S3 and S4 one after the other. It is **not idle in
+the strict sense** of evaluation rule 1, and it was about 1.5x slower than during the v0.3 session: the
+v0.4 binaries, rebuilt from commit `5a9b60d` in a separate worktree, measure S4 2.47 ms and S2 31 ms
+on it, against 1.645 and 19.9 ms then. That is why the gates are read from **same-session ratios** and
+from the absolute S3 median, which clears the 5.97 ms target 2.8x over:
+
+| Workload | hud | Reference, same session | Ratio | Target |
+|---|---|---|---|---|
+| S1 first byte | 2.840 ms | Python Rich 37.48 ms | **0.076** (CI 0.074 to 0.078) | at most 0.10 |
+| S3 | 2.110 ms | Python Rich 1 037.63 ms | 0.002 | at most 0.80x the best existing |
+| S3 | 2.252 ms (second run) | composition 11.03 ms | **0.204** (CI 0.201 to 0.207) | at most 0.80, CI upper bound at most 1.00 |
+
+The v0.5 binaries against the v0.4 binaries, alternating on the same machine, outputs equal to the
+goldens (`pilot/hud/speed_ab_v04_v05_*.json`): S4 1.065 (CI 1.049 to 1.079) and 1.021 (1.005 to
+1.048), S2 0.976 (0.965 to 1.001) and 1.016 (1.004 to 1.043), S1 first byte 1.030 (0.982 to 1.077) and
+0.973 (0.953 to 0.982). No workload is slower than 8% at the 95% level in either block; the S4 and S2
+numbers of v0.3 stand. Strictly, the speed gates of v0.5 are read on a loaded machine; a run on an
+idle one (`scripts/speed.py time S3 --iterations 60`, then `ratio`) can only improve the absolute
+numbers, and the margin is above 2x.
+
+How S3 got there. The first version drew each frame through the general layout (the grid of Rich's
+`Progress`, measured and arranged for every refresh): **23 us a frame**, 28.3 ms for the workload
+(profile: allocation and cluster-width measurement of cells that never change). The live path now
+plans the display once per change of tasks, descriptions, totals, console width or capabilities, and
+assembles each frame from cached cells (bars and percentages by state, the count written directly):
+**0.6 us a frame**, S3 2.1 ms. The plan draws the bytes of the general path: a seeded test over 2 000
+random displays compares them (`services::progress::tests`), and the fuzz property above does the
+same on live frames. A display that is outside the plan (time columns, a count wider than its total,
+a cell that wraps) takes the general path every frame and is unchanged.
+
+### Differential oracle for progress (`gen_oracle_vectors.py progress`, `crates/hud/tests/oracle.rs`)
+
+A fake clock replays the same events (add, advance, update, change of total, with gaps of 0 to 90 000
+seconds) in Rich and in hud; the display is rendered twice, so a spinner has turned.
+
+| Set | Vectors | Differ | Reading |
+|---|---|---|---|
+| ASCII progress | 1 200 | **0** | byte-identical (text, bar, percentage, count, elapsed, remaining and spinner columns in any order and subset, templates with `{task.completed}` and `{task.total}`, 20 to 120 columns, every color system) |
+| Unicode progress | 300 | **0** | none of the 300 has a flag, a combining mark or a wide character that Rich cuts differently |
+
+The first run had 7 ASCII differences, all in the time remaining: Rich prunes the old samples of a
+task on every `update`, including one that adds no step (a lower or equal `completed`, or the same
+total), and hud pruned only when it added a sample. Fixed; the estimate then matched on every vector.
+
+### Adoption and documentation
+
+| Measure | Result | Threshold | Verdict |
+|---|---|---|---|
+| Added compile time, binary size, dependencies (`adoption.py`, a progress hello) | **+2.0 s, +288 KB, 6 crates** | 15 s, 1.5 MB, 60 (targets 3 s, 400 KB, 10) | pass |
+| Documented public items, items with an example | **126 / 126**, **26 / 26** | 100% | pass |
+| Doctests | 30 passed, **0 ignored** | 0 ignored | pass |
+| Name parity by name (`api_surface.py parity`) | **27 / 40 = 68%** (v0.6 asks for 70%; the 13 missing are `Console` getters, `Color.parse`, `Text.truncate`, `Text.wrap`, `box`, `Group`, `markup.escape`, `cell_len`) | at least 70% at v0.6 | not yet; the nine Progress names exist |
+
+### Not claimed in v0.5
+
+Listed in `DEVIATIONS.md` D-036 to D-039: tasks without a total, `visible`, `stop_task`, task fields,
+the speed and file size columns, a `println!` while a display is live, fractional steps. The bytes of
+a live display are not Rich's (D-037); the screens are. First-try success by an agent, LOC against
+the agent population and the 0.80x speed criterion against rs-rich stay INCONCLUSIVE until v0.6.
 
 ## v0.4 exit criteria (`foundation/features.md`)
 
@@ -267,6 +345,16 @@ rm -rf results/hud/correctness && $B/cases_runner cases/correctness.jsonl result
 .venv/bin/python scripts/adoption.py candidates/hud/hello_styled
 .venv/bin/python scripts/docs_coverage.py .. hud
 .venv/bin/python scripts/gen_oracle_vectors.py && (cd .. && cargo test -p hud --test oracle)   # then git checkout the markup fixtures: only their link ids change
+# v0.5
+$B/cases_runner cases/correctness.jsonl results/hud/correctness && .venv/bin/python scripts/compare.py results/hud/correctness
+.venv/bin/python scripts/tasks.py check t03-progress $B/t03_progress
+.venv/bin/python scripts/speed.py verify S3 -- $B/bench
+.venv/bin/python scripts/speed.py time S3 --iterations 60 --out pilot/hud/speed_S3_v05.json -- $B/bench   # idle machine
+.venv/bin/python scripts/gen_oracle_vectors.py progress && (cd .. && cargo test -p hud --test oracle progress)
+.venv/bin/python scripts/fuzz.py --seeds 20261008 1 2 3 --count 20000 -- $B/fuzz
+.venv/bin/python scripts/api_surface.py idiom $(.venv/bin/python scripts/api_surface.py json .. hud | tail -1) Progress Task
+.venv/bin/python scripts/adoption.py candidates/hud/hello_progress
+.venv/bin/python scripts/dx_runner.py run --dry-run --repeats 1 --stress-repeats 0   # the mock agent; no model is called
 # v0.4
 .venv/bin/python scripts/gen_oracle_vectors.py widgets && (cd .. && cargo test -p hud --test oracle)
 $B/cases_runner --widgets cases/table_unicode.jsonl results/hud/width && .venv/bin/python scripts/width_check.py results/hud/width

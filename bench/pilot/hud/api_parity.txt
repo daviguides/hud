@@ -1,0 +1,4 @@
+name parity (existence by name): 27/40 = 68%
+missing: ['Console.width', 'Console.is_terminal', 'Console.color_system', 'Console.no_color', 'Console.force_terminal', 'Color.parse', 'Text.truncate', 'Text.wrap', 'box', 'box.ROUNDED', 'Group', 'markup.escape', 'cell_len']
+public functions: 272; >3 positional: 0; with Option params: 0; None-padding candidates: 0
+methods of ['Progress', 'Task']: 16; needing &mut self: 0; returning Result: 0

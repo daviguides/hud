@@ -3,6 +3,7 @@
   api_surface.py json <project-dir> <crate>      writes and prints the rustdoc JSON path (nightly rustdoc, lib target; file named by the lib name)
   api_surface.py parity <rustdoc.json>           which of the 40 Rich names exist (normalized exact match)
   api_surface.py friction <rustdoc.json>         public functions with >3 positional params or Option params
+  api_surface.py idiom <rustdoc.json> <Type>...  methods of the types that take `&mut self` or return a `Result`
 
 Name normalization: lower case, underscores removed; `Type.member` matches a method of `Type`, an associated
 item, an enum variant or a trait item of that name; `module.item` matches an item inside a module of that name.
@@ -42,7 +43,13 @@ def build(doc):
         params = [(n, t) for n, t in sig["inputs"] if n != "self"]
         opts = [n for n, t in params if isinstance(t, dict) and "resolved_path" in t
                 and t["resolved_path"]["path"].split("::")[-1] == "Option"]
-        fns.append({"owner": owner, "name": it["name"], "positional": len(params), "option_params": opts})
+        self_mut = any(n == "self" and isinstance(t, dict) and (t.get("borrowed_ref") or {}).get("is_mutable")
+                       for n, t in sig["inputs"])
+        out = sig.get("output")
+        result = (isinstance(out, dict) and "resolved_path" in out
+                  and out["resolved_path"]["path"].split("::")[-1] == "Result")
+        fns.append({"owner": owner, "name": it["name"], "positional": len(params), "option_params": opts,
+                    "self_mut": self_mut, "returns_result": result})
 
     for it in idx.values():
         name, inner = it.get("name"), it.get("inner", {})
@@ -105,6 +112,14 @@ def friction(doc):
             "none_padding_candidates": padded}
 
 
+def idiom(doc, owners):
+    """Public methods of `owners` that need `&mut self` or return a `Result`: friction on the idiomatic path."""
+    _, _, fns = build(doc)
+    mine = [f for f in fns if f["owner"] in owners]
+    return {"methods": len(mine), "needing_mut_self": [f for f in mine if f["self_mut"]],
+            "returning_result": [f for f in mine if f["returns_result"]]}
+
+
 def main():
     mode = sys.argv[1]
     if mode == "json":
@@ -118,6 +133,12 @@ def main():
         hit = sum(found.values())
         print(f"name parity (existence by name): {hit}/{len(found)} = {hit / len(found):.0%}")
         print("missing:", [n for n, ok in found.items() if not ok])
+    elif mode == "idiom":
+        r = idiom(load(sys.argv[2]), set(sys.argv[3:]))
+        print(f"methods of {sys.argv[3:]}: {r['methods']}; needing &mut self: {len(r['needing_mut_self'])}; "
+              f"returning Result: {len(r['returning_result'])}")
+        for x in r["needing_mut_self"] + r["returning_result"]:
+            print("  ", x["owner"] + "::" + x["name"], "&mut self" if x["self_mut"] else "-> Result")
     elif mode == "friction":
         f = friction(load(sys.argv[2]))
         print(f"public functions: {f['public_functions']}; >3 positional: {len(f['more_than_3_positional'])}; "

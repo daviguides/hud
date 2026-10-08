@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "note": "Protocol of the DX first-try test (features.md, 'DX first-try protocol'; bench/CHANGELOG.md entry 13). Model ids are pinned here by the user before the first real run; null means not pinned, and the runner refuses a real run until both are set. The gate is read on the primary model only; the stress model is reported next to it and adds no threshold.",
+  "primary": { "id": null, "repeats": 5, "role": "gate" },
+  "stress": { "id": null, "repeats": 3, "role": "report-only" },
+  "threshold_first_try": 0.8,
+  "limits": { "max_turns": 30, "max_budget_usd_per_run": null, "timeout_s": 900 },
+  "estimate": {
+    "assumed_turns": 12,
+    "assumed_doc_pages_read": 10,
+    "system_context_tokens": 6000,
+    "output_tokens_per_run": 3000,
+    "prices_usd_per_mtok": {}
+  },
+  "isolation": "bare"
+}

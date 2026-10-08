@@ -2,12 +2,15 @@
 // Zero-panic check: N seeded random inputs per feature (style parse, markup parse and render,
 // width and segmentation, capability resolution, table, panel and tree rendering), plus a few properties that must hold on every
 // input. Prints one JSON line per feature and exits 1 on any panic or violated property.
+use std::io::Write;
 use std::panic::{self, AssertUnwindSafe};
+use std::sync::{Arc, Mutex};
 
 use hud::{
-    Align, Body, BoxStyle, Column, ColorSystem, Console, EnvSnapshot, Justify, Overflow, Padding,
-    Panel, Renderable, StreamInfo, Style, Table, Text, Tree, cell_width, clusters, escape, fold,
-    pad, resolve, truncate,
+    Align, BarColumn, Body, BoxStyle, Column, ColorSystem, Console, EnvSnapshot, Justify,
+    MofNCompleteColumn, Overflow, Padding, Panel, Progress, Renderable, SpinnerColumn, StreamInfo,
+    Style, Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn,
+    Tree, cell_width, clusters, escape, fold, pad, resolve, truncate,
 };
 use serde_json::json;
 
@@ -306,6 +309,142 @@ fn tree_case(rng: &mut Rng, _: &str) -> Option<String> {
     (width > 16 && lines < nodes).then(|| format!("{nodes} nodes printed on {lines} lines: {plain:?}"))
 }
 
+#[derive(Clone, Default)]
+struct Capture(Arc<Mutex<Vec<u8>>>);
+
+impl Write for Capture {
+    fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
+        self.0.lock().unwrap().extend_from_slice(buf);
+        Ok(buf.len())
+    }
+
+    fn flush(&mut self) -> std::io::Result<()> {
+        Ok(())
+    }
+}
+
+impl Capture {
+    fn text(&self) -> String {
+        String::from_utf8_lossy(&self.0.lock().unwrap()).into_owned()
+    }
+}
+
+const TOTALS: &[u64] = &[0, 1, 2, 9, 10, 99, 100, 12_500, 1_000_000, u64::MAX];
+const CLOCKS: &[f64] = &[0.0, 0.5, 1.0, 29.0, 31.0, 3600.0, 90_000.0, 1e12, -5.0, f64::NAN, f64::INFINITY];
+
+/// A frame's bytes without what is written to put it in place: the cursor hide of the first
+/// draw or the erase of the previous frame.
+fn frame_of(written: &str) -> &str {
+    if let Some(rest) = written.strip_prefix("\x1b[?25l") {
+        return rest;
+    }
+    if written.starts_with('\r') {
+        if let Some(at) = written.find("\x1b[J") {
+            return &written[at + "\x1b[J".len()..];
+        }
+    }
+    written
+}
+
+fn progress_case(rng: &mut Rng, input: &str) -> Option<String> {
+    let console = console(rng);
+    let width = usize::from(console.capabilities().width);
+    let height = usize::from(console.capabilities().height);
+    let clock = Arc::new(Mutex::new(0.0_f64));
+    let capture = Capture::default();
+    let interactive = rng.chance(50);
+    let clock_handle = Arc::clone(&clock);
+    let mut builder = Progress::builder()
+        .console(console.clone())
+        .clock(move || *clock_handle.lock().unwrap())
+        .writer(capture.clone())
+        .interactive(interactive)
+        .auto_refresh(false)
+        .transient(rng.chance(10));
+    let usual = rng.chance(40);
+    if usual {
+        builder = builder
+            .column(TextColumn::new("{task.description}"))
+            .column(BarColumn::new().bar_width(1 + rng.below(40)))
+            .column(TaskProgressColumn::new())
+            .column(MofNCompleteColumn::new());
+    }
+    for _ in 0..if usual { 0 } else { rng.below(6) } {
+        builder = match rng.below(7) {
+            0 => builder.column(TextColumn::new(if rng.chance(50) { input.to_string() } else { random_string(rng) })),
+            1 => builder.column(match rng.below(3) {
+                0 => BarColumn::new().full_width(),
+                1 => BarColumn::new().bar_width(rng.below(60)),
+                _ => BarColumn::new(),
+            }),
+            2 => builder.column(TaskProgressColumn::new()),
+            3 => builder.column(MofNCompleteColumn::new().separator(random_string(rng))),
+            4 => builder.column(TimeElapsedColumn::new()),
+            5 => builder.column(TimeRemainingColumn::new().compact(rng.chance(50)).elapsed_when_finished(rng.chance(50))),
+            _ => builder.column(SpinnerColumn::new().speed([0.0, 1.0, 2.5, -1.0][rng.below(4)]).finished_text(random_string(rng))),
+        };
+    }
+    let progress = builder.build();
+    let mut tasks = Vec::new();
+    for _ in 0..rng.below(5) {
+        let description = if usual {
+            ["fetch", "download crates", "verify", "x", "a long description that does not fit"][rng.below(5)].to_string()
+        } else if rng.chance(50) {
+            input.to_string()
+        } else {
+            random_string(rng)
+        };
+        tasks.push(progress.add_task(description, TOTALS[rng.below(TOTALS.len())]));
+    }
+    for _ in 0..rng.below(24) {
+        *clock.lock().unwrap() = CLOCKS[rng.below(CLOCKS.len())];
+        if tasks.is_empty() {
+            break;
+        }
+        let task = &tasks[rng.below(tasks.len())];
+        match rng.below(7) {
+            0 => task.advance([0, 1, 5, 1_000, u64::MAX][rng.below(5)]),
+            1 => task.set_completed(TOTALS[rng.below(TOTALS.len())]),
+            2 => task.set_total(TOTALS[rng.below(TOTALS.len())]),
+            3 => task.set_description(random_string(rng)),
+            4 => task.finish(),
+            5 => progress.refresh(),
+            _ => {
+                let _ = console.render_to_string(&progress);
+            }
+        }
+    }
+    let plain = console.render_to_plain(&progress);
+    for line in plain.split('\n') {
+        if cell_width(line) > width {
+            return Some(format!("a printed line is {} cells wide at width {width}: {line:?}", cell_width(line)));
+        }
+    }
+    let ansi = console.render_to_string(&progress);
+    if !console.capabilities().emits_escapes() && ansi != plain {
+        return Some("a console that shows nothing wrote escape sequences".to_string());
+    }
+    // The live path, assembled from cached pieces when it can be, writes the bytes of a render.
+    let before = capture.text().len();
+    progress.refresh();
+    let written = capture.text();
+    let drawn = &written[before..];
+    if !interactive {
+        if !drawn.is_empty() {
+            return Some(format!("a stream that is not interactive drew a frame: {drawn:?}"));
+        }
+    } else {
+        // A frame taller than the terminal is cut on purpose, with an ellipsis line.
+        let want = console.render_to_string(&progress);
+        if want.matches('\n').count() < height && frame_of(drawn) != want {
+            return Some(format!("the live frame differs from a render at width {width}: want {want:?} got {:?}", frame_of(drawn)));
+        }
+    }
+    progress.finish();
+    progress.finish();
+    None
+}
+
 fn strip_controls(text: &str) -> String {
     text.chars().filter(|c| !matches!(*c, '\u{7}' | '\u{8}' | '\u{b}' | '\u{c}' | '\r')).collect()
 }
@@ -383,7 +522,7 @@ fn main() {
     let seed: u64 = get("--seed").map_or(20_261_008, |v| v.parse().unwrap());
     let count: usize = get("--count").map_or(5000, |v| v.parse().unwrap());
     panic::set_hook(Box::new(|_| {}));
-    let cases: [(&str, Case); 7] = [
+    let cases: [(&str, Case); 8] = [
         ("style", style_case),
         ("markup", markup_case),
         ("width", width_case),
@@ -391,6 +530,7 @@ fn main() {
         ("table", table_case),
         ("panel", panel_case),
         ("tree", tree_case),
+        ("progress", progress_case),
     ];
     let mut ok = true;
     for (feature, case) in cases {

@@ -222,3 +222,26 @@ def test_loc_rule(tmp_path):
     p = tmp_path / "x.rs"
     p.write_text("// c\nuse std::io;\n\n/* block */\nfn main() {\n    println!(\"hi\"); // trailing\n}\n")
     assert loc.count(p) == 4
+
+
+def test_idiom_check_flags_mut_self_and_result_methods_and_nothing_else():
+    import api_surface
+
+    def fn(name, inputs, output=None):
+        return {"name": name, "visibility": "public", "inner": {"function": {"sig": {"inputs": inputs, "output": output}}}}
+
+    shared = {"borrowed_ref": {"is_mutable": False, "type": {"generic": "Self"}}}
+    exclusive = {"borrowed_ref": {"is_mutable": True, "type": {"generic": "Self"}}}
+    result = {"resolved_path": {"path": "io::Result", "args": None}}
+    index = {
+        "1": {"name": "Handle", "visibility": "public", "inner": {"struct": {}}},
+        "2": {"inner": {"impl": {"trait": None, "for": {"resolved_path": {"path": "Handle"}}, "items": [3, 4, 5, 6]}}},
+        "3": fn("advance", [["self", shared], ["amount", {"primitive": "u64"}]]),
+        "4": fn("bump", [["self", exclusive]]),
+        "5": fn("save", [["self", shared]], result),
+        "6": fn("count", [["self", shared]], {"primitive": "u64"}),
+    }
+    found = api_surface.idiom({"index": index}, {"Handle"})
+    assert found["methods"] == 4
+    assert [f["name"] for f in found["needing_mut_self"]] == ["bump"]
+    assert [f["name"] for f in found["returning_result"]] == ["save"]

@@ -198,6 +198,51 @@ print time, hud prints the string as it is (the rule of D-021 and D-032).
 
 - Remove when: hud returns the error from a fallible API.
 
+### D-036: what `Progress` does not do yet
+
+Not claimed, listed so an unclaimed feature is never a pass: tasks without a total (the pulsing
+bar), `visible`, `start=False` and `stop_task`, task `fields`, the speed, file size and download
+columns, `Progress.update(description=..., total=..., advance=...)` as one call (hud has
+`Task::set_description`, `Task::set_total`, `Task::advance`), and printing other output while a
+display is live (Rich's render hook: the display and a `println!` interleave). The template of a
+`TextColumn` knows `{task.description}`, `{task.completed}` and `{task.total}` only; Rich formats any
+task attribute with a format spec. `track` takes an exact-size iterator and does not take Rich's
+`total`, `update_period` or `transient` arguments (`ProgressBuilder::transient` does the last).
+
+- Remove when: a case in the corpus needs one of them.
+
+### D-037: the bytes of a live display are not Rich's
+
+A display on an interactive stream hides the cursor, draws each frame as its lines each ended by a
+newline, and puts the next one over it with `CR`, `ESC [ n A` (up by the height of the frame) and
+`ESC [ J` (clear to the end of the screen); it ends with the last frame, a newline already written,
+and `ESC [ ? 25 h`. Rich draws without a final newline and erases line by line. A stream that is not
+interactive prints the last frame once, when the display ends, as Rich does for a file. A frame
+taller than the terminal is cut to the height less one line and ends with a `...` line (Rich's
+ellipsis is styled and has other rules). The screen a user sees is the same; the correctness corpus
+compares one frame (30 of 30 byte-identical), `speed.py verify S3` and task t03 compare screens.
+
+- Remove when: never, unless a user asks for the exact bytes of an animation.
+
+### D-038: steps are whole numbers, estimates never go below zero
+
+`completed` and `total` are `u64`; Rich accepts floats, so a fractional step does not exist and
+`completed` cannot be negative. A task whose `completed` is above its `total` has a negative
+`remaining` in Rich and the time remaining prints a negative duration; hud prints `0:00:00`. The
+oracle vectors never exceed the total for this reason. `u64::MAX` steps are drawn without
+overflow (fuzz).
+
+- Remove when: a user needs fractional steps (an `f64` total would change the public types).
+
+### D-039: the width of the bar is computed from an exact product
+
+Rich computes the filled half cells as `int(width * 2 * completed / total)`, an integer true
+division that Python rounds once. hud forms the exact product in `u128` and divides in `f64`, which
+rounds twice. The two differ only when `width * 2 * completed` is above 2^53, that is, for a total
+above about 10^14 steps; no corpus case or oracle vector reaches it.
+
+- Remove when: never needed.
+
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 
 - **Windows.** v0.1 resolves the size from `COLUMNS` and `LINES` and falls back to 80x24; it
