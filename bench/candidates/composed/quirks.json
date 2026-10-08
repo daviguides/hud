@@ -1,0 +1,114 @@
+{
+ "panel-004": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "panel-012": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "panel-016": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "panel-029": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-001": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-004": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-005": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-006": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-009": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-010": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-013": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-014": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-016": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-017": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-018": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-021": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-022": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-024": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-025": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-026": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-028": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "progress-029": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "style-008": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "table-005": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "table-020": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "table-029": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "tree-009": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ },
+ "tree-013": {
+  "class": "reference_quirk",
+  "reason": "golden differs from a fresh-process Rich render (Rich caches ANSI codes per Style across color systems)"
+ }
+}

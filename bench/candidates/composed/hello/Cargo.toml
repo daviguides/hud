@@ -1,0 +1,12 @@
+[package]
+name = "hud-bench-composed-hello"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+owo-colors = { version = "=4.4.0", features = ["supports-colors"] }
+comfy-table = "=8.0.1"
+indicatif = "=0.18.6"
