@@ -1,0 +1,15 @@
+[package]
+name = "hud"
+version = "0.0.0"
+edition = "2024"
+description = "Functional terminal UX for Rust: styled output, tables, panels, progress. Pre-alpha."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/daviguides/hud"
+readme = "README.md"
+keywords = ["terminal", "cli", "tui", "table", "ansi"]
+categories = ["command-line-interface"]
+
+[dependencies]
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
