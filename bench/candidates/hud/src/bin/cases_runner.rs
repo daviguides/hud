@@ -141,8 +141,62 @@ fn render(case: &Value) -> Option<String> {
     Some(console.render_to_string(&text))
 }
 
+// cases-runner --widgets <table_unicode.jsonl> <outdir>
+// Every Unicode table case as the body of an expanding and of a fitting panel with a wide title
+// and subtitle, and as the labels of a tree: panels/<id>-expand.ansi, panels/<id>-fit.ansi and
+// trees/<id>.ansi, for width_check.py (no row wider than the terminal, panel rows alike).
+fn widgets(cases: PathBuf, outdir: PathBuf) {
+    fs::create_dir_all(outdir.join("panels")).unwrap();
+    fs::create_dir_all(outdir.join("trees")).unwrap();
+    for line in fs::read_to_string(cases).unwrap().lines().filter(|l| !l.trim().is_empty()) {
+        let case: Value = serde_json::from_str(line).unwrap();
+        let id = case["id"].as_str().unwrap();
+        let node = &case["renderable"];
+        let system = color_system(case["color_system"].as_str().unwrap());
+        let console = Console::builder()
+            .width(case["width"].as_u64().unwrap() as u16)
+            .height(24)
+            .color_system(system)
+            .attributes(system != ColorSystem::None)
+            .build();
+        let table = table(node).unwrap();
+        for (name, fit) in [("expand", false), ("fit", true)] {
+            let panel = Panel::new(table.clone())
+                .title("日本語 ✓ 😀")
+                .subtitle("é ＡＢＣ")
+                .expand(!fit);
+            fs::write(
+                outdir.join("panels").join(format!("{id}-{name}.ansi")),
+                console.render_to_string(&panel),
+            )
+            .unwrap();
+        }
+        let mut tree = Tree::new("日本語 root");
+        for column in node["columns"].as_array().unwrap() {
+            let header = column["header"].as_str().unwrap();
+            let branch = tree.add(header);
+            for row in node["rows"].as_array().unwrap() {
+                for cell in row.as_array().unwrap() {
+                    branch.add(cell.as_str().unwrap());
+                }
+            }
+        }
+        fs::write(
+            outdir.join("trees").join(format!("{id}.ansi")),
+            console.render_to_string(&tree),
+        )
+        .unwrap();
+    }
+}
+
 fn main() {
-    let mut args = std::env::args().skip(1);
+    let mut args = std::env::args().skip(1).peekable();
+    if args.peek().is_some_and(|a| a == "--widgets") {
+        args.next();
+        let cases = PathBuf::from(args.next().expect("table_unicode.jsonl"));
+        widgets(cases, PathBuf::from(args.next().expect("outdir")));
+        return;
+    }
     let cases = PathBuf::from(args.next().expect("cases.jsonl"));
     let outdir = PathBuf::from(args.next().expect("outdir"));
     fs::create_dir_all(&outdir).unwrap();

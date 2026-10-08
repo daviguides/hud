@@ -294,6 +294,131 @@ def render_case(case):
     return {**case, "ansi": console.file.getvalue()}
 
 
+def panel_title(rng, unicode_words):
+    return cell_markup(rng, unicode_words) if rng.random() < 0.55 else None
+
+
+def make_node(rng, unicode_words, depth):
+    kinds = ["text", "text", "text", "table", "tree"] + (["panel", "panel"] if depth < 2 else [])
+    kind = rng.choice(kinds)
+    if kind == "text":
+        return {"t": "text", "markup": cell_markup(rng, unicode_words) or "x"}
+    if kind == "table":
+        case = make_table_case(rng, 0, unicode_words)
+        return {"t": "table", "title": case["title"], "caption": case["caption"], "box": case["box"],
+                "show_lines": case["show_lines"],
+                "columns": [{k: c[k] for k in ("header", "justify", "style", "no_wrap")} for c in case["columns"]],
+                "rows": case["rows"]}
+    if kind == "tree":
+        return make_tree_node(rng, unicode_words)
+    return make_panel_node(rng, unicode_words, depth + 1)
+
+
+def make_panel_node(rng, unicode_words, depth):
+    padding = rng.choice([[0, 1]] * 3 + [[0, 0], [1, 2], [0, 2], [1, 1], [2, 3], [1, 0], [1], [2], [0, 1, 2, 3], [1, 0, 2, 4]])
+    return {
+        "t": "panel",
+        "body": make_node(rng, unicode_words, depth),
+        "box": rng.choice(BOXES),
+        "expand": rng.random() < 0.5,
+        "padding": padding,
+        "title": panel_title(rng, unicode_words),
+        "subtitle": panel_title(rng, unicode_words) if rng.random() < 0.5 else None,
+        "title_align": rng.choice(["center"] * 4 + ["left", "right"]),
+        "subtitle_align": rng.choice(["center"] * 4 + ["left", "right"]),
+        "border_style": style_string(rng, allow_bad=False) if rng.random() < 0.6 else "",
+    }
+
+
+def tree_children(rng, unicode_words, depth):
+    if depth >= 4:
+        return []
+    out = []
+    for _ in range(rng.choice([0, 0, 1, 1, 2, 3])):
+        child = {"label": cell_markup(rng, unicode_words) if rng.random() < 0.5 else rng.choice(ASCII_WORDS),
+                 "children": tree_children(rng, unicode_words, depth + 1)}
+        if rng.random() < 0.12:
+            child["guide_style"] = style_string(rng, allow_bad=False)
+        out.append(child)
+    return out
+
+
+def make_tree_node(rng, unicode_words):
+    guide = rng.choice(["", "dim", "bold", "underline2", "uu", "bold #ff8800", "green", "dim red", "not bold",
+                        style_string(rng, allow_bad=False)])
+    return {"t": "tree", "guide_style": guide,
+            "root": {"label": rng.choice(ASCII_WORDS), "children": tree_children(rng, unicode_words, 0)}}
+
+
+def make_widget_case(rng, index, unicode_words, kind):
+    node = make_panel_node(rng, unicode_words, 0) if kind == "panel" else make_tree_node(rng, unicode_words)
+    return {
+        "id": f"{'p' if kind == 'panel' else 'r'}{'u' if unicode_words else 'a'}-{index:04d}",
+        "kind": kind,
+        "node": node,
+        "width": rng.choice([10, 16, 20, 30, 40, 60, 80, 100, 120]),
+        "color_system": rng.choice(["truecolor", "256", "standard", "none"]),
+    }
+
+
+def oracle_build(node):
+    from rich import box as rbox
+    from rich.panel import Panel
+    from rich.tree import Tree
+
+    import render_reference
+
+    t = node["t"]
+    if t == "text":
+        return node["markup"]
+    if t == "table":
+        return render_reference.build(node)
+    if t == "panel":
+        pad = node["padding"]
+        return Panel(
+            oracle_build(node["body"]), title=node["title"], subtitle=node["subtitle"],
+            title_align=node["title_align"], subtitle_align=node["subtitle_align"],
+            box=getattr(rbox, node["box"].upper()), expand=node["expand"],
+            padding=pad[0] if len(pad) == 1 else tuple(pad), border_style=node["border_style"],
+        )
+
+    def add(parent, child):
+        sub = parent.add(child["label"], guide_style=child.get("guide_style"))
+        for c in child["children"]:
+            add(sub, c)
+
+    tree = Tree(node["root"]["label"], guide_style=node["guide_style"])
+    for c in node["root"]["children"]:
+        add(tree, c)
+    return tree
+
+
+def render_widget_case(case):
+    from render_reference import make_console
+
+    console = make_console(case["width"], case["color_system"])
+    try:
+        console.print(oracle_build(case["node"]))
+    except Exception as error:
+        return {**case, "error": type(error).__name__}
+    return {**case, "ansi": console.file.getvalue()}
+
+
+def main_widgets():
+    """Panel and tree vectors only (v0.4); the rest of the fixtures are left as they are."""
+    rng = random.Random(SEED + 4)
+    OUT.mkdir(parents=True, exist_ok=True)
+    jobs = {
+        "panel_ascii.jsonl": [make_widget_case(rng, i, False, "panel") for i in range(1200)],
+        "panel_unicode.jsonl": [make_widget_case(rng, i, True, "panel") for i in range(500)],
+        "tree_ascii.jsonl": [make_widget_case(rng, i, False, "tree") for i in range(1200)],
+        "tree_unicode.jsonl": [make_widget_case(rng, i, True, "tree") for i in range(400)],
+    }
+    with Pool(8, maxtasksperchild=1) as pool:
+        for name, cases in jobs.items():
+            write(name, pool.map(render_widget_case, cases, chunksize=1))
+
+
 def write(name, rows):
     path = OUT / name
     with path.open("w") as f:
@@ -334,4 +459,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main_widgets() if sys.argv[1:] == ["widgets"] else main()

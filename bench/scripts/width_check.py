@@ -5,6 +5,8 @@ Candidate output directory layout (all optional; missing = unsupported, never a 
   fold.jsonl       {"id", "w", "lines": [...]}     w = 1..40, hard fold at grapheme boundaries
   truncate.jsonl   {"id", "w", "text"}             longest grapheme-boundary prefix of width <= w
   tables/<id>.ansi                                 output for cases/table_unicode.jsonl
+  panels/<id>-expand.ansi, panels/<id>-fit.ansi    every Unicode table case inside a panel
+  trees/<id>.ansi                                  every Unicode table case as tree labels
 """
 
 import argparse
@@ -148,9 +150,42 @@ def check_tables(cand_dir):
             "rows": rows, "tables_with_misalignment": bad_tables}
 
 
+def check_widgets(cand_dir):
+    """Panel and tree rows over the Unicode table cases: no row wider than the terminal; panel rows
+    all as wide as the panel (the most common row width), and an expanding panel as wide as the
+    terminal."""
+    cases = {c["id"]: c for c in load_jsonl(BENCH / "cases" / "table_unicode.jsonl")}
+    base = Path(cand_dir)
+    if not (base / "panels").exists() and not (base / "trees").exists():
+        return {"supported": False}
+    rows = too_wide = misaligned = outputs = missing = 0
+    for case_id, case in cases.items():
+        terminal = case["width"]
+        found = {"panels": [(f"{case_id}-expand", True), (f"{case_id}-fit", False)], "trees": [(case_id, None)]}
+        for folder, items in found.items():
+            for name, expand in items:
+                path = base / folder / f"{name}.ansi"
+                if not path.exists():
+                    missing += 1
+                    continue
+                outputs += 1
+                lines = strip_ansi(path.read_bytes()).decode("utf-8", "replace").rstrip("\n").split("\n")
+                widths = [rich_width(ln) for ln in lines]
+                rows += len(widths)
+                too_wide += sum(1 for w in widths if w > terminal)
+                if folder == "panels":
+                    common = Counter(widths).most_common(1)[0][0]
+                    misaligned += sum(1 for w in widths if w != common)
+                    if expand and common != terminal:
+                        misaligned += len(widths)
+    return {"supported": True, "outputs": outputs, "missing": missing, "rows": rows,
+            "rows_wider_than_terminal": too_wide, "panel_rows_misaligned": misaligned}
+
+
 def run(cand_dir):
     return {"width": check_width(cand_dir), "fold": check_fold(cand_dir),
-            "truncate": check_truncate(cand_dir), "tables": check_tables(cand_dir)}
+            "truncate": check_truncate(cand_dir), "tables": check_tables(cand_dir),
+            "widgets": check_widgets(cand_dir)}
 
 
 def write_reference(out):
@@ -193,6 +228,10 @@ def main():
         print(f"truncate: splits={t['grapheme_splits']} not_prefix={t['not_a_prefix']} not_maximal={t['valid_but_not_maximal']} missing={t['missing']}")
     if tb["supported"]:
         print(f"tables: misaligned rows {tb['misaligned_rows']}/{tb['rows']} in {tb['tables_with_misalignment']}/{tb['tables']} tables")
+    wg = report["widgets"]
+    if wg["supported"]:
+        print(f"panels and trees: rows wider than the terminal {wg['rows_wider_than_terminal']}/{wg['rows']}, "
+              f"panel rows misaligned {wg['panel_rows_misaligned']}, outputs {wg['outputs']}, missing {wg['missing']}")
     print("unsupported:", [k for k, v in report.items() if not v["supported"]] or "none")
 
 

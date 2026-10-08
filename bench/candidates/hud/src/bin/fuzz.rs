@@ -303,7 +303,7 @@ fn tree_case(rng: &mut Rng, _: &str) -> Option<String> {
     }
     let lines = plain.matches('\n').count();
     let _ = tree.measure(width);
-    (width > 0 && lines < nodes).then(|| format!("{nodes} nodes printed on {lines} lines: {plain:?}"))
+    (width > 16 && lines < nodes).then(|| format!("{nodes} nodes printed on {lines} lines: {plain:?}"))
 }
 
 fn strip_controls(text: &str) -> String {

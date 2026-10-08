@@ -1,5 +1,8 @@
 capability  inputs   80000  panics 0  violations 0
 markup      inputs   80000  panics 0  violations 0
+panel       inputs   80000  panics 0  violations 0
 style       inputs   80000  panics 0  violations 0
+table       inputs   80000  panics 0  violations 0
+tree        inputs   80000  panics 0  violations 0
 width       inputs   80000  panics 0  violations 0
 FUZZ PASS (seeds [20261008, 1, 2, 3], 20000 inputs per feature per seed)

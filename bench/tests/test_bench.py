@@ -146,6 +146,28 @@ def test_width_checker_passes_reference_and_flags_a_naive_candidate(tmp_path):
     assert rep["fold"]["grapheme_splits"] > 0
 
 
+def test_widget_row_check_flags_rows_wider_than_the_terminal_and_unaligned_panels(tmp_path):
+    cases = load_jsonl(BENCH / "cases" / "table_unicode.jsonl")
+    for folder in ("panels", "trees"):
+        (tmp_path / folder).mkdir()
+
+    def fill(expand_delta, tree_delta):
+        for c in cases:
+            terminal = c["width"]
+            (tmp_path / "panels" / f"{c['id']}-expand.ansi").write_text("x" * (terminal + expand_delta) + "\n")
+            (tmp_path / "panels" / f"{c['id']}-fit.ansi").write_text("y" * 5 + "\n")
+            (tmp_path / "trees" / f"{c['id']}.ansi").write_text("z" * (terminal + tree_delta) + "\n")
+
+    fill(0, 0)
+    rep = width_check.check_widgets(tmp_path)
+    assert rep["rows_wider_than_terminal"] == 0 and rep["panel_rows_misaligned"] == 0
+    fill(0, 1)
+    assert width_check.check_widgets(tmp_path)["rows_wider_than_terminal"] == len(cases)
+    fill(-1, 0)
+    assert width_check.check_widgets(tmp_path)["panel_rows_misaligned"] > 0
+    assert width_check.check_widgets(tmp_path / "missing")["supported"] is False
+
+
 def test_capability_expectation_is_written_independently_of_rich():
     out = subprocess.run([PY, str(BENCH / "scripts" / "capability.py"), "check", "--", PY,
                           str(BENCH / "reference" / "python" / "cap.py")], capture_output=True, text=True).stdout
