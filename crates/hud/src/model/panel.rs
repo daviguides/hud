@@ -1,6 +1,7 @@
 use core::fmt;
 use std::sync::Arc;
 
+use super::padding::Padding;
 use super::segment::Renderable;
 use super::style::Style;
 use super::table::{BoxStyle, Table};
@@ -19,18 +20,19 @@ pub enum Align {
     Right,
 }
 
-/// The empty cells between a panel's border and its body.
+/// The empty cells around a body: between a panel's border and its content, or around anything
+/// wrapped in a [`Padding`](super::padding::Padding).
 ///
 /// One number is all four sides, a pair is `(vertical, horizontal)` and four numbers are
 /// `(top, right, bottom, left)`, as in CSS.
 ///
 /// ```
-/// use hud::Padding;
+/// use hud::Pad;
 ///
-/// assert_eq!(Padding::from((1, 2)), Padding::from((1, 2, 1, 2)));
+/// assert_eq!(Pad::from((1, 2)), Pad::from((1, 2, 1, 2)));
 /// ```
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
-pub struct Padding {
+pub struct Pad {
     /// Blank lines above the body.
     pub top: usize,
     /// Blank cells to the right of the body.
@@ -41,9 +43,9 @@ pub struct Padding {
     pub left: usize,
 }
 
-impl From<usize> for Padding {
-    fn from(all: usize) -> Padding {
-        Padding {
+impl From<usize> for Pad {
+    fn from(all: usize) -> Pad {
+        Pad {
             top: all,
             right: all,
             bottom: all,
@@ -52,9 +54,9 @@ impl From<usize> for Padding {
     }
 }
 
-impl From<(usize, usize)> for Padding {
-    fn from((vertical, horizontal): (usize, usize)) -> Padding {
-        Padding {
+impl From<(usize, usize)> for Pad {
+    fn from((vertical, horizontal): (usize, usize)) -> Pad {
+        Pad {
             top: vertical,
             right: horizontal,
             bottom: vertical,
@@ -63,9 +65,9 @@ impl From<(usize, usize)> for Padding {
     }
 }
 
-impl From<(usize, usize, usize, usize)> for Padding {
-    fn from((top, right, bottom, left): (usize, usize, usize, usize)) -> Padding {
-        Padding {
+impl From<(usize, usize, usize, usize)> for Pad {
+    fn from((top, right, bottom, left): (usize, usize, usize, usize)) -> Pad {
+        Pad {
             top,
             right,
             bottom,
@@ -74,7 +76,7 @@ impl From<(usize, usize, usize, usize)> for Padding {
     }
 }
 
-impl Padding {
+impl Pad {
     pub(crate) fn is_none(self) -> bool {
         self.top == 0 && self.right == 0 && self.bottom == 0 && self.left == 0
     }
@@ -123,6 +125,12 @@ impl From<Table> for Body {
     }
 }
 
+impl From<Padding> for Body {
+    fn from(padding: Padding) -> Body {
+        Body::new(padding)
+    }
+}
+
 impl From<Tree> for Body {
     fn from(tree: Tree) -> Body {
         Body::new(tree)
@@ -161,7 +169,7 @@ pub struct Panel {
     pub(crate) box_style: BoxStyle,
     pub(crate) border_style: Style,
     pub(crate) expand: bool,
-    pub(crate) padding: Padding,
+    pub(crate) padding: Pad,
 }
 
 impl Panel {
@@ -176,7 +184,7 @@ impl Panel {
             box_style: BoxStyle::Rounded,
             border_style: Style::new(),
             expand: true,
-            padding: Padding::from((0, 1)),
+            padding: Pad::from((0, 1)),
         }
     }
 
@@ -237,7 +245,7 @@ impl Panel {
     /// The empty space around the body: one number for all sides, `(vertical, horizontal)` or
     /// `(top, right, bottom, left)` (default: no vertical padding and one cell on each side).
     #[must_use]
-    pub fn padding(mut self, padding: impl Into<Padding>) -> Panel {
+    pub fn padding(mut self, padding: impl Into<Pad>) -> Panel {
         self.padding = padding.into();
         self
     }

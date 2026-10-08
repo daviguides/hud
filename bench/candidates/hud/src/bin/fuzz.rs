@@ -1,16 +1,16 @@
 // fuzz [--seed S] [--count N]   (bench/scripts/fuzz.py drives it)
 // Zero-panic check: N seeded random inputs per feature (style parse, markup parse and render,
-// width and segmentation, capability resolution, table, panel, tree, progress and error rendering), plus a few properties that must hold on every
+// width and segmentation, capability resolution, table, panel, tree, progress, error, padding, text operations, progress updates and color parsing), plus a few properties that must hold on every
 // input. Prints one JSON line per feature and exits 1 on any panic or violated property.
 use std::io::Write;
 use std::panic::{self, AssertUnwindSafe};
 use std::sync::{Arc, Mutex};
 
 use hud::{
-    Align, BarColumn, Body, BoxStyle, Column, ColorSystem, Console, EnvSnapshot, ErrorReport, Justify,
-    MofNCompleteColumn, Overflow, Padding, Panel, Progress, Renderable, SpinnerColumn, StreamInfo,
+    Align, BarColumn, Body, BoxStyle, Color, Column, ColorSystem, Console, EnvSnapshot, ErrorReport, Justify,
+    MofNCompleteColumn, Overflow, Pad, Padding, Panel, Progress, Renderable, SpinnerColumn, StreamInfo,
     Style, Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn,
-    Tree, cell_width, clusters, escape, fold, pad, resolve, truncate,
+    Tree, cell_len, cell_width, clusters, escape, fold, pad, resolve, truncate,
 };
 use serde_json::json;
 
@@ -247,9 +247,9 @@ fn random_panel(rng: &mut Rng, depth: usize) -> Panel {
         .box_style(BOXES[rng.below(8)])
         .expand(rng.chance(50))
         .padding(match rng.below(3) {
-            0 => Padding::from(rng.below(3)),
-            1 => Padding::from((rng.below(3), rng.below(4))),
-            _ => Padding::from((rng.below(3), rng.below(4), rng.below(3), rng.below(4))),
+            0 => Pad::from(rng.below(3)),
+            1 => Pad::from((rng.below(3), rng.below(4))),
+            _ => Pad::from((rng.below(3), rng.below(4), rng.below(3), rng.below(4))),
         })
         .title_align([Align::Left, Align::Center, Align::Right][rng.below(3)])
         .subtitle_align([Align::Left, Align::Center, Align::Right][rng.below(3)])
@@ -562,6 +562,147 @@ fn capability_case(rng: &mut Rng, _: &str) -> Option<String> {
     (caps.width == 0 || caps.height == 0).then(|| format!("resolved a zero size from {env:?} {stream:?}"))
 }
 
+fn random_pad(rng: &mut Rng) -> Pad {
+    match rng.below(3) {
+        0 => Pad::from(rng.below(4)),
+        1 => Pad::from((rng.below(3), rng.below(5))),
+        _ => Pad::from((rng.below(3), rng.below(4), rng.below(3), rng.below(5))),
+    }
+}
+
+fn padding_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let expand = rng.chance(50);
+    let padding = Padding::new(random_body(rng, 0), random_pad(rng))
+        .style(random_style(rng))
+        .expand(expand);
+    let console = console(rng);
+    let width = usize::from(console.capabilities().width);
+    let plain = console.render_to_plain(&padding);
+    for line in plain.split('\n') {
+        if cell_width(line) > width {
+            return Some(format!("a printed line is {} cells wide at width {width}: {line:?}", cell_width(line)));
+        }
+    }
+    let ansi = console.render_to_string(&padding);
+    if !console.capabilities().emits_escapes() && ansi != plain {
+        return Some("a console that shows nothing wrote escape sequences".to_string());
+    }
+    let wide = Console::builder().width(2000).plain().build();
+    let lines = wide.render_to_plain(&padding);
+    let widths: std::collections::BTreeSet<usize> = lines
+        .strip_suffix('\n')
+        .unwrap_or(&lines)
+        .split('\n')
+        .map(cell_width)
+        .collect();
+    let _ = padding.measure(width);
+    (expand && widths.len() > 1).then(|| format!("padding lines of different widths {widths:?}: {lines:?}"))
+}
+
+fn bound(rng: &mut Rng, len: usize) -> usize {
+    [0, 1, 2, len / 2, len, len + 1, usize::MAX][rng.below(7)]
+}
+
+fn textops_case(rng: &mut Rng, input: &str) -> Option<String> {
+    let mut text = text_options(rng, Text::new(input.to_string()));
+    let len = text.plain().len();
+    for _ in 0..rng.below(6) {
+        let style = random_style(rng);
+        match rng.below(5) {
+            0 => text.stylize(style, ..),
+            1 => text.stylize(style, bound(rng, len)..),
+            2 => text.stylize(style, ..bound(rng, len)),
+            3 => text.stylize(style, bound(rng, len)..=bound(rng, len)),
+            _ => text.stylize(style, bound(rng, len)..bound(rng, len)),
+        }
+    }
+    for span in text.spans() {
+        let plain = text.plain();
+        if span.start >= span.end || span.end > plain.len() || !plain.is_char_boundary(span.start) || !plain.is_char_boundary(span.end) {
+            return Some(format!("span {}..{} is not a valid range of {:?}", span.start, span.end, plain));
+        }
+    }
+    let max = [0, 1, 2, 5, 20][rng.below(5)];
+    let overflow = [Overflow::Fold, Overflow::Crop, Overflow::Ellipsis][rng.below(3)];
+    let mut cut = text.clone();
+    cut.truncate(max, overflow, rng.chance(50));
+    let measured = cell_len(cut.plain());
+    if measured > max && max > 0 {
+        return Some(format!("truncate({max}) left {measured} cells: {:?}", cut.plain()));
+    }
+    for span in cut.spans() {
+        if span.end > cut.plain().len() || !cut.plain().is_char_boundary(span.start) || !cut.plain().is_char_boundary(span.end) {
+            return Some(format!("truncate left a span {}..{} outside {:?}", span.start, span.end, cut.plain()));
+        }
+    }
+    for width in [1usize, 3, 10, 40] {
+        let lines = text.wrap(width);
+        if text.plain().is_empty() && lines.len() > 1 {
+            return Some("empty text wrapped to several lines".to_string());
+        }
+    }
+    None
+}
+
+fn update_case(rng: &mut Rng, input: &str) -> Option<String> {
+    let console = console(rng);
+    let width = usize::from(console.capabilities().width);
+    let clock = Arc::new(Mutex::new(0.0_f64));
+    let clock_handle = Arc::clone(&clock);
+    let progress = Progress::builder()
+        .console(console.clone())
+        .clock(move || *clock_handle.lock().unwrap())
+        .disable(true)
+        .build();
+    let mut tasks = Vec::new();
+    for step in 0..rng.below(24) + 1 {
+        *clock.lock().unwrap() = CLOCKS[rng.below(CLOCKS.len())];
+        if tasks.is_empty() || rng.chance(15) {
+            tasks.push(progress.add_task(if rng.chance(50) { input.to_string() } else { random_string(rng) }, TOTALS[rng.below(TOTALS.len())]));
+            continue;
+        }
+        let task = &tasks[rng.below(tasks.len())];
+        let mut update = progress.update(task);
+        if rng.chance(40) {
+            update = update.total(TOTALS[rng.below(TOTALS.len())]);
+        }
+        if rng.chance(40) {
+            update = update.completed(TOTALS[rng.below(TOTALS.len())]);
+        }
+        if rng.chance(40) {
+            update = update.advance(TOTALS[rng.below(TOTALS.len())]);
+        }
+        if rng.chance(30) {
+            update = update.description(random_string(rng));
+        }
+        if rng.chance(30) {
+            update = update.visible(rng.chance(60));
+        }
+        drop(update);
+        if step % 5 == 0 {
+            let plain = console.render_to_plain(&progress);
+            for line in plain.split('\n') {
+                if cell_width(line) > width {
+                    return Some(format!("a progress line is {} cells wide at width {width}", cell_width(line)));
+                }
+            }
+        }
+    }
+    None
+}
+
+fn colorparse_case(rng: &mut Rng, input: &str) -> Option<String> {
+    for candidate in [input.to_string(), random_string(rng), format!("#{}", input), format!("color({input})"), format!("rgb({input})")] {
+        if let Ok(color) = Color::parse(&candidate) {
+            match Color::parse(&color.to_string()) {
+                Ok(again) if again == color => {}
+                other => return Some(format!("{candidate:?} parsed to {color:?} whose text {:?} parses to {other:?}", color.to_string())),
+            }
+        }
+    }
+    None
+}
+
 fn run(feature: &str, seed: u64, count: usize, case: Case) -> bool {
     let mut rng = Rng(seed ^ feature.len() as u64 * 0x1234_5678_9ABC_DEF1);
     let (mut panics, mut violations) = (0usize, 0usize);
@@ -591,7 +732,7 @@ fn main() {
     let seed: u64 = get("--seed").map_or(20_261_008, |v| v.parse().unwrap());
     let count: usize = get("--count").map_or(5000, |v| v.parse().unwrap());
     panic::set_hook(Box::new(|_| {}));
-    let cases: [(&str, Case); 9] = [
+    let cases: [(&str, Case); 13] = [
         ("style", style_case),
         ("markup", markup_case),
         ("width", width_case),
@@ -601,6 +742,10 @@ fn main() {
         ("tree", tree_case),
         ("progress", progress_case),
         ("error", error_case),
+        ("padding", padding_case),
+        ("textops", textops_case),
+        ("update", update_case),
+        ("colorparse", colorparse_case),
     ];
     let mut ok = true;
     for (feature, case) in cases {

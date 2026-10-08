@@ -12,48 +12,6 @@ pub enum hud::Align
 pub hud::Align::Center
 pub hud::Align::Left
 pub hud::Align::Right
-impl core::clone::Clone for hud::Align
-pub fn hud::Align::clone(&self) -> hud::Align
-impl core::cmp::Eq for hud::Align
-impl core::cmp::PartialEq for hud::Align
-pub fn hud::Align::eq(&self, &hud::Align) -> bool
-impl core::default::Default for hud::Align
-pub fn hud::Align::default() -> hud::Align
-impl core::fmt::Debug for hud::Align
-pub fn hud::Align::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::hash::Hash for hud::Align
-pub fn hud::Align::hash<__H: core::hash::Hasher>(&self, &mut __H)
-impl core::marker::Copy for hud::Align
-impl core::marker::StructuralPartialEq for hud::Align
-impl core::marker::Freeze for hud::Align
-impl core::marker::Send for hud::Align
-impl core::marker::Sync for hud::Align
-impl core::marker::Unpin for hud::Align
-impl core::marker::UnsafeUnpin for hud::Align
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Align
-impl core::panic::unwind_safe::UnwindSafe for hud::Align
-impl<T, U> core::convert::Into<U> for hud::Align where U: core::convert::From<T>
-pub fn hud::Align::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Align where U: core::convert::Into<T>
-pub type hud::Align::Error = never
-pub fn hud::Align::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Align where U: core::convert::TryFrom<T>
-pub type hud::Align::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Align::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Align where T: core::clone::Clone
-pub type hud::Align::Owned = T
-pub fn hud::Align::clone_into(&self, &mut T)
-pub fn hud::Align::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Align where T: 'static + ?core::marker::Sized
-pub fn hud::Align::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Align where T: ?core::marker::Sized
-pub fn hud::Align::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Align where T: ?core::marker::Sized
-pub fn hud::Align::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Align where T: core::clone::Clone
-pub unsafe fn hud::Align::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Align
-pub fn hud::Align::from(T) -> T
 pub enum hud::Attribute
 pub hud::Attribute::Blink
 pub hud::Attribute::Blink2
@@ -68,46 +26,6 @@ pub hud::Attribute::Reverse
 pub hud::Attribute::Strike
 pub hud::Attribute::Underline
 pub hud::Attribute::Underline2
-impl core::clone::Clone for hud::Attribute
-pub fn hud::Attribute::clone(&self) -> hud::Attribute
-impl core::cmp::Eq for hud::Attribute
-impl core::cmp::PartialEq for hud::Attribute
-pub fn hud::Attribute::eq(&self, &hud::Attribute) -> bool
-impl core::fmt::Debug for hud::Attribute
-pub fn hud::Attribute::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::hash::Hash for hud::Attribute
-pub fn hud::Attribute::hash<__H: core::hash::Hasher>(&self, &mut __H)
-impl core::marker::Copy for hud::Attribute
-impl core::marker::StructuralPartialEq for hud::Attribute
-impl core::marker::Freeze for hud::Attribute
-impl core::marker::Send for hud::Attribute
-impl core::marker::Sync for hud::Attribute
-impl core::marker::Unpin for hud::Attribute
-impl core::marker::UnsafeUnpin for hud::Attribute
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Attribute
-impl core::panic::unwind_safe::UnwindSafe for hud::Attribute
-impl<T, U> core::convert::Into<U> for hud::Attribute where U: core::convert::From<T>
-pub fn hud::Attribute::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Attribute where U: core::convert::Into<T>
-pub type hud::Attribute::Error = never
-pub fn hud::Attribute::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Attribute where U: core::convert::TryFrom<T>
-pub type hud::Attribute::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Attribute::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Attribute where T: core::clone::Clone
-pub type hud::Attribute::Owned = T
-pub fn hud::Attribute::clone_into(&self, &mut T)
-pub fn hud::Attribute::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Attribute where T: 'static + ?core::marker::Sized
-pub fn hud::Attribute::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Attribute where T: ?core::marker::Sized
-pub fn hud::Attribute::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Attribute where T: ?core::marker::Sized
-pub fn hud::Attribute::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Attribute where T: core::clone::Clone
-pub unsafe fn hud::Attribute::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Attribute
-pub fn hud::Attribute::from(T) -> T
 pub enum hud::BoxStyle
 pub hud::BoxStyle::Ascii
 pub hud::BoxStyle::Double
@@ -117,48 +35,6 @@ pub hud::BoxStyle::Minimal
 pub hud::BoxStyle::Rounded
 pub hud::BoxStyle::Simple
 pub hud::BoxStyle::Square
-impl core::clone::Clone for hud::BoxStyle
-pub fn hud::BoxStyle::clone(&self) -> hud::BoxStyle
-impl core::cmp::Eq for hud::BoxStyle
-impl core::cmp::PartialEq for hud::BoxStyle
-pub fn hud::BoxStyle::eq(&self, &hud::BoxStyle) -> bool
-impl core::default::Default for hud::BoxStyle
-pub fn hud::BoxStyle::default() -> hud::BoxStyle
-impl core::fmt::Debug for hud::BoxStyle
-pub fn hud::BoxStyle::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::hash::Hash for hud::BoxStyle
-pub fn hud::BoxStyle::hash<__H: core::hash::Hasher>(&self, &mut __H)
-impl core::marker::Copy for hud::BoxStyle
-impl core::marker::StructuralPartialEq for hud::BoxStyle
-impl core::marker::Freeze for hud::BoxStyle
-impl core::marker::Send for hud::BoxStyle
-impl core::marker::Sync for hud::BoxStyle
-impl core::marker::Unpin for hud::BoxStyle
-impl core::marker::UnsafeUnpin for hud::BoxStyle
-impl core::panic::unwind_safe::RefUnwindSafe for hud::BoxStyle
-impl core::panic::unwind_safe::UnwindSafe for hud::BoxStyle
-impl<T, U> core::convert::Into<U> for hud::BoxStyle where U: core::convert::From<T>
-pub fn hud::BoxStyle::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::BoxStyle where U: core::convert::Into<T>
-pub type hud::BoxStyle::Error = never
-pub fn hud::BoxStyle::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::BoxStyle where U: core::convert::TryFrom<T>
-pub type hud::BoxStyle::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::BoxStyle::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::BoxStyle where T: core::clone::Clone
-pub type hud::BoxStyle::Owned = T
-pub fn hud::BoxStyle::clone_into(&self, &mut T)
-pub fn hud::BoxStyle::to_owned(&self) -> T
-impl<T> core::any::Any for hud::BoxStyle where T: 'static + ?core::marker::Sized
-pub fn hud::BoxStyle::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::BoxStyle where T: ?core::marker::Sized
-pub fn hud::BoxStyle::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::BoxStyle where T: ?core::marker::Sized
-pub fn hud::BoxStyle::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::BoxStyle where T: core::clone::Clone
-pub unsafe fn hud::BoxStyle::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::BoxStyle
-pub fn hud::BoxStyle::from(T) -> T
 pub enum hud::Color
 pub hud::Color::Default
 pub hud::Color::EightBit(u8)
@@ -175,190 +51,26 @@ pub const hud::Color::WHITE: hud::Color
 pub const hud::Color::YELLOW: hud::Color
 pub const fn hud::Color::indexed(u8) -> hud::Color
 pub const fn hud::Color::rgb(u8, u8, u8) -> hud::Color
-impl core::clone::Clone for hud::Color
-pub fn hud::Color::clone(&self) -> hud::Color
-impl core::cmp::Eq for hud::Color
-impl core::cmp::PartialEq for hud::Color
-pub fn hud::Color::eq(&self, &hud::Color) -> bool
-impl core::fmt::Debug for hud::Color
-pub fn hud::Color::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+impl hud::Color
+pub fn hud::Color::parse(&str) -> core::result::Result<hud::Color, hud::StyleError>
 impl core::fmt::Display for hud::Color
 pub fn hud::Color::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::hash::Hash for hud::Color
-pub fn hud::Color::hash<__H: core::hash::Hasher>(&self, &mut __H)
-impl core::marker::Copy for hud::Color
-impl core::marker::StructuralPartialEq for hud::Color
-impl core::marker::Freeze for hud::Color
-impl core::marker::Send for hud::Color
-impl core::marker::Sync for hud::Color
-impl core::marker::Unpin for hud::Color
-impl core::marker::UnsafeUnpin for hud::Color
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Color
-impl core::panic::unwind_safe::UnwindSafe for hud::Color
-impl<T, U> core::convert::Into<U> for hud::Color where U: core::convert::From<T>
-pub fn hud::Color::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Color where U: core::convert::Into<T>
-pub type hud::Color::Error = never
-pub fn hud::Color::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Color where U: core::convert::TryFrom<T>
-pub type hud::Color::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Color::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Color where T: core::clone::Clone
-pub type hud::Color::Owned = T
-pub fn hud::Color::clone_into(&self, &mut T)
-pub fn hud::Color::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::Color where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::Color::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::Color where T: 'static + ?core::marker::Sized
-pub fn hud::Color::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Color where T: ?core::marker::Sized
-pub fn hud::Color::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Color where T: ?core::marker::Sized
-pub fn hud::Color::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Color where T: core::clone::Clone
-pub unsafe fn hud::Color::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Color
-pub fn hud::Color::from(T) -> T
 pub enum hud::ColorSystem
 pub hud::ColorSystem::EightBit
 pub hud::ColorSystem::None
 pub hud::ColorSystem::Standard
 pub hud::ColorSystem::TrueColor
-impl core::clone::Clone for hud::ColorSystem
-pub fn hud::ColorSystem::clone(&self) -> hud::ColorSystem
-impl core::cmp::Eq for hud::ColorSystem
-impl core::cmp::Ord for hud::ColorSystem
-pub fn hud::ColorSystem::cmp(&self, &hud::ColorSystem) -> core::cmp::Ordering
-impl core::cmp::PartialEq for hud::ColorSystem
-pub fn hud::ColorSystem::eq(&self, &hud::ColorSystem) -> bool
-impl core::cmp::PartialOrd for hud::ColorSystem
-pub fn hud::ColorSystem::partial_cmp(&self, &hud::ColorSystem) -> core::option::Option<core::cmp::Ordering>
-impl core::fmt::Debug for hud::ColorSystem
-pub fn hud::ColorSystem::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::hash::Hash for hud::ColorSystem
-pub fn hud::ColorSystem::hash<__H: core::hash::Hasher>(&self, &mut __H)
-impl core::marker::Copy for hud::ColorSystem
-impl core::marker::StructuralPartialEq for hud::ColorSystem
-impl core::marker::Freeze for hud::ColorSystem
-impl core::marker::Send for hud::ColorSystem
-impl core::marker::Sync for hud::ColorSystem
-impl core::marker::Unpin for hud::ColorSystem
-impl core::marker::UnsafeUnpin for hud::ColorSystem
-impl core::panic::unwind_safe::RefUnwindSafe for hud::ColorSystem
-impl core::panic::unwind_safe::UnwindSafe for hud::ColorSystem
-impl<T, U> core::convert::Into<U> for hud::ColorSystem where U: core::convert::From<T>
-pub fn hud::ColorSystem::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::ColorSystem where U: core::convert::Into<T>
-pub type hud::ColorSystem::Error = never
-pub fn hud::ColorSystem::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::ColorSystem where U: core::convert::TryFrom<T>
-pub type hud::ColorSystem::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::ColorSystem::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::ColorSystem where T: core::clone::Clone
-pub type hud::ColorSystem::Owned = T
-pub fn hud::ColorSystem::clone_into(&self, &mut T)
-pub fn hud::ColorSystem::to_owned(&self) -> T
-impl<T> core::any::Any for hud::ColorSystem where T: 'static + ?core::marker::Sized
-pub fn hud::ColorSystem::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::ColorSystem where T: ?core::marker::Sized
-pub fn hud::ColorSystem::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::ColorSystem where T: ?core::marker::Sized
-pub fn hud::ColorSystem::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::ColorSystem where T: core::clone::Clone
-pub unsafe fn hud::ColorSystem::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::ColorSystem
-pub fn hud::ColorSystem::from(T) -> T
 pub enum hud::Justify
 pub hud::Justify::Center
 pub hud::Justify::Default
 pub hud::Justify::Full
 pub hud::Justify::Left
 pub hud::Justify::Right
-impl core::clone::Clone for hud::Justify
-pub fn hud::Justify::clone(&self) -> hud::Justify
-impl core::cmp::Eq for hud::Justify
-impl core::cmp::PartialEq for hud::Justify
-pub fn hud::Justify::eq(&self, &hud::Justify) -> bool
-impl core::default::Default for hud::Justify
-pub fn hud::Justify::default() -> hud::Justify
-impl core::fmt::Debug for hud::Justify
-pub fn hud::Justify::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Copy for hud::Justify
-impl core::marker::StructuralPartialEq for hud::Justify
-impl core::marker::Freeze for hud::Justify
-impl core::marker::Send for hud::Justify
-impl core::marker::Sync for hud::Justify
-impl core::marker::Unpin for hud::Justify
-impl core::marker::UnsafeUnpin for hud::Justify
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Justify
-impl core::panic::unwind_safe::UnwindSafe for hud::Justify
-impl<T, U> core::convert::Into<U> for hud::Justify where U: core::convert::From<T>
-pub fn hud::Justify::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Justify where U: core::convert::Into<T>
-pub type hud::Justify::Error = never
-pub fn hud::Justify::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Justify where U: core::convert::TryFrom<T>
-pub type hud::Justify::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Justify::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Justify where T: core::clone::Clone
-pub type hud::Justify::Owned = T
-pub fn hud::Justify::clone_into(&self, &mut T)
-pub fn hud::Justify::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Justify where T: 'static + ?core::marker::Sized
-pub fn hud::Justify::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Justify where T: ?core::marker::Sized
-pub fn hud::Justify::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Justify where T: ?core::marker::Sized
-pub fn hud::Justify::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Justify where T: core::clone::Clone
-pub unsafe fn hud::Justify::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Justify
-pub fn hud::Justify::from(T) -> T
 pub enum hud::Overflow
 pub hud::Overflow::Crop
 pub hud::Overflow::Ellipsis
 pub hud::Overflow::Fold
 pub hud::Overflow::Ignore
-impl core::clone::Clone for hud::Overflow
-pub fn hud::Overflow::clone(&self) -> hud::Overflow
-impl core::cmp::Eq for hud::Overflow
-impl core::cmp::PartialEq for hud::Overflow
-pub fn hud::Overflow::eq(&self, &hud::Overflow) -> bool
-impl core::default::Default for hud::Overflow
-pub fn hud::Overflow::default() -> hud::Overflow
-impl core::fmt::Debug for hud::Overflow
-pub fn hud::Overflow::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Copy for hud::Overflow
-impl core::marker::StructuralPartialEq for hud::Overflow
-impl core::marker::Freeze for hud::Overflow
-impl core::marker::Send for hud::Overflow
-impl core::marker::Sync for hud::Overflow
-impl core::marker::Unpin for hud::Overflow
-impl core::marker::UnsafeUnpin for hud::Overflow
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Overflow
-impl core::panic::unwind_safe::UnwindSafe for hud::Overflow
-impl<T, U> core::convert::Into<U> for hud::Overflow where U: core::convert::From<T>
-pub fn hud::Overflow::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Overflow where U: core::convert::Into<T>
-pub type hud::Overflow::Error = never
-pub fn hud::Overflow::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Overflow where U: core::convert::TryFrom<T>
-pub type hud::Overflow::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Overflow::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Overflow where T: core::clone::Clone
-pub type hud::Overflow::Owned = T
-pub fn hud::Overflow::clone_into(&self, &mut T)
-pub fn hud::Overflow::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Overflow where T: 'static + ?core::marker::Sized
-pub fn hud::Overflow::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Overflow where T: ?core::marker::Sized
-pub fn hud::Overflow::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Overflow where T: ?core::marker::Sized
-pub fn hud::Overflow::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Overflow where T: core::clone::Clone
-pub unsafe fn hud::Overflow::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Overflow
-pub fn hud::Overflow::from(T) -> T
 pub enum hud::ProgressColumn
 pub hud::ProgressColumn::Bar(hud::BarColumn)
 pub hud::ProgressColumn::MofNComplete(hud::MofNCompleteColumn)
@@ -367,10 +79,6 @@ pub hud::ProgressColumn::TaskProgress(hud::TaskProgressColumn)
 pub hud::ProgressColumn::Text(hud::TextColumn)
 pub hud::ProgressColumn::TimeElapsed(hud::TimeElapsedColumn)
 pub hud::ProgressColumn::TimeRemaining(hud::TimeRemainingColumn)
-impl core::clone::Clone for hud::ProgressColumn
-pub fn hud::ProgressColumn::clone(&self) -> hud::ProgressColumn
-impl core::cmp::PartialEq for hud::ProgressColumn
-pub fn hud::ProgressColumn::eq(&self, &hud::ProgressColumn) -> bool
 impl core::convert::From<hud::BarColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::BarColumn) -> hud::ProgressColumn
 impl core::convert::From<hud::MofNCompleteColumn> for hud::ProgressColumn
@@ -385,81 +93,9 @@ impl core::convert::From<hud::TimeElapsedColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::TimeElapsedColumn) -> hud::ProgressColumn
 impl core::convert::From<hud::TimeRemainingColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::TimeRemainingColumn) -> hud::ProgressColumn
-impl core::fmt::Debug for hud::ProgressColumn
-pub fn hud::ProgressColumn::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::ProgressColumn
-impl core::marker::Freeze for hud::ProgressColumn
-impl core::marker::Send for hud::ProgressColumn
-impl core::marker::Sync for hud::ProgressColumn
-impl core::marker::Unpin for hud::ProgressColumn
-impl core::marker::UnsafeUnpin for hud::ProgressColumn
-impl core::panic::unwind_safe::RefUnwindSafe for hud::ProgressColumn
-impl core::panic::unwind_safe::UnwindSafe for hud::ProgressColumn
-impl<T, U> core::convert::Into<U> for hud::ProgressColumn where U: core::convert::From<T>
-pub fn hud::ProgressColumn::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::ProgressColumn where U: core::convert::Into<T>
-pub type hud::ProgressColumn::Error = never
-pub fn hud::ProgressColumn::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::ProgressColumn where U: core::convert::TryFrom<T>
-pub type hud::ProgressColumn::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::ProgressColumn::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::ProgressColumn where T: core::clone::Clone
-pub type hud::ProgressColumn::Owned = T
-pub fn hud::ProgressColumn::clone_into(&self, &mut T)
-pub fn hud::ProgressColumn::to_owned(&self) -> T
-impl<T> core::any::Any for hud::ProgressColumn where T: 'static + ?core::marker::Sized
-pub fn hud::ProgressColumn::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::ProgressColumn where T: ?core::marker::Sized
-pub fn hud::ProgressColumn::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::ProgressColumn where T: ?core::marker::Sized
-pub fn hud::ProgressColumn::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::ProgressColumn where T: core::clone::Clone
-pub unsafe fn hud::ProgressColumn::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::ProgressColumn
-pub fn hud::ProgressColumn::from(T) -> T
 pub enum hud::Stream
 pub hud::Stream::Stderr
 pub hud::Stream::Stdout
-impl core::clone::Clone for hud::Stream
-pub fn hud::Stream::clone(&self) -> hud::Stream
-impl core::cmp::Eq for hud::Stream
-impl core::cmp::PartialEq for hud::Stream
-pub fn hud::Stream::eq(&self, &hud::Stream) -> bool
-impl core::fmt::Debug for hud::Stream
-pub fn hud::Stream::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::hash::Hash for hud::Stream
-pub fn hud::Stream::hash<__H: core::hash::Hasher>(&self, &mut __H)
-impl core::marker::Copy for hud::Stream
-impl core::marker::StructuralPartialEq for hud::Stream
-impl core::marker::Freeze for hud::Stream
-impl core::marker::Send for hud::Stream
-impl core::marker::Sync for hud::Stream
-impl core::marker::Unpin for hud::Stream
-impl core::marker::UnsafeUnpin for hud::Stream
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Stream
-impl core::panic::unwind_safe::UnwindSafe for hud::Stream
-impl<T, U> core::convert::Into<U> for hud::Stream where U: core::convert::From<T>
-pub fn hud::Stream::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Stream where U: core::convert::Into<T>
-pub type hud::Stream::Error = never
-pub fn hud::Stream::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Stream where U: core::convert::TryFrom<T>
-pub type hud::Stream::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Stream::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Stream where T: core::clone::Clone
-pub type hud::Stream::Owned = T
-pub fn hud::Stream::clone_into(&self, &mut T)
-pub fn hud::Stream::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Stream where T: 'static + ?core::marker::Sized
-pub fn hud::Stream::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Stream where T: ?core::marker::Sized
-pub fn hud::Stream::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Stream where T: ?core::marker::Sized
-pub fn hud::Stream::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Stream where T: core::clone::Clone
-pub unsafe fn hud::Stream::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Stream
-pub fn hud::Stream::from(T) -> T
 pub struct hud::BarColumn
 impl hud::BarColumn
 pub fn hud::BarColumn::bar_width(self, usize) -> hud::BarColumn
@@ -468,58 +104,21 @@ pub fn hud::BarColumn::finished_style(self, hud::Style) -> hud::BarColumn
 pub fn hud::BarColumn::full_width(self) -> hud::BarColumn
 pub fn hud::BarColumn::new() -> hud::BarColumn
 pub fn hud::BarColumn::style(self, hud::Style) -> hud::BarColumn
-impl core::clone::Clone for hud::BarColumn
-pub fn hud::BarColumn::clone(&self) -> hud::BarColumn
-impl core::cmp::Eq for hud::BarColumn
-impl core::cmp::PartialEq for hud::BarColumn
-pub fn hud::BarColumn::eq(&self, &hud::BarColumn) -> bool
 impl core::convert::From<hud::BarColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::BarColumn) -> hud::ProgressColumn
 impl core::default::Default for hud::BarColumn
 pub fn hud::BarColumn::default() -> hud::BarColumn
-impl core::fmt::Debug for hud::BarColumn
-pub fn hud::BarColumn::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::BarColumn
-impl core::marker::Freeze for hud::BarColumn
-impl core::marker::Send for hud::BarColumn
-impl core::marker::Sync for hud::BarColumn
-impl core::marker::Unpin for hud::BarColumn
-impl core::marker::UnsafeUnpin for hud::BarColumn
-impl core::panic::unwind_safe::RefUnwindSafe for hud::BarColumn
-impl core::panic::unwind_safe::UnwindSafe for hud::BarColumn
-impl<T, U> core::convert::Into<U> for hud::BarColumn where U: core::convert::From<T>
-pub fn hud::BarColumn::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::BarColumn where U: core::convert::Into<T>
-pub type hud::BarColumn::Error = never
-pub fn hud::BarColumn::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::BarColumn where U: core::convert::TryFrom<T>
-pub type hud::BarColumn::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::BarColumn::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::BarColumn where T: core::clone::Clone
-pub type hud::BarColumn::Owned = T
-pub fn hud::BarColumn::clone_into(&self, &mut T)
-pub fn hud::BarColumn::to_owned(&self) -> T
-impl<T> core::any::Any for hud::BarColumn where T: 'static + ?core::marker::Sized
-pub fn hud::BarColumn::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::BarColumn where T: ?core::marker::Sized
-pub fn hud::BarColumn::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::BarColumn where T: ?core::marker::Sized
-pub fn hud::BarColumn::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::BarColumn where T: core::clone::Clone
-pub unsafe fn hud::BarColumn::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::BarColumn
-pub fn hud::BarColumn::from(T) -> T
 pub struct hud::Body(_)
 impl hud::Body
 pub fn hud::Body::new<R: hud::Renderable + core::marker::Send + core::marker::Sync + 'static>(R) -> hud::Body
-impl core::clone::Clone for hud::Body
-pub fn hud::Body::clone(&self) -> hud::Body
 impl core::convert::From<&str> for hud::Body
 pub fn hud::Body::from(&str) -> hud::Body
 impl core::convert::From<alloc::string::String> for hud::Body
 pub fn hud::Body::from(alloc::string::String) -> hud::Body
 impl core::convert::From<hud::Group> for hud::Body
 pub fn hud::Body::from(hud::Group) -> hud::Body
+impl core::convert::From<hud::Padding> for hud::Body
+pub fn hud::Body::from(hud::Padding) -> hud::Body
 impl core::convert::From<hud::Panel> for hud::Body
 pub fn hud::Body::from(hud::Panel) -> hud::Body
 impl core::convert::From<hud::Table> for hud::Body
@@ -530,35 +129,6 @@ impl core::convert::From<hud::Tree> for hud::Body
 pub fn hud::Body::from(hud::Tree) -> hud::Body
 impl core::fmt::Debug for hud::Body
 pub fn hud::Body::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Freeze for hud::Body
-impl core::marker::Send for hud::Body
-impl core::marker::Sync for hud::Body
-impl core::marker::Unpin for hud::Body
-impl core::marker::UnsafeUnpin for hud::Body
-impl !core::panic::unwind_safe::RefUnwindSafe for hud::Body
-impl !core::panic::unwind_safe::UnwindSafe for hud::Body
-impl<T, U> core::convert::Into<U> for hud::Body where U: core::convert::From<T>
-pub fn hud::Body::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Body where U: core::convert::Into<T>
-pub type hud::Body::Error = never
-pub fn hud::Body::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Body where U: core::convert::TryFrom<T>
-pub type hud::Body::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Body::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Body where T: core::clone::Clone
-pub type hud::Body::Owned = T
-pub fn hud::Body::clone_into(&self, &mut T)
-pub fn hud::Body::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Body where T: 'static + ?core::marker::Sized
-pub fn hud::Body::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Body where T: ?core::marker::Sized
-pub fn hud::Body::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Body where T: ?core::marker::Sized
-pub fn hud::Body::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Body where T: core::clone::Clone
-pub unsafe fn hud::Body::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Body
-pub fn hud::Body::from(T) -> T
 pub struct hud::Capabilities
 pub hud::Capabilities::attributes: bool
 pub hud::Capabilities::color_system: hud::ColorSystem
@@ -568,44 +138,6 @@ pub hud::Capabilities::is_tty: bool
 pub hud::Capabilities::width: u16
 impl hud::Capabilities
 pub fn hud::Capabilities::emits_escapes(&self) -> bool
-impl core::clone::Clone for hud::Capabilities
-pub fn hud::Capabilities::clone(&self) -> hud::Capabilities
-impl core::cmp::Eq for hud::Capabilities
-impl core::cmp::PartialEq for hud::Capabilities
-pub fn hud::Capabilities::eq(&self, &hud::Capabilities) -> bool
-impl core::fmt::Debug for hud::Capabilities
-pub fn hud::Capabilities::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Copy for hud::Capabilities
-impl core::marker::StructuralPartialEq for hud::Capabilities
-impl core::marker::Freeze for hud::Capabilities
-impl core::marker::Send for hud::Capabilities
-impl core::marker::Sync for hud::Capabilities
-impl core::marker::Unpin for hud::Capabilities
-impl core::marker::UnsafeUnpin for hud::Capabilities
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Capabilities
-impl core::panic::unwind_safe::UnwindSafe for hud::Capabilities
-impl<T, U> core::convert::Into<U> for hud::Capabilities where U: core::convert::From<T>
-pub fn hud::Capabilities::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Capabilities where U: core::convert::Into<T>
-pub type hud::Capabilities::Error = never
-pub fn hud::Capabilities::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Capabilities where U: core::convert::TryFrom<T>
-pub type hud::Capabilities::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Capabilities::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Capabilities where T: core::clone::Clone
-pub type hud::Capabilities::Owned = T
-pub fn hud::Capabilities::clone_into(&self, &mut T)
-pub fn hud::Capabilities::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Capabilities where T: 'static + ?core::marker::Sized
-pub fn hud::Capabilities::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Capabilities where T: ?core::marker::Sized
-pub fn hud::Capabilities::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Capabilities where T: ?core::marker::Sized
-pub fn hud::Capabilities::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Capabilities where T: core::clone::Clone
-pub unsafe fn hud::Capabilities::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Capabilities
-pub fn hud::Capabilities::from(T) -> T
 pub struct hud::Column
 impl hud::Column
 pub fn hud::Column::header_style(self, hud::Style) -> hud::Column
@@ -617,132 +149,35 @@ pub fn hud::Column::no_wrap(self, bool) -> hud::Column
 pub fn hud::Column::overflow(self, hud::Overflow) -> hud::Column
 pub fn hud::Column::style(self, hud::Style) -> hud::Column
 pub fn hud::Column::width(self, usize) -> hud::Column
-impl core::clone::Clone for hud::Column
-pub fn hud::Column::clone(&self) -> hud::Column
-impl core::cmp::Eq for hud::Column
-impl core::cmp::PartialEq for hud::Column
-pub fn hud::Column::eq(&self, &hud::Column) -> bool
 impl core::convert::From<&str> for hud::Column
 pub fn hud::Column::from(&str) -> hud::Column
 impl core::convert::From<alloc::string::String> for hud::Column
 pub fn hud::Column::from(alloc::string::String) -> hud::Column
-impl core::fmt::Debug for hud::Column
-pub fn hud::Column::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::Column
-impl core::marker::Freeze for hud::Column
-impl core::marker::Send for hud::Column
-impl core::marker::Sync for hud::Column
-impl core::marker::Unpin for hud::Column
-impl core::marker::UnsafeUnpin for hud::Column
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Column
-impl core::panic::unwind_safe::UnwindSafe for hud::Column
-impl<T, U> core::convert::Into<U> for hud::Column where U: core::convert::From<T>
-pub fn hud::Column::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Column where U: core::convert::Into<T>
-pub type hud::Column::Error = never
-pub fn hud::Column::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Column where U: core::convert::TryFrom<T>
-pub type hud::Column::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Column::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Column where T: core::clone::Clone
-pub type hud::Column::Owned = T
-pub fn hud::Column::clone_into(&self, &mut T)
-pub fn hud::Column::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Column where T: 'static + ?core::marker::Sized
-pub fn hud::Column::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Column where T: ?core::marker::Sized
-pub fn hud::Column::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Column where T: ?core::marker::Sized
-pub fn hud::Column::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Column where T: core::clone::Clone
-pub unsafe fn hud::Column::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Column
-pub fn hud::Column::from(T) -> T
 pub struct hud::Console
 impl hud::Console
 pub fn hud::Console::builder() -> hud::ConsoleBuilder
 pub fn hud::Console::capabilities(&self) -> &hud::Capabilities
+pub fn hud::Console::color_system(&self) -> hud::ColorSystem
+pub fn hud::Console::force_terminal(&self) -> bool
+pub fn hud::Console::is_terminal(&self) -> bool
+pub fn hud::Console::no_color(&self) -> bool
 pub fn hud::Console::print<R: hud::Renderable + ?core::marker::Sized>(&self, &R)
 pub fn hud::Console::render_to_plain<R: hud::Renderable + ?core::marker::Sized>(&self, &R) -> alloc::string::String
 pub fn hud::Console::render_to_string<R: hud::Renderable + ?core::marker::Sized>(&self, &R) -> alloc::string::String
 pub fn hud::Console::stderr() -> hud::Console
 pub fn hud::Console::stdout() -> hud::Console
 pub fn hud::Console::try_print<R: hud::Renderable + ?core::marker::Sized>(&self, &R) -> core::io::error::Result<()>
-impl core::clone::Clone for hud::Console
-pub fn hud::Console::clone(&self) -> hud::Console
-impl core::fmt::Debug for hud::Console
-pub fn hud::Console::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Freeze for hud::Console
-impl core::marker::Send for hud::Console
-impl core::marker::Sync for hud::Console
-impl core::marker::Unpin for hud::Console
-impl core::marker::UnsafeUnpin for hud::Console
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Console
-impl core::panic::unwind_safe::UnwindSafe for hud::Console
-impl<T, U> core::convert::Into<U> for hud::Console where U: core::convert::From<T>
-pub fn hud::Console::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Console where U: core::convert::Into<T>
-pub type hud::Console::Error = never
-pub fn hud::Console::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Console where U: core::convert::TryFrom<T>
-pub type hud::Console::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Console::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Console where T: core::clone::Clone
-pub type hud::Console::Owned = T
-pub fn hud::Console::clone_into(&self, &mut T)
-pub fn hud::Console::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Console where T: 'static + ?core::marker::Sized
-pub fn hud::Console::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Console where T: ?core::marker::Sized
-pub fn hud::Console::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Console where T: ?core::marker::Sized
-pub fn hud::Console::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Console where T: core::clone::Clone
-pub unsafe fn hud::Console::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Console
-pub fn hud::Console::from(T) -> T
+pub fn hud::Console::width(&self) -> usize
 pub struct hud::ConsoleBuilder
 impl hud::ConsoleBuilder
 pub fn hud::ConsoleBuilder::attributes(self, bool) -> hud::ConsoleBuilder
 pub fn hud::ConsoleBuilder::build(self) -> hud::Console
 pub fn hud::ConsoleBuilder::color_system(self, hud::ColorSystem) -> hud::ConsoleBuilder
+pub fn hud::ConsoleBuilder::force_terminal(self, bool) -> hud::ConsoleBuilder
 pub fn hud::ConsoleBuilder::height(self, u16) -> hud::ConsoleBuilder
 pub fn hud::ConsoleBuilder::plain(self) -> hud::ConsoleBuilder
 pub fn hud::ConsoleBuilder::stream(self, hud::Stream) -> hud::ConsoleBuilder
 pub fn hud::ConsoleBuilder::width(self, u16) -> hud::ConsoleBuilder
-impl core::clone::Clone for hud::ConsoleBuilder
-pub fn hud::ConsoleBuilder::clone(&self) -> hud::ConsoleBuilder
-impl core::fmt::Debug for hud::ConsoleBuilder
-pub fn hud::ConsoleBuilder::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Freeze for hud::ConsoleBuilder
-impl core::marker::Send for hud::ConsoleBuilder
-impl core::marker::Sync for hud::ConsoleBuilder
-impl core::marker::Unpin for hud::ConsoleBuilder
-impl core::marker::UnsafeUnpin for hud::ConsoleBuilder
-impl core::panic::unwind_safe::RefUnwindSafe for hud::ConsoleBuilder
-impl core::panic::unwind_safe::UnwindSafe for hud::ConsoleBuilder
-impl<T, U> core::convert::Into<U> for hud::ConsoleBuilder where U: core::convert::From<T>
-pub fn hud::ConsoleBuilder::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::ConsoleBuilder where U: core::convert::Into<T>
-pub type hud::ConsoleBuilder::Error = never
-pub fn hud::ConsoleBuilder::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::ConsoleBuilder where U: core::convert::TryFrom<T>
-pub type hud::ConsoleBuilder::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::ConsoleBuilder::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::ConsoleBuilder where T: core::clone::Clone
-pub type hud::ConsoleBuilder::Owned = T
-pub fn hud::ConsoleBuilder::clone_into(&self, &mut T)
-pub fn hud::ConsoleBuilder::to_owned(&self) -> T
-impl<T> core::any::Any for hud::ConsoleBuilder where T: 'static + ?core::marker::Sized
-pub fn hud::ConsoleBuilder::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::ConsoleBuilder where T: ?core::marker::Sized
-pub fn hud::ConsoleBuilder::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::ConsoleBuilder where T: ?core::marker::Sized
-pub fn hud::ConsoleBuilder::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::ConsoleBuilder where T: core::clone::Clone
-pub unsafe fn hud::ConsoleBuilder::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::ConsoleBuilder
-pub fn hud::ConsoleBuilder::from(T) -> T
 pub struct hud::EnvSnapshot
 pub hud::EnvSnapshot::clicolor: core::option::Option<alloc::string::String>
 pub hud::EnvSnapshot::clicolor_force: core::option::Option<alloc::string::String>
@@ -752,326 +187,68 @@ pub hud::EnvSnapshot::force_color: core::option::Option<alloc::string::String>
 pub hud::EnvSnapshot::lines: core::option::Option<alloc::string::String>
 pub hud::EnvSnapshot::no_color: core::option::Option<alloc::string::String>
 pub hud::EnvSnapshot::term: core::option::Option<alloc::string::String>
-impl core::clone::Clone for hud::EnvSnapshot
-pub fn hud::EnvSnapshot::clone(&self) -> hud::EnvSnapshot
-impl core::cmp::Eq for hud::EnvSnapshot
-impl core::cmp::PartialEq for hud::EnvSnapshot
-pub fn hud::EnvSnapshot::eq(&self, &hud::EnvSnapshot) -> bool
-impl core::default::Default for hud::EnvSnapshot
-pub fn hud::EnvSnapshot::default() -> hud::EnvSnapshot
-impl core::fmt::Debug for hud::EnvSnapshot
-pub fn hud::EnvSnapshot::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::EnvSnapshot
-impl core::marker::Freeze for hud::EnvSnapshot
-impl core::marker::Send for hud::EnvSnapshot
-impl core::marker::Sync for hud::EnvSnapshot
-impl core::marker::Unpin for hud::EnvSnapshot
-impl core::marker::UnsafeUnpin for hud::EnvSnapshot
-impl core::panic::unwind_safe::RefUnwindSafe for hud::EnvSnapshot
-impl core::panic::unwind_safe::UnwindSafe for hud::EnvSnapshot
-impl<T, U> core::convert::Into<U> for hud::EnvSnapshot where U: core::convert::From<T>
-pub fn hud::EnvSnapshot::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::EnvSnapshot where U: core::convert::Into<T>
-pub type hud::EnvSnapshot::Error = never
-pub fn hud::EnvSnapshot::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::EnvSnapshot where U: core::convert::TryFrom<T>
-pub type hud::EnvSnapshot::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::EnvSnapshot::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::EnvSnapshot where T: core::clone::Clone
-pub type hud::EnvSnapshot::Owned = T
-pub fn hud::EnvSnapshot::clone_into(&self, &mut T)
-pub fn hud::EnvSnapshot::to_owned(&self) -> T
-impl<T> core::any::Any for hud::EnvSnapshot where T: 'static + ?core::marker::Sized
-pub fn hud::EnvSnapshot::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::EnvSnapshot where T: ?core::marker::Sized
-pub fn hud::EnvSnapshot::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::EnvSnapshot where T: ?core::marker::Sized
-pub fn hud::EnvSnapshot::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::EnvSnapshot where T: core::clone::Clone
-pub unsafe fn hud::EnvSnapshot::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::EnvSnapshot
-pub fn hud::EnvSnapshot::from(T) -> T
 pub struct hud::ErrorReport
 impl hud::ErrorReport
 pub fn hud::ErrorReport::cause(self, impl core::convert::Into<alloc::string::String>) -> hud::ErrorReport
 pub fn hud::ErrorReport::from_error(&(dyn core::error::Error + 'static)) -> hud::ErrorReport
 pub fn hud::ErrorReport::hint(self, impl core::convert::Into<alloc::string::String>) -> hud::ErrorReport
 pub fn hud::ErrorReport::new(impl core::convert::Into<alloc::string::String>) -> hud::ErrorReport
-impl core::clone::Clone for hud::ErrorReport
-pub fn hud::ErrorReport::clone(&self) -> hud::ErrorReport
-impl core::cmp::Eq for hud::ErrorReport
-impl core::cmp::PartialEq for hud::ErrorReport
-pub fn hud::ErrorReport::eq(&self, &hud::ErrorReport) -> bool
-impl core::default::Default for hud::ErrorReport
-pub fn hud::ErrorReport::default() -> hud::ErrorReport
-impl core::fmt::Debug for hud::ErrorReport
-pub fn hud::ErrorReport::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for hud::ErrorReport
 pub fn hud::ErrorReport::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::ErrorReport
 impl hud::Renderable for hud::ErrorReport
 pub fn hud::ErrorReport::measure(&self, usize) -> hud::Measure
 pub fn hud::ErrorReport::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::ErrorReport::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
-impl core::marker::Freeze for hud::ErrorReport
-impl core::marker::Send for hud::ErrorReport
-impl core::marker::Sync for hud::ErrorReport
-impl core::marker::Unpin for hud::ErrorReport
-impl core::marker::UnsafeUnpin for hud::ErrorReport
-impl core::panic::unwind_safe::RefUnwindSafe for hud::ErrorReport
-impl core::panic::unwind_safe::UnwindSafe for hud::ErrorReport
-impl<T, U> core::convert::Into<U> for hud::ErrorReport where U: core::convert::From<T>
-pub fn hud::ErrorReport::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::ErrorReport where U: core::convert::Into<T>
-pub type hud::ErrorReport::Error = never
-pub fn hud::ErrorReport::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::ErrorReport where U: core::convert::TryFrom<T>
-pub type hud::ErrorReport::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::ErrorReport::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::ErrorReport where T: core::clone::Clone
-pub type hud::ErrorReport::Owned = T
-pub fn hud::ErrorReport::clone_into(&self, &mut T)
-pub fn hud::ErrorReport::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::ErrorReport where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::ErrorReport::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::ErrorReport where T: 'static + ?core::marker::Sized
-pub fn hud::ErrorReport::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::ErrorReport where T: ?core::marker::Sized
-pub fn hud::ErrorReport::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::ErrorReport where T: ?core::marker::Sized
-pub fn hud::ErrorReport::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::ErrorReport where T: core::clone::Clone
-pub unsafe fn hud::ErrorReport::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::ErrorReport
-pub fn hud::ErrorReport::from(T) -> T
 pub struct hud::Group
 impl hud::Group
 pub fn hud::Group::new() -> hud::Group
 pub fn hud::Group::push(self, impl core::convert::Into<hud::Body>) -> hud::Group
-impl core::clone::Clone for hud::Group
-pub fn hud::Group::clone(&self) -> hud::Group
 impl core::convert::From<hud::Group> for hud::Body
 pub fn hud::Body::from(hud::Group) -> hud::Body
-impl core::default::Default for hud::Group
-pub fn hud::Group::default() -> hud::Group
-impl core::fmt::Debug for hud::Group
-pub fn hud::Group::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl hud::Renderable for hud::Group
 pub fn hud::Group::measure(&self, usize) -> hud::Measure
 pub fn hud::Group::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Group::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
-impl core::marker::Freeze for hud::Group
-impl core::marker::Send for hud::Group
-impl core::marker::Sync for hud::Group
-impl core::marker::Unpin for hud::Group
-impl core::marker::UnsafeUnpin for hud::Group
-impl !core::panic::unwind_safe::RefUnwindSafe for hud::Group
-impl !core::panic::unwind_safe::UnwindSafe for hud::Group
-impl<T, U> core::convert::Into<U> for hud::Group where U: core::convert::From<T>
-pub fn hud::Group::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Group where U: core::convert::Into<T>
-pub type hud::Group::Error = never
-pub fn hud::Group::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Group where U: core::convert::TryFrom<T>
-pub type hud::Group::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Group::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Group where T: core::clone::Clone
-pub type hud::Group::Owned = T
-pub fn hud::Group::clone_into(&self, &mut T)
-pub fn hud::Group::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Group where T: 'static + ?core::marker::Sized
-pub fn hud::Group::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Group where T: ?core::marker::Sized
-pub fn hud::Group::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Group where T: ?core::marker::Sized
-pub fn hud::Group::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Group where T: core::clone::Clone
-pub unsafe fn hud::Group::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Group
-pub fn hud::Group::from(T) -> T
 pub struct hud::MarkupError
-impl core::clone::Clone for hud::MarkupError
-pub fn hud::MarkupError::clone(&self) -> hud::MarkupError
-impl core::cmp::Eq for hud::MarkupError
-impl core::cmp::PartialEq for hud::MarkupError
-pub fn hud::MarkupError::eq(&self, &hud::MarkupError) -> bool
 impl core::error::Error for hud::MarkupError
-impl core::fmt::Debug for hud::MarkupError
-pub fn hud::MarkupError::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for hud::MarkupError
 pub fn hud::MarkupError::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::MarkupError
-impl core::marker::Freeze for hud::MarkupError
-impl core::marker::Send for hud::MarkupError
-impl core::marker::Sync for hud::MarkupError
-impl core::marker::Unpin for hud::MarkupError
-impl core::marker::UnsafeUnpin for hud::MarkupError
-impl core::panic::unwind_safe::RefUnwindSafe for hud::MarkupError
-impl core::panic::unwind_safe::UnwindSafe for hud::MarkupError
-impl<T, U> core::convert::Into<U> for hud::MarkupError where U: core::convert::From<T>
-pub fn hud::MarkupError::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::MarkupError where U: core::convert::Into<T>
-pub type hud::MarkupError::Error = never
-pub fn hud::MarkupError::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::MarkupError where U: core::convert::TryFrom<T>
-pub type hud::MarkupError::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::MarkupError::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::MarkupError where T: core::clone::Clone
-pub type hud::MarkupError::Owned = T
-pub fn hud::MarkupError::clone_into(&self, &mut T)
-pub fn hud::MarkupError::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::MarkupError where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::MarkupError::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::MarkupError where T: 'static + ?core::marker::Sized
-pub fn hud::MarkupError::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::MarkupError where T: ?core::marker::Sized
-pub fn hud::MarkupError::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::MarkupError where T: ?core::marker::Sized
-pub fn hud::MarkupError::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::MarkupError where T: core::clone::Clone
-pub unsafe fn hud::MarkupError::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::MarkupError
-pub fn hud::MarkupError::from(T) -> T
 pub struct hud::Measure
 pub hud::Measure::max: usize
 pub hud::Measure::min: usize
-impl core::clone::Clone for hud::Measure
-pub fn hud::Measure::clone(&self) -> hud::Measure
-impl core::cmp::Eq for hud::Measure
-impl core::cmp::PartialEq for hud::Measure
-pub fn hud::Measure::eq(&self, &hud::Measure) -> bool
-impl core::fmt::Debug for hud::Measure
-pub fn hud::Measure::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Copy for hud::Measure
-impl core::marker::StructuralPartialEq for hud::Measure
-impl core::marker::Freeze for hud::Measure
-impl core::marker::Send for hud::Measure
-impl core::marker::Sync for hud::Measure
-impl core::marker::Unpin for hud::Measure
-impl core::marker::UnsafeUnpin for hud::Measure
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Measure
-impl core::panic::unwind_safe::UnwindSafe for hud::Measure
-impl<T, U> core::convert::Into<U> for hud::Measure where U: core::convert::From<T>
-pub fn hud::Measure::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Measure where U: core::convert::Into<T>
-pub type hud::Measure::Error = never
-pub fn hud::Measure::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Measure where U: core::convert::TryFrom<T>
-pub type hud::Measure::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Measure::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Measure where T: core::clone::Clone
-pub type hud::Measure::Owned = T
-pub fn hud::Measure::clone_into(&self, &mut T)
-pub fn hud::Measure::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Measure where T: 'static + ?core::marker::Sized
-pub fn hud::Measure::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Measure where T: ?core::marker::Sized
-pub fn hud::Measure::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Measure where T: ?core::marker::Sized
-pub fn hud::Measure::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Measure where T: core::clone::Clone
-pub unsafe fn hud::Measure::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Measure
-pub fn hud::Measure::from(T) -> T
 pub struct hud::MofNCompleteColumn
 impl hud::MofNCompleteColumn
 pub fn hud::MofNCompleteColumn::new() -> hud::MofNCompleteColumn
 pub fn hud::MofNCompleteColumn::separator(self, impl core::convert::Into<alloc::string::String>) -> hud::MofNCompleteColumn
 pub fn hud::MofNCompleteColumn::style(self, hud::Style) -> hud::MofNCompleteColumn
-impl core::clone::Clone for hud::MofNCompleteColumn
-pub fn hud::MofNCompleteColumn::clone(&self) -> hud::MofNCompleteColumn
-impl core::cmp::Eq for hud::MofNCompleteColumn
-impl core::cmp::PartialEq for hud::MofNCompleteColumn
-pub fn hud::MofNCompleteColumn::eq(&self, &hud::MofNCompleteColumn) -> bool
 impl core::convert::From<hud::MofNCompleteColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::MofNCompleteColumn) -> hud::ProgressColumn
 impl core::default::Default for hud::MofNCompleteColumn
 pub fn hud::MofNCompleteColumn::default() -> hud::MofNCompleteColumn
-impl core::fmt::Debug for hud::MofNCompleteColumn
-pub fn hud::MofNCompleteColumn::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::MofNCompleteColumn
-impl core::marker::Freeze for hud::MofNCompleteColumn
-impl core::marker::Send for hud::MofNCompleteColumn
-impl core::marker::Sync for hud::MofNCompleteColumn
-impl core::marker::Unpin for hud::MofNCompleteColumn
-impl core::marker::UnsafeUnpin for hud::MofNCompleteColumn
-impl core::panic::unwind_safe::RefUnwindSafe for hud::MofNCompleteColumn
-impl core::panic::unwind_safe::UnwindSafe for hud::MofNCompleteColumn
-impl<T, U> core::convert::Into<U> for hud::MofNCompleteColumn where U: core::convert::From<T>
-pub fn hud::MofNCompleteColumn::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::MofNCompleteColumn where U: core::convert::Into<T>
-pub type hud::MofNCompleteColumn::Error = never
-pub fn hud::MofNCompleteColumn::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::MofNCompleteColumn where U: core::convert::TryFrom<T>
-pub type hud::MofNCompleteColumn::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::MofNCompleteColumn::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::MofNCompleteColumn where T: core::clone::Clone
-pub type hud::MofNCompleteColumn::Owned = T
-pub fn hud::MofNCompleteColumn::clone_into(&self, &mut T)
-pub fn hud::MofNCompleteColumn::to_owned(&self) -> T
-impl<T> core::any::Any for hud::MofNCompleteColumn where T: 'static + ?core::marker::Sized
-pub fn hud::MofNCompleteColumn::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::MofNCompleteColumn where T: ?core::marker::Sized
-pub fn hud::MofNCompleteColumn::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::MofNCompleteColumn where T: ?core::marker::Sized
-pub fn hud::MofNCompleteColumn::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::MofNCompleteColumn where T: core::clone::Clone
-pub unsafe fn hud::MofNCompleteColumn::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::MofNCompleteColumn
-pub fn hud::MofNCompleteColumn::from(T) -> T
+pub struct hud::Pad
+pub hud::Pad::bottom: usize
+pub hud::Pad::left: usize
+pub hud::Pad::right: usize
+pub hud::Pad::top: usize
+impl core::convert::From<(usize, usize)> for hud::Pad
+pub fn hud::Pad::from((usize, usize)) -> hud::Pad
+impl core::convert::From<(usize, usize, usize, usize)> for hud::Pad
+pub fn hud::Pad::from((usize, usize, usize, usize)) -> hud::Pad
+impl core::convert::From<usize> for hud::Pad
+pub fn hud::Pad::from(usize) -> hud::Pad
 pub struct hud::Padding
-pub hud::Padding::bottom: usize
-pub hud::Padding::left: usize
-pub hud::Padding::right: usize
-pub hud::Padding::top: usize
-impl core::clone::Clone for hud::Padding
-pub fn hud::Padding::clone(&self) -> hud::Padding
-impl core::cmp::Eq for hud::Padding
-impl core::cmp::PartialEq for hud::Padding
-pub fn hud::Padding::eq(&self, &hud::Padding) -> bool
-impl core::convert::From<(usize, usize)> for hud::Padding
-pub fn hud::Padding::from((usize, usize)) -> hud::Padding
-impl core::convert::From<(usize, usize, usize, usize)> for hud::Padding
-pub fn hud::Padding::from((usize, usize, usize, usize)) -> hud::Padding
-impl core::convert::From<usize> for hud::Padding
-pub fn hud::Padding::from(usize) -> hud::Padding
-impl core::default::Default for hud::Padding
-pub fn hud::Padding::default() -> hud::Padding
-impl core::fmt::Debug for hud::Padding
+impl hud::Padding
+pub fn hud::Padding::expand(self, bool) -> hud::Padding
+pub fn hud::Padding::new(impl core::convert::Into<hud::Body>, impl core::convert::Into<hud::Pad>) -> hud::Padding
+pub fn hud::Padding::style(self, hud::Style) -> hud::Padding
+impl core::convert::From<hud::Padding> for hud::Body
+pub fn hud::Body::from(hud::Padding) -> hud::Body
+impl core::fmt::Display for hud::Padding
 pub fn hud::Padding::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::hash::Hash for hud::Padding
-pub fn hud::Padding::hash<__H: core::hash::Hasher>(&self, &mut __H)
-impl core::marker::Copy for hud::Padding
-impl core::marker::StructuralPartialEq for hud::Padding
-impl core::marker::Freeze for hud::Padding
-impl core::marker::Send for hud::Padding
-impl core::marker::Sync for hud::Padding
-impl core::marker::Unpin for hud::Padding
-impl core::marker::UnsafeUnpin for hud::Padding
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Padding
-impl core::panic::unwind_safe::UnwindSafe for hud::Padding
-impl<T, U> core::convert::Into<U> for hud::Padding where U: core::convert::From<T>
-pub fn hud::Padding::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Padding where U: core::convert::Into<T>
-pub type hud::Padding::Error = never
-pub fn hud::Padding::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Padding where U: core::convert::TryFrom<T>
-pub type hud::Padding::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Padding::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Padding where T: core::clone::Clone
-pub type hud::Padding::Owned = T
-pub fn hud::Padding::clone_into(&self, &mut T)
-pub fn hud::Padding::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Padding where T: 'static + ?core::marker::Sized
-pub fn hud::Padding::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Padding where T: ?core::marker::Sized
-pub fn hud::Padding::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Padding where T: ?core::marker::Sized
-pub fn hud::Padding::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Padding where T: core::clone::Clone
-pub unsafe fn hud::Padding::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Padding
-pub fn hud::Padding::from(T) -> T
+impl hud::Renderable for hud::Padding
+pub fn hud::Padding::measure(&self, usize) -> hud::Measure
+pub fn hud::Padding::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Padding::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub struct hud::Panel
 impl hud::Panel
 pub fn hud::Panel::border_style(self, hud::Style) -> hud::Panel
@@ -1079,54 +256,19 @@ pub fn hud::Panel::box_style(self, hud::BoxStyle) -> hud::Panel
 pub fn hud::Panel::expand(self, bool) -> hud::Panel
 pub fn hud::Panel::fit(impl core::convert::Into<hud::Body>) -> hud::Panel
 pub fn hud::Panel::new(impl core::convert::Into<hud::Body>) -> hud::Panel
-pub fn hud::Panel::padding(self, impl core::convert::Into<hud::Padding>) -> hud::Panel
+pub fn hud::Panel::padding(self, impl core::convert::Into<hud::Pad>) -> hud::Panel
 pub fn hud::Panel::subtitle(self, impl core::convert::Into<alloc::string::String>) -> hud::Panel
 pub fn hud::Panel::subtitle_align(self, hud::Align) -> hud::Panel
 pub fn hud::Panel::title(self, impl core::convert::Into<alloc::string::String>) -> hud::Panel
 pub fn hud::Panel::title_align(self, hud::Align) -> hud::Panel
-impl core::clone::Clone for hud::Panel
-pub fn hud::Panel::clone(&self) -> hud::Panel
 impl core::convert::From<hud::Panel> for hud::Body
 pub fn hud::Body::from(hud::Panel) -> hud::Body
-impl core::fmt::Debug for hud::Panel
-pub fn hud::Panel::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for hud::Panel
 pub fn hud::Panel::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl hud::Renderable for hud::Panel
 pub fn hud::Panel::measure(&self, usize) -> hud::Measure
 pub fn hud::Panel::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Panel::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
-impl core::marker::Freeze for hud::Panel
-impl core::marker::Send for hud::Panel
-impl core::marker::Sync for hud::Panel
-impl core::marker::Unpin for hud::Panel
-impl core::marker::UnsafeUnpin for hud::Panel
-impl !core::panic::unwind_safe::RefUnwindSafe for hud::Panel
-impl !core::panic::unwind_safe::UnwindSafe for hud::Panel
-impl<T, U> core::convert::Into<U> for hud::Panel where U: core::convert::From<T>
-pub fn hud::Panel::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Panel where U: core::convert::Into<T>
-pub type hud::Panel::Error = never
-pub fn hud::Panel::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Panel where U: core::convert::TryFrom<T>
-pub type hud::Panel::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Panel::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Panel where T: core::clone::Clone
-pub type hud::Panel::Owned = T
-pub fn hud::Panel::clone_into(&self, &mut T)
-pub fn hud::Panel::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::Panel where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::Panel::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::Panel where T: 'static + ?core::marker::Sized
-pub fn hud::Panel::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Panel where T: ?core::marker::Sized
-pub fn hud::Panel::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Panel where T: ?core::marker::Sized
-pub fn hud::Panel::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Panel where T: core::clone::Clone
-pub unsafe fn hud::Panel::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Panel
-pub fn hud::Panel::from(T) -> T
 pub struct hud::Progress
 impl hud::Progress
 pub fn hud::Progress::add_task(&self, impl core::convert::Into<alloc::string::String>, u64) -> hud::Task
@@ -1136,9 +278,7 @@ pub fn hud::Progress::finish(&self)
 pub fn hud::Progress::new() -> hud::Progress
 pub fn hud::Progress::refresh(&self)
 pub fn hud::Progress::track<I>(&self, I, impl core::convert::Into<alloc::string::String>) -> hud::Track<<I as core::iter::traits::collect::IntoIterator>::IntoIter> where I: core::iter::traits::collect::IntoIterator, <I as core::iter::traits::collect::IntoIterator>::IntoIter: core::iter::traits::exact_size::ExactSizeIterator
-pub fn hud::Progress::update(&self, &hud::Task, u64)
-impl core::clone::Clone for hud::Progress
-pub fn hud::Progress::clone(&self) -> hud::Progress
+pub fn hud::Progress::update(&self, &hud::Task) -> hud::TaskUpdate
 impl core::default::Default for hud::Progress
 pub fn hud::Progress::default() -> hud::Progress
 impl core::fmt::Debug for hud::Progress
@@ -1149,37 +289,6 @@ impl hud::Renderable for hud::Progress
 pub fn hud::Progress::measure(&self, usize) -> hud::Measure
 pub fn hud::Progress::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Progress::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
-impl core::marker::Freeze for hud::Progress
-impl core::marker::Send for hud::Progress
-impl core::marker::Sync for hud::Progress
-impl core::marker::Unpin for hud::Progress
-impl core::marker::UnsafeUnpin for hud::Progress
-impl !core::panic::unwind_safe::RefUnwindSafe for hud::Progress
-impl !core::panic::unwind_safe::UnwindSafe for hud::Progress
-impl<T, U> core::convert::Into<U> for hud::Progress where U: core::convert::From<T>
-pub fn hud::Progress::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Progress where U: core::convert::Into<T>
-pub type hud::Progress::Error = never
-pub fn hud::Progress::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Progress where U: core::convert::TryFrom<T>
-pub type hud::Progress::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Progress::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Progress where T: core::clone::Clone
-pub type hud::Progress::Owned = T
-pub fn hud::Progress::clone_into(&self, &mut T)
-pub fn hud::Progress::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::Progress where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::Progress::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::Progress where T: 'static + ?core::marker::Sized
-pub fn hud::Progress::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Progress where T: ?core::marker::Sized
-pub fn hud::Progress::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Progress where T: ?core::marker::Sized
-pub fn hud::Progress::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Progress where T: core::clone::Clone
-pub unsafe fn hud::Progress::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Progress
-pub fn hud::Progress::from(T) -> T
 pub struct hud::ProgressBuilder
 impl hud::ProgressBuilder
 pub fn hud::ProgressBuilder::auto_refresh(self, bool) -> hud::ProgressBuilder
@@ -1195,199 +304,26 @@ pub fn hud::ProgressBuilder::transient(self, bool) -> hud::ProgressBuilder
 pub fn hud::ProgressBuilder::writer(self, impl core::io::write::Write + core::marker::Send + 'static) -> hud::ProgressBuilder
 impl core::fmt::Debug for hud::ProgressBuilder
 pub fn hud::ProgressBuilder::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Freeze for hud::ProgressBuilder
-impl core::marker::Send for hud::ProgressBuilder
-impl !core::marker::Sync for hud::ProgressBuilder
-impl core::marker::Unpin for hud::ProgressBuilder
-impl core::marker::UnsafeUnpin for hud::ProgressBuilder
-impl !core::panic::unwind_safe::RefUnwindSafe for hud::ProgressBuilder
-impl !core::panic::unwind_safe::UnwindSafe for hud::ProgressBuilder
-impl<T, U> core::convert::Into<U> for hud::ProgressBuilder where U: core::convert::From<T>
-pub fn hud::ProgressBuilder::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::ProgressBuilder where U: core::convert::Into<T>
-pub type hud::ProgressBuilder::Error = never
-pub fn hud::ProgressBuilder::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::ProgressBuilder where U: core::convert::TryFrom<T>
-pub type hud::ProgressBuilder::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::ProgressBuilder::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> core::any::Any for hud::ProgressBuilder where T: 'static + ?core::marker::Sized
-pub fn hud::ProgressBuilder::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::ProgressBuilder where T: ?core::marker::Sized
-pub fn hud::ProgressBuilder::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::ProgressBuilder where T: ?core::marker::Sized
-pub fn hud::ProgressBuilder::borrow_mut(&mut self) -> &mut T
-impl<T> core::convert::From<T> for hud::ProgressBuilder
-pub fn hud::ProgressBuilder::from(T) -> T
 pub struct hud::Segment
 pub hud::Segment::style: hud::Style
 pub hud::Segment::text: alloc::string::String
-impl core::clone::Clone for hud::Segment
-pub fn hud::Segment::clone(&self) -> hud::Segment
-impl core::cmp::Eq for hud::Segment
-impl core::cmp::PartialEq for hud::Segment
-pub fn hud::Segment::eq(&self, &hud::Segment) -> bool
-impl core::fmt::Debug for hud::Segment
-pub fn hud::Segment::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::Segment
-impl core::marker::Freeze for hud::Segment
-impl core::marker::Send for hud::Segment
-impl core::marker::Sync for hud::Segment
-impl core::marker::Unpin for hud::Segment
-impl core::marker::UnsafeUnpin for hud::Segment
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Segment
-impl core::panic::unwind_safe::UnwindSafe for hud::Segment
-impl<T, U> core::convert::Into<U> for hud::Segment where U: core::convert::From<T>
-pub fn hud::Segment::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Segment where U: core::convert::Into<T>
-pub type hud::Segment::Error = never
-pub fn hud::Segment::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Segment where U: core::convert::TryFrom<T>
-pub type hud::Segment::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Segment::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Segment where T: core::clone::Clone
-pub type hud::Segment::Owned = T
-pub fn hud::Segment::clone_into(&self, &mut T)
-pub fn hud::Segment::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Segment where T: 'static + ?core::marker::Sized
-pub fn hud::Segment::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Segment where T: ?core::marker::Sized
-pub fn hud::Segment::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Segment where T: ?core::marker::Sized
-pub fn hud::Segment::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Segment where T: core::clone::Clone
-pub unsafe fn hud::Segment::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Segment
-pub fn hud::Segment::from(T) -> T
 pub struct hud::Span
 pub hud::Span::end: usize
 pub hud::Span::start: usize
 pub hud::Span::style: hud::Style
-impl core::clone::Clone for hud::Span
-pub fn hud::Span::clone(&self) -> hud::Span
-impl core::cmp::Eq for hud::Span
-impl core::cmp::PartialEq for hud::Span
-pub fn hud::Span::eq(&self, &hud::Span) -> bool
-impl core::fmt::Debug for hud::Span
-pub fn hud::Span::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::Span
-impl core::marker::Freeze for hud::Span
-impl core::marker::Send for hud::Span
-impl core::marker::Sync for hud::Span
-impl core::marker::Unpin for hud::Span
-impl core::marker::UnsafeUnpin for hud::Span
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Span
-impl core::panic::unwind_safe::UnwindSafe for hud::Span
-impl<T, U> core::convert::Into<U> for hud::Span where U: core::convert::From<T>
-pub fn hud::Span::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Span where U: core::convert::Into<T>
-pub type hud::Span::Error = never
-pub fn hud::Span::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Span where U: core::convert::TryFrom<T>
-pub type hud::Span::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Span::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Span where T: core::clone::Clone
-pub type hud::Span::Owned = T
-pub fn hud::Span::clone_into(&self, &mut T)
-pub fn hud::Span::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Span where T: 'static + ?core::marker::Sized
-pub fn hud::Span::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Span where T: ?core::marker::Sized
-pub fn hud::Span::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Span where T: ?core::marker::Sized
-pub fn hud::Span::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Span where T: core::clone::Clone
-pub unsafe fn hud::Span::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Span
-pub fn hud::Span::from(T) -> T
 pub struct hud::SpinnerColumn
 impl hud::SpinnerColumn
 pub fn hud::SpinnerColumn::finished_text(self, impl core::convert::Into<alloc::string::String>) -> hud::SpinnerColumn
 pub fn hud::SpinnerColumn::new() -> hud::SpinnerColumn
 pub fn hud::SpinnerColumn::speed(self, f64) -> hud::SpinnerColumn
 pub fn hud::SpinnerColumn::style(self, hud::Style) -> hud::SpinnerColumn
-impl core::clone::Clone for hud::SpinnerColumn
-pub fn hud::SpinnerColumn::clone(&self) -> hud::SpinnerColumn
-impl core::cmp::PartialEq for hud::SpinnerColumn
-pub fn hud::SpinnerColumn::eq(&self, &hud::SpinnerColumn) -> bool
 impl core::convert::From<hud::SpinnerColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::SpinnerColumn) -> hud::ProgressColumn
 impl core::default::Default for hud::SpinnerColumn
 pub fn hud::SpinnerColumn::default() -> hud::SpinnerColumn
-impl core::fmt::Debug for hud::SpinnerColumn
-pub fn hud::SpinnerColumn::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::SpinnerColumn
-impl core::marker::Freeze for hud::SpinnerColumn
-impl core::marker::Send for hud::SpinnerColumn
-impl core::marker::Sync for hud::SpinnerColumn
-impl core::marker::Unpin for hud::SpinnerColumn
-impl core::marker::UnsafeUnpin for hud::SpinnerColumn
-impl core::panic::unwind_safe::RefUnwindSafe for hud::SpinnerColumn
-impl core::panic::unwind_safe::UnwindSafe for hud::SpinnerColumn
-impl<T, U> core::convert::Into<U> for hud::SpinnerColumn where U: core::convert::From<T>
-pub fn hud::SpinnerColumn::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::SpinnerColumn where U: core::convert::Into<T>
-pub type hud::SpinnerColumn::Error = never
-pub fn hud::SpinnerColumn::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::SpinnerColumn where U: core::convert::TryFrom<T>
-pub type hud::SpinnerColumn::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::SpinnerColumn::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::SpinnerColumn where T: core::clone::Clone
-pub type hud::SpinnerColumn::Owned = T
-pub fn hud::SpinnerColumn::clone_into(&self, &mut T)
-pub fn hud::SpinnerColumn::to_owned(&self) -> T
-impl<T> core::any::Any for hud::SpinnerColumn where T: 'static + ?core::marker::Sized
-pub fn hud::SpinnerColumn::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::SpinnerColumn where T: ?core::marker::Sized
-pub fn hud::SpinnerColumn::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::SpinnerColumn where T: ?core::marker::Sized
-pub fn hud::SpinnerColumn::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::SpinnerColumn where T: core::clone::Clone
-pub unsafe fn hud::SpinnerColumn::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::SpinnerColumn
-pub fn hud::SpinnerColumn::from(T) -> T
 pub struct hud::StreamInfo
 pub hud::StreamInfo::is_tty: bool
 pub hud::StreamInfo::size: core::option::Option<(u16, u16)>
-impl core::clone::Clone for hud::StreamInfo
-pub fn hud::StreamInfo::clone(&self) -> hud::StreamInfo
-impl core::cmp::Eq for hud::StreamInfo
-impl core::cmp::PartialEq for hud::StreamInfo
-pub fn hud::StreamInfo::eq(&self, &hud::StreamInfo) -> bool
-impl core::default::Default for hud::StreamInfo
-pub fn hud::StreamInfo::default() -> hud::StreamInfo
-impl core::fmt::Debug for hud::StreamInfo
-pub fn hud::StreamInfo::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Copy for hud::StreamInfo
-impl core::marker::StructuralPartialEq for hud::StreamInfo
-impl core::marker::Freeze for hud::StreamInfo
-impl core::marker::Send for hud::StreamInfo
-impl core::marker::Sync for hud::StreamInfo
-impl core::marker::Unpin for hud::StreamInfo
-impl core::marker::UnsafeUnpin for hud::StreamInfo
-impl core::panic::unwind_safe::RefUnwindSafe for hud::StreamInfo
-impl core::panic::unwind_safe::UnwindSafe for hud::StreamInfo
-impl<T, U> core::convert::Into<U> for hud::StreamInfo where U: core::convert::From<T>
-pub fn hud::StreamInfo::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::StreamInfo where U: core::convert::Into<T>
-pub type hud::StreamInfo::Error = never
-pub fn hud::StreamInfo::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::StreamInfo where U: core::convert::TryFrom<T>
-pub type hud::StreamInfo::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::StreamInfo::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::StreamInfo where T: core::clone::Clone
-pub type hud::StreamInfo::Owned = T
-pub fn hud::StreamInfo::clone_into(&self, &mut T)
-pub fn hud::StreamInfo::to_owned(&self) -> T
-impl<T> core::any::Any for hud::StreamInfo where T: 'static + ?core::marker::Sized
-pub fn hud::StreamInfo::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::StreamInfo where T: ?core::marker::Sized
-pub fn hud::StreamInfo::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::StreamInfo where T: ?core::marker::Sized
-pub fn hud::StreamInfo::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::StreamInfo where T: core::clone::Clone
-pub unsafe fn hud::StreamInfo::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::StreamInfo
-pub fn hud::StreamInfo::from(T) -> T
 pub struct hud::Style
 impl hud::Style
 pub fn hud::Style::attribute(self, hud::Attribute, bool) -> hud::Style
@@ -1410,100 +346,18 @@ pub fn hud::Style::strike(self) -> hud::Style
 pub fn hud::Style::underline(self) -> hud::Style
 impl hud::Style
 pub fn hud::Style::parse(&str) -> core::result::Result<hud::Style, hud::StyleError>
-impl core::clone::Clone for hud::Style
-pub fn hud::Style::clone(&self) -> hud::Style
-impl core::cmp::Eq for hud::Style
-impl core::cmp::PartialEq for hud::Style
-pub fn hud::Style::eq(&self, &hud::Style) -> bool
-impl core::default::Default for hud::Style
-pub fn hud::Style::default() -> hud::Style
-impl core::fmt::Debug for hud::Style
-pub fn hud::Style::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for hud::Style
 pub fn hud::Style::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::hash::Hash for hud::Style
-pub fn hud::Style::hash<__H: core::hash::Hasher>(&self, &mut __H)
-impl core::marker::StructuralPartialEq for hud::Style
 impl core::ops::arith::Add for hud::Style
 pub type hud::Style::Output = hud::Style
 pub fn hud::Style::add(self, hud::Style) -> hud::Style
 impl core::str::traits::FromStr for hud::Style
 pub type hud::Style::Err = hud::StyleError
 pub fn hud::Style::from_str(&str) -> core::result::Result<hud::Style, hud::StyleError>
-impl core::marker::Freeze for hud::Style
-impl core::marker::Send for hud::Style
-impl core::marker::Sync for hud::Style
-impl core::marker::Unpin for hud::Style
-impl core::marker::UnsafeUnpin for hud::Style
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Style
-impl core::panic::unwind_safe::UnwindSafe for hud::Style
-impl<T, U> core::convert::Into<U> for hud::Style where U: core::convert::From<T>
-pub fn hud::Style::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Style where U: core::convert::Into<T>
-pub type hud::Style::Error = never
-pub fn hud::Style::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Style where U: core::convert::TryFrom<T>
-pub type hud::Style::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Style::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Style where T: core::clone::Clone
-pub type hud::Style::Owned = T
-pub fn hud::Style::clone_into(&self, &mut T)
-pub fn hud::Style::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::Style where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::Style::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::Style where T: 'static + ?core::marker::Sized
-pub fn hud::Style::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Style where T: ?core::marker::Sized
-pub fn hud::Style::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Style where T: ?core::marker::Sized
-pub fn hud::Style::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Style where T: core::clone::Clone
-pub unsafe fn hud::Style::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Style
-pub fn hud::Style::from(T) -> T
 pub struct hud::StyleError
-impl core::clone::Clone for hud::StyleError
-pub fn hud::StyleError::clone(&self) -> hud::StyleError
-impl core::cmp::Eq for hud::StyleError
-impl core::cmp::PartialEq for hud::StyleError
-pub fn hud::StyleError::eq(&self, &hud::StyleError) -> bool
 impl core::error::Error for hud::StyleError
-impl core::fmt::Debug for hud::StyleError
-pub fn hud::StyleError::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for hud::StyleError
 pub fn hud::StyleError::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::StyleError
-impl core::marker::Freeze for hud::StyleError
-impl core::marker::Send for hud::StyleError
-impl core::marker::Sync for hud::StyleError
-impl core::marker::Unpin for hud::StyleError
-impl core::marker::UnsafeUnpin for hud::StyleError
-impl core::panic::unwind_safe::RefUnwindSafe for hud::StyleError
-impl core::panic::unwind_safe::UnwindSafe for hud::StyleError
-impl<T, U> core::convert::Into<U> for hud::StyleError where U: core::convert::From<T>
-pub fn hud::StyleError::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::StyleError where U: core::convert::Into<T>
-pub type hud::StyleError::Error = never
-pub fn hud::StyleError::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::StyleError where U: core::convert::TryFrom<T>
-pub type hud::StyleError::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::StyleError::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::StyleError where T: core::clone::Clone
-pub type hud::StyleError::Owned = T
-pub fn hud::StyleError::clone_into(&self, &mut T)
-pub fn hud::StyleError::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::StyleError where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::StyleError::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::StyleError where T: 'static + ?core::marker::Sized
-pub fn hud::StyleError::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::StyleError where T: ?core::marker::Sized
-pub fn hud::StyleError::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::StyleError where T: ?core::marker::Sized
-pub fn hud::StyleError::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::StyleError where T: core::clone::Clone
-pub unsafe fn hud::StyleError::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::StyleError
-pub fn hud::StyleError::from(T) -> T
 pub struct hud::Table
 impl hud::Table
 pub fn hud::Table::add_column(&mut self, impl core::convert::Into<hud::Column>)
@@ -1516,143 +370,49 @@ pub fn hud::Table::new() -> hud::Table
 pub fn hud::Table::row<I, S>(self, I) -> hud::Table where I: core::iter::traits::collect::IntoIterator<Item = S>, S: core::convert::Into<alloc::string::String>
 pub fn hud::Table::show_lines(self, bool) -> hud::Table
 pub fn hud::Table::title(self, impl core::convert::Into<alloc::string::String>) -> hud::Table
-impl core::clone::Clone for hud::Table
-pub fn hud::Table::clone(&self) -> hud::Table
-impl core::cmp::Eq for hud::Table
-impl core::cmp::PartialEq for hud::Table
-pub fn hud::Table::eq(&self, &hud::Table) -> bool
 impl core::convert::From<hud::Table> for hud::Body
 pub fn hud::Body::from(hud::Table) -> hud::Body
 impl core::default::Default for hud::Table
 pub fn hud::Table::default() -> hud::Table
-impl core::fmt::Debug for hud::Table
-pub fn hud::Table::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for hud::Table
 pub fn hud::Table::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::Table
 impl hud::Renderable for hud::Table
 pub fn hud::Table::measure(&self, usize) -> hud::Measure
 pub fn hud::Table::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Table::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
-impl core::marker::Freeze for hud::Table
-impl core::marker::Send for hud::Table
-impl core::marker::Sync for hud::Table
-impl core::marker::Unpin for hud::Table
-impl core::marker::UnsafeUnpin for hud::Table
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Table
-impl core::panic::unwind_safe::UnwindSafe for hud::Table
-impl<T, U> core::convert::Into<U> for hud::Table where U: core::convert::From<T>
-pub fn hud::Table::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Table where U: core::convert::Into<T>
-pub type hud::Table::Error = never
-pub fn hud::Table::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Table where U: core::convert::TryFrom<T>
-pub type hud::Table::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Table::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Table where T: core::clone::Clone
-pub type hud::Table::Owned = T
-pub fn hud::Table::clone_into(&self, &mut T)
-pub fn hud::Table::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::Table where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::Table::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::Table where T: 'static + ?core::marker::Sized
-pub fn hud::Table::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Table where T: ?core::marker::Sized
-pub fn hud::Table::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Table where T: ?core::marker::Sized
-pub fn hud::Table::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Table where T: core::clone::Clone
-pub unsafe fn hud::Table::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Table
-pub fn hud::Table::from(T) -> T
 pub struct hud::Task
 impl hud::Task
 pub fn hud::Task::advance(&self, u64)
 pub fn hud::Task::completed(&self) -> u64
 pub fn hud::Task::finish(&self)
 pub fn hud::Task::is_finished(&self) -> bool
+pub fn hud::Task::is_visible(&self) -> bool
 pub fn hud::Task::set_completed(&self, u64)
 pub fn hud::Task::set_description(&self, impl core::convert::Into<alloc::string::String>)
 pub fn hud::Task::set_total(&self, u64)
+pub fn hud::Task::set_visible(&self, bool)
 pub fn hud::Task::total(&self) -> u64
-impl core::clone::Clone for hud::Task
-pub fn hud::Task::clone(&self) -> hud::Task
 impl core::fmt::Debug for hud::Task
 pub fn hud::Task::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Freeze for hud::Task
-impl core::marker::Send for hud::Task
-impl core::marker::Sync for hud::Task
-impl core::marker::Unpin for hud::Task
-impl core::marker::UnsafeUnpin for hud::Task
-impl !core::panic::unwind_safe::RefUnwindSafe for hud::Task
-impl !core::panic::unwind_safe::UnwindSafe for hud::Task
-impl<T, U> core::convert::Into<U> for hud::Task where U: core::convert::From<T>
-pub fn hud::Task::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Task where U: core::convert::Into<T>
-pub type hud::Task::Error = never
-pub fn hud::Task::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Task where U: core::convert::TryFrom<T>
-pub type hud::Task::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Task::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Task where T: core::clone::Clone
-pub type hud::Task::Owned = T
-pub fn hud::Task::clone_into(&self, &mut T)
-pub fn hud::Task::to_owned(&self) -> T
-impl<T> core::any::Any for hud::Task where T: 'static + ?core::marker::Sized
-pub fn hud::Task::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Task where T: ?core::marker::Sized
-pub fn hud::Task::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Task where T: ?core::marker::Sized
-pub fn hud::Task::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Task where T: core::clone::Clone
-pub unsafe fn hud::Task::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Task
-pub fn hud::Task::from(T) -> T
 pub struct hud::TaskProgressColumn
 impl hud::TaskProgressColumn
 pub fn hud::TaskProgressColumn::new() -> hud::TaskProgressColumn
 pub fn hud::TaskProgressColumn::style(self, hud::Style) -> hud::TaskProgressColumn
-impl core::clone::Clone for hud::TaskProgressColumn
-pub fn hud::TaskProgressColumn::clone(&self) -> hud::TaskProgressColumn
-impl core::cmp::Eq for hud::TaskProgressColumn
-impl core::cmp::PartialEq for hud::TaskProgressColumn
-pub fn hud::TaskProgressColumn::eq(&self, &hud::TaskProgressColumn) -> bool
 impl core::convert::From<hud::TaskProgressColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::TaskProgressColumn) -> hud::ProgressColumn
 impl core::default::Default for hud::TaskProgressColumn
 pub fn hud::TaskProgressColumn::default() -> hud::TaskProgressColumn
-impl core::fmt::Debug for hud::TaskProgressColumn
-pub fn hud::TaskProgressColumn::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::TaskProgressColumn
-impl core::marker::Freeze for hud::TaskProgressColumn
-impl core::marker::Send for hud::TaskProgressColumn
-impl core::marker::Sync for hud::TaskProgressColumn
-impl core::marker::Unpin for hud::TaskProgressColumn
-impl core::marker::UnsafeUnpin for hud::TaskProgressColumn
-impl core::panic::unwind_safe::RefUnwindSafe for hud::TaskProgressColumn
-impl core::panic::unwind_safe::UnwindSafe for hud::TaskProgressColumn
-impl<T, U> core::convert::Into<U> for hud::TaskProgressColumn where U: core::convert::From<T>
-pub fn hud::TaskProgressColumn::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::TaskProgressColumn where U: core::convert::Into<T>
-pub type hud::TaskProgressColumn::Error = never
-pub fn hud::TaskProgressColumn::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::TaskProgressColumn where U: core::convert::TryFrom<T>
-pub type hud::TaskProgressColumn::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::TaskProgressColumn::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::TaskProgressColumn where T: core::clone::Clone
-pub type hud::TaskProgressColumn::Owned = T
-pub fn hud::TaskProgressColumn::clone_into(&self, &mut T)
-pub fn hud::TaskProgressColumn::to_owned(&self) -> T
-impl<T> core::any::Any for hud::TaskProgressColumn where T: 'static + ?core::marker::Sized
-pub fn hud::TaskProgressColumn::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::TaskProgressColumn where T: ?core::marker::Sized
-pub fn hud::TaskProgressColumn::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::TaskProgressColumn where T: ?core::marker::Sized
-pub fn hud::TaskProgressColumn::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::TaskProgressColumn where T: core::clone::Clone
-pub unsafe fn hud::TaskProgressColumn::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::TaskProgressColumn
-pub fn hud::TaskProgressColumn::from(T) -> T
+pub struct hud::TaskUpdate
+impl hud::TaskUpdate
+pub fn hud::TaskUpdate::advance(self, u64) -> hud::TaskUpdate
+pub fn hud::TaskUpdate::completed(self, u64) -> hud::TaskUpdate
+pub fn hud::TaskUpdate::description(self, impl core::convert::Into<alloc::string::String>) -> hud::TaskUpdate
+pub fn hud::TaskUpdate::total(self, u64) -> hud::TaskUpdate
+pub fn hud::TaskUpdate::visible(self, bool) -> hud::TaskUpdate
+impl core::fmt::Debug for hud::TaskUpdate
+pub fn hud::TaskUpdate::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+impl core::ops::drop::Drop for hud::TaskUpdate
+pub fn hud::TaskUpdate::drop(&mut self)
 pub struct hud::Text
 impl hud::Text
 pub fn hud::Text::append(&mut self, &str, hud::Style)
@@ -1665,194 +425,47 @@ pub fn hud::Text::plain(&self) -> &str
 pub fn hud::Text::spans(&self) -> &[hud::Span]
 pub fn hud::Text::style(&self) -> &hud::Style
 pub fn hud::Text::styled(impl core::convert::Into<alloc::string::String>, hud::Style) -> hud::Text
-pub fn hud::Text::stylize(&mut self, core::ops::range::Range<usize>, hud::Style)
+pub fn hud::Text::stylize(&mut self, hud::Style, impl core::ops::range::RangeBounds<usize>)
 pub fn hud::Text::tab_size(self, usize) -> hud::Text
 impl hud::Text
 pub fn hud::Text::from_markup(&str) -> core::result::Result<hud::Text, hud::MarkupError>
-impl core::clone::Clone for hud::Text
-pub fn hud::Text::clone(&self) -> hud::Text
-impl core::cmp::Eq for hud::Text
-impl core::cmp::PartialEq for hud::Text
-pub fn hud::Text::eq(&self, &hud::Text) -> bool
+impl hud::Text
+pub fn hud::Text::truncate(&mut self, usize, hud::Overflow, bool)
+pub fn hud::Text::wrap(&self, usize) -> alloc::vec::Vec<hud::Text>
 impl core::convert::From<hud::Text> for hud::Body
 pub fn hud::Body::from(hud::Text) -> hud::Body
 impl core::default::Default for hud::Text
 pub fn hud::Text::default() -> hud::Text
-impl core::fmt::Debug for hud::Text
-pub fn hud::Text::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for hud::Text
 pub fn hud::Text::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::Text
 impl hud::Renderable for hud::Text
 pub fn hud::Text::measure(&self, usize) -> hud::Measure
 pub fn hud::Text::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Text::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
-impl core::marker::Freeze for hud::Text
-impl core::marker::Send for hud::Text
-impl core::marker::Sync for hud::Text
-impl core::marker::Unpin for hud::Text
-impl core::marker::UnsafeUnpin for hud::Text
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Text
-impl core::panic::unwind_safe::UnwindSafe for hud::Text
-impl<T, U> core::convert::Into<U> for hud::Text where U: core::convert::From<T>
-pub fn hud::Text::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Text where U: core::convert::Into<T>
-pub type hud::Text::Error = never
-pub fn hud::Text::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Text where U: core::convert::TryFrom<T>
-pub type hud::Text::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Text::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Text where T: core::clone::Clone
-pub type hud::Text::Owned = T
-pub fn hud::Text::clone_into(&self, &mut T)
-pub fn hud::Text::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::Text where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::Text::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::Text where T: 'static + ?core::marker::Sized
-pub fn hud::Text::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Text where T: ?core::marker::Sized
-pub fn hud::Text::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Text where T: ?core::marker::Sized
-pub fn hud::Text::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Text where T: core::clone::Clone
-pub unsafe fn hud::Text::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Text
-pub fn hud::Text::from(T) -> T
 pub struct hud::TextColumn
 impl hud::TextColumn
 pub fn hud::TextColumn::new(impl core::convert::Into<alloc::string::String>) -> hud::TextColumn
 pub fn hud::TextColumn::style(self, hud::Style) -> hud::TextColumn
-impl core::clone::Clone for hud::TextColumn
-pub fn hud::TextColumn::clone(&self) -> hud::TextColumn
-impl core::cmp::Eq for hud::TextColumn
-impl core::cmp::PartialEq for hud::TextColumn
-pub fn hud::TextColumn::eq(&self, &hud::TextColumn) -> bool
 impl core::convert::From<hud::TextColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::TextColumn) -> hud::ProgressColumn
-impl core::fmt::Debug for hud::TextColumn
-pub fn hud::TextColumn::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::TextColumn
-impl core::marker::Freeze for hud::TextColumn
-impl core::marker::Send for hud::TextColumn
-impl core::marker::Sync for hud::TextColumn
-impl core::marker::Unpin for hud::TextColumn
-impl core::marker::UnsafeUnpin for hud::TextColumn
-impl core::panic::unwind_safe::RefUnwindSafe for hud::TextColumn
-impl core::panic::unwind_safe::UnwindSafe for hud::TextColumn
-impl<T, U> core::convert::Into<U> for hud::TextColumn where U: core::convert::From<T>
-pub fn hud::TextColumn::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::TextColumn where U: core::convert::Into<T>
-pub type hud::TextColumn::Error = never
-pub fn hud::TextColumn::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::TextColumn where U: core::convert::TryFrom<T>
-pub type hud::TextColumn::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::TextColumn::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::TextColumn where T: core::clone::Clone
-pub type hud::TextColumn::Owned = T
-pub fn hud::TextColumn::clone_into(&self, &mut T)
-pub fn hud::TextColumn::to_owned(&self) -> T
-impl<T> core::any::Any for hud::TextColumn where T: 'static + ?core::marker::Sized
-pub fn hud::TextColumn::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::TextColumn where T: ?core::marker::Sized
-pub fn hud::TextColumn::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::TextColumn where T: ?core::marker::Sized
-pub fn hud::TextColumn::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::TextColumn where T: core::clone::Clone
-pub unsafe fn hud::TextColumn::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::TextColumn
-pub fn hud::TextColumn::from(T) -> T
 pub struct hud::TimeElapsedColumn
 impl hud::TimeElapsedColumn
 pub fn hud::TimeElapsedColumn::new() -> hud::TimeElapsedColumn
 pub fn hud::TimeElapsedColumn::style(self, hud::Style) -> hud::TimeElapsedColumn
-impl core::clone::Clone for hud::TimeElapsedColumn
-pub fn hud::TimeElapsedColumn::clone(&self) -> hud::TimeElapsedColumn
-impl core::cmp::Eq for hud::TimeElapsedColumn
-impl core::cmp::PartialEq for hud::TimeElapsedColumn
-pub fn hud::TimeElapsedColumn::eq(&self, &hud::TimeElapsedColumn) -> bool
 impl core::convert::From<hud::TimeElapsedColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::TimeElapsedColumn) -> hud::ProgressColumn
 impl core::default::Default for hud::TimeElapsedColumn
 pub fn hud::TimeElapsedColumn::default() -> hud::TimeElapsedColumn
-impl core::fmt::Debug for hud::TimeElapsedColumn
-pub fn hud::TimeElapsedColumn::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::TimeElapsedColumn
-impl core::marker::Freeze for hud::TimeElapsedColumn
-impl core::marker::Send for hud::TimeElapsedColumn
-impl core::marker::Sync for hud::TimeElapsedColumn
-impl core::marker::Unpin for hud::TimeElapsedColumn
-impl core::marker::UnsafeUnpin for hud::TimeElapsedColumn
-impl core::panic::unwind_safe::RefUnwindSafe for hud::TimeElapsedColumn
-impl core::panic::unwind_safe::UnwindSafe for hud::TimeElapsedColumn
-impl<T, U> core::convert::Into<U> for hud::TimeElapsedColumn where U: core::convert::From<T>
-pub fn hud::TimeElapsedColumn::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::TimeElapsedColumn where U: core::convert::Into<T>
-pub type hud::TimeElapsedColumn::Error = never
-pub fn hud::TimeElapsedColumn::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::TimeElapsedColumn where U: core::convert::TryFrom<T>
-pub type hud::TimeElapsedColumn::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::TimeElapsedColumn::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::TimeElapsedColumn where T: core::clone::Clone
-pub type hud::TimeElapsedColumn::Owned = T
-pub fn hud::TimeElapsedColumn::clone_into(&self, &mut T)
-pub fn hud::TimeElapsedColumn::to_owned(&self) -> T
-impl<T> core::any::Any for hud::TimeElapsedColumn where T: 'static + ?core::marker::Sized
-pub fn hud::TimeElapsedColumn::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::TimeElapsedColumn where T: ?core::marker::Sized
-pub fn hud::TimeElapsedColumn::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::TimeElapsedColumn where T: ?core::marker::Sized
-pub fn hud::TimeElapsedColumn::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::TimeElapsedColumn where T: core::clone::Clone
-pub unsafe fn hud::TimeElapsedColumn::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::TimeElapsedColumn
-pub fn hud::TimeElapsedColumn::from(T) -> T
 pub struct hud::TimeRemainingColumn
 impl hud::TimeRemainingColumn
 pub fn hud::TimeRemainingColumn::compact(self, bool) -> hud::TimeRemainingColumn
 pub fn hud::TimeRemainingColumn::elapsed_when_finished(self, bool) -> hud::TimeRemainingColumn
 pub fn hud::TimeRemainingColumn::new() -> hud::TimeRemainingColumn
 pub fn hud::TimeRemainingColumn::style(self, hud::Style) -> hud::TimeRemainingColumn
-impl core::clone::Clone for hud::TimeRemainingColumn
-pub fn hud::TimeRemainingColumn::clone(&self) -> hud::TimeRemainingColumn
-impl core::cmp::Eq for hud::TimeRemainingColumn
-impl core::cmp::PartialEq for hud::TimeRemainingColumn
-pub fn hud::TimeRemainingColumn::eq(&self, &hud::TimeRemainingColumn) -> bool
 impl core::convert::From<hud::TimeRemainingColumn> for hud::ProgressColumn
 pub fn hud::ProgressColumn::from(hud::TimeRemainingColumn) -> hud::ProgressColumn
 impl core::default::Default for hud::TimeRemainingColumn
 pub fn hud::TimeRemainingColumn::default() -> hud::TimeRemainingColumn
-impl core::fmt::Debug for hud::TimeRemainingColumn
-pub fn hud::TimeRemainingColumn::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::TimeRemainingColumn
-impl core::marker::Freeze for hud::TimeRemainingColumn
-impl core::marker::Send for hud::TimeRemainingColumn
-impl core::marker::Sync for hud::TimeRemainingColumn
-impl core::marker::Unpin for hud::TimeRemainingColumn
-impl core::marker::UnsafeUnpin for hud::TimeRemainingColumn
-impl core::panic::unwind_safe::RefUnwindSafe for hud::TimeRemainingColumn
-impl core::panic::unwind_safe::UnwindSafe for hud::TimeRemainingColumn
-impl<T, U> core::convert::Into<U> for hud::TimeRemainingColumn where U: core::convert::From<T>
-pub fn hud::TimeRemainingColumn::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::TimeRemainingColumn where U: core::convert::Into<T>
-pub type hud::TimeRemainingColumn::Error = never
-pub fn hud::TimeRemainingColumn::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::TimeRemainingColumn where U: core::convert::TryFrom<T>
-pub type hud::TimeRemainingColumn::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::TimeRemainingColumn::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::TimeRemainingColumn where T: core::clone::Clone
-pub type hud::TimeRemainingColumn::Owned = T
-pub fn hud::TimeRemainingColumn::clone_into(&self, &mut T)
-pub fn hud::TimeRemainingColumn::to_owned(&self) -> T
-impl<T> core::any::Any for hud::TimeRemainingColumn where T: 'static + ?core::marker::Sized
-pub fn hud::TimeRemainingColumn::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::TimeRemainingColumn where T: ?core::marker::Sized
-pub fn hud::TimeRemainingColumn::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::TimeRemainingColumn where T: ?core::marker::Sized
-pub fn hud::TimeRemainingColumn::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::TimeRemainingColumn where T: core::clone::Clone
-pub unsafe fn hud::TimeRemainingColumn::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::TimeRemainingColumn
-pub fn hud::TimeRemainingColumn::from(T) -> T
 pub struct hud::Track<I>
 impl<I: core::iter::traits::exact_size::ExactSizeIterator> core::iter::traits::exact_size::ExactSizeIterator for hud::Track<I>
 impl<I: core::iter::traits::iterator::Iterator> core::iter::traits::iterator::Iterator for hud::Track<I>
@@ -1861,90 +474,24 @@ pub fn hud::Track<I>::next(&mut self) -> core::option::Option<<I as core::iter::
 pub fn hud::Track<I>::size_hint(&self) -> (usize, core::option::Option<usize>)
 impl<I> core::fmt::Debug for hud::Track<I>
 pub fn hud::Track<I>::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl<I> core::marker::Freeze for hud::Track<I> where I: core::marker::Freeze
-impl<I> core::marker::Send for hud::Track<I> where I: core::marker::Send
-impl<I> core::marker::Sync for hud::Track<I> where I: core::marker::Sync
-impl<I> core::marker::Unpin for hud::Track<I> where I: core::marker::Unpin
-impl<I> core::marker::UnsafeUnpin for hud::Track<I> where I: core::marker::UnsafeUnpin
-impl<I> !core::panic::unwind_safe::RefUnwindSafe for hud::Track<I>
-impl<I> !core::panic::unwind_safe::UnwindSafe for hud::Track<I>
-impl<I> core::iter::traits::collect::IntoIterator for hud::Track<I> where I: core::iter::traits::iterator::Iterator
-pub type hud::Track<I>::IntoIter = I
-pub type hud::Track<I>::Item = <I as core::iter::traits::iterator::Iterator>::Item
-pub fn hud::Track<I>::into_iter(self) -> I
-impl<T, U> core::convert::Into<U> for hud::Track<I> where U: core::convert::From<T>
-pub fn hud::Track<I>::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Track<I> where U: core::convert::Into<T>
-pub type hud::Track<I>::Error = never
-pub fn hud::Track<I>::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Track<I> where U: core::convert::TryFrom<T>
-pub type hud::Track<I>::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Track<I>::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> core::any::Any for hud::Track<I> where T: 'static + ?core::marker::Sized
-pub fn hud::Track<I>::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Track<I> where T: ?core::marker::Sized
-pub fn hud::Track<I>::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Track<I> where T: ?core::marker::Sized
-pub fn hud::Track<I>::borrow_mut(&mut self) -> &mut T
-impl<T> core::convert::From<T> for hud::Track<I>
-pub fn hud::Track<I>::from(T) -> T
 pub struct hud::Tree
 impl hud::Tree
 pub fn hud::Tree::add(&mut self, impl core::convert::Into<alloc::string::String>) -> &mut hud::Tree
 pub fn hud::Tree::child(self, impl core::convert::Into<hud::Tree>) -> hud::Tree
 pub fn hud::Tree::guide_style(self, hud::Style) -> hud::Tree
 pub fn hud::Tree::new(impl core::convert::Into<alloc::string::String>) -> hud::Tree
-impl core::clone::Clone for hud::Tree
-pub fn hud::Tree::clone(&self) -> hud::Tree
-impl core::cmp::Eq for hud::Tree
-impl core::cmp::PartialEq for hud::Tree
-pub fn hud::Tree::eq(&self, &hud::Tree) -> bool
 impl core::convert::From<&str> for hud::Tree
 pub fn hud::Tree::from(&str) -> hud::Tree
 impl core::convert::From<alloc::string::String> for hud::Tree
 pub fn hud::Tree::from(alloc::string::String) -> hud::Tree
 impl core::convert::From<hud::Tree> for hud::Body
 pub fn hud::Body::from(hud::Tree) -> hud::Body
-impl core::fmt::Debug for hud::Tree
-pub fn hud::Tree::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for hud::Tree
 pub fn hud::Tree::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::StructuralPartialEq for hud::Tree
 impl hud::Renderable for hud::Tree
 pub fn hud::Tree::measure(&self, usize) -> hud::Measure
 pub fn hud::Tree::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Tree::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
-impl core::marker::Freeze for hud::Tree
-impl core::marker::Send for hud::Tree
-impl core::marker::Sync for hud::Tree
-impl core::marker::Unpin for hud::Tree
-impl core::marker::UnsafeUnpin for hud::Tree
-impl core::panic::unwind_safe::RefUnwindSafe for hud::Tree
-impl core::panic::unwind_safe::UnwindSafe for hud::Tree
-impl<T, U> core::convert::Into<U> for hud::Tree where U: core::convert::From<T>
-pub fn hud::Tree::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud::Tree where U: core::convert::Into<T>
-pub type hud::Tree::Error = never
-pub fn hud::Tree::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud::Tree where U: core::convert::TryFrom<T>
-pub type hud::Tree::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud::Tree::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> alloc::borrow::ToOwned for hud::Tree where T: core::clone::Clone
-pub type hud::Tree::Owned = T
-pub fn hud::Tree::clone_into(&self, &mut T)
-pub fn hud::Tree::to_owned(&self) -> T
-impl<T> alloc::string::ToString for hud::Tree where T: core::fmt::Display + ?core::marker::Sized
-pub fn hud::Tree::to_string(&self) -> alloc::string::String
-impl<T> core::any::Any for hud::Tree where T: 'static + ?core::marker::Sized
-pub fn hud::Tree::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud::Tree where T: ?core::marker::Sized
-pub fn hud::Tree::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud::Tree where T: ?core::marker::Sized
-pub fn hud::Tree::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud::Tree where T: core::clone::Clone
-pub unsafe fn hud::Tree::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud::Tree
-pub fn hud::Tree::from(T) -> T
 pub trait hud::Renderable
 pub fn hud::Renderable::measure(&self, usize) -> hud::Measure
 pub fn hud::Renderable::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
@@ -1961,6 +508,10 @@ impl hud::Renderable for hud::Group
 pub fn hud::Group::measure(&self, usize) -> hud::Measure
 pub fn hud::Group::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::Group::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
+impl hud::Renderable for hud::Padding
+pub fn hud::Padding::measure(&self, usize) -> hud::Measure
+pub fn hud::Padding::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
+pub fn hud::Padding::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 impl hud::Renderable for hud::Panel
 pub fn hud::Panel::measure(&self, usize) -> hud::Measure
 pub fn hud::Panel::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
@@ -1990,6 +541,7 @@ pub fn &T::measure(&self, usize) -> hud::Measure
 pub fn &T::render(&self, usize) -> alloc::vec::Vec<hud::Segment>
 pub fn &T::render_with(&self, usize, &hud::Capabilities) -> alloc::vec::Vec<hud::Segment>
 pub fn hud::capabilities(hud::Stream) -> hud::Capabilities
+pub fn hud::cell_len(&str) -> usize
 pub fn hud::escape(&str) -> alloc::string::String
 pub fn hud::report<T, E: core::convert::Into<alloc::boxed::Box<dyn core::error::Error>>>(core::result::Result<T, E>) -> std::process::ExitCode
 pub fn hud::resolve(&hud::EnvSnapshot, hud::StreamInfo) -> hud::Capabilities

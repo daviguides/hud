@@ -10,6 +10,22 @@ pub(crate) struct ParsedColor {
     pub(crate) word: String,
 }
 
+impl Color {
+    /// Parses a color word as Rich's `Color.parse`: `default`, a name (`red`, `bright_blue`,
+    /// `grey50`), `color(208)`, `#ff8800` or `rgb(255,136,0)`, in any case and with spaces
+    /// around it ignored.
+    ///
+    /// ```
+    /// use hud::Color;
+    ///
+    /// assert_eq!(Color::parse("#ff8800").unwrap(), Color::rgb(255, 136, 0));
+    /// assert!(Color::parse("nonsense").is_err());
+    /// ```
+    pub fn parse(input: &str) -> Result<Color, StyleError> {
+        parse_color(input).map(|parsed| parsed.color)
+    }
+}
+
 fn invalid(word: &str) -> StyleError {
     StyleError::new(format!("unable to parse '{word}' as color"))
 }

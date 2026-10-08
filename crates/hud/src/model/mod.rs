@@ -4,6 +4,7 @@ mod capabilities;
 mod color;
 mod error;
 mod group;
+mod padding;
 pub(crate) mod palette;
 mod panel;
 mod platform;
@@ -19,7 +20,8 @@ pub use capabilities::{Capabilities, ColorSystem, EnvSnapshot, Stream, StreamInf
 pub use color::Color;
 pub use error::{MarkupError, StyleError};
 pub use group::Group;
-pub use panel::{Align, Body, Padding, Panel};
+pub use padding::Padding;
+pub use panel::{Align, Body, Pad, Panel};
 pub(crate) use platform::WindowsFacts;
 pub(crate) use progress::TaskSnapshot;
 pub use progress::{

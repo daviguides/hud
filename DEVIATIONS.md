@@ -330,6 +330,47 @@ no `fit` option. The error report uses it with the layout above and matches Rich
 
 - Remove when: a user needs `fit=False`.
 
+### D-044: `Text::stylize` takes a byte range, and `Text::wrap` takes no console
+
+Rich's `stylize(style, start=0, end=None)` counts characters and `wrap(console, width, ...)`
+takes the console that resolves style names. hud's `stylize(style, range)` takes the style first,
+as Rich does, and a Rust range over **byte** offsets (`..`, `6..`, `..5` stand for Rich's omitted
+`start` and `end`), moved outward to character boundaries. `wrap(width)` has no console: styles
+are typed, nothing needs resolving, and the justify, overflow, tab size and `no_wrap` options
+that Rich passes as keywords are the builder methods of `Text`.
+
+- Remove when: a user needs character offsets in `stylize`; add a `stylize_chars` rather than change this one.
+
+### D-045: `Progress::update` is a builder applied when the statement ends
+
+Rich's `Progress.update(task_id, *, total, completed, advance, description, visible, refresh,
+**fields)` becomes `progress.update(&task)` followed by the keyword methods. The returned
+`TaskUpdate` applies its changes when it is dropped, which is the end of the statement, in Rich's
+order (total first, then the steps, description and visibility, with one speed sample for the net
+progress). `completed` wins over `advance` as in Rich. Custom `**fields` are not supported.
+
+- Remove when: tasks need custom fields for column templates.
+
+### D-046: `Padding` is the wrapper, `Pad` is the spacing
+
+In v0.6 `hud::Padding` was the four-number spacing value of a panel. Rich's `Padding(renderable,
+pad)` is a renderable wrapper, so `Padding::new(renderable, pad)` is now the wrapper, with
+`.style(...)` and `.expand(...)`, and the spacing value is `Pad` (`Panel::padding` takes
+`impl Into<Pad>`). The wrapper is the same code that pads a panel's body, checked byte for byte
+against Rich in `tests/padding.rs`.
+
+- Remove when: not planned.
+
+### D-047: `Console` accessors report the resolved profile
+
+`width`, `is_terminal`, `color_system`, `no_color` and `force_terminal` read the capabilities the
+console was built with. `no_color` is true when color is off, which is what `NO_COLOR` does, and
+bold, italic and underline stay on. `force_terminal` is true when the console acts as a terminal
+although its output is not one; `ConsoleBuilder::force_terminal(bool)` is Rich's keyword of the
+same name. `color_system` returns `ColorSystem::None` where Rich returns `None`.
+
+- Remove when: not planned.
+
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 
 - **Windows.** Implemented on a branch through safe wrappers, see D-W1. Size, virtual terminal

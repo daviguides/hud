@@ -89,10 +89,10 @@ jobs:
       - run: rustup toolchain install nightly --profile minimal
       - uses: taiki-e/install-action@v2
         with:
-          tool: cargo-public-api
+          tool: cargo-public-api@0.52.0
       - name: public API matches the committed snapshot
         run: |
-          cargo public-api -p hud > "$RUNNER_TEMP/hud.txt"
-          cargo public-api -p hud-width > "$RUNNER_TEMP/hud-width.txt"
+          cargo public-api -p hud -sss > "$RUNNER_TEMP/hud.txt"
+          cargo public-api -p hud-width -sss > "$RUNNER_TEMP/hud-width.txt"
           diff -u api/hud.txt "$RUNNER_TEMP/hud.txt"
           diff -u api/hud-width.txt "$RUNNER_TEMP/hud-width.txt"

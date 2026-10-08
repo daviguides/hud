@@ -3,147 +3,17 @@ pub enum hud_width::Align
 pub hud_width::Align::Center
 pub hud_width::Align::Left
 pub hud_width::Align::Right
-impl core::clone::Clone for hud_width::Align
-pub fn hud_width::Align::clone(&self) -> hud_width::Align
-impl core::cmp::Eq for hud_width::Align
-impl core::cmp::PartialEq for hud_width::Align
-pub fn hud_width::Align::eq(&self, &hud_width::Align) -> bool
-impl core::fmt::Debug for hud_width::Align
-pub fn hud_width::Align::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl core::marker::Copy for hud_width::Align
-impl core::marker::StructuralPartialEq for hud_width::Align
-impl core::marker::Freeze for hud_width::Align
-impl core::marker::Send for hud_width::Align
-impl core::marker::Sync for hud_width::Align
-impl core::marker::Unpin for hud_width::Align
-impl core::marker::UnsafeUnpin for hud_width::Align
-impl core::panic::unwind_safe::RefUnwindSafe for hud_width::Align
-impl core::panic::unwind_safe::UnwindSafe for hud_width::Align
-impl<T, U> core::convert::Into<U> for hud_width::Align where U: core::convert::From<T>
-pub fn hud_width::Align::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud_width::Align where U: core::convert::Into<T>
-pub type hud_width::Align::Error = never
-pub fn hud_width::Align::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud_width::Align where U: core::convert::TryFrom<T>
-pub type hud_width::Align::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud_width::Align::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> core::any::Any for hud_width::Align where T: 'static + ?core::marker::Sized
-pub fn hud_width::Align::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud_width::Align where T: ?core::marker::Sized
-pub fn hud_width::Align::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud_width::Align where T: ?core::marker::Sized
-pub fn hud_width::Align::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud_width::Align where T: core::clone::Clone
-pub unsafe fn hud_width::Align::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud_width::Align
-pub fn hud_width::Align::from(T) -> T
 pub struct hud_width::Clusters<'a>
-impl<'a> core::clone::Clone for hud_width::Clusters<'a>
-pub fn hud_width::Clusters<'a>::clone(&self) -> hud_width::Clusters<'a>
-impl<'a> core::fmt::Debug for hud_width::Clusters<'a>
-pub fn hud_width::Clusters<'a>::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl<'a> core::iter::traits::iterator::Iterator for hud_width::Clusters<'a>
 pub type hud_width::Clusters<'a>::Item = &'a str
 pub fn hud_width::Clusters<'a>::next(&mut self) -> core::option::Option<&'a str>
-impl<'a> core::marker::Freeze for hud_width::Clusters<'a>
-impl<'a> core::marker::Send for hud_width::Clusters<'a>
-impl<'a> core::marker::Sync for hud_width::Clusters<'a>
-impl<'a> core::marker::Unpin for hud_width::Clusters<'a>
-impl<'a> core::marker::UnsafeUnpin for hud_width::Clusters<'a>
-impl<'a> core::panic::unwind_safe::RefUnwindSafe for hud_width::Clusters<'a>
-impl<'a> core::panic::unwind_safe::UnwindSafe for hud_width::Clusters<'a>
-impl<I> core::iter::traits::collect::IntoIterator for hud_width::Clusters<'a> where I: core::iter::traits::iterator::Iterator
-pub type hud_width::Clusters<'a>::IntoIter = I
-pub type hud_width::Clusters<'a>::Item = <I as core::iter::traits::iterator::Iterator>::Item
-pub fn hud_width::Clusters<'a>::into_iter(self) -> I
-impl<T, U> core::convert::Into<U> for hud_width::Clusters<'a> where U: core::convert::From<T>
-pub fn hud_width::Clusters<'a>::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud_width::Clusters<'a> where U: core::convert::Into<T>
-pub type hud_width::Clusters<'a>::Error = never
-pub fn hud_width::Clusters<'a>::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud_width::Clusters<'a> where U: core::convert::TryFrom<T>
-pub type hud_width::Clusters<'a>::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud_width::Clusters<'a>::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> core::any::Any for hud_width::Clusters<'a> where T: 'static + ?core::marker::Sized
-pub fn hud_width::Clusters<'a>::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud_width::Clusters<'a> where T: ?core::marker::Sized
-pub fn hud_width::Clusters<'a>::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud_width::Clusters<'a> where T: ?core::marker::Sized
-pub fn hud_width::Clusters<'a>::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud_width::Clusters<'a> where T: core::clone::Clone
-pub unsafe fn hud_width::Clusters<'a>::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud_width::Clusters<'a>
-pub fn hud_width::Clusters<'a>::from(T) -> T
 pub struct hud_width::Fold<'a>
-impl<'a> core::clone::Clone for hud_width::Fold<'a>
-pub fn hud_width::Fold<'a>::clone(&self) -> hud_width::Fold<'a>
-impl<'a> core::fmt::Debug for hud_width::Fold<'a>
-pub fn hud_width::Fold<'a>::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl<'a> core::iter::traits::iterator::Iterator for hud_width::Fold<'a>
 pub type hud_width::Fold<'a>::Item = &'a str
 pub fn hud_width::Fold<'a>::next(&mut self) -> core::option::Option<&'a str>
-impl<'a> core::marker::Freeze for hud_width::Fold<'a>
-impl<'a> core::marker::Send for hud_width::Fold<'a>
-impl<'a> core::marker::Sync for hud_width::Fold<'a>
-impl<'a> core::marker::Unpin for hud_width::Fold<'a>
-impl<'a> core::marker::UnsafeUnpin for hud_width::Fold<'a>
-impl<'a> core::panic::unwind_safe::RefUnwindSafe for hud_width::Fold<'a>
-impl<'a> core::panic::unwind_safe::UnwindSafe for hud_width::Fold<'a>
-impl<I> core::iter::traits::collect::IntoIterator for hud_width::Fold<'a> where I: core::iter::traits::iterator::Iterator
-pub type hud_width::Fold<'a>::IntoIter = I
-pub type hud_width::Fold<'a>::Item = <I as core::iter::traits::iterator::Iterator>::Item
-pub fn hud_width::Fold<'a>::into_iter(self) -> I
-impl<T, U> core::convert::Into<U> for hud_width::Fold<'a> where U: core::convert::From<T>
-pub fn hud_width::Fold<'a>::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud_width::Fold<'a> where U: core::convert::Into<T>
-pub type hud_width::Fold<'a>::Error = never
-pub fn hud_width::Fold<'a>::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud_width::Fold<'a> where U: core::convert::TryFrom<T>
-pub type hud_width::Fold<'a>::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud_width::Fold<'a>::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> core::any::Any for hud_width::Fold<'a> where T: 'static + ?core::marker::Sized
-pub fn hud_width::Fold<'a>::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud_width::Fold<'a> where T: ?core::marker::Sized
-pub fn hud_width::Fold<'a>::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud_width::Fold<'a> where T: ?core::marker::Sized
-pub fn hud_width::Fold<'a>::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud_width::Fold<'a> where T: core::clone::Clone
-pub unsafe fn hud_width::Fold<'a>::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud_width::Fold<'a>
-pub fn hud_width::Fold<'a>::from(T) -> T
 pub struct hud_width::Pad<'a>
 impl core::fmt::Display for hud_width::Pad<'_>
 pub fn hud_width::Pad<'_>::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl<'a> core::clone::Clone for hud_width::Pad<'a>
-pub fn hud_width::Pad<'a>::clone(&self) -> hud_width::Pad<'a>
-impl<'a> core::fmt::Debug for hud_width::Pad<'a>
-pub fn hud_width::Pad<'a>::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
-impl<'a> core::marker::Copy for hud_width::Pad<'a>
-impl<'a> core::marker::Freeze for hud_width::Pad<'a>
-impl<'a> core::marker::Send for hud_width::Pad<'a>
-impl<'a> core::marker::Sync for hud_width::Pad<'a>
-impl<'a> core::marker::Unpin for hud_width::Pad<'a>
-impl<'a> core::marker::UnsafeUnpin for hud_width::Pad<'a>
-impl<'a> core::panic::unwind_safe::RefUnwindSafe for hud_width::Pad<'a>
-impl<'a> core::panic::unwind_safe::UnwindSafe for hud_width::Pad<'a>
-impl<T, U> core::convert::Into<U> for hud_width::Pad<'a> where U: core::convert::From<T>
-pub fn hud_width::Pad<'a>::into(self) -> U
-impl<T, U> core::convert::TryFrom<U> for hud_width::Pad<'a> where U: core::convert::Into<T>
-pub type hud_width::Pad<'a>::Error = never
-pub fn hud_width::Pad<'a>::try_from(U) -> core::result::Result<T, never>
-impl<T, U> core::convert::TryInto<U> for hud_width::Pad<'a> where U: core::convert::TryFrom<T>
-pub type hud_width::Pad<'a>::Error = <U as core::convert::TryFrom<T>>::Error
-pub fn hud_width::Pad<'a>::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
-impl<T> core::any::Any for hud_width::Pad<'a> where T: 'static + ?core::marker::Sized
-pub fn hud_width::Pad<'a>::type_id(&self) -> core::any::TypeId
-impl<T> core::borrow::Borrow<T> for hud_width::Pad<'a> where T: ?core::marker::Sized
-pub fn hud_width::Pad<'a>::borrow(&self) -> &T
-impl<T> core::borrow::BorrowMut<T> for hud_width::Pad<'a> where T: ?core::marker::Sized
-pub fn hud_width::Pad<'a>::borrow_mut(&mut self) -> &mut T
-impl<T> core::clone::CloneToUninit for hud_width::Pad<'a> where T: core::clone::Clone
-pub unsafe fn hud_width::Pad<'a>::clone_to_uninit(&self, *mut u8)
-impl<T> core::convert::From<T> for hud_width::Pad<'a>
-pub fn hud_width::Pad<'a>::from(T) -> T
 pub const hud_width::UNICODE_VERSION: (u8, u8, u8)
 pub fn hud_width::cell_width(&str) -> usize
 pub fn hud_width::cell_width_of_cluster(&str) -> usize

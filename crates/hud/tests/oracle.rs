@@ -9,7 +9,7 @@ use std::sync::{Arc, Mutex};
 
 use hud::{
     Align, BarColumn, Body, BoxStyle, ColorSystem, Column, Console, ErrorReport, Justify,
-    MofNCompleteColumn, Overflow, Padding, Panel, Progress, ProgressBuilder, SpinnerColumn, Style,
+    MofNCompleteColumn, Overflow, Pad, Panel, Progress, ProgressBuilder, SpinnerColumn, Style,
     Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn, Tree,
 };
 use serde_json::Value;
@@ -476,9 +476,9 @@ fn panel_from(node: &Value) -> Result<Panel, String> {
         .map(|n| n.as_u64().unwrap() as usize)
         .collect();
     let padding = match pad.as_slice() {
-        [all] => Padding::from(*all),
-        [vertical, horizontal] => Padding::from((*vertical, *horizontal)),
-        [top, right, bottom, left] => Padding::from((*top, *right, *bottom, *left)),
+        [all] => Pad::from(*all),
+        [vertical, horizontal] => Pad::from((*vertical, *horizontal)),
+        [top, right, bottom, left] => Pad::from((*top, *right, *bottom, *left)),
         other => panic!("padding of {} numbers", other.len()),
     };
     let mut panel = Panel::new(body_from(&node["body"])?)
@@ -711,9 +711,17 @@ fn progress_output(row: &Value) -> String {
                     task["total"].as_u64().unwrap(),
                 ));
             }
-            "advance" => tasks[number].advance(event[3].as_u64().unwrap()),
-            "update" => tasks[number].set_completed(event[3].as_u64().unwrap()),
-            _ => tasks[number].set_total(event[3].as_u64().unwrap()),
+            "advance" => progress.advance(&tasks[number], event[3].as_u64().unwrap()),
+            "update" => {
+                progress
+                    .update(&tasks[number])
+                    .completed(event[3].as_u64().unwrap());
+            }
+            _ => {
+                progress
+                    .update(&tasks[number])
+                    .total(event[3].as_u64().unwrap());
+            }
         }
     }
     let width = row["width"].as_u64().unwrap() as u16;
