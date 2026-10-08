@@ -23,7 +23,7 @@ Every node is an object whose first key is `type`. Keys appear in the order show
 | `type` | Keys after `type` | Notes |
 |---|---|---|
 | `text` | `text` (string) | A `Text`, a string printed as markup, and the plain rendering of a custom renderable at width 80. Line breaks stay as `\n`. |
-| `table` | `title` (string or null), `caption` (string or null), `columns` (array of `{ "header": string, "justify": "default"\|"left"\|"center"\|"right"\|"full" }`), `rows` (array of arrays of strings) | Rows keep their order; a row shorter than the columns is not padded. |
+| `table` | `title` (string or null), `caption` (string or null), `columns` (array of `{ "header": string, "justify": "left"\|"center"\|"right"\|"full" }`), `rows` (array of arrays of strings) | Rows keep their order; a row shorter than the columns is not padded. A column with no justify set is `left`, as in a rendered column. |
 | `panel` | `title` (string or null), `subtitle` (string or null), `body` (node) | |
 | `tree` | `label` (string), `children` (array of `tree` nodes) | Children are `tree` nodes in order. |
 | `progress` | `tasks` (array of `{ "description": string, "completed": integer, "total": integer, "finished": boolean, "visible": boolean }`) | State at the moment of rendering; no elapsed time, speed or estimate. |

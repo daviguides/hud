@@ -11,7 +11,7 @@
   },
   "$defs": {
     "nullableString": { "type": ["string", "null"] },
-    "justify": { "enum": ["default", "left", "center", "right", "full"] },
+    "justify": { "enum": ["left", "center", "right", "full"] },
     "node": {
       "oneOf": [
         { "$ref": "#/$defs/text" },
