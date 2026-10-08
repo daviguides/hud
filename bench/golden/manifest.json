@@ -1,0 +1,18 @@
+{
+  "corpus_version": "1",
+  "reference": {
+    "rich": "15.0.0",
+    "python": "3.14.3",
+    "wcwidth": "0.9.2",
+    "regex": "2026.9.29",
+    "pyte": "0.8.2"
+  },
+  "regenerate": "bash scripts/regen.sh  (uv pins rich==15.0.0 in pyproject.toml; uv.lock pins the rest)",
+  "counts": {
+    "correctness_cases": 210,
+    "unicode_table_cases": 12,
+    "width_strings": 500,
+    "capability_cells": 40,
+    "dx_tasks": 8
+  }
+}
