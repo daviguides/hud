@@ -11,8 +11,9 @@ use hud::{
     MofNCompleteColumn, Overflow, Pad, Padding, Panel, Progress, Renderable, SpinnerColumn, StreamInfo,
     Style, Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn,
     Tree, cell_len, cell_width, clusters, escape, fold, pad, resolve, truncate,
+    Columns, Format, Group, Layout, Node,
 };
-use serde_json::json;
+use serde_json::{Value, json};
 
 struct Rng(u64);
 
@@ -704,6 +705,139 @@ fn colorparse_case(rng: &mut Rng, input: &str) -> Option<String> {
     None
 }
 
+// Structured output (v0.8, criterion S7): every value kind in all three formats. Properties: the JSON
+// parses with an independent parser and survives the library's own reader byte for byte, it does not
+// depend on width or capabilities, plain has no escape byte and equals `render_to_plain`, and the rich
+// path of a default-format console is unchanged by the format machinery.
+fn structured_check<R: Renderable>(rng: &mut Rng, value: &R) -> Option<String> {
+    let console = console(rng);
+    let json = console.render_as(value, Format::Json);
+    if serde_json::from_str::<Value>(&json).is_err() {
+        return Some(format!("the JSON does not parse: {json:?}"));
+    }
+    match Node::from_json(&json) {
+        Ok(node) if node.to_json() == json => {}
+        other => return Some(format!("the JSON does not round trip ({other:?}): {json:?}")),
+    }
+    let other = Console::builder()
+        .width(1 + rng.below(250) as u16)
+        .color_system(system(rng))
+        .attributes(rng.chance(50))
+        .build();
+    if other.render_as(value, Format::Json) != json {
+        return Some("the JSON depends on the width or the capabilities".to_string());
+    }
+    let plain = console.render_as(value, Format::Plain);
+    if plain.contains('\x1b') {
+        return Some(format!("plain has an escape byte: {plain:?}"));
+    }
+    let kept: String = console
+        .render_to_plain(value)
+        .chars()
+        .filter(|c| *c != '\u{1b}' && !('\u{80}'..='\u{9f}').contains(c))
+        .collect();
+    if plain != kept {
+        return Some("render_as(Plain) is not render_to_plain without escape and C1 characters".to_string());
+    }
+    if console.format() == Format::Rich && console.render_as(value, Format::Rich) != console.render_to_string(value) {
+        return Some("render_as(Rich) differs from render_to_string".to_string());
+    }
+    None
+}
+
+fn random_progress(rng: &mut Rng) -> Progress {
+    let progress = Progress::builder().disable(true).build();
+    for _ in 0..rng.below(5) {
+        let task = progress.add_task(random_string(rng), TOTALS[rng.below(TOTALS.len())]);
+        task.set_completed(TOTALS[rng.below(TOTALS.len())]);
+        task.set_visible(rng.chance(80));
+    }
+    progress
+}
+
+fn random_layout(rng: &mut Rng, depth: usize) -> Layout {
+    let mut layout = if depth < 2 && rng.chance(60) {
+        let kids: Vec<Layout> = (0..1 + rng.below(3)).map(|_| random_layout(rng, depth + 1)).collect();
+        if rng.chance(50) { Layout::row(kids) } else { Layout::column(kids) }
+    } else if rng.chance(85) {
+        Layout::new(random_body(rng, 1))
+    } else {
+        Layout::empty()
+    };
+    if rng.chance(40) {
+        layout = layout.name(random_string(rng));
+    }
+    if rng.chance(30) {
+        layout = layout.size(rng.below(30));
+    }
+    layout.ratio(rng.below(4)).visible(rng.chance(85))
+}
+
+fn structured_text_case(rng: &mut Rng, input: &str) -> Option<String> {
+    let text = text_options(rng, Text::from_markup(input).unwrap_or_else(|_| Text::new(input)));
+    structured_check(rng, &text).or_else(|| structured_check(rng, &input.to_string()))
+}
+
+fn structured_table_case(rng: &mut Rng, input: &str) -> Option<String> {
+    let value = random_table(rng, input);
+    structured_check(rng, &value)
+}
+
+fn structured_panel_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let value = random_panel(rng, 0);
+    structured_check(rng, &value)
+}
+
+fn structured_tree_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let value = random_tree(rng, 0, &mut 0);
+    structured_check(rng, &value)
+}
+
+fn structured_progress_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let value = random_progress(rng);
+    structured_check(rng, &value)
+}
+
+fn structured_error_case(rng: &mut Rng, input: &str) -> Option<String> {
+    let mut report = ErrorReport::new(input.to_string());
+    for _ in 0..rng.below(4) {
+        report = report.cause(random_string(rng));
+    }
+    if rng.chance(50) {
+        report = report.hint(random_string(rng));
+    }
+    structured_check(rng, &report)
+}
+
+fn structured_padding_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let body = random_body(rng, 0);
+    let pad = random_pad(rng);
+    let padding = Padding::new(body, pad).expand(rng.chance(50));
+    structured_check(rng, &padding)
+}
+
+fn structured_columns_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let items: Vec<Body> = (0..rng.below(5)).map(|_| random_body(rng, 1)).collect();
+    let mut columns = Columns::new(items).equal(rng.chance(50)).expand(rng.chance(50));
+    if rng.chance(40) {
+        columns = columns.title(random_string(rng));
+    }
+    structured_check(rng, &columns)
+}
+
+fn structured_layout_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let value = random_layout(rng, 0);
+    structured_check(rng, &value)
+}
+
+fn structured_group_case(rng: &mut Rng, _: &str) -> Option<String> {
+    let mut group = Group::new();
+    for _ in 0..rng.below(4) {
+        group = group.push(random_body(rng, 0));
+    }
+    structured_check(rng, &group)
+}
+
 fn run(feature: &str, seed: u64, count: usize, case: Case) -> bool {
     let mut rng = Rng(seed ^ feature.len() as u64 * 0x1234_5678_9ABC_DEF1);
     let (mut panics, mut violations) = (0usize, 0usize);
@@ -733,7 +867,7 @@ fn main() {
     let seed: u64 = get("--seed").map_or(20_261_008, |v| v.parse().unwrap());
     let count: usize = get("--count").map_or(5000, |v| v.parse().unwrap());
     panic::set_hook(Box::new(|_| {}));
-    let cases: [(&str, Case); 13] = [
+    let cases: [(&str, Case); 23] = [
         ("style", style_case),
         ("markup", markup_case),
         ("width", width_case),
@@ -747,6 +881,16 @@ fn main() {
         ("textops", textops_case),
         ("update", update_case),
         ("colorparse", colorparse_case),
+        ("structured_text", structured_text_case),
+        ("structured_table", structured_table_case),
+        ("structured_panel", structured_panel_case),
+        ("structured_tree", structured_tree_case),
+        ("structured_progress", structured_progress_case),
+        ("structured_error", structured_error_case),
+        ("structured_padding", structured_padding_case),
+        ("structured_columns", structured_columns_case),
+        ("structured_layout", structured_layout_case),
+        ("structured_group", structured_group_case),
     ];
     let mut ok = true;
     for (feature, case) in cases {
