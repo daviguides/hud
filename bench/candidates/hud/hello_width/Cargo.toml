@@ -1,0 +1,10 @@
+[package]
+name = "hud_width_hello"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+hud-width = { path = "../../../../crates/hud-width" }

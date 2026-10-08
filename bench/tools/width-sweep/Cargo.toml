@@ -1,0 +1,11 @@
+[package]
+name = "width-sweep"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+hud-width = { path = "../../../crates/hud-width" }
+unicode-width = "=0.2.2"

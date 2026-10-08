@@ -37,18 +37,25 @@ def main():
     else:
         out["error"] = cov.stderr[-400:]
     info = crate_info(project, crate)
-    with tempfile.TemporaryDirectory() as tmp:
-        copy = Path(tmp) / "crate"
-        shutil.copytree(info["src_dir"], copy, ignore=shutil.ignore_patterns("target"))
-        lock = Path(project) / "Cargo.lock"
-        if lock.exists() and not (copy / "Cargo.lock").exists():
-            shutil.copy(lock, copy / "Cargo.lock")
-        doctests = subprocess.run(["cargo", "test", "--doc"], cwd=copy, capture_output=True, text=True,
-                                  env={**__import__("os").environ, "CARGO_TARGET_DIR": str(Path(tmp) / "target")})
+    local = Path(project).resolve() in Path(info["src_dir"]).resolve().parents
+    if local:
+        # a workspace member inherits edition and lints from its workspace, so it cannot be copied out of it
+        doctests = subprocess.run(["cargo", "test", "--doc", "-p", crate], cwd=project, capture_output=True, text=True)
+        source = "workspace member"
+    else:
+        source = "published crate source copy"
+        with tempfile.TemporaryDirectory() as tmp:
+            copy = Path(tmp) / "crate"
+            shutil.copytree(info["src_dir"], copy, ignore=shutil.ignore_patterns("target"))
+            lock = Path(project) / "Cargo.lock"
+            if lock.exists() and not (copy / "Cargo.lock").exists():
+                shutil.copy(lock, copy / "Cargo.lock")
+            doctests = subprocess.run(["cargo", "test", "--doc"], cwd=copy, capture_output=True, text=True,
+                                      env={**__import__("os").environ, "CARGO_TARGET_DIR": str(Path(tmp) / "target")})
     m = re.search(r"test result: (\w+)\. (\d+) passed; (\d+) failed; (\d+) ignored", doctests.stdout)
     if m:
         out["doctests"] = {"result": m.group(1), "passed": int(m.group(2)), "failed": int(m.group(3)),
-                           "ignored": int(m.group(4)), "source": "published crate source copy"}
+                           "ignored": int(m.group(4)), "source": source}
     else:
         out["doctests_error"] = (doctests.stdout + doctests.stderr)[-400:]
     print(json.dumps(out, indent=1))

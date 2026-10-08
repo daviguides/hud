@@ -1,0 +1,15 @@
+[package]
+name = "hud_bench"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+hud = { path = "../../../crates/hud" }
+hud-width = { path = "../../../crates/hud-width" }
+serde_json = "1"
+
+[profile.release]
+strip = "symbols"
