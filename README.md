@@ -4,16 +4,37 @@ Functional terminal UX for Rust: capability detection, cell width and, milestone
 
 **Status: in development, not published.** The name `hud` is reserved on crates.io; nothing is released until the project reaches a stable version. The crates in this workspace are marked `publish = false`.
 
-## What works today (v0.2)
+## What works today (v0.5)
 
 - **`hud-width`**: terminal cell width and grapheme-cluster segmentation (UAX #29, Unicode 17). `fold`, `truncate` and `pad` cut only between clusters. `no_std`, no dependencies.
 - **`hud`**: styled text. `Style` parses `"bold red on #223344"`, markup (`[bold]ok[/]`, nested tags, `\[` for a bracket) builds a `Text`, and a `Console` prints it wrapped to the terminal width, with tabs, justification and overflow, in the colors the terminal has (truecolor, 256, 16 or none; `NO_COLOR` removes color and keeps bold). Output is byte for byte what Python Rich writes for the same markup, checked against its goldens and thousands of random vectors.
+- **`hud`**: `Table`, `Panel` and `Tree` with Rich's boxes, padding and width arrangement, aligned on cells, never on characters; `Progress` with the bar, percentage, count, elapsed, remaining and spinner columns, handles you can clone and advance from any thread, and a display that redraws in place on a terminal and prints once anywhere else. Every one is byte for byte what Python Rich writes, checked against its goldens and thousands of random vectors.
 - **`hud`**: one resolver decides what a stream can show (color depth, `NO_COLOR`, `FORCE_COLOR`, `CLICOLOR`, `CLICOLOR_FORCE`, `TERM=dumb`, pipes, terminal size), with the precedence written in one place.
 
 ```rust
 hud::println!("[bold]build[/] [green]ok[/] in [yellow]3.2s[/]");
 let warning = hud::Style::new().bold().color(hud::Color::YELLOW);
 assert_eq!(warning, "bold yellow".parse().unwrap());
+```
+
+```rust
+use hud::{Column, Console, Justify, Panel, Table};
+
+let table = Table::new()
+    .title("Build report")
+    .column("Crate")
+    .column(Column::new("Downloads").justify(Justify::Right))
+    .row(["clap", "12,400,000"])
+    .row(["serde", "[green]98,300,000[/]"]);
+Console::stdout().print(&Panel::new(table).title("Notice"));
+```
+
+```rust
+let progress = hud::Progress::new();
+let task = progress.add_task("Downloading", 100);
+for _ in 0..100 {
+    task.advance(1);
+}
 ```
 
 ```rust
@@ -38,7 +59,7 @@ assert_eq!(truncate("你好世界", 5), "你好");
 
 ```text
 crates/hud-width/   cell width, clusters, fold, truncate, pad (no_std)
-crates/hud/         capabilities, style, markup, text and console today; widgets as milestones land
+crates/hud/         capabilities, style, markup, text, console, table, panel, tree and progress
 xtask/              cargo xtask gen-width | check-layers
 bench/              corpus, goldens, harness, candidate adapters
 DEVIATIONS.md       every deliberate difference from Rich

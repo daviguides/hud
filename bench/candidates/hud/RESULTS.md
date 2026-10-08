@@ -75,7 +75,7 @@ total), and hud pruned only when it added a sample. Fixed; the estimate then mat
 |---|---|---|---|
 | Added compile time, binary size, dependencies (`adoption.py`, a progress hello) | **+2.0 s, +288 KB, 6 crates** | 15 s, 1.5 MB, 60 (targets 3 s, 400 KB, 10) | pass |
 | Documented public items, items with an example | **126 / 126**, **26 / 26** | 100% | pass |
-| Doctests | 30 passed, **0 ignored** | 0 ignored | pass |
+| Doctests | 32 passed (the README snippets are among them), **0 ignored** | 0 ignored | pass |
 | Name parity by name (`api_surface.py parity`) | **27 / 40 = 68%** (v0.6 asks for 70%; the 13 missing are `Console` getters, `Color.parse`, `Text.truncate`, `Text.wrap`, `box`, `Group`, `markup.escape`, `cell_len`) | at least 70% at v0.6 | not yet; the nine Progress names exist |
 
 ### Not claimed in v0.5
