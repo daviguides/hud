@@ -47,3 +47,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@1.85.0
       - run: cargo test -p hud-width -p hud
+
+  fuzz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: zero panics and no violated property, seeded
+        run: cargo run --release --manifest-path bench/candidates/hud/Cargo.toml --bin fuzz -- --count 2000

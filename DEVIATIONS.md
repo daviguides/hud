@@ -15,6 +15,16 @@ ZWJ is a separate cluster, and a terminal that clusters graphemes (mode 2027) sh
 cells. hud follows the standard.
 
 - Corpus strings: `w-0348`, `w-0356`, `w-0358`, `w-0360` (hud 6, 6, 5, 5; Rich 5, 5, 4, 4).
+- Evidence (v0.2): hud is right and Rich is wrong, for text that is not an emoji sequence.
+  The UCD 17.0.0 `GraphemeBreakTest.txt`, which hud passes in full, has the case on line 752:
+  `÷ 0646 × 200D ÷ 0020 ÷`: a ZWJ is joined to what comes before it (rule 9.0) and there is a
+  boundary after it when the next character is not a pictograph (rule 999.0). A terminal that
+  clusters graphemes (mode 2027) therefore draws the letter after the ZWJ in a cell of its own,
+  and one that does not draws it there too, because the ZWJ is zero cells and the letter is
+  one. No terminal removes the letter. Rich's `cell_len` skips the character after any ZWJ, and
+  so does `wcwidth` 0.9.2 (`wcswidth("pa\u200drser")` is 5, like Rich), so the two Python
+  implementations agree with each other and with the emoji case (a ZWJ family is 2 cells in all
+  of them) but not with the standard for `letter ZWJ letter`.
 - Effect on the gate: 496 of 500 strings agree with Rich (99.2%).
 - Remove when: Rich changes its handling, or a terminal is shown to swallow the character.
 
