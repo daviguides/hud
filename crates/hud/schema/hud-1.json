@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/daviguides/hud/schema/hud-1.json",
+  "title": "hud structured output, version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "content"],
+  "properties": {
+    "schema": { "const": "hud/1" },
+    "content": { "$ref": "#/$defs/node" }
+  },
+  "$defs": {
+    "nullableString": { "type": ["string", "null"] },
+    "justify": { "enum": ["left", "center", "right", "full"] },
+    "node": {
+      "oneOf": [
+        { "$ref": "#/$defs/text" },
+        { "$ref": "#/$defs/table" },
+        { "$ref": "#/$defs/panel" },
+        { "$ref": "#/$defs/tree" },
+        { "$ref": "#/$defs/progress" },
+        { "$ref": "#/$defs/error" },
+        { "$ref": "#/$defs/columns" },
+        { "$ref": "#/$defs/layout" },
+        { "$ref": "#/$defs/group" },
+        { "$ref": "#/$defs/padding" }
+      ]
+    },
+    "text": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "text"],
+      "properties": { "type": { "const": "text" }, "text": { "type": "string" } }
+    },
+    "table": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "title", "caption", "columns", "rows"],
+      "properties": {
+        "type": { "const": "table" },
+        "title": { "$ref": "#/$defs/nullableString" },
+        "caption": { "$ref": "#/$defs/nullableString" },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["header", "justify"],
+            "properties": { "header": { "type": "string" }, "justify": { "$ref": "#/$defs/justify" } }
+          }
+        },
+        "rows": { "type": "array", "items": { "type": "array", "items": { "type": "string" } } }
+      }
+    },
+    "panel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "title", "subtitle", "body"],
+      "properties": {
+        "type": { "const": "panel" },
+        "title": { "$ref": "#/$defs/nullableString" },
+        "subtitle": { "$ref": "#/$defs/nullableString" },
+        "body": { "$ref": "#/$defs/node" }
+      }
+    },
+    "tree": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "label", "children"],
+      "properties": {
+        "type": { "const": "tree" },
+        "label": { "type": "string" },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/tree" } }
+      }
+    },
+    "progress": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "tasks"],
+      "properties": {
+        "type": { "const": "progress" },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["description", "completed", "total", "finished", "visible"],
+            "properties": {
+              "description": { "type": "string" },
+              "completed": { "type": "integer", "minimum": 0 },
+              "total": { "type": "integer", "minimum": 0 },
+              "finished": { "type": "boolean" },
+              "visible": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "message", "causes", "hint"],
+      "properties": {
+        "type": { "const": "error" },
+        "message": { "type": "string" },
+        "causes": { "type": "array", "items": { "type": "string" } },
+        "hint": { "$ref": "#/$defs/nullableString" }
+      }
+    },
+    "columns": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "title", "items"],
+      "properties": {
+        "type": { "const": "columns" },
+        "title": { "$ref": "#/$defs/nullableString" },
+        "items": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "name", "ratio", "size", "visible", "direction", "content", "children"],
+      "properties": {
+        "type": { "const": "layout" },
+        "name": { "$ref": "#/$defs/nullableString" },
+        "ratio": { "type": "integer", "minimum": 0 },
+        "size": { "type": ["integer", "null"], "minimum": 0 },
+        "visible": { "type": "boolean" },
+        "direction": { "enum": ["none", "row", "column"] },
+        "content": { "oneOf": [{ "$ref": "#/$defs/node" }, { "type": "null" }] },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/layout" } }
+      }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "items"],
+      "properties": {
+        "type": { "const": "group" },
+        "items": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+      }
+    },
+    "padding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "top", "right", "bottom", "left", "content"],
+      "properties": {
+        "type": { "const": "padding" },
+        "top": { "type": "integer", "minimum": 0 },
+        "right": { "type": "integer", "minimum": 0 },
+        "bottom": { "type": "integer", "minimum": 0 },
+        "left": { "type": "integer", "minimum": 0 },
+        "content": { "$ref": "#/$defs/node" }
+      }
+    }
+  }
+}

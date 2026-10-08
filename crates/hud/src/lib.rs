@@ -14,10 +14,10 @@ pub use hud_width::{cell_width, cell_width_of_cluster, clusters, fold, pad, trun
 pub use live::{Live, LiveBuilder};
 pub use model::{
     Align, Attribute, BarColumn, Body, BoxStyle, Capabilities, Color, ColorSystem, Column, Columns,
-    EnvSnapshot, ErrorReport, Group, Justify, Layout, MarkupError, Measure, MofNCompleteColumn,
-    Overflow, Pad, Padding, Panel, ProgressColumn, Renderable, Segment, Span, SpinnerColumn,
-    Stream, StreamInfo, Style, StyleError, Table, TaskProgressColumn, Text, TextColumn,
-    TimeElapsedColumn, TimeRemainingColumn, Tree, VerticalOverflow,
+    EnvSnapshot, ErrorReport, Format, Group, Justify, Layout, MarkupError, Measure,
+    MofNCompleteColumn, Node, NodeError, Overflow, Pad, Padding, Panel, ProgressColumn, Renderable,
+    Segment, Span, SpinnerColumn, Stream, StreamInfo, Style, StyleError, Table, TaskProgressColumn,
+    Text, TextColumn, TimeElapsedColumn, TimeRemainingColumn, Tree, VerticalOverflow,
 };
 pub use progress::{Progress, ProgressBuilder, Task, TaskUpdate, Track, track};
 pub use services::markup::escape;

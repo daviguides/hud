@@ -12,8 +12,9 @@ use std::time::{Duration, Instant};
 use crate::console::{Console, capabilities};
 use crate::integrations;
 use crate::model::{
-    BarColumn, Capabilities, ColorSystem, ProgressColumn, Renderable, Segment, Stream, Style,
-    TaskProgressColumn, TaskSnapshot, TextColumn, TimeRemainingColumn, VerticalOverflow,
+    BarColumn, Capabilities, ColorSystem, Node, NodeKind, ProgressColumn, Renderable, Segment,
+    Stream, Style, TaskProgressColumn, TaskSnapshot, TaskState, TextColumn, TimeRemainingColumn,
+    VerticalOverflow,
 };
 use crate::refresh::Refresher;
 use crate::services::live::{Screen, fit_height, push_frame};
@@ -439,6 +440,22 @@ impl Core {
             .collect()
     }
 
+    /// Every task, hidden ones included, as the structured output describes them.
+    fn task_states(&self) -> Vec<TaskState> {
+        self.tasks
+            .read()
+            .unwrap_or_else(PoisonError::into_inner)
+            .iter()
+            .map(|task| TaskState {
+                description: lock(&task.description).clone(),
+                completed: task.completed.load(Ordering::Relaxed),
+                total: task.total.load(Ordering::Relaxed),
+                finished: task.finished.load(Ordering::Acquire),
+                visible: task.is_visible(),
+            })
+            .collect()
+    }
+
     fn frame_lines(&self, out: &mut Out, caps: &Capabilities, width: usize) -> Vec<Vec<Segment>> {
         let now = (self.shared.clock)();
         let snapshots = self.snapshots(now);
@@ -787,6 +804,10 @@ impl fmt::Debug for Progress {
 }
 
 impl Renderable for Progress {
+    fn node(&self) -> Node {
+        Node(NodeKind::Progress(self.inner.core.task_states()))
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         self.inner
             .core

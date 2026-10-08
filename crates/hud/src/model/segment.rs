@@ -1,4 +1,5 @@
-use super::capabilities::Capabilities;
+use super::capabilities::{Capabilities, ColorSystem};
+use super::node::{Node, plain_lines};
 use super::style::Style;
 
 /// A run of text that has one style: the unit between a renderer and the bytes.
@@ -48,5 +49,21 @@ pub trait Renderable {
             min: 0,
             max: max_width,
         }
+    }
+
+    /// What this renderable says, for [`Format::Json`](crate::Format::Json): a [`Node`] with no
+    /// style and no width. Every widget of this crate describes itself. The default, for a
+    /// renderable of yours, is a text node with its plain rendering at width 80, so a custom
+    /// renderable still appears in a document, though without structure.
+    fn node(&self) -> Node {
+        let caps = Capabilities {
+            color_system: ColorSystem::None,
+            attributes: false,
+            is_tty: false,
+            interactive: false,
+            width: 80,
+            height: 24,
+        };
+        Node::text(plain_lines(&self.render_with(80, &caps)))
     }
 }

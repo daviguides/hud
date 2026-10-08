@@ -1,4 +1,5 @@
 use super::capabilities::Capabilities;
+use super::node::{Node, NodeKind};
 use super::panel::Body;
 use super::segment::{Measure, Renderable, Segment};
 
@@ -16,7 +17,7 @@ use super::segment::{Measure, Renderable, Segment};
 /// ```
 #[derive(Clone, Debug, Default)]
 pub struct Group {
-    items: Vec<Body>,
+    pub(crate) items: Vec<Body>,
 }
 
 impl Group {
@@ -34,6 +35,12 @@ impl Group {
 }
 
 impl Renderable for Group {
+    fn node(&self) -> Node {
+        Node(NodeKind::Group(
+            self.items.iter().map(|item| item.0.node()).collect(),
+        ))
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         self.items
             .iter()

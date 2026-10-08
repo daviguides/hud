@@ -3,10 +3,12 @@
 pub(crate) mod color;
 pub(crate) mod columns;
 pub(crate) mod frame;
+pub(crate) mod json;
 pub(crate) mod layout;
 pub(crate) mod live;
 pub(crate) mod markup;
 pub(crate) mod measure;
+pub(crate) mod node;
 pub(crate) mod panel;
 pub(crate) mod progress;
 pub(crate) mod render;

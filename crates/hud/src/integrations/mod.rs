@@ -6,7 +6,7 @@ mod tty;
 #[cfg(windows)]
 mod winfacts;
 
-use crate::model::{EnvSnapshot, Stream, StreamInfo, WindowsFacts};
+use crate::model::{EnvSnapshot, Format, Stream, StreamInfo, WindowsFacts};
 
 /// Source of the facts the resolver needs. The real one reads the process
 /// environment and asks the OS; tests substitute a counting fake.
@@ -48,4 +48,16 @@ pub(crate) fn write(stream: Stream, text: &str) -> std::io::Result<()> {
 /// Writes a frame of a live display to `stream` in one system call where the platform allows it.
 pub(crate) fn write_frame(stream: Stream, text: &str) -> std::io::Result<()> {
     sink::write_frame(stream, text)
+}
+
+/// The format the environment asks for: `HUD_FORMAT` read once per process, `Rich` when it is
+/// absent, empty or not one of `rich`, `plain` and `json`.
+pub(crate) fn env_format() -> Format {
+    static FORMAT: std::sync::OnceLock<Format> = std::sync::OnceLock::new();
+    *FORMAT.get_or_init(|| {
+        std::env::var("HUD_FORMAT")
+            .ok()
+            .and_then(|value| Format::parse(&value))
+            .unwrap_or_default()
+    })
 }

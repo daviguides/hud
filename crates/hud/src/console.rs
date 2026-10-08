@@ -8,11 +8,15 @@ use std::sync::OnceLock;
 
 use crate::integrations::{self, Probe, SystemProbe};
 use crate::model::{
-    Capabilities, ColorSystem, Columns, ErrorReport, Layout, Measure, Padding, Panel, Renderable,
-    Segment, Stream, Table, Text, Tree,
+    Capabilities, ColorSystem, Columns, ErrorReport, Format, Layout, Measure, Node, Padding, Panel,
+    Renderable, Segment, Stream, Table, Text, Tree,
 };
 use crate::services::columns::render_columns;
 use crate::services::layout::measure_text;
+use crate::services::node::{
+    columns_node, error_node, layout_node, markup_node, padding_node, panel_node, table_node,
+    text_node, tree_node,
+};
 use crate::services::panel::{
     measure_padding, measure_panel, render_padding, render_panel, render_panel_in,
 };
@@ -91,6 +95,7 @@ pub fn capabilities(stream: Stream) -> Capabilities {
 pub struct Console {
     caps: Capabilities,
     stream: Stream,
+    format: Format,
 }
 
 impl Console {
@@ -99,6 +104,7 @@ impl Console {
         Console {
             caps: capabilities(Stream::Stdout),
             stream: Stream::Stdout,
+            format: integrations::env_format(),
         }
     }
 
@@ -107,6 +113,7 @@ impl Console {
         Console {
             caps: capabilities(Stream::Stderr),
             stream: Stream::Stderr,
+            format: integrations::env_format(),
         }
     }
 
@@ -162,13 +169,40 @@ impl Console {
         integrations::write(self.stream, &self.render_to_string(renderable))
     }
 
-    /// What [`Console::print`] would write: the bytes for this console's profile.
+    /// What [`Console::print`] would write: the bytes for this console's profile in this
+    /// console's [`Format`].
     pub fn render_to_string<R: Renderable + ?Sized>(&self, renderable: &R) -> String {
-        let width = usize::from(self.caps.width);
-        to_ansi(
-            &crop_lines(renderable.render_with(width, &self.caps), width),
-            &self.caps,
-        )
+        self.render_as(renderable, self.format)
+    }
+
+    /// What `renderable` is in `format`, whatever this console's own format is: styled text for
+    /// this console's profile, text with no escape sequence, or the JSON document.
+    ///
+    /// ```
+    /// use hud::{Console, Format};
+    ///
+    /// let console = Console::builder().width(12).build();
+    /// assert_eq!(console.render_as("[bold]ok[/]", Format::Plain), "ok\n");
+    /// assert!(console.render_as("ok", Format::Json).contains("\"text\": \"ok\""));
+    /// ```
+    pub fn render_as<R: Renderable + ?Sized>(&self, renderable: &R, format: Format) -> String {
+        match format {
+            Format::Rich => {
+                let width = usize::from(self.caps.width);
+                to_ansi(
+                    &crop_lines(renderable.render_with(width, &self.caps), width),
+                    &self.caps,
+                )
+            }
+            Format::Plain => self.render_to_plain(renderable),
+            Format::Json => renderable.node().to_json(),
+        }
+    }
+
+    /// The format this console writes in: [`Format::Rich`] unless the environment variable
+    /// `HUD_FORMAT` or [`ConsoleBuilder::format`] chose another.
+    pub fn format(&self) -> Format {
+        self.format
     }
 
     /// The same output with no escape sequences.
@@ -214,6 +248,20 @@ impl ConsoleBuilder {
         self
     }
 
+    /// The format the console writes in, over whatever `HUD_FORMAT` says.
+    ///
+    /// ```
+    /// use hud::{Console, Format};
+    ///
+    /// let console = Console::builder().format(Format::Json).build();
+    /// assert_eq!(console.format(), Format::Json);
+    /// ```
+    #[must_use]
+    pub fn format(mut self, format: Format) -> ConsoleBuilder {
+        self.console.format = format;
+        self
+    }
+
     /// Makes the console act as a terminal (redrawing in place) or not, whatever the stream is.
     #[must_use]
     pub fn force_terminal(mut self, force: bool) -> ConsoleBuilder {
@@ -255,12 +303,20 @@ impl Renderable for Text {
         render_text(self, width)
     }
 
+    fn node(&self) -> Node {
+        text_node(self)
+    }
+
     fn measure(&self, _max_width: usize) -> Measure {
         measure_text(self).measure()
     }
 }
 
 impl Renderable for Table {
+    fn node(&self) -> Node {
+        table_node(self)
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         render_table(self, width)
     }
@@ -271,6 +327,10 @@ impl Renderable for Table {
 }
 
 impl Renderable for Padding {
+    fn node(&self) -> Node {
+        padding_node(self)
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         render_padding(self, width)
     }
@@ -281,6 +341,10 @@ impl Renderable for Padding {
 }
 
 impl Renderable for Panel {
+    fn node(&self) -> Node {
+        panel_node(self)
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         render_panel(self, width)
     }
@@ -295,6 +359,10 @@ impl Renderable for Panel {
 }
 
 impl Renderable for Tree {
+    fn node(&self) -> Node {
+        tree_node(self)
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         render_tree(self, width)
     }
@@ -305,6 +373,10 @@ impl Renderable for Tree {
 }
 
 impl Renderable for str {
+    fn node(&self) -> Node {
+        markup_node(self)
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         markup_or_plain(self).render(width)
     }
@@ -315,6 +387,10 @@ impl Renderable for str {
 }
 
 impl Renderable for String {
+    fn node(&self) -> Node {
+        markup_node(self)
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         self.as_str().render(width)
     }
@@ -325,6 +401,10 @@ impl Renderable for String {
 }
 
 impl Renderable for ErrorReport {
+    fn node(&self) -> Node {
+        error_node(self)
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         render_report(self, width)
     }
@@ -335,6 +415,10 @@ impl Renderable for ErrorReport {
 }
 
 impl Renderable for Columns {
+    fn node(&self) -> Node {
+        columns_node(self)
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         render_columns(self, width, None)
     }
@@ -345,6 +429,10 @@ impl Renderable for Columns {
 }
 
 impl Renderable for Layout {
+    fn node(&self) -> Node {
+        layout_node(self)
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         let caps = capabilities(Stream::Stdout);
         render_layout(self, width, usize::from(caps.height), &caps)
@@ -360,6 +448,10 @@ impl Renderable for Layout {
 }
 
 impl<T: Renderable + ?Sized> Renderable for &T {
+    fn node(&self) -> Node {
+        (**self).node()
+    }
+
     fn render(&self, width: usize) -> Vec<Segment> {
         (**self).render(width)
     }
