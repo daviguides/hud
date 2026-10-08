@@ -407,6 +407,7 @@ impl hud::TaskUpdate
 pub fn hud::TaskUpdate::advance(self, u64) -> hud::TaskUpdate
 pub fn hud::TaskUpdate::completed(self, u64) -> hud::TaskUpdate
 pub fn hud::TaskUpdate::description(self, impl core::convert::Into<alloc::string::String>) -> hud::TaskUpdate
+pub fn hud::TaskUpdate::refresh(self, bool) -> hud::TaskUpdate
 pub fn hud::TaskUpdate::total(self, u64) -> hud::TaskUpdate
 pub fn hud::TaskUpdate::visible(self, bool) -> hud::TaskUpdate
 impl core::fmt::Debug for hud::TaskUpdate
