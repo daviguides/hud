@@ -182,3 +182,17 @@ uv run python scripts/pilot.py speed S3                # speed for chosen worklo
 uv run python scripts/pilot.py unverified              # informational timing of discarded workloads
 uv run python scripts/pilot_report.py                  # writes pilot/tables.md and pilot/summary.json
 ```
+
+## hud (appended 2026-10-08, v0.6 part B)
+
+hud entered the same evaluation as a candidate under the rules above; the pilot numbers in this file are unchanged. Full results, the verdict and the investigation of the one failing threshold are in `EVALUATION-RESULTS.md`.
+
+| Axis | hud | Best pilot candidate |
+|---|---|---|
+| Correctness | 210/210 = 100% | rs-rich 210/210 |
+| Width / splits (fold, truncate) / capability | 99.2% / 0, 0 / 40 of 40 | rs-rich 100% / 176, 119 / 31 of 40 |
+| S1 vs Python Rich; S2, S3, S4 vs the best verified existing | 0.079; 0.237, 0.196, 0.290 (all CI upper bounds under 0.31) | n/a |
+| First-try (primary model, 8 x 5) | 40/40 = 100% | not run for pilot candidates |
+| LOC median / name parity (by name, by signature) | 11 / 72.5%, 65.0% | rs-rich 15 / 87.5% by name |
+| Adoption (hello table) / docs | +2.31 s, +218 KB, 6 deps / 129 of 129 | composed +0.31 MB, 25 deps |
+| Verdict | Engine GO; API NO-GO on name parity by signature only | none passes both gates |

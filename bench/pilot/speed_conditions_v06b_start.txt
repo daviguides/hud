@@ -1,0 +1,13 @@
+# speed pass v0.6B conditions
+qui  8 out 2026 19:28:04 -03
+Apple M5 Pro
+18
+19:28  up 15 days, 20:26, 29 users, load averages: 2,82 3,15 3,34
+CPU usage: 4.47% user, 2.61% sys, 92.91% idle 
+rustc 1.94.0 (4a4ef493e 2026-03-02)
+ %CPU COMM
+ 27,0 /Users/daviguides/work/bin/uv/envs/tiphareth_invoices/bin/python3
+ 11,4 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer
+  9,5 /Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+  8,4 /Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper
+  6,3 /System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine

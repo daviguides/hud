@@ -377,5 +377,8 @@
     "misaligned_rows": 11,
     "rows": 82,
     "tables_with_misalignment": 7
+  },
+  "widgets": {
+    "supported": false
   }
 }

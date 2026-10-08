@@ -4,6 +4,17 @@ Functional terminal UX for Rust: capability detection, cell width and, milestone
 
 **Status: in development, not published.** The name `hud` is reserved on crates.io; nothing is released until the project reaches a stable version. The crates in this workspace are marked `publish = false`.
 
+## Install
+
+Not yet published. Until a stable release, depend on the repository:
+
+```toml
+[dependencies]
+hud = { git = "https://github.com/daviguides/hud" }
+```
+
+The crate needs Rust 1.85 or newer (edition 2024) and has no required features. `hud-width`, the cell width and grapheme-cluster crate underneath it, builds without `std` and without dependencies.
+
 ## What works today (v0.6)
 
 - **`hud-width`**: terminal cell width and grapheme-cluster segmentation (UAX #29, Unicode 17). `fold`, `truncate` and `pad` cut only between clusters. `no_std`, no dependencies.
@@ -87,6 +98,30 @@ assert_eq!(cell_width("你好🇧🇷"), 6);
 assert_eq!(truncate("你好世界", 5), "你好");
 ```
 
+## Examples
+
+One runnable example per widget, and a gallery that shows them together:
+
+```bash
+cargo run -p hud --example gallery
+cargo run -p hud --example table      # also: panel, tree, progress, error, markup
+cargo run -p hud --example pipe | cat # the same table without escape sequences
+NO_COLOR=1 cargo run -p hud --example env
+```
+
+## Measured
+
+Every claim is checked by the benchmark in `bench/`, with pass criteria written before it ran. Against Python Rich 15.0.0 as the reference:
+
+- **Correctness**: 210 of 210 cases byte for byte (style, markup, table, panel, tree, progress, error report).
+- **Width**: 496 of 500 strings agree with Rich; the 4 that differ are a zero-width joiner between letters, where the Unicode standard breaks the cluster and Rich does not (`DEVIATIONS.md`, D-001).
+- **Clusters**: 0 splits in 20,000 fold and 20,000 truncate cases, and the whole of Unicode 17's `GraphemeBreakTest` passes.
+- **Capabilities**: 40 of 40 cells of the environment and terminal matrix.
+- **Robustness**: 80,000 generated inputs per feature, 0 panics.
+- **Tasks**: the 8 canonical tasks (table, panel, progress, tree, error, markup, pipe, environment) are solved in 11 lines of code at the median, against 12 for Python Rich.
+
+The harness, goldens and the other candidates measured the same way are in `bench/`; see `bench/PILOT-RESULTS.md`.
+
 ## Goals
 
 - **Speed.** Fast startup and fast render, measured against existing Rust crates and Python Rich.
@@ -109,6 +144,10 @@ cargo test --workspace
 cargo xtask gen-width      # regenerate the Unicode tables from the pinned UCD files
 cargo xtask check-layers   # enforce the layer rules inside the hud crate
 ```
+
+## Contributing
+
+See `CONTRIBUTING.md` for how to build, test and propose a change, `SECURITY.md` to report a vulnerability, and `RELEASING.md` for what a stable release involves.
 
 ## License
 

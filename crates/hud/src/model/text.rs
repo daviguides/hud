@@ -1,4 +1,4 @@
-use core::ops::Range;
+use core::ops::{Bound, RangeBounds};
 use std::borrow::Cow;
 
 use super::style::Style;
@@ -50,7 +50,7 @@ pub enum Overflow {
 /// use hud::{Style, Text};
 ///
 /// let mut text = Text::new("Deploy ok");
-/// text.stylize(0..6, Style::new().bold());
+/// text.stylize(Style::new().bold(), 0..6);
 /// assert_eq!(text.plain(), "Deploy ok");
 /// ```
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -141,12 +141,32 @@ impl Text {
         }
     }
 
-    /// Applies `style` over a byte range. The range is clamped to the text and moved outward to
-    /// the nearest character boundaries; an empty range does nothing.
-    pub fn stylize(&mut self, range: Range<usize>, style: Style) {
+    /// Applies `style` over a byte range, as Rich's `stylize(style, start, end)`: `..` is the
+    /// whole text and an open end runs to the end. The range is clamped to the text and moved
+    /// outward to the nearest character boundaries; an empty range does nothing.
+    ///
+    /// ```
+    /// use hud::{Style, Text};
+    ///
+    /// let mut text = Text::new("hello world");
+    /// text.stylize(Style::new().bold(), ..5);
+    /// text.stylize(Style::new().italic(), 6..);
+    /// assert_eq!(text.spans().len(), 2);
+    /// ```
+    pub fn stylize(&mut self, style: Style, range: impl RangeBounds<usize>) {
         let len = self.plain.len();
-        let mut start = range.start.min(len);
-        let mut end = range.end.min(len);
+        let mut start = match range.start_bound() {
+            Bound::Included(&at) => at,
+            Bound::Excluded(&at) => at.saturating_add(1),
+            Bound::Unbounded => 0,
+        }
+        .min(len);
+        let mut end = match range.end_bound() {
+            Bound::Included(&at) => at.saturating_add(1),
+            Bound::Excluded(&at) => at,
+            Bound::Unbounded => len,
+        }
+        .min(len);
         while !self.plain.is_char_boundary(start) {
             start -= 1;
         }

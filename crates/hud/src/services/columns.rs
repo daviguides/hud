@@ -9,8 +9,7 @@ use super::layout::{
 };
 use super::table::annotation;
 use crate::model::{
-    Align, Capabilities, Columns, Justify, Measure, Overflow, Padding, Renderable, Segment, Style,
-    Text,
+    Align, Capabilities, Columns, Justify, Measure, Overflow, Pad, Renderable, Segment, Style, Text,
 };
 
 /// Renders `item` into lines `width` cells wide, padded with plain spaces.
@@ -202,13 +201,13 @@ fn fit_columns(widths: &[i64], width_padding: i64, max_width: i64, column_first:
 /// The padding of a cell as the grid applies it: collapsed against the neighbour, none at the
 /// edges of the grid.
 fn cell_padding(
-    pad: Padding,
+    pad: Pad,
     first_column: bool,
     last_column: bool,
     first_row: bool,
     last_row: bool,
-) -> Padding {
-    let Padding {
+) -> Pad {
+    let Pad {
         mut top,
         mut right,
         mut bottom,
@@ -232,7 +231,7 @@ fn cell_padding(
     if last_row {
         bottom = 0;
     }
-    Padding {
+    Pad {
         top,
         right,
         bottom,
@@ -242,7 +241,7 @@ fn cell_padding(
 
 /// The padding the grid reserves for a column when it measures it (Rich's own rule, which is not
 /// the one it renders with when the left and right padding differ).
-fn column_padding_width(pad: Padding, column: usize, count: usize) -> i64 {
+fn column_padding_width(pad: Pad, column: usize, count: usize) -> i64 {
     let (mut left, mut right) = (0i64, pad.right as i64);
     if column == 0 {
         left = 0;
@@ -254,7 +253,7 @@ fn column_padding_width(pad: Padding, column: usize, count: usize) -> i64 {
 }
 
 /// A cell's lines with its padding around them: blank lines above and below, spaces at the sides.
-fn padded(lines: Vec<Vec<Segment>>, width: usize, pad: Padding) -> Vec<Vec<Segment>> {
+fn padded(lines: Vec<Vec<Segment>>, width: usize, pad: Pad) -> Vec<Vec<Segment>> {
     let null = Style::new();
     let mut out = Vec::with_capacity(lines.len() + pad.top + pad.bottom);
     let blank = || vec![run(" ".repeat(width), &null)];
@@ -342,7 +341,7 @@ pub(crate) fn render_columns(
         rows.iter_mut().for_each(|row| row.reverse());
     }
     let row_count = rows.len();
-    let any_padding = pad != Padding::default();
+    let any_padding = pad != Pad::default();
 
     let wrapable: Vec<bool> = vec![columns.width.is_none(); column_count];
     let (mut widths, table_width) = arrange_total(

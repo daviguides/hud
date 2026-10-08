@@ -2,7 +2,7 @@ name: ci
 
 on:
   push:
-    branches: [main]
+    branches: [main, "parallel/**"]
   pull_request:
 
 env:
@@ -22,6 +22,8 @@ jobs:
         env:
           RUSTDOCFLAGS: -D warnings
       - run: cargo xtask check-layers
+      - name: examples build
+        run: cargo build --workspace --examples
       - name: generated tables are up to date
         run: |
           cargo xtask gen-width
@@ -41,6 +43,23 @@ jobs:
           rustup target add wasm32-unknown-unknown
           cargo build -p hud-width --target wasm32-unknown-unknown
 
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - run: cargo clippy -p hud-width -p hud --all-targets -- -D warnings
+      - run: cargo test --workspace
+
+  windows-msrv:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85.0
+      - run: cargo test -p hud-width -p hud
+
   msrv:
     runs-on: ubuntu-latest
     steps:
@@ -55,3 +74,27 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: zero panics and no violated property, seeded
         run: cargo run --release --manifest-path bench/candidates/hud/Cargo.toml --bin fuzz -- --count 2000
+      - name: the same for columns, layout and live
+        run: cargo run --release --manifest-path bench/candidates/hud/Cargo.toml --bin fuzz_live_layout -- --count 2000
+
+  deny:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EmbarkStudios/cargo-deny-action@v2
+
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: rustup toolchain install nightly --profile minimal
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-public-api@0.52.0
+      - name: public API matches the committed snapshot
+        run: |
+          cargo public-api -p hud -sss > "$RUNNER_TEMP/hud.txt"
+          cargo public-api -p hud-width -sss > "$RUNNER_TEMP/hud-width.txt"
+          diff -u api/hud.txt "$RUNNER_TEMP/hud.txt"
+          diff -u api/hud-width.txt "$RUNNER_TEMP/hud-width.txt"

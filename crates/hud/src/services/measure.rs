@@ -64,12 +64,13 @@ fn divide(text: &Text, offsets: &[usize]) -> Vec<Text> {
     lines
 }
 
-/// Replaces the plain text. When it gets shorter, spans keep the characters they covered and
-/// are clipped to the new length, counting characters, so text cut short or ended with an
-/// ellipsis keeps its styles on character boundaries.
+/// Replaces the plain text. When it changes, spans keep the characters they covered and are
+/// clipped to the new length, counting characters, so text cut short or ended with an
+/// ellipsis keeps its styles on character boundaries, even when a character of another width in
+/// bytes takes the place of the last one.
 fn set_plain(text: &mut Text, plain: String) {
     let new_chars = plain.chars().count();
-    if new_chars < text.plain.chars().count() && !text.spans.is_empty() {
+    if plain != text.plain && !text.spans.is_empty() {
         let offsets: Vec<usize> = plain
             .char_indices()
             .map(|(at, _)| at)
@@ -439,6 +440,39 @@ pub(crate) fn wrap(text: &Text, width: usize) -> Vec<Text> {
         lines.extend(pieces);
     }
     lines
+}
+
+impl Text {
+    /// Crops the text to `max_width` cells as Rich's `truncate(max_width, overflow=..., pad=...)`:
+    /// by `overflow` (an ellipsis takes the last cell), on character cluster boundaries; with
+    /// `pad`, a shorter text is padded with spaces to `max_width`. Spans follow the new text.
+    ///
+    /// ```
+    /// use hud::{Overflow, Text};
+    ///
+    /// let mut text = Text::new("hello world");
+    /// text.truncate(8, Overflow::Ellipsis, false);
+    /// assert_eq!(text.plain(), "hello w\u{2026}");
+    /// ```
+    pub fn truncate(&mut self, max_width: usize, overflow: Overflow, pad: bool) {
+        truncate(self, max_width, overflow, pad);
+    }
+
+    /// Breaks the text into lines for a terminal `width` cells wide, as Rich's `wrap`: at
+    /// newlines, at word boundaries (or inside a word longer than a line), with tabs expanded,
+    /// then justified and cropped by the text's own [`Text::justify`], [`Text::overflow`] and
+    /// [`Text::no_wrap`] settings. Styles are typed here, so no console is needed to resolve them.
+    ///
+    /// ```
+    /// use hud::Text;
+    ///
+    /// let lines = Text::new("aaaa bbbb cccc dddd").wrap(10);
+    /// assert_eq!(lines.len(), 2);
+    /// assert_eq!(lines[0].plain(), "aaaa bbbb ");
+    /// ```
+    pub fn wrap(&self, width: usize) -> Vec<Text> {
+        wrap(self, width)
+    }
 }
 
 #[cfg(test)]

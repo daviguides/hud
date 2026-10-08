@@ -1,0 +1,2 @@
+EQUAL S1 943 bytes vs 943 
+{'first_byte_ns': {'n': 30, 'median_ms': 2.989083, 'ci95_ms': [2.9185835, 3.1694785]}, 'total_ns': {'n': 30, 'median_ms': 3.2681455, 'ci95_ms': [3.1710835, 3.4365415]}}

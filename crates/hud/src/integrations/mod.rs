@@ -3,16 +3,23 @@
 mod env;
 mod sink;
 mod tty;
+#[cfg(windows)]
+mod winfacts;
 
-use crate::model::{EnvSnapshot, Stream, StreamInfo};
+use crate::model::{EnvSnapshot, Stream, StreamInfo, WindowsFacts};
 
 /// Source of the facts the resolver needs. The real one reads the process
 /// environment and asks the OS; tests substitute a counting fake.
 pub(crate) trait Probe {
     /// The environment variables that matter.
     fn env_snapshot(&self) -> EnvSnapshot;
-    /// What the OS reports about one stream: at most one syscall, never a child process.
+    /// What the OS reports about one stream: a small constant number of OS calls, never a child
+    /// process.
     fn stream_info(&self, stream: Stream) -> StreamInfo;
+    /// What a Windows console reports; `None` on every other platform.
+    fn windows_facts(&self) -> Option<WindowsFacts> {
+        None
+    }
 }
 
 /// Probe backed by the real process environment and standard streams.
@@ -25,6 +32,11 @@ impl Probe for SystemProbe {
 
     fn stream_info(&self, stream: Stream) -> StreamInfo {
         tty::stream_info(stream)
+    }
+
+    #[cfg(windows)]
+    fn windows_facts(&self) -> Option<WindowsFacts> {
+        Some(winfacts::facts())
     }
 }
 

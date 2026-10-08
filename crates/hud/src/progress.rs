@@ -80,12 +80,23 @@ struct Shared {
     layout_version: AtomicU64,
 }
 
+/// What a [`TaskUpdate`] changes.
+#[derive(Default)]
+struct Changes {
+    total: Option<u64>,
+    completed: Option<u64>,
+    advance: Option<u64>,
+    description: Option<String>,
+    visible: Option<bool>,
+}
+
 struct TaskCell {
     shared: Arc<Shared>,
     description: Mutex<String>,
     total: AtomicU64,
     completed: AtomicU64,
     finished: AtomicBool,
+    visible: AtomicBool,
     times: Mutex<Times>,
 }
 
@@ -98,6 +109,7 @@ impl TaskCell {
             total: AtomicU64::new(total),
             completed: AtomicU64::new(0),
             finished: AtomicBool::new(false),
+            visible: AtomicBool::new(true),
             times: Mutex::new(Times {
                 start: Some(now),
                 ..Times::default()
@@ -147,7 +159,9 @@ impl TaskCell {
         self.check_finished(completed);
     }
 
-    fn set_total(&self, total: u64) {
+    /// Stores a new total; when it changed, the layout is stale and the speed estimate starts
+    /// over.
+    fn reset_for_total(&self, total: u64) {
         if self.total.swap(total, Ordering::Relaxed) != total {
             self.shared.layout_version.fetch_add(1, Ordering::Relaxed);
             let mut times = lock(&self.times);
@@ -155,10 +169,58 @@ impl TaskCell {
             times.finished = None;
             self.finished.store(false, Ordering::Release);
         }
+    }
+
+    fn set_total(&self, total: u64) {
+        self.reset_for_total(total);
         if self.shared.track_speed {
             self.sample(0);
         }
         self.check_finished(self.completed.load(Ordering::Relaxed));
+    }
+
+    fn set_description(&self, description: String) {
+        *lock(&self.description) = description;
+        self.shared.layout_version.fetch_add(1, Ordering::Relaxed);
+    }
+
+    fn set_visible(&self, visible: bool) {
+        if self.visible.swap(visible, Ordering::Relaxed) != visible {
+            self.shared.layout_version.fetch_add(1, Ordering::Relaxed);
+        }
+    }
+
+    fn is_visible(&self) -> bool {
+        self.visible.load(Ordering::Relaxed)
+    }
+
+    /// Rich's `Progress.update`: the total first (it starts the speed estimate over), then the
+    /// steps, the description and the visibility, and one speed sample for the net progress.
+    fn update(&self, change: Changes) {
+        if let Some(total) = change.total {
+            self.reset_for_total(total);
+        }
+        let (before, after) = match (change.advance, change.completed) {
+            (_, Some(completed)) => (self.completed.swap(completed, Ordering::Relaxed), completed),
+            (Some(amount), None) => {
+                let before = self.completed.fetch_add(amount, Ordering::Relaxed);
+                (before, before.saturating_add(amount))
+            }
+            (None, None) => {
+                let completed = self.completed.load(Ordering::Relaxed);
+                (completed, completed)
+            }
+        };
+        if let Some(description) = change.description {
+            self.set_description(description);
+        }
+        if let Some(visible) = change.visible {
+            self.set_visible(visible);
+        }
+        if self.shared.track_speed {
+            self.sample(after.saturating_sub(before));
+        }
+        self.check_finished(after);
     }
 
     fn snapshot(&self, now: f64) -> TaskSnapshot {
@@ -218,11 +280,17 @@ impl Task {
 
     /// Changes the description, read as markup.
     pub fn set_description(&self, description: impl Into<String>) {
-        *lock(&self.cell.description) = description.into();
-        self.cell
-            .shared
-            .layout_version
-            .fetch_add(1, Ordering::Relaxed);
+        self.cell.set_description(description.into());
+    }
+
+    /// Shows or hides the task; a hidden task keeps counting but is not drawn.
+    pub fn set_visible(&self, visible: bool) {
+        self.cell.set_visible(visible);
+    }
+
+    /// Whether the task is drawn.
+    pub fn is_visible(&self) -> bool {
+        self.cell.is_visible()
     }
 
     /// Marks every step done.
@@ -253,6 +321,78 @@ impl fmt::Debug for Task {
             .field("completed", &self.completed())
             .field("total", &self.total())
             .finish()
+    }
+}
+
+/// The changes to one task that [`Progress::update`] collects. Name them with the methods
+/// below; they are applied together, in Rich's order (total, steps, description, visibility),
+/// when this value is dropped, which is the end of the statement `progress.update(&task)...;`.
+///
+/// ```
+/// use hud::Progress;
+///
+/// let progress = Progress::builder().disable(true).build();
+/// let task = progress.add_task("build", 4);
+/// progress.update(&task).total(8).completed(2);
+/// assert_eq!((task.completed(), task.total()), (2, 8));
+/// ```
+pub struct TaskUpdate {
+    progress: Progress,
+    task: Task,
+    changes: Changes,
+    refresh: bool,
+}
+
+impl TaskUpdate {
+    /// The new number of steps; the speed estimate starts over when it changes.
+    pub fn total(mut self, total: u64) -> TaskUpdate {
+        self.changes.total = Some(total);
+        self
+    }
+
+    /// Sets how many steps are done.
+    pub fn completed(mut self, completed: u64) -> TaskUpdate {
+        self.changes.completed = Some(completed);
+        self
+    }
+
+    /// Moves the task forward by `amount` steps (ignored when [`TaskUpdate::completed`] is set).
+    pub fn advance(mut self, amount: u64) -> TaskUpdate {
+        self.changes.advance = Some(amount);
+        self
+    }
+
+    /// The new description, read as markup.
+    pub fn description(mut self, description: impl Into<String>) -> TaskUpdate {
+        self.changes.description = Some(description.into());
+        self
+    }
+
+    /// Shows or hides the task.
+    pub fn visible(mut self, visible: bool) -> TaskUpdate {
+        self.changes.visible = Some(visible);
+        self
+    }
+
+    /// Draws the display right after the change instead of at the next automatic refresh.
+    pub fn refresh(mut self, refresh: bool) -> TaskUpdate {
+        self.refresh = refresh;
+        self
+    }
+}
+
+impl Drop for TaskUpdate {
+    fn drop(&mut self) {
+        self.task.cell.update(std::mem::take(&mut self.changes));
+        if self.refresh {
+            self.progress.refresh();
+        }
+    }
+}
+
+impl fmt::Debug for TaskUpdate {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("TaskUpdate").finish_non_exhaustive()
     }
 }
 
@@ -294,6 +434,7 @@ impl Core {
             .read()
             .unwrap_or_else(PoisonError::into_inner)
             .iter()
+            .filter(|task| task.is_visible())
             .map(|task| task.snapshot(now))
             .collect()
     }
@@ -365,21 +506,25 @@ impl Core {
         buffer: &mut String,
     ) -> Option<usize> {
         let tasks = self.tasks.read().unwrap_or_else(PoisonError::into_inner);
+        let shown = tasks.iter().filter(|task| task.is_visible()).count();
         let key = PlanKey {
             version: self.shared.layout_version.load(Ordering::Relaxed),
             width,
             color_system: caps.color_system,
             attributes: caps.attributes,
-            rows: tasks.len(),
+            rows: shown,
         };
         if out.plan_key != Some(key) {
             out.plan_key = Some(key);
             out.plan = None;
             let room = usize::from(caps.height);
-            if tasks.len() <= room {
+            if shown <= room {
                 let now = (self.shared.clock)();
-                let snapshots: Vec<TaskSnapshot> =
-                    tasks.iter().map(|task| task.snapshot(now)).collect();
+                let snapshots: Vec<TaskSnapshot> = tasks
+                    .iter()
+                    .filter(|task| task.is_visible())
+                    .map(|task| task.snapshot(now))
+                    .collect();
                 let origins = vec![0.0; self.columns.len()];
                 out.plan = FastPlan::build(
                     &Frame {
@@ -397,13 +542,14 @@ impl Core {
         }
         let plan = out.plan.as_mut()?;
         out.pairs.clear();
-        out.pairs.extend(tasks.iter().map(|task| {
-            (
-                task.completed.load(Ordering::Relaxed),
-                task.total.load(Ordering::Relaxed),
-            )
-        }));
-        plan.render(&out.pairs, buffer).then_some(tasks.len())
+        out.pairs
+            .extend(tasks.iter().filter(|task| task.is_visible()).map(|task| {
+                (
+                    task.completed.load(Ordering::Relaxed),
+                    task.total.load(Ordering::Relaxed),
+                )
+            }));
+        plan.render(&out.pairs, buffer).then_some(shown)
     }
 
     fn draw(&self, out: &mut Out) {
@@ -578,9 +724,25 @@ impl Progress {
         task.advance(amount);
     }
 
-    /// Sets how many steps of `task` are done.
-    pub fn update(&self, task: &Task, completed: u64) {
-        task.set_completed(completed);
+    /// Changes a task as Rich's `Progress.update(task, total=..., completed=..., advance=...,
+    /// description=..., visible=...)`: name what changes with the methods of the returned
+    /// [`TaskUpdate`]; it is applied when the statement ends.
+    ///
+    /// ```
+    /// use hud::Progress;
+    ///
+    /// let progress = Progress::builder().disable(true).build();
+    /// let task = progress.add_task("fetch", 10);
+    /// progress.update(&task).advance(3).description("fetch index");
+    /// assert_eq!(task.completed(), 3);
+    /// ```
+    pub fn update(&self, task: &Task) -> TaskUpdate {
+        TaskUpdate {
+            progress: self.clone(),
+            task: task.clone(),
+            changes: Changes::default(),
+            refresh: false,
+        }
     }
 
     /// Draws the display now.

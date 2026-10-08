@@ -1,0 +1,24 @@
+pub mod hud_width
+pub enum hud_width::Align
+pub hud_width::Align::Center
+pub hud_width::Align::Left
+pub hud_width::Align::Right
+pub struct hud_width::Clusters<'a>
+impl<'a> core::iter::traits::iterator::Iterator for hud_width::Clusters<'a>
+pub type hud_width::Clusters<'a>::Item = &'a str
+pub fn hud_width::Clusters<'a>::next(&mut self) -> core::option::Option<&'a str>
+pub struct hud_width::Fold<'a>
+impl<'a> core::iter::traits::iterator::Iterator for hud_width::Fold<'a>
+pub type hud_width::Fold<'a>::Item = &'a str
+pub fn hud_width::Fold<'a>::next(&mut self) -> core::option::Option<&'a str>
+pub struct hud_width::Pad<'a>
+impl core::fmt::Display for hud_width::Pad<'_>
+pub fn hud_width::Pad<'_>::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub const hud_width::UNICODE_VERSION: (u8, u8, u8)
+pub fn hud_width::cell_width(&str) -> usize
+pub fn hud_width::cell_width_of_cluster(&str) -> usize
+pub fn hud_width::char_width(char) -> usize
+pub fn hud_width::clusters(&str) -> hud_width::Clusters<'_>
+pub fn hud_width::fold(&str, usize) -> hud_width::Fold<'_>
+pub fn hud_width::pad(&str, usize, hud_width::Align) -> hud_width::Pad<'_>
+pub fn hud_width::truncate(&str, usize) -> &str

@@ -8,7 +8,7 @@ use std::panic::{self, AssertUnwindSafe};
 use std::sync::{Arc, Mutex};
 
 use hud::{
-    Align, Body, BoxStyle, ColorSystem, Column, Columns, Console, Layout, Live, Padding, Panel,
+    Align, Body, BoxStyle, ColorSystem, Column, Columns, Console, Layout, Live, Pad, Panel,
     Renderable, Table, Tree, VerticalOverflow, cell_width,
 };
 use serde_json::json;
@@ -130,7 +130,7 @@ fn random_panel(rng: &mut Rng, depth: usize) -> Panel {
     let mut panel = Panel::new(random_body(rng, depth + 1))
         .box_style(BOXES[rng.below(8)])
         .expand(rng.chance(50))
-        .padding(Padding::from((rng.below(3), rng.below(4))));
+        .padding(Pad::from((rng.below(3), rng.below(4))));
     if rng.chance(50) {
         panel = panel.title(random_string(rng));
     }
@@ -146,11 +146,11 @@ fn random_body(rng: &mut Rng, depth: usize) -> Body {
     }
 }
 
-fn random_padding(rng: &mut Rng) -> Padding {
+fn random_padding(rng: &mut Rng) -> Pad {
     match rng.below(3) {
-        0 => Padding::from(rng.below(3)),
-        1 => Padding::from((rng.below(3), rng.below(4))),
-        _ => Padding::from((rng.below(3), rng.below(4), rng.below(3), rng.below(4))),
+        0 => Pad::from(rng.below(3)),
+        1 => Pad::from((rng.below(3), rng.below(4))),
+        _ => Pad::from((rng.below(3), rng.below(4), rng.below(3), rng.below(4))),
     }
 }
 

@@ -9,7 +9,7 @@ use std::sync::{Arc, Mutex};
 
 use hud::{
     Align, BarColumn, Body, BoxStyle, ColorSystem, Column, Columns, Console, Justify, Layout, Live,
-    MofNCompleteColumn, Padding, Panel, Progress, Style, Table, Task, TaskProgressColumn, Text,
+    MofNCompleteColumn, Pad, Panel, Progress, Style, Table, Task, TaskProgressColumn, Text,
     TextColumn, Tree, VerticalOverflow,
 };
 use serde_json::{Value, json};
@@ -86,7 +86,7 @@ fn panel(node: &Value) -> Option<Panel> {
     let mut built = Panel::new(build(&node["body"])?)
         .box_style(box_style(node["box"].as_str()?)?)
         .expand(node["expand"].as_bool()?)
-        .padding(Padding::from((
+        .padding(Pad::from((
             pad.first()?.as_u64()? as usize,
             pad.get(1)?.as_u64()? as usize,
         )));
@@ -118,17 +118,12 @@ fn tree(node: &Value) -> Option<Tree> {
     Some(root)
 }
 
-fn padding_of(values: &[Value]) -> Option<Padding> {
+fn padding_of(values: &[Value]) -> Option<Pad> {
     let number = |index: usize| values.get(index)?.as_u64().map(|n| n as usize);
     match values.len() {
-        1 => Some(Padding::from(number(0)?)),
-        2 => Some(Padding::from((number(0)?, number(1)?))),
-        4 => Some(Padding::from((
-            number(0)?,
-            number(1)?,
-            number(2)?,
-            number(3)?,
-        ))),
+        1 => Some(Pad::from(number(0)?)),
+        2 => Some(Pad::from((number(0)?, number(1)?))),
+        4 => Some(Pad::from((number(0)?, number(1)?, number(2)?, number(3)?))),
         _ => None,
     }
 }

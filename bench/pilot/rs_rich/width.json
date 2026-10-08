@@ -184,5 +184,8 @@
     "misaligned_rows": 0,
     "rows": 97,
     "tables_with_misalignment": 0
+  },
+  "widgets": {
+    "supported": false
   }
 }

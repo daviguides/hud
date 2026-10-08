@@ -1,23 +1,13 @@
 {
- "parity_hit": 28,
+ "parity_hit": 38,
  "parity_total": 40,
- "parity": 0.7,
+ "parity": 0.95,
  "missing": [
-  "Console.width",
-  "Console.is_terminal",
-  "Console.color_system",
-  "Console.no_color",
-  "Console.force_terminal",
-  "Color.parse",
-  "Text.truncate",
-  "Text.wrap",
   "box",
-  "box.ROUNDED",
-  "markup.escape",
-  "cell_len"
+  "box.ROUNDED"
  ],
  "friction": {
-  "public_functions": 285,
+  "public_functions": 324,
   "more_than_3_positional": 0,
   "with_option_params": 0,
   "none_padding": 0

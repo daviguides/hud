@@ -73,6 +73,55 @@ On a terminal, `NO_COLOR` removes color only; bold, italic and underline stay
 `FORCE_COLOR` and `CLICOLOR_FORCE` do not enable styling on `TERM=dumb`: that terminal has
 no color depth. The standards are silent; this follows Rich.
 
+### D-W1: Windows runs on safe wrappers, not on `windows-sys` directly
+
+`foundation/architecture.md` names `windows-sys` as the Windows dependency. Every `windows-sys`
+call is `unsafe`, and `unsafe_code` is forbidden in both crates, so the platform calls go through
+two safe wrappers that carry the `unsafe` themselves:
+
+| Crate | Used for | Downloads (total) | MSRV |
+|---|---|---|---|
+| `terminal_size` 0.4 | console window size (`GetConsoleScreenBufferInfo`) | 218 million | 1.71 |
+| `enable-ansi-support` 0.3 | virtual terminal processing, through `CONOUT$` so it works when stdout or stderr is redirected | 8.5 million | 1.71 |
+
+Cost, all behind `cfg(windows)`: four crates (`terminal_size`, `enable-ansi-support`, and the
+`windows-sys` 0.61 and `windows-link` 0.2 they share, one version of each). Unix and `wasm32`
+build exactly as before: `hud` keeps `rustix`, and `hud-width` keeps zero dependencies.
+`enable-ansi-support` was picked over `anstyle-query` because `anstyle-query` enables virtual
+terminal processing on stdout and then stderr and stops at the first failure, which leaves a
+console stderr without it when stdout is a pipe.
+
+How a Windows console becomes a capability: the probe reads the window size and `is_terminal`
+(two OS calls per stream, resolved once per process), enables virtual terminal processing once
+(`OnceLock`) and reads `WT_SESSION`, `ConEmuANSI`, `ANSICON` and `TERM_PROGRAM`. The pure
+service `services::winenv::apply_windows` folds those facts into the `EnvSnapshot` the portable
+resolver already uses, so precedence is decided in one place:
+
+- Windows Terminal and the VS Code terminal get `COLORTERM=truecolor`.
+- A terminal stream with `TERM` unset gets `xterm-256color` when virtual terminal processing is
+  on or the host translates ANSI (Windows Terminal, ConEmu with `ConEmuANSI=ON`, a named
+  `TERM_PROGRAM`), `xterm` under ANSICON alone, and `dumb` for a console that cannot take escape
+  sequences: no styling and no redraw, even when forced.
+- A `TERM` the user set (MSYS, Cygwin, WSL interop) is kept. A pipe keeps `TERM` unset, so
+  `FORCE_COLOR` styles it with the standard colors as on Unix (CI logs).
+- `NO_COLOR` keeps bold, italic and underline, as everywhere.
+
+Limits, by design:
+
+- Only virtual terminal sequences are emitted; the legacy console API is not used.
+- There is no Windows build detection: a plain console is treated as 256 colors, the depth every
+  build with virtual terminal processing supports, although builds from 15063 do 24-bit.
+- `enable-ansi-support` opens `CONOUT$` and never closes the handle (one handle per process), and
+  the console mode stays on until the process exits.
+- The size is the visible console window, not the screen buffer.
+
+The cells are the 14 unit tests of `services::winenv` (run on every platform because the service
+is pure) and `tests/windows_console.rs` (Windows only); the CI jobs `windows` and `windows-msrv`
+run both on `windows-latest`.
+
+- Remove when: the standard library gains console size and virtual terminal control, or a
+  zero-dependency safe route appears.
+
 ## Style, markup and text (`hud`)
 
 ### D-020: hyperlinks carry no id
@@ -221,7 +270,7 @@ separated by newlines with none after the last, a newline and `ESC [ ? 25 h` at 
 transient display after that. A frame taller than the terminal keeps one line less and ends with `...`
 centered in bold red (Rich's `live.ellipsis`). Verified on corpus 3: `live` 30 of 30 and `progress_live` 12 of
 12 byte-identical, and 1 100 ASCII random vectors of each (`oracle_live_layout.rs`). What still differs from
-Rich is listed in D-044.
+Rich is listed in D-048.
 
 - Remove when: kept as the record of why the screens of the earlier milestones were compared and not the bytes.
 
@@ -282,7 +331,48 @@ no `fit` option. The error report uses it with the layout above and matches Rich
 
 - Remove when: a user needs `fit=False`.
 
-### D-044: what `Live`, `Layout` and `Columns` do not do yet
+### D-044: `Text::stylize` takes a byte range, and `Text::wrap` takes no console
+
+Rich's `stylize(style, start=0, end=None)` counts characters and `wrap(console, width, ...)`
+takes the console that resolves style names. hud's `stylize(style, range)` takes the style first,
+as Rich does, and a Rust range over **byte** offsets (`..`, `6..`, `..5` stand for Rich's omitted
+`start` and `end`), moved outward to character boundaries. `wrap(width)` has no console: styles
+are typed, nothing needs resolving, and the justify, overflow, tab size and `no_wrap` options
+that Rich passes as keywords are the builder methods of `Text`.
+
+- Remove when: a user needs character offsets in `stylize`; add a `stylize_chars` rather than change this one.
+
+### D-045: `Progress::update` is a builder applied when the statement ends
+
+Rich's `Progress.update(task_id, *, total, completed, advance, description, visible, refresh,
+**fields)` becomes `progress.update(&task)` followed by the keyword methods. The returned
+`TaskUpdate` applies its changes when it is dropped, which is the end of the statement, in Rich's
+order (total first, then the steps, description and visibility, with one speed sample for the net
+progress). `completed` wins over `advance` as in Rich. Custom `**fields` are not supported.
+
+- Remove when: tasks need custom fields for column templates.
+
+### D-046: `Padding` is the wrapper, `Pad` is the spacing
+
+In v0.6 `hud::Padding` was the four-number spacing value of a panel. Rich's `Padding(renderable,
+pad)` is a renderable wrapper, so `Padding::new(renderable, pad)` is now the wrapper, with
+`.style(...)` and `.expand(...)`, and the spacing value is `Pad` (`Panel::padding` takes
+`impl Into<Pad>`). The wrapper is the same code that pads a panel's body, checked byte for byte
+against Rich in `tests/padding.rs`.
+
+- Remove when: not planned.
+
+### D-047: `Console` accessors report the resolved profile
+
+`width`, `is_terminal`, `color_system`, `no_color` and `force_terminal` read the capabilities the
+console was built with. `no_color` is true when color is off, which is what `NO_COLOR` does, and
+bold, italic and underline stay on. `force_terminal` is true when the console acts as a terminal
+although its output is not one; `ConsoleBuilder::force_terminal(bool)` is Rich's keyword of the
+same name. `color_system` returns `ColorSystem::None` where Rich returns `None`.
+
+- Remove when: not planned.
+
+### D-048: what `Live`, `Layout` and `Columns` do not do yet
 
 `Live` has no alternate screen (`screen=True`), no redirection of standard output and error (`redirect_stdout`,
 `redirect_stderr`), no nested displays (a second `Live` on the same console draws over the first) and no
@@ -303,10 +393,9 @@ a `ValueError`. `Group` items do not receive the height of a region.
 
 ## Known gaps against the architecture document (`foundation/architecture.md` in the project knowledge base)
 
-- **Windows.** v0.1 resolves the size from `COLUMNS` and `LINES` and falls back to 80x24; it
-  does not enable virtual terminal processing. Both need platform calls that are not
-  implemented yet and cannot be verified on the development machine. No Windows build target
-  has been exercised.
+- **Windows.** Implemented on a branch through safe wrappers, see D-W1. Size, virtual terminal
+  processing and capability facts are covered by unit tests on every platform and by the
+  `windows` CI jobs; a real console is only exercised by CI.
 - **Release.** The v0.1 milestone text asks for crates.io releases of `hud-width` and `hud`.
   By decision of the project owner nothing is published before a stable version; both crates
   carry `publish = false`.

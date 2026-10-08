@@ -1,0 +1,106 @@
+{
+ "S1": {
+  "hud_median_ms": 2.989083,
+  "python_median_ms": 37.855625,
+  "ratio_python": 0.0789600752860374,
+  "ci_python": [
+   0.07674588249281951,
+   0.0842611290257495
+  ],
+  "best_existing": "rs_rich",
+  "verified_existing": [
+   "rich_rust",
+   "rs_rich"
+  ],
+  "threshold": "median <= 0.10x Python Rich; no regression above 25% against the best existing",
+  "point_ok": true,
+  "ci_ok": true,
+  "ratio_best": 1.01038002281658,
+  "ci_best": [
+   0.9829498031072537,
+   1.0783986016967217
+  ],
+  "best_median_ms": 2.958375,
+  "no_regress_ok": true,
+  "gate": true
+ },
+ "S2": {
+  "hud_median_ms": 31.643,
+  "python_median_ms": 1608.8130005,
+  "ratio_python": 0.019668538226733454,
+  "ci_python": [
+   0.019390453670677755,
+   0.02013858942661479
+  ],
+  "best_existing": "rich_rust",
+  "verified_existing": [
+   "rich_rust",
+   "rs_rich"
+  ],
+  "ratio_best": 0.23662121387737095,
+  "ci_best": [
+   0.23080153571590253,
+   0.24241542993216308
+  ],
+  "best_median_ms": 133.7285,
+  "point_ok": true,
+  "ci_ok": true,
+  "no_regress_ok": true,
+  "gate": true,
+  "threshold": "median <= 0.80x best, CI upper <= 1.00, no regression above 25%"
+ },
+ "S3": {
+  "hud_median_ms": 2.1752085,
+  "python_median_ms": 1051.0048335,
+  "ratio_python": 0.0020696465236570197,
+  "ci_python": [
+   0.001995813521689234,
+   0.002104202606953482
+  ],
+  "best_existing": "composed",
+  "verified_existing": [
+   "composed",
+   "rich_rs",
+   "rich_rust",
+   "richrs",
+   "rs_rich"
+  ],
+  "ratio_best": 0.19566432329751027,
+  "ci_best": [
+   0.19119965433848424,
+   0.19935177163995724
+  ],
+  "best_median_ms": 11.117042,
+  "point_ok": true,
+  "ci_ok": true,
+  "no_regress_ok": true,
+  "gate": true,
+  "threshold": "median <= 0.80x best, CI upper <= 1.00, no regression above 25%"
+ },
+ "S4": {
+  "hud_median_ms": 2.5293335,
+  "python_median_ms": 59.976021,
+  "ratio_python": 0.04217241253800415,
+  "ci_python": [
+   0.04118684031874834,
+   0.04343508768864579
+  ],
+  "best_existing": "rs_rich",
+  "verified_existing": [
+   "rich_rust",
+   "rs_rich"
+  ],
+  "ratio_best": 0.29014852521544615,
+  "ci_best": [
+   0.2831581181261561,
+   0.2997750101663922
+  ],
+  "best_median_ms": 8.717375,
+  "point_ok": true,
+  "ci_ok": true,
+  "no_regress_ok": true,
+  "gate": true,
+  "threshold": "median <= 0.80x best, CI upper <= 1.00, no regression above 25%"
+ },
+ "all_pass": true
+}

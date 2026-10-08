@@ -1,0 +1,22 @@
+{
+ "hit": 29,
+ "total": 40,
+ "parity": 0.725,
+ "missing": [
+  "Console.width",
+  "Console.is_terminal",
+  "Console.color_system",
+  "Console.no_color",
+  "Console.force_terminal",
+  "Color.parse",
+  "Text.truncate",
+  "Text.wrap",
+  "box",
+  "box.ROUNDED",
+  "cell_len"
+ ],
+ "before": {
+  "hit": 28,
+  "parity": 0.7
+ }
+}

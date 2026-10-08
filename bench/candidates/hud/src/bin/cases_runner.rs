@@ -6,7 +6,7 @@ use std::fs;
 use std::path::PathBuf;
 
 use hud::{
-    BarColumn, BoxStyle, ColorSystem, Column, Console, ErrorReport, Justify, MofNCompleteColumn, Padding, Panel,
+    BarColumn, BoxStyle, ColorSystem, Column, Console, ErrorReport, Justify, MofNCompleteColumn, Pad, Panel,
     Progress, Style, Table, TaskProgressColumn, Text, TextColumn, Tree,
 };
 use serde_json::{Value, json};
@@ -86,7 +86,7 @@ fn panel(node: &Value) -> Option<Panel> {
     let mut built = built
         .box_style(box_style(node["box"].as_str()?)?)
         .expand(node["expand"].as_bool()?)
-        .padding(Padding::from((pad.first()?.as_u64()? as usize, pad.get(1)?.as_u64()? as usize)));
+        .padding(Pad::from((pad.first()?.as_u64()? as usize, pad.get(1)?.as_u64()? as usize)));
     if let Some(title) = node["title"].as_str() {
         built = built.title(title);
     }

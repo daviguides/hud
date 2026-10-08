@@ -7,8 +7,10 @@ mod error;
 mod group;
 mod layout;
 mod live;
+mod padding;
 pub(crate) mod palette;
 mod panel;
+mod platform;
 mod progress;
 mod report;
 mod segment;
@@ -25,7 +27,9 @@ pub use group::Group;
 pub use layout::Layout;
 pub(crate) use layout::Splitter;
 pub use live::VerticalOverflow;
-pub use panel::{Align, Body, Padding, Panel};
+pub use padding::Padding;
+pub use panel::{Align, Body, Pad, Panel};
+pub(crate) use platform::WindowsFacts;
 pub(crate) use progress::TaskSnapshot;
 pub use progress::{
     BarColumn, MofNCompleteColumn, ProgressColumn, SpinnerColumn, TaskProgressColumn, TextColumn,

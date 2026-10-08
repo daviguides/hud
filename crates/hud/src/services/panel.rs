@@ -8,34 +8,50 @@ use super::layout::{Measurement, measure_renderable};
 use super::measure::{expand_tabs, pad_left, pad_right, truncate};
 use super::render::render_text_ending;
 use crate::model::{
-    Align, Capabilities, Measure, Padding, Panel, Renderable, Segment, Span, Style, Text,
+    Align, Capabilities, Measure, Pad, Padding, Panel, Renderable, Segment, Span, Style, Text,
 };
 
-/// A body with blank space around it, as the panel prints it: the body fills the width that is
-/// left, shorter lines are padded, and the sides and the blank lines are spaces.
+/// A body with blank space around it, as Rich's `Padding` prints it: the body fills the width
+/// that is left (or only what it needs when `expand` is off), shorter lines are padded, and the
+/// sides and the blank lines are spaces in `style`, which is also the base style of the body.
 struct Padded<'a> {
     body: &'a dyn Renderable,
-    padding: Padding,
+    padding: Pad,
+    style: &'a Style,
+    expand: bool,
 }
 
 impl Renderable for Padded<'_> {
     fn render(&self, width: usize) -> Vec<Segment> {
-        let Padding {
+        let Pad {
             top,
             right,
             bottom,
             left,
         } = self.padding;
-        let null = Style::new();
+        let style = self.style;
+        let width = if self.expand {
+            width
+        } else {
+            let wanted = measure_renderable(self.body, width as i64).max.max(0) as usize;
+            (wanted + left + right).min(width)
+        };
         let inner = width.saturating_sub(left + right);
         let lines = if inner == 0 {
             Vec::new()
         } else {
-            split_lines(self.body.render(inner), inner, Some(&null))
+            let mut segments = self.body.render(inner);
+            if !style.is_null() {
+                for segment in &mut segments {
+                    segment.style = style.combine(&segment.style);
+                }
+            }
+            split_lines(segments, inner, Some(style))
         };
+        let null = Style::new();
         let mut out = Vec::new();
         let blank = |out: &mut Vec<Segment>| {
-            out.push(run(" ".repeat(width), &null));
+            out.push(run(" ".repeat(width), style));
             out.push(run("\n", &null));
         };
         for _ in 0..top {
@@ -43,11 +59,11 @@ impl Renderable for Padded<'_> {
         }
         for line in lines {
             if left > 0 {
-                out.push(run(" ".repeat(left), &null));
+                out.push(run(" ".repeat(left), style));
             }
             out.extend(line);
             if right > 0 {
-                out.push(run(" ".repeat(right), &null));
+                out.push(run(" ".repeat(right), style));
             }
             out.push(run("\n", &null));
         }
@@ -74,6 +90,28 @@ impl Renderable for Padded<'_> {
         .with_maximum(room)
         .measure()
     }
+}
+
+/// Renders `padding` for a console `width` cells wide.
+pub(crate) fn render_padding(padding: &Padding, width: usize) -> Vec<Segment> {
+    Padded {
+        body: &*padding.body.0,
+        padding: padding.pad,
+        style: &padding.style,
+        expand: padding.expand,
+    }
+    .render(width)
+}
+
+/// The widths `padding` can be printed in.
+pub(crate) fn measure_padding(padding: &Padding, max_width: usize) -> Measure {
+    Padded {
+        body: &*padding.body.0,
+        padding: padding.pad,
+        style: &padding.style,
+        expand: padding.expand,
+    }
+    .measure(max_width)
 }
 
 /// A title or subtitle as one line of text: markup read, line breaks turned into spaces, tabs
@@ -158,6 +196,8 @@ fn with_padding<R>(panel: &Panel, with: impl FnOnce(&dyn Renderable) -> R) -> R 
         with(&Padded {
             body: &*panel.body.0,
             padding: panel.padding,
+            style: &Style::new(),
+            expand: true,
         })
     }
 }
@@ -209,7 +249,7 @@ fn body_lines_in(
     caps: &Capabilities,
 ) -> Vec<Vec<Segment>> {
     let child_height = height.saturating_sub(2);
-    let Padding {
+    let Pad {
         top,
         right,
         bottom,

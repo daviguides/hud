@@ -15,12 +15,21 @@ pub use live::{Live, LiveBuilder};
 pub use model::{
     Align, Attribute, BarColumn, Body, BoxStyle, Capabilities, Color, ColorSystem, Column, Columns,
     EnvSnapshot, ErrorReport, Group, Justify, Layout, MarkupError, Measure, MofNCompleteColumn,
-    Overflow, Padding, Panel, ProgressColumn, Renderable, Segment, Span, SpinnerColumn, Stream,
-    StreamInfo, Style, StyleError, Table, TaskProgressColumn, Text, TextColumn, TimeElapsedColumn,
-    TimeRemainingColumn, Tree, VerticalOverflow,
+    Overflow, Pad, Padding, Panel, ProgressColumn, Renderable, Segment, Span, SpinnerColumn,
+    Stream, StreamInfo, Style, StyleError, Table, TaskProgressColumn, Text, TextColumn,
+    TimeElapsedColumn, TimeRemainingColumn, Tree, VerticalOverflow,
 };
-pub use progress::{Progress, ProgressBuilder, Task, Track, track};
+pub use progress::{Progress, ProgressBuilder, Task, TaskUpdate, Track, track};
 pub use services::markup::escape;
+
+/// The width of `text` in terminal cells: Rich's `cell_len`, the same as [`cell_width`].
+///
+/// ```
+/// assert_eq!(hud::cell_len("日本語"), 6);
+/// ```
+pub fn cell_len(text: &str) -> usize {
+    cell_width(text)
+}
 pub use services::resolve::resolve;
 
 #[doc(hidden)]

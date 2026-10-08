@@ -54,7 +54,7 @@ fn shown_percent(completed: u64, total: u64) -> i64 {
 fn percent_text(column: &TaskProgressColumn, percent: i64) -> Text {
     let mut text = Text::new(format!("{percent:>3}%"));
     let len = text.plain().len();
-    text.stylize(0..len, column.style.clone());
+    text.stylize(column.style.clone(), 0..len);
     text
 }
 

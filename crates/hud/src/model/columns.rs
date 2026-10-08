@@ -1,4 +1,4 @@
-use super::panel::{Align, Body, Padding};
+use super::panel::{Align, Body, Pad};
 
 /// Items laid out in neat columns: as many columns as fit the width, filled left to right (or
 /// top to bottom), each column as wide as its widest item.
@@ -20,7 +20,7 @@ use super::panel::{Align, Body, Padding};
 #[derive(Clone, Debug)]
 pub struct Columns {
     pub(crate) items: Vec<Body>,
-    pub(crate) padding: Padding,
+    pub(crate) padding: Pad,
     pub(crate) width: Option<usize>,
     pub(crate) expand: bool,
     pub(crate) equal: bool,
@@ -34,7 +34,7 @@ impl Default for Columns {
     fn default() -> Columns {
         Columns {
             items: Vec::new(),
-            padding: Padding::from((0, 1)),
+            padding: Pad::from((0, 1)),
             width: None,
             expand: false,
             equal: false,
@@ -71,7 +71,7 @@ impl Columns {
     /// left)`. The padding at the edges of the grid is dropped and the padding between two
     /// columns is collapsed, as Rich does.
     #[must_use]
-    pub fn padding(mut self, padding: impl Into<Padding>) -> Columns {
+    pub fn padding(mut self, padding: impl Into<Pad>) -> Columns {
         self.padding = padding.into();
         self
     }

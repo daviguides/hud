@@ -8,18 +8,21 @@ use std::sync::OnceLock;
 
 use crate::integrations::{self, Probe, SystemProbe};
 use crate::model::{
-    Capabilities, ColorSystem, Columns, ErrorReport, Layout, Measure, Panel, Renderable, Segment,
-    Stream, Table, Text, Tree,
+    Capabilities, ColorSystem, Columns, ErrorReport, Layout, Measure, Padding, Panel, Renderable,
+    Segment, Stream, Table, Text, Tree,
 };
 use crate::services::columns::render_columns;
 use crate::services::layout::measure_text;
-use crate::services::panel::{measure_panel, render_panel, render_panel_in};
+use crate::services::panel::{
+    measure_padding, measure_panel, render_padding, render_panel, render_panel_in,
+};
 use crate::services::render::{crop_lines, render_text, render_text_ending, to_ansi, to_plain};
 use crate::services::report::{measure_report, render_report};
 use crate::services::resolve::resolve;
 use crate::services::split::render_layout;
 use crate::services::table::{measure_table, render_table};
 use crate::services::tree::{measure_tree, render_tree};
+use crate::services::winenv::apply_windows;
 
 /// Resolves capabilities through a [`Probe`] and remembers the answer per stream.
 pub(crate) struct Resolver<P> {
@@ -42,7 +45,14 @@ impl<P: Probe> Resolver<P> {
             Stream::Stdout => &self.stdout,
             Stream::Stderr => &self.stderr,
         };
-        *cell.get_or_init(|| resolve(&self.probe.env_snapshot(), self.probe.stream_info(stream)))
+        *cell.get_or_init(|| {
+            let info = self.probe.stream_info(stream);
+            let mut env = self.probe.env_snapshot();
+            if let Some(facts) = self.probe.windows_facts() {
+                env = apply_windows(env, &facts, info.is_tty);
+            }
+            resolve(&env, info)
+        })
     }
 }
 
@@ -112,6 +122,34 @@ impl Console {
         &self.caps
     }
 
+    /// The width in cells lines are wrapped to: Rich's `Console.width`.
+    pub fn width(&self) -> usize {
+        usize::from(self.caps.width)
+    }
+
+    /// Whether the console writes to a terminal, or is forced to act as one: Rich's
+    /// `Console.is_terminal`.
+    pub fn is_terminal(&self) -> bool {
+        self.caps.is_tty || self.caps.interactive
+    }
+
+    /// The color depth: Rich's `Console.color_system`. [`ColorSystem::None`] when color is off.
+    pub fn color_system(&self) -> ColorSystem {
+        self.caps.color_system
+    }
+
+    /// Whether color is off: Rich's `Console.no_color`. Bold, italic and underline can still
+    /// be on; `NO_COLOR` removes color only.
+    pub fn no_color(&self) -> bool {
+        self.caps.color_system == ColorSystem::None
+    }
+
+    /// Whether the console acts as a terminal although its output is not one (`FORCE_COLOR`,
+    /// `CLICOLOR_FORCE` or [`ConsoleBuilder::force_terminal`]): Rich's `force_terminal`.
+    pub fn force_terminal(&self) -> bool {
+        self.caps.interactive && !self.caps.is_tty
+    }
+
     /// Prints `renderable` and ignores write errors: a closed pipe (`prog | head`) ends the
     /// output quietly. A string is read as markup; markup that does not parse prints as it is.
     /// Use [`Console::try_print`] to see the error.
@@ -176,6 +214,16 @@ impl ConsoleBuilder {
         self
     }
 
+    /// Makes the console act as a terminal (redrawing in place) or not, whatever the stream is.
+    #[must_use]
+    pub fn force_terminal(mut self, force: bool) -> ConsoleBuilder {
+        self.console.caps.interactive = force;
+        if !force {
+            self.console.caps.is_tty = false;
+        }
+        self
+    }
+
     /// The color depth; [`ColorSystem::None`] drops colors only.
     #[must_use]
     pub fn color_system(mut self, color_system: ColorSystem) -> ConsoleBuilder {
@@ -219,6 +267,16 @@ impl Renderable for Table {
 
     fn measure(&self, max_width: usize) -> Measure {
         measure_table(self, max_width)
+    }
+}
+
+impl Renderable for Padding {
+    fn render(&self, width: usize) -> Vec<Segment> {
+        render_padding(self, width)
+    }
+
+    fn measure(&self, max_width: usize) -> Measure {
+        measure_padding(self, max_width)
     }
 }
 
@@ -342,6 +400,13 @@ impl fmt::Display for Table {
         let width = usize::from(caps.width);
         let ansi = to_ansi(&crop_lines(render_table(self, width), width), &caps);
         f.write_str(ansi.strip_suffix('\n').unwrap_or(&ansi))
+    }
+}
+
+/// Renders for the standard output profile without the final newline, like [`Table`].
+impl fmt::Display for Padding {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        display_block(f, &render_padding(self, display_width()))
     }
 }
 
