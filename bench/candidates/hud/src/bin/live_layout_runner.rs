@@ -14,7 +14,7 @@ use hud::{
 };
 use serde_json::{Value, json};
 
-const CLAIMED: &[&str] = &["columns", "layout", "live", "progress_live"];
+pub const CLAIMED: &[&str] = &["columns", "layout", "live", "progress_live"];
 
 fn color_system(name: &str) -> ColorSystem {
     match name {
@@ -290,7 +290,8 @@ fn render_live(case: &Value) -> Option<String> {
     String::from_utf8(bytes).ok()
 }
 
-fn render(case: &Value) -> Option<String> {
+/// The bytes hud writes for one case, or `None` when the case is not one it supports.
+pub fn render(case: &Value) -> Option<String> {
     let node = &case["renderable"];
     let console = console_for(case)?;
     match node["t"].as_str()? {

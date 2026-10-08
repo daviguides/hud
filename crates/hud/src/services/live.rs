@@ -7,7 +7,7 @@
 //! frame is erased the same way.
 
 use super::frame::{run, split_lines};
-use super::render::{render_text_ending, to_ansi};
+use super::render::{crop_lines, render_text_ending, to_ansi};
 use crate::model::{
     Capabilities, Color, Justify, Overflow, Segment, Style, Text, VerticalOverflow,
 };
@@ -54,7 +54,7 @@ pub(crate) fn fit_height(
 }
 
 /// Appends a frame as bytes for a stream with these capabilities: its lines separated by
-/// newlines, none after the last.
+/// newlines, none after the last, each cut to the width of the stream.
 pub(crate) fn push_frame(out: &mut String, lines: Vec<Vec<Segment>>, caps: &Capabilities) {
     let newline = run("\n", &Style::new());
     let count = lines.len();
@@ -65,7 +65,7 @@ pub(crate) fn push_frame(out: &mut String, lines: Vec<Vec<Segment>>, caps: &Capa
             flat.push(newline.clone());
         }
     }
-    out.push_str(&to_ansi(&flat, caps));
+    out.push_str(&to_ansi(&crop_lines(flat, usize::from(caps.width)), caps));
 }
 
 /// Moves the cursor to the start of a frame of `height` lines and clears each of its lines.
