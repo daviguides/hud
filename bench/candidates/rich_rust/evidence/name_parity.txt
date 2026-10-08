@@ -1,0 +1,2 @@
+name parity (existence by name): 27/40 = 68%
+missing: ['Console.no_color', 'Console.force_terminal', 'Text.from_markup', 'Panel.fit', 'Tree.add', 'Progress.add_task', 'Progress.advance', 'Progress.update', 'BarColumn', 'TextColumn', 'TaskProgressColumn', 'MofNCompleteColumn', 'SpinnerColumn']

@@ -1,0 +1,10 @@
+PASS t01-table/main
+PASS t02-panel/main
+PASS t03-progress/main
+PASS t04-tree/main
+PASS t05-error/main
+PASS t06-markup/main
+PASS t07-pipe/main
+FAIL t08-env/no_color_tty
+PASS t08-env/force_color_pipe
+PASS t08-env/plain_pipe

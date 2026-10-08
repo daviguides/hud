@@ -1,0 +1,8 @@
+error       7/ 30  23.3% {'fail': 23}
+markup     30/ 30 100.0% 
+panel       5/ 30  16.7% {'fail': 25}
+progress    0/ 30   0.0% {'fail': 30}
+style      29/ 29 100.0% {'excluded_reference_quirk': 1}
+table       2/ 29   6.9% {'fail': 27, 'excluded_reference_quirk': 1}
+tree       26/ 30  86.7% {'fail': 4}
+overall   99/208 47.6%; style+markup 100%: True

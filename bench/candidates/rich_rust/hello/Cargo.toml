@@ -1,0 +1,13 @@
+[package]
+name = "hud-bench-rich-rust-hello"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+rich_rust = "=0.2.3"
+
+[profile.release]
+strip = "symbols"

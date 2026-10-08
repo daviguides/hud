@@ -1,0 +1,8 @@
+  16 candidates/rich_rust/solutions/src/bin/t01.rs
+  20 candidates/rich_rust/solutions/src/bin/t02.rs
+  40 candidates/rich_rust/solutions/src/bin/t03.rs
+  13 candidates/rich_rust/solutions/src/bin/t04.rs
+  25 candidates/rich_rust/solutions/src/bin/t05.rs
+   7 candidates/rich_rust/solutions/src/bin/t06.rs
+  32 candidates/rich_rust/solutions/src/bin/t07.rs
+   7 candidates/rich_rust/solutions/src/bin/t08.rs

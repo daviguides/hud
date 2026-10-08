@@ -1,0 +1,8 @@
+cpu: Apple M5 Pro
+memory_bytes: 51539607552
+os: ProductName:		macOS ProductVersion:		26.7 BuildVersion:		25G229
+rustc: rustc 1.94.0 (4a4ef493e 2026-03-02)
+cargo: cargo 1.94.0 (85eff7c80 2026-01-15)
+rich_rust: =0.2.3 (crates.io), unicode-width 0.2.2, crossterm 0.29.0
+python reference: 3.14.3 rich 15.0.0
+generated: 2026-10-08 01:20:37 -03

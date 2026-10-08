@@ -1,0 +1,43 @@
+== primary S1 01:11:22
+EQUAL S1 943 bytes vs 943
+{'first_byte_ns': {'n': 30, 'median_ms': 24.174521, 'ci95_ms': [24.039021, 24.3862495]}, 'total_ns': {'n': 30, 'median_ms': 24.94875, 'ci95_ms': [24.8012295, 25.0809165]}}
+== explicit S1 01:11:23
+EQUAL S1 943 bytes vs 943
+{'first_byte_ns': {'n': 30, 'median_ms': 17.768417, 'ci95_ms': [17.630708, 18.075646]}, 'total_ns': {'n': 30, 'median_ms': 18.4007915, 'ci95_ms': [18.2156875, 18.7524165]}}
+== primary S2 01:11:25
+EQUAL S2 1088681 bytes vs 1088681
+{'n': 30, 'median_ms': 91.10525, 'ci95_ms': [90.439125, 91.9403125]}
+== primary S3 01:11:28
+EQUAL S3 919 bytes vs 919
+{'n': 30, 'median_ms': 265.3943335, 'ci95_ms': [264.9387085, 265.4520415]}
+== primary S4 01:11:39
+EQUAL S4 46698 bytes vs 46698
+{'n': 30, 'median_ms': 13.2154375, 'ci95_ms': [13.184333, 13.274292]}
+== buffered S2 01:11:40
+EQUAL S2 1088681 bytes vs 1088681
+{'n': 30, 'median_ms': 82.896792, 'ci95_ms': [82.3083125, 83.328229]}
+== buffered S4 01:11:43
+EQUAL S4 46698 bytes vs 46698
+{'n': 30, 'median_ms': 12.971292, 'ci95_ms': [12.9172295, 13.0495]}
+== detect S2 01:11:44
+EQUAL S2 1088681 bytes vs 1088681
+{'n': 30, 'median_ms': 101.559917, 'ci95_ms': [101.337667, 101.8961045]}
+== detect S4 01:11:48
+EQUAL S4 46698 bytes vs 46698
+{'n': 30, 'median_ms': 13.1549585, 'ci95_ms': [13.100312, 13.2290835]}
+== detect S3 01:11:49
+EQUAL S3 919 bytes vs 919
+{'n': 30, 'median_ms': 10390.905333, 'ci95_ms': [10177.821437, 10878.890354]}
+== python S1 01:18:18
+EQUAL S1 943 bytes vs 943
+{'first_byte_ns': {'n': 30, 'median_ms': 25.141646, 'ci95_ms': [24.821271, 25.370643724999997]}, 'total_ns': {'n': 30, 'median_ms': 29.3858535, 'ci95_ms': [29.013458, 29.731688]}}
+== python S2 01:18:20
+EQUAL S2 1088681 bytes vs 1088681
+{'n': 30, 'median_ms': 1104.862396, 'ci95_ms': [1097.0329165, 1115.6543335]}
+== python S3 01:19:01
+EQUAL S3 919 bytes vs 919
+{'n': 30, 'median_ms': 700.288792, 'ci95_ms': [689.561479, 709.403125]}
+== python S4 01:19:28
+EQUAL S4 46698 bytes vs 46698
+{'n': 30, 'median_ms': 42.693979, 'ci95_ms': [41.946937, 42.8883125]}
+== done 01:19:30

@@ -1,0 +1,446 @@
+{
+ "style-008": {
+  "class": "reference_quirk",
+  "reason": "stored golden depends on Rich's process-wide style cache; a fresh-process render equals the candidate"
+ },
+ "table-000": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "table-001": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-002": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-003": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-004": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-005": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "table-006": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-007": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-009": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-010": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-011": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-012": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-013": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-014": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-016": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-017": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-018": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-019": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-020": {
+  "class": "reference_quirk",
+  "reason": "stored golden depends on Rich's process-wide style cache; a fresh-process render equals the candidate"
+ },
+ "table-021": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-022": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-023": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-024": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-025": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-026": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-027": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-028": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "table-029": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "panel-000": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "panel-001": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "panel-002": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-004": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "panel-005": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "panel-006": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "panel-007": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-008": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-010": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "panel-012": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "panel-013": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-014": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "panel-015": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-016": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "panel-017": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-018": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-020": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-021": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "panel-022": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "panel-023": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-024": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-025": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "panel-027": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-028": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "panel-029": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ (compared against the fresh-process render)"
+ },
+ "tree-006": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "tree-009": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ (compared against the fresh-process render)"
+ },
+ "tree-013": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ (compared against the fresh-process render)"
+ },
+ "tree-014": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "progress-000": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-001": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-002": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-003": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-004": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-005": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-006": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-007": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-008": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-009": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-010": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-011": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-012": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-013": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-014": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-015": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-016": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-017": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-018": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-019": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-020": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-021": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ (compared against the fresh-process render)"
+ },
+ "progress-022": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-023": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-024": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-025": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-026": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-027": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout)"
+ },
+ "progress-028": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "progress-029": {
+  "class": "candidate_bug",
+  "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"
+ },
+ "error-000": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-001": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-002": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-004": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-005": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-006": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-008": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-009": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-010": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-012": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-013": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-014": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-016": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-017": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-018": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-020": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-021": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-022": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-024": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-025": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-026": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-028": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ },
+ "error-029": {
+  "class": "candidate_bug",
+  "reason": "visible text identical to the reference; SGR sequences differ"
+ }
+}

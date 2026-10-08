@@ -1,0 +1,44 @@
+== primary S1 01:01:12
+EQUAL S1 943 bytes vs 943
+{'first_byte_ns': {'n': 30, 'median_ms': 41.2565, 'ci95_ms': [40.0678335, 42.6283335]}, 'total_ns': {'n': 30, 'median_ms': 42.5141255, 'ci95_ms': [41.458547387500005, 43.779521]}}
+== primary S2 01:01:14
+EQUAL S2 1088681 bytes vs 1088681
+{'n': 30, 'median_ms': 121.7201875, 'ci95_ms': [121.2815205, 121.940021]}
+== primary S3 01:01:19
+EQUAL S3 919 bytes vs 919
+{'n': 30, 'median_ms': 266.721271, 'ci95_ms': [266.3658125, 267.507396]}
+== primary S4 01:01:30
+EQUAL S4 46698 bytes vs 46698
+{'n': 30, 'median_ms': 17.999771, 'ci95_ms': [17.676312, 18.1511875]}
+== buffered S2 01:01:31
+EQUAL S2 1088681 bytes vs 1088681
+{'n': 30, 'median_ms': 111.4304995, 'ci95_ms': [111.193479, 112.18325]}
+== buffered S4 01:01:36
+EQUAL S4 46698 bytes vs 46698
+{'n': 30, 'median_ms': 17.7349795, 'ci95_ms': [17.390396, 18.167417]}
+== detect S2 01:01:37
+EQUAL S2 1088681 bytes vs 1088681
+{'n': 30, 'median_ms': 148.9589795, 'ci95_ms': [147.779854, 153.103979]}
+WARN rustc/cargo running after detect
+WARN rustc/cargo running before detect
+== detect S4 01:01:44
+EQUAL S4 46698 bytes vs 46698
+{'n': 30, 'median_ms': 18.758354, 'ci95_ms': [18.365458, 19.201042]}
+WARN rustc/cargo running after detect
+WARN rustc/cargo running before detect
+== detect S3 01:01:45
+EQUAL S3 919 bytes vs 919
+{'n': 30, 'median_ms': 10102.3934585, 'ci95_ms': [9981.135958, 10315.407917]}
+== python S1 01:09:12
+EQUAL S1 943 bytes vs 943
+{'first_byte_ns': {'n': 30, 'median_ms': 28.168562, 'ci95_ms': [27.8409585, 28.439562]}, 'total_ns': {'n': 30, 'median_ms': 32.9066245, 'ci95_ms': [32.7317915, 33.466583]}}
+== python S2 01:09:13
+EQUAL S2 1088681 bytes vs 1088681
+{'n': 30, 'median_ms': 1061.2305625, 'ci95_ms': [1058.7091665, 1066.507333]}
+== python S3 01:09:53
+EQUAL S3 919 bytes vs 919
+{'n': 30, 'median_ms': 710.543167, 'ci95_ms': [698.4943955, 720.8876665]}
+== python S4 01:10:20
+EQUAL S4 46698 bytes vs 46698
+{'n': 30, 'median_ms': 42.622646, 'ci95_ms': [42.0899375, 42.8177295]}
+== done 01:10:22

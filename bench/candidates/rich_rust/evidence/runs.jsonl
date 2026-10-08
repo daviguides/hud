@@ -1,0 +1,260 @@
+{"kind": "correctness", "id": "style-000", "feature": "style", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "style-001", "feature": "style", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "style-002", "feature": "style", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "style-003", "feature": "style", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "style-004", "feature": "style", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "style-005", "feature": "style", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "style-006", "feature": "style", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "style-007", "feature": "style", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "style-008", "feature": "style", "color_system": "truecolor", "result": "excluded", "class": "reference_quirk", "reason": "stored golden depends on Rich's process-wide style cache; a fresh-process render equals the candidate"}
+{"kind": "correctness", "id": "style-009", "feature": "style", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "style-010", "feature": "style", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "style-011", "feature": "style", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "style-012", "feature": "style", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "style-013", "feature": "style", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "style-014", "feature": "style", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "style-015", "feature": "style", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "style-016", "feature": "style", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "style-017", "feature": "style", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "style-018", "feature": "style", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "style-019", "feature": "style", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "style-020", "feature": "style", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "style-021", "feature": "style", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "style-022", "feature": "style", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "style-023", "feature": "style", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "style-024", "feature": "style", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "style-025", "feature": "style", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "style-026", "feature": "style", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "style-027", "feature": "style", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "style-028", "feature": "style", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "style-029", "feature": "style", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "markup-000", "feature": "markup", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "markup-001", "feature": "markup", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "markup-002", "feature": "markup", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "markup-003", "feature": "markup", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "markup-004", "feature": "markup", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "markup-005", "feature": "markup", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "markup-006", "feature": "markup", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "markup-007", "feature": "markup", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "markup-008", "feature": "markup", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "markup-009", "feature": "markup", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "markup-010", "feature": "markup", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "markup-011", "feature": "markup", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "markup-012", "feature": "markup", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "markup-013", "feature": "markup", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "markup-014", "feature": "markup", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "markup-015", "feature": "markup", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "markup-016", "feature": "markup", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "markup-017", "feature": "markup", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "markup-018", "feature": "markup", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "markup-019", "feature": "markup", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "markup-020", "feature": "markup", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "markup-021", "feature": "markup", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "markup-022", "feature": "markup", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "markup-023", "feature": "markup", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "markup-024", "feature": "markup", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "markup-025", "feature": "markup", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "markup-026", "feature": "markup", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "markup-027", "feature": "markup", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "markup-028", "feature": "markup", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "markup-029", "feature": "markup", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "table-000", "feature": "table", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "table-001", "feature": "table", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-002", "feature": "table", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-003", "feature": "table", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-004", "feature": "table", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-005", "feature": "table", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "table-006", "feature": "table", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-007", "feature": "table", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-008", "feature": "table", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "table-009", "feature": "table", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-010", "feature": "table", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-011", "feature": "table", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-012", "feature": "table", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-013", "feature": "table", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-014", "feature": "table", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-015", "feature": "table", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "table-016", "feature": "table", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-017", "feature": "table", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-018", "feature": "table", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-019", "feature": "table", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-020", "feature": "table", "color_system": "truecolor", "result": "excluded", "class": "reference_quirk", "reason": "stored golden depends on Rich's process-wide style cache; a fresh-process render equals the candidate"}
+{"kind": "correctness", "id": "table-021", "feature": "table", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-022", "feature": "table", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-023", "feature": "table", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-024", "feature": "table", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-025", "feature": "table", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-026", "feature": "table", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-027", "feature": "table", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-028", "feature": "table", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "table-029", "feature": "table", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "panel-000", "feature": "panel", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "panel-001", "feature": "panel", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "panel-002", "feature": "panel", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-003", "feature": "panel", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "panel-004", "feature": "panel", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "panel-005", "feature": "panel", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "panel-006", "feature": "panel", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "panel-007", "feature": "panel", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-008", "feature": "panel", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-009", "feature": "panel", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "panel-010", "feature": "panel", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "panel-011", "feature": "panel", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "panel-012", "feature": "panel", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "panel-013", "feature": "panel", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-014", "feature": "panel", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "panel-015", "feature": "panel", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-016", "feature": "panel", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "panel-017", "feature": "panel", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-018", "feature": "panel", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-019", "feature": "panel", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "panel-020", "feature": "panel", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-021", "feature": "panel", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "panel-022", "feature": "panel", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "panel-023", "feature": "panel", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-024", "feature": "panel", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-025", "feature": "panel", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "panel-026", "feature": "panel", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "panel-027", "feature": "panel", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-028", "feature": "panel", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "panel-029", "feature": "panel", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "tree-000", "feature": "tree", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "tree-001", "feature": "tree", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "tree-002", "feature": "tree", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "tree-003", "feature": "tree", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "tree-004", "feature": "tree", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "tree-005", "feature": "tree", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "tree-006", "feature": "tree", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "tree-007", "feature": "tree", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "tree-008", "feature": "tree", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "tree-009", "feature": "tree", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "tree-010", "feature": "tree", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "tree-011", "feature": "tree", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "tree-012", "feature": "tree", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "tree-013", "feature": "tree", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "tree-014", "feature": "tree", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "tree-015", "feature": "tree", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "tree-016", "feature": "tree", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "tree-017", "feature": "tree", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "tree-018", "feature": "tree", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "tree-019", "feature": "tree", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "tree-020", "feature": "tree", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "tree-021", "feature": "tree", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "tree-022", "feature": "tree", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "tree-023", "feature": "tree", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "tree-024", "feature": "tree", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "tree-025", "feature": "tree", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "tree-026", "feature": "tree", "color_system": "standard", "result": "pass"}
+{"kind": "correctness", "id": "tree-027", "feature": "tree", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "tree-028", "feature": "tree", "color_system": "truecolor", "result": "pass"}
+{"kind": "correctness", "id": "tree-029", "feature": "tree", "color_system": "256", "result": "pass"}
+{"kind": "correctness", "id": "progress-000", "feature": "progress", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-001", "feature": "progress", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-002", "feature": "progress", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-003", "feature": "progress", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-004", "feature": "progress", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-005", "feature": "progress", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-006", "feature": "progress", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-007", "feature": "progress", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-008", "feature": "progress", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-009", "feature": "progress", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-010", "feature": "progress", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-011", "feature": "progress", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-012", "feature": "progress", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-013", "feature": "progress", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-014", "feature": "progress", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-015", "feature": "progress", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-016", "feature": "progress", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-017", "feature": "progress", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-018", "feature": "progress", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-019", "feature": "progress", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-020", "feature": "progress", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-021", "feature": "progress", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-022", "feature": "progress", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-023", "feature": "progress", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-024", "feature": "progress", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-025", "feature": "progress", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-026", "feature": "progress", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-027", "feature": "progress", "color_system": "none", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout)"}
+{"kind": "correctness", "id": "progress-028", "feature": "progress", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "progress-029", "feature": "progress", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text differs from the reference (layout) (compared against the fresh-process render)"}
+{"kind": "correctness", "id": "error-000", "feature": "error", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-001", "feature": "error", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-002", "feature": "error", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-003", "feature": "error", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "error-004", "feature": "error", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-005", "feature": "error", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-006", "feature": "error", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-007", "feature": "error", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "error-008", "feature": "error", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-009", "feature": "error", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-010", "feature": "error", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-011", "feature": "error", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "error-012", "feature": "error", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-013", "feature": "error", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-014", "feature": "error", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-015", "feature": "error", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "error-016", "feature": "error", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-017", "feature": "error", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-018", "feature": "error", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-019", "feature": "error", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "error-020", "feature": "error", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-021", "feature": "error", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-022", "feature": "error", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-023", "feature": "error", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "error-024", "feature": "error", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-025", "feature": "error", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-026", "feature": "error", "color_system": "standard", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-027", "feature": "error", "color_system": "none", "result": "pass"}
+{"kind": "correctness", "id": "error-028", "feature": "error", "color_system": "truecolor", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "correctness", "id": "error-029", "feature": "error", "color_system": "256", "result": "fail", "class": "candidate_bug", "reason": "visible text identical to the reference; SGR sequences differ"}
+{"kind": "task", "id": "t01-table/main", "result": "pass"}
+{"kind": "task", "id": "t02-panel/main", "result": "pass"}
+{"kind": "task", "id": "t03-progress/main", "result": "pass"}
+{"kind": "task", "id": "t04-tree/main", "result": "pass"}
+{"kind": "task", "id": "t05-error/main", "result": "pass"}
+{"kind": "task", "id": "t06-markup/main", "result": "pass"}
+{"kind": "task", "id": "t07-pipe/main", "result": "pass"}
+{"kind": "task", "id": "t08-env/no_color_tty", "result": "fail", "class": "candidate_failure", "reason": "NO_COLOR=1 on a terminal: the crate drops every SGR attribute including bold (color_system None), the target keeps bold"}
+{"kind": "task", "id": "t08-env/force_color_pipe", "result": "pass"}
+{"kind": "task", "id": "t08-env/plain_pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-truecolor-unset-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-truecolor-unset-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-truecolor-NO_COLOR-tty", "result": "fail", "class": "candidate_failure", "want": {"escapes": true, "bold": true, "color_class": "none"}, "got": {"escapes": false, "bold": false, "color_class": "none"}, "note": "NO_COLOR removes color, keeps bold (no-color.org)"}
+{"kind": "capability", "id": "cap-truecolor-NO_COLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-truecolor-FORCE_COLOR-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-truecolor-FORCE_COLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-truecolor-CLICOLOR-tty", "result": "fail", "class": "candidate_failure", "want": {"escapes": false, "bold": false, "color_class": "none"}, "got": {"escapes": true, "bold": true, "color_class": "truecolor"}, "note": "CLICOLOR=0 disables color on a tty (bixense)"}
+{"kind": "capability", "id": "cap-truecolor-CLICOLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-truecolor-CLICOLOR_FORCE-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-truecolor-CLICOLOR_FORCE-pipe", "result": "fail", "class": "candidate_failure", "want": {"escapes": true, "bold": true, "color_class": "truecolor"}, "got": {"escapes": false, "bold": false, "color_class": "none"}, "note": ""}
+{"kind": "capability", "id": "cap-256-unset-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-256-unset-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-256-NO_COLOR-tty", "result": "fail", "class": "candidate_failure", "want": {"escapes": true, "bold": true, "color_class": "none"}, "got": {"escapes": false, "bold": false, "color_class": "none"}, "note": "NO_COLOR removes color, keeps bold (no-color.org)"}
+{"kind": "capability", "id": "cap-256-NO_COLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-256-FORCE_COLOR-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-256-FORCE_COLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-256-CLICOLOR-tty", "result": "fail", "class": "candidate_failure", "want": {"escapes": false, "bold": false, "color_class": "none"}, "got": {"escapes": true, "bold": true, "color_class": "256"}, "note": "CLICOLOR=0 disables color on a tty (bixense)"}
+{"kind": "capability", "id": "cap-256-CLICOLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-256-CLICOLOR_FORCE-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-256-CLICOLOR_FORCE-pipe", "result": "fail", "class": "candidate_failure", "want": {"escapes": true, "bold": true, "color_class": "256"}, "got": {"escapes": false, "bold": false, "color_class": "none"}, "note": ""}
+{"kind": "capability", "id": "cap-16-unset-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-16-unset-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-16-NO_COLOR-tty", "result": "fail", "class": "candidate_failure", "want": {"escapes": true, "bold": true, "color_class": "none"}, "got": {"escapes": false, "bold": false, "color_class": "none"}, "note": "NO_COLOR removes color, keeps bold (no-color.org)"}
+{"kind": "capability", "id": "cap-16-NO_COLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-16-FORCE_COLOR-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-16-FORCE_COLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-16-CLICOLOR-tty", "result": "fail", "class": "candidate_failure", "want": {"escapes": false, "bold": false, "color_class": "none"}, "got": {"escapes": true, "bold": true, "color_class": "standard"}, "note": "CLICOLOR=0 disables color on a tty (bixense)"}
+{"kind": "capability", "id": "cap-16-CLICOLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-16-CLICOLOR_FORCE-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-16-CLICOLOR_FORCE-pipe", "result": "fail", "class": "candidate_failure", "want": {"escapes": true, "bold": true, "color_class": "standard"}, "got": {"escapes": false, "bold": false, "color_class": "none"}, "note": ""}
+{"kind": "capability", "id": "cap-none-unset-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-none-unset-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-none-NO_COLOR-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-none-NO_COLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-none-FORCE_COLOR-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-none-FORCE_COLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-none-CLICOLOR-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-none-CLICOLOR-pipe", "result": "pass"}
+{"kind": "capability", "id": "cap-none-CLICOLOR_FORCE-tty", "result": "pass"}
+{"kind": "capability", "id": "cap-none-CLICOLOR_FORCE-pipe", "result": "pass"}
