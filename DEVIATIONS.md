@@ -25,6 +25,14 @@ cluster they follow, so hud counts them as 0 cells. Rich counts 1. Not in the co
 
 - Remove when: the Unicode data stops classifying them as `V`, or terminals draw them in their own cell.
 
+### D-002b: reserved Hangul Jamo Extended-B code points
+
+U+D7C7 to U+D7CA and U+D7FC to U+D7FF are unassigned but reserved for Hangul vowels and
+trailing consonants; the UCD gives them `V` and `T`, so hud counts 0 cells where Rich counts 1.
+No character is assigned there.
+
+- Remove when: characters are assigned there with a different classification.
+
 ### D-003: fold and truncate never split a cluster
 
 Rich's `chop_cells` can cut inside flags and Indic conjuncts. `hud_width::fold` and
@@ -60,3 +68,8 @@ no color depth. The standards are silent; this follows Rich.
   does not enable virtual terminal processing. Both need platform calls that are not
   implemented yet and cannot be verified on the development machine. No Windows build target
   has been exercised.
+- **Release.** The v0.1 milestone text asks for crates.io releases of `hud-width` and `hud`.
+  By decision of the project owner nothing is published before a stable version; both crates
+  carry `publish = false`.
+- **`cargo deny`.** The license allowlist and the `atty` ban of the `check` job are not wired
+  yet; the dependency tree of `hud` is `rustix`, `bitflags`, `errno` and `libc`.
