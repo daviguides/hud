@@ -1,0 +1,253 @@
+{
+ "version": 1,
+ "candidate": "hud",
+ "crate_version": "workspace commit d033748 (v0.6)",
+ "criterion": "A name that exists counts as recognizable when a Rich Python call, translated only by the mechanical Rust adaptations (varargs -> iterator, slice or builder push; keyword arguments -> builder methods or typed fields; omitted defaults -> explicit default value; str -> &str or impl Into<String>; exceptions -> Result; constructor -> Type::new or a named constructor), keeps the same operation, the same argument roles and the same positional order. It does not count when the positional order differs, an argument role is missing without an alternative on the same item, or the same name denotes a different role or type.",
+ "exists_by_name": 29,
+ "recognizable": 26,
+ "total": 40,
+ "sensitivity": "28 of 40 (70.0%) is the threshold. It holds only if Text.stylize and Progress.update are both accepted as recognizable (28/40); with all three contested items accepted the count is 29/40 = 72.5%.",
+ "reviewer": "evaluation fork, written before counting, applied to every existing name of the list; only hud was reviewed because every pilot candidate already fails another DX threshold",
+ "items": [
+  {
+   "name": "Console",
+   "exists": true,
+   "recognizable": true,
+   "note": "Rich Console(...); hud Console::stdout() / stderr() / builder(): constructor named by stream, same role."
+  },
+  {
+   "name": "Console.print",
+   "exists": true,
+   "recognizable": true,
+   "note": "Rich print(*objects, ...); hud print(&renderable): one renderable, groups via Group."
+  },
+  {
+   "name": "Console.width",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "Console.is_terminal",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "Console.color_system",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "Console.no_color",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "Console.force_terminal",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "Style",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Style.parse",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Color",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Color.parse",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "Text",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Text.append",
+   "exists": true,
+   "recognizable": true,
+   "note": "Rich append(text, style=None); hud append(text, style): explicit default."
+  },
+  {
+   "name": "Text.from_markup",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Text.stylize",
+   "exists": true,
+   "recognizable": false,
+   "note": "Rich stylize(style, start=0, end=None); hud stylize(range: Range<usize>, style: Style): order of roles differs and start/end become a range."
+  },
+  {
+   "name": "Text.truncate",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "Text.wrap",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "Table",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Table.add_column",
+   "exists": true,
+   "recognizable": true,
+   "note": "Rich add_column(header, ...); hud add_column(impl Into<Column>), Column::new(header)."
+  },
+  {
+   "name": "Table.add_row",
+   "exists": true,
+   "recognizable": true,
+   "note": "Rich add_row(*renderables); hud add_row(cells: iterator)."
+  },
+  {
+   "name": "Column",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "box",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "box.ROUNDED",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  },
+  {
+   "name": "Panel",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Panel.fit",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Tree",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Tree.add",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Progress",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Progress.add_task",
+   "exists": true,
+   "recognizable": true,
+   "note": "Rich add_task(description, start, total, ...); hud add_task(description, total): total positional and required."
+  },
+  {
+   "name": "Progress.advance",
+   "exists": true,
+   "recognizable": true,
+   "note": "Rich advance(task_id, advance=1); hud advance(task, amount): amount required."
+  },
+  {
+   "name": "Progress.update",
+   "exists": true,
+   "recognizable": false,
+   "note": "Rich update(task_id, *, total, completed, advance, description, visible, ...); hud update(task, completed): the roles total, description and visible are missing on this item."
+  },
+  {
+   "name": "BarColumn",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "TextColumn",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "TaskProgressColumn",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "MofNCompleteColumn",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "SpinnerColumn",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "Group",
+   "exists": true,
+   "recognizable": true,
+   "note": "Rich Group(*renderables); hud Group::new().push(item): builder push."
+  },
+  {
+   "name": "Padding",
+   "exists": true,
+   "recognizable": false,
+   "note": "Rich Padding(renderable, pad) wraps a renderable; hud Padding is a four-field spacing value (top, right, bottom, left): the same name denotes a different role."
+  },
+  {
+   "name": "markup.escape",
+   "exists": true,
+   "recognizable": true,
+   "note": "same operation, roles and order"
+  },
+  {
+   "name": "cell_len",
+   "exists": false,
+   "recognizable": false,
+   "note": "no item with this name"
+  }
+ ]
+}

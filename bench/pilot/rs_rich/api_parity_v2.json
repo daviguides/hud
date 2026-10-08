@@ -1,0 +1,16 @@
+{
+ "hit": 35,
+ "total": 40,
+ "parity": 0.875,
+ "missing": [
+  "Console.force_terminal",
+  "Text.wrap",
+  "TaskProgressColumn",
+  "MofNCompleteColumn",
+  "Group"
+ ],
+ "before": {
+  "hit": 35,
+  "parity": 0.875
+ }
+}

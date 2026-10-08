@@ -97,7 +97,9 @@ def parity(doc):
     for n in names:
         if "." in n:
             a, b = n.split(".", 1)
-            found[n] = norm(b) in members.get(norm(a), set())
+            # A lowercase prefix is a Python module (markup.escape, box.ROUNDED), not a class: the Rust item is a function
+            # or constant inside a module of that name or at the crate root (a re-export).
+            found[n] = norm(b) in members.get(norm(a), set()) or (a[:1].islower() and norm(b) in top)
         else:
             found[n] = norm(n) in top
     return found

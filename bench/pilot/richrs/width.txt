@@ -1,4 +1,4 @@
 width: 439/500 (87.8%); contested 0/13
 truncate: splits=0 not_prefix=0 not_maximal=589 missing=0
 tables: misaligned rows 11/82 in 7/12 tables
-unsupported: ['fold']
+unsupported: ['fold', 'widgets']

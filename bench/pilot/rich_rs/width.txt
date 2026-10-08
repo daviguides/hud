@@ -2,4 +2,4 @@ width: 439/500 (87.8%); contested 0/13
 fold: splits=797 concat_bad=0 too_wide=127 not_greedy=255 missing=0 of 20000
 truncate: splits=217 not_prefix=826 not_maximal=245 missing=0
 tables: misaligned rows 6/97 in 5/12 tables
-unsupported: none
+unsupported: ['widgets']

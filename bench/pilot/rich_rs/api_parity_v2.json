@@ -1,0 +1,13 @@
+{
+ "hit": 38,
+ "total": 40,
+ "parity": 0.95,
+ "missing": [
+  "Console.no_color",
+  "Console.force_terminal"
+ ],
+ "before": {
+  "hit": 38,
+  "parity": 0.95
+ }
+}
