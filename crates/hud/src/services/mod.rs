@@ -1,6 +1,7 @@
 //! Pure functions over the model. No terminal, no environment, no global state.
 
 pub(crate) mod color;
+pub(crate) mod frame;
 pub(crate) mod layout;
 pub(crate) mod markup;
 pub(crate) mod measure;
