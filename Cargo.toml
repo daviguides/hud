@@ -1,15 +1,24 @@
-[package]
-name = "hud"
-version = "0.0.0"
+[workspace]
+resolver = "3"
+members = ["crates/hud-width", "crates/hud", "xtask"]
+exclude = ["bench"]
+
+[workspace.package]
 edition = "2024"
-description = "Functional terminal UX for Rust: styled output, tables, panels, progress. Pre-alpha."
+rust-version = "1.85"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/daviguides/hud"
-readme = "README.md"
-keywords = ["terminal", "cli", "tui", "table", "ansi"]
-categories = ["command-line-interface"]
 
-[dependencies]
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "deny"
+unreachable_pub = "warn"
 
-[lints.clippy]
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "deny"
+
+[workspace.lints.clippy]
 all = { level = "deny", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
