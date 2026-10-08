@@ -22,6 +22,8 @@ jobs:
         env:
           RUSTDOCFLAGS: -D warnings
       - run: cargo xtask check-layers
+      - name: examples build
+        run: cargo build --workspace --examples
       - name: generated tables are up to date
         run: |
           cargo xtask gen-width
@@ -55,3 +57,25 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: zero panics and no violated property, seeded
         run: cargo run --release --manifest-path bench/candidates/hud/Cargo.toml --bin fuzz -- --count 2000
+
+  deny:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EmbarkStudios/cargo-deny-action@v2
+
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: rustup toolchain install nightly --profile minimal
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-public-api
+      - name: public API matches the committed snapshot
+        run: |
+          cargo public-api -p hud > "$RUNNER_TEMP/hud.txt"
+          cargo public-api -p hud-width > "$RUNNER_TEMP/hud-width.txt"
+          diff -u api/hud.txt "$RUNNER_TEMP/hud.txt"
+          diff -u api/hud-width.txt "$RUNNER_TEMP/hud-width.txt"
