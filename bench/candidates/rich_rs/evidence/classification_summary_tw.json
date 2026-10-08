@@ -1,0 +1,14 @@
+[
+ {
+  "feature": "table",
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "n": 6
+ },
+ {
+  "feature": "table",
+  "class": "candidate_bug",
+  "tag": "text_differs",
+  "n": 2
+ }
+]

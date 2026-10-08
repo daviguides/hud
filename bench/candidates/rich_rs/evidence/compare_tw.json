@@ -1,0 +1,108 @@
+{
+  "features": {
+    "table": {
+      "pass": 4,
+      "fail": 8,
+      "unsupported": 0,
+      "missing": 0,
+      "denominator": 12,
+      "rate": 0.3333333333333333
+    }
+  },
+  "overall": {
+    "pass": 4,
+    "denominator": 12,
+    "rate": 0.3333333333333333,
+    "style_markup_100": true
+  },
+  "failures": [
+    {
+      "id": "tw-001",
+      "feature": "table",
+      "class": "candidate_bug",
+      "byte_offset": 43,
+      "line": 2,
+      "want": "------------+\n|\u001b[1m \u001b[0m\u001b[1mH0      \u001b[0m\u001b[1m \u001b[0m|\u001b[1m \u001b[0m\u001b",
+      "got": "------------+\n|\u001b[1m H0       \u001b[22m|\u001b[1m                    H",
+      "want_len": 331,
+      "got_len": 301
+    },
+    {
+      "id": "tw-002",
+      "feature": "table",
+      "class": "candidate_bug",
+      "byte_offset": 310,
+      "line": 6,
+      "want": "क्षा         éléve     naïve café  \n  1️⃣2",
+      "got": "क्षा        éléve     naïve café  \n  1️⃣2�",
+      "want_len": 488,
+      "got_len": 487
+    },
+    {
+      "id": "tw-003",
+      "feature": "table",
+      "class": "candidate_bug",
+      "byte_offset": 183,
+      "line": 2,
+      "want": "��━━┓\n┃\u001b[1m \u001b[0m\u001b[1mH0        \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b",
+      "got": "��━━┓\n┃\u001b[1m H0         \u001b[22m┃\u001b[1m                 ",
+      "want_len": 1201,
+      "got_len": 1139
+    },
+    {
+      "id": "tw-005",
+      "feature": "table",
+      "class": "candidate_bug",
+      "byte_offset": 42,
+      "line": 2,
+      "want": "             \n \u001b[1m \u001b[0m\u001b[1mH0   \u001b[0m\u001b[1m \u001b[0m│\u001b[1m \u001b[0m\u001b[",
+      "got": "             \n \u001b[1m H0    \u001b[22m│\u001b[1m          H1          ",
+      "want_len": 510,
+      "got_len": 479
+    },
+    {
+      "id": "tw-007",
+      "feature": "table",
+      "class": "candidate_bug",
+      "byte_offset": 126,
+      "line": 2,
+      "want": "��━━┓\n┃\u001b[1m \u001b[0m\u001b[1mH0  \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1",
+      "got": "��━━┓\n┃\u001b[1m H0   \u001b[22m┃\u001b[1m H1                    ",
+      "want_len": 627,
+      "got_len": 582
+    },
+    {
+      "id": "tw-009",
+      "feature": "table",
+      "class": "candidate_bug",
+      "byte_offset": 67,
+      "line": 2,
+      "want": "------------+\n|\u001b[1m \u001b[0m\u001b[1mH0    \u001b[0m\u001b[1m \u001b[0m|\u001b[1m \u001b[0m\u001b[1",
+      "got": "------------+\n|\u001b[1m H0     \u001b[22m|\u001b[1m             H1 \u001b[22m|\u001b",
+      "want_len": 616,
+      "got_len": 556
+    },
+    {
+      "id": "tw-010",
+      "feature": "table",
+      "class": "candidate_bug",
+      "byte_offset": 218,
+      "line": 5,
+      "want": "어                  कक्षा  \n                     ",
+      "got": "어                 कक्षा  \n                      ",
+      "want_len": 269,
+      "got_len": 268
+    },
+    {
+      "id": "tw-011",
+      "feature": "table",
+      "class": "candidate_bug",
+      "byte_offset": 20,
+      "line": 1,
+      "want": "┏━━━━━┳━━━━━━━━━━━━━",
+      "got": "┏━━━━━━┳━━━━━━━━━━━━",
+      "want_len": 978,
+      "got_len": 931
+    }
+  ]
+}

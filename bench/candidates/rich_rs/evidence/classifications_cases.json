@@ -1,0 +1,727 @@
+{
+ "style-000": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-001": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-006": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-008": {
+  "class": "reference_quirk",
+  "tag": "rich_style_cache",
+  "reason": "candidate equals a fresh-process Rich render; golden contaminated by Rich's per-Style ANSI cache"
+ },
+ "style-009": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-010": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-012": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-013": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-016": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-018": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-021": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-022": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-025": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-026": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "style-028": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-000": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-001": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-002": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-004": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-005": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-006": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-009": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-012": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-016": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-017": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-018": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-020": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-021": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-022": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-025": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-027": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-028": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "markup-029": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-000": {
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "reason": "identical on screen except bold/italic on blank padding cells (invisible)"
+ },
+ "table-001": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-002": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-004": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-005": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "table-006": {
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "reason": "identical on screen except bold/italic on blank padding cells (invisible)"
+ },
+ "table-007": {
+  "class": "documented_deviation",
+  "tag": "no_wrap_overflow",
+  "reason": "Column docs: no_wrap/overflow not yet fully implemented"
+ },
+ "table-008": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-009": {
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "reason": "identical on screen except bold/italic on blank padding cells (invisible)"
+ },
+ "table-010": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-012": {
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "reason": "identical on screen except bold/italic on blank padding cells (invisible)"
+ },
+ "table-013": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-014": {
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "reason": "identical on screen except bold/italic on blank padding cells (invisible)"
+ },
+ "table-016": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-017": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-018": {
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "reason": "identical on screen except bold/italic on blank padding cells (invisible)"
+ },
+ "table-020": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "table-021": {
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "reason": "identical on screen except bold/italic on blank padding cells (invisible)"
+ },
+ "table-022": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-024": {
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "reason": "identical on screen except bold/italic on blank padding cells (invisible)"
+ },
+ "table-025": {
+  "class": "documented_deviation",
+  "tag": "no_wrap_overflow",
+  "reason": "Column docs: no_wrap/overflow not yet fully implemented"
+ },
+ "table-026": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "table-027": {
+  "class": "documented_deviation",
+  "tag": "no_wrap_overflow",
+  "reason": "Column docs: no_wrap/overflow not yet fully implemented"
+ },
+ "table-028": {
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "reason": "identical on screen except bold/italic on blank padding cells (invisible)"
+ },
+ "table-029": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "panel-000": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-001": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-004": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "panel-005": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-006": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-008": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-010": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-012": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "panel-013": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-014": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-016": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "panel-018": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-021": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-022": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-024": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-025": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-028": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "panel-029": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "tree-000": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-001": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-002": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-004": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-005": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-006": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "tree-008": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-009": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "tree-010": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-012": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-013": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "tree-014": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "tree-016": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-017": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-018": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-020": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-021": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-022": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-024": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-025": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-026": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-028": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "tree-029": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "progress-000": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "progress-001": {
+  "class": "candidate_bug",
+  "tag": "text_differs",
+  "reason": "different visible text or layout"
+ },
+ "progress-002": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "progress-004": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-005": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-006": {
+  "class": "candidate_bug",
+  "tag": "text_differs",
+  "reason": "different visible text or layout"
+ },
+ "progress-008": {
+  "class": "candidate_bug",
+  "tag": "text_differs",
+  "reason": "different visible text or layout"
+ },
+ "progress-009": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-010": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-012": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-013": {
+  "class": "candidate_bug",
+  "tag": "text_differs",
+  "reason": "different visible text or layout"
+ },
+ "progress-014": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-016": {
+  "class": "candidate_bug",
+  "tag": "text_differs",
+  "reason": "different visible text or layout"
+ },
+ "progress-017": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-018": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-020": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "progress-021": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-022": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-024": {
+  "class": "candidate_bug",
+  "tag": "text_differs",
+  "reason": "different visible text or layout"
+ },
+ "progress-025": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-026": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-028": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "progress-029": {
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "reason": "same text, different visible style attributes"
+ },
+ "error-000": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-001": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-002": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-004": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-005": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-006": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-008": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-009": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-010": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-012": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-013": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-014": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-016": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-017": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-018": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-020": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-021": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-022": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-024": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-025": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-026": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-028": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ },
+ "error-029": {
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "reason": "same screen cells, different SGR bytes (per-attribute resets instead of ESC[0m, or span splitting)"
+ }
+}

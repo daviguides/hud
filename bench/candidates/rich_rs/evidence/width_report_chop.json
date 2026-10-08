@@ -1,0 +1,489 @@
+{
+  "width": {
+    "supported": true,
+    "total": 500,
+    "agree": 439,
+    "rate": 0.878,
+    "contested_agree": 0,
+    "contested_total": 13,
+    "by_category": {
+      "ambiguous": {
+        "agree": 40,
+        "total": 40
+      },
+      "ascii": {
+        "agree": 30,
+        "total": 30
+      },
+      "cjk": {
+        "agree": 70,
+        "total": 70
+      },
+      "combining": {
+        "agree": 31,
+        "total": 50
+      },
+      "control": {
+        "agree": 0,
+        "total": 30
+      },
+      "emoji": {
+        "agree": 61,
+        "total": 61
+      },
+      "emoji_tone": {
+        "agree": 40,
+        "total": 40
+      },
+      "emoji_zwj": {
+        "agree": 50,
+        "total": 50
+      },
+      "flags": {
+        "agree": 30,
+        "total": 30
+      },
+      "keycaps": {
+        "agree": 15,
+        "total": 15
+      },
+      "mixed": {
+        "agree": 47,
+        "total": 54
+      },
+      "zero_width": {
+        "agree": 25,
+        "total": 30
+      }
+    },
+    "wrong": [
+      {
+        "id": "w-0303",
+        "want": 5,
+        "got": 6,
+        "category": "combining"
+      },
+      {
+        "id": "w-0316",
+        "want": 2,
+        "got": 1,
+        "category": "combining"
+      },
+      {
+        "id": "w-0317",
+        "want": 3,
+        "got": 4,
+        "category": "combining"
+      },
+      {
+        "id": "w-0318",
+        "want": 3,
+        "got": 5,
+        "category": "combining"
+      },
+      {
+        "id": "w-0319",
+        "want": 3,
+        "got": 5,
+        "category": "combining"
+      },
+      {
+        "id": "w-0321",
+        "want": 13,
+        "got": 14,
+        "category": "combining"
+      },
+      {
+        "id": "w-0323",
+        "want": 5,
+        "got": 7,
+        "category": "combining"
+      },
+      {
+        "id": "w-0325",
+        "want": 12,
+        "got": 13,
+        "category": "combining"
+      },
+      {
+        "id": "w-0327",
+        "want": 5,
+        "got": 7,
+        "category": "combining"
+      },
+      {
+        "id": "w-0328",
+        "want": 6,
+        "got": 7,
+        "category": "combining"
+      },
+      {
+        "id": "w-0331",
+        "want": 7,
+        "got": 6,
+        "category": "combining"
+      },
+      {
+        "id": "w-0335",
+        "want": 14,
+        "got": 15,
+        "category": "combining"
+      },
+      {
+        "id": "w-0336",
+        "want": 9,
+        "got": 15,
+        "category": "combining"
+      },
+      {
+        "id": "w-0338",
+        "want": 11,
+        "got": 13,
+        "category": "combining"
+      },
+      {
+        "id": "w-0339",
+        "want": 7,
+        "got": 6,
+        "category": "combining"
+      },
+      {
+        "id": "w-0340",
+        "want": 7,
+        "got": 8,
+        "category": "combining"
+      },
+      {
+        "id": "w-0342",
+        "want": 4,
+        "got": 3,
+        "category": "combining"
+      },
+      {
+        "id": "w-0343",
+        "want": 9,
+        "got": 13,
+        "category": "combining"
+      },
+      {
+        "id": "w-0345",
+        "want": 10,
+        "got": 11,
+        "category": "combining"
+      },
+      {
+        "id": "w-0346",
+        "want": 9,
+        "got": 6,
+        "category": "zero_width"
+      },
+      {
+        "id": "w-0348",
+        "want": 5,
+        "got": 6,
+        "category": "zero_width"
+      },
+      {
+        "id": "w-0356",
+        "want": 5,
+        "got": 6,
+        "category": "zero_width"
+      },
+      {
+        "id": "w-0358",
+        "want": 4,
+        "got": 5,
+        "category": "zero_width"
+      },
+      {
+        "id": "w-0360",
+        "want": 4,
+        "got": 5,
+        "category": "zero_width"
+      },
+      {
+        "id": "w-0416",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0417",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0418",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0419",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0420",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0421",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0422",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0423",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0424",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0425",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0426",
+        "want": 2,
+        "got": 3,
+        "category": "control"
+      },
+      {
+        "id": "w-0427",
+        "want": 11,
+        "got": 12,
+        "category": "control"
+      },
+      {
+        "id": "w-0428",
+        "want": 9,
+        "got": 10,
+        "category": "control"
+      },
+      {
+        "id": "w-0429",
+        "want": 11,
+        "got": 12,
+        "category": "control"
+      },
+      {
+        "id": "w-0430",
+        "want": 12,
+        "got": 13,
+        "category": "control"
+      },
+      {
+        "id": "w-0431",
+        "want": 12,
+        "got": 13,
+        "category": "control"
+      },
+      {
+        "id": "w-0432",
+        "want": 11,
+        "got": 12,
+        "category": "control"
+      },
+      {
+        "id": "w-0433",
+        "want": 11,
+        "got": 12,
+        "category": "control"
+      },
+      {
+        "id": "w-0434",
+        "want": 12,
+        "got": 13,
+        "category": "control"
+      },
+      {
+        "id": "w-0435",
+        "want": 11,
+        "got": 12,
+        "category": "control"
+      },
+      {
+        "id": "w-0436",
+        "want": 12,
+        "got": 13,
+        "category": "control"
+      },
+      {
+        "id": "w-0437",
+        "want": 10,
+        "got": 11,
+        "category": "control"
+      },
+      {
+        "id": "w-0438",
+        "want": 12,
+        "got": 13,
+        "category": "control"
+      },
+      {
+        "id": "w-0439",
+        "want": 11,
+        "got": 12,
+        "category": "control"
+      },
+      {
+        "id": "w-0440",
+        "want": 9,
+        "got": 10,
+        "category": "control"
+      },
+      {
+        "id": "w-0441",
+        "want": 10,
+        "got": 11,
+        "category": "control"
+      }
+    ]
+  },
+  "fold": {
+    "supported": true,
+    "total": 20000,
+    "missing": 0,
+    "grapheme_splits": 797,
+    "concat_mismatch": 0,
+    "line_too_wide": 127,
+    "valid_but_not_greedy": 255,
+    "examples": [
+      {
+        "id": "w-0161",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 2,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 3,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 4,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 5,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 6,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0161",
+        "w": 7,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 2,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 3,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 4,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0162",
+        "w": 5,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 2,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 3,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 4,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0163",
+        "w": 5,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0164",
+        "w": 1,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0164",
+        "w": 2,
+        "problem": "grapheme split"
+      },
+      {
+        "id": "w-0164",
+        "w": 3,
+        "problem": "grapheme split"
+      }
+    ]
+  },
+  "truncate": {
+    "supported": true,
+    "total": 20000,
+    "missing": 0,
+    "grapheme_splits": 623,
+    "not_a_prefix": 0,
+    "valid_but_not_maximal": 355
+  },
+  "tables": {
+    "supported": true,
+    "tables": 12,
+    "missing": 0,
+    "misaligned_rows": 6,
+    "rows": 97,
+    "tables_with_misalignment": 5
+  }
+}

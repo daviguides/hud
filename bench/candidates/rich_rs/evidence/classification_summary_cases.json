@@ -1,0 +1,92 @@
+[
+ {
+  "feature": "error",
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "n": 23
+ },
+ {
+  "feature": "markup",
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "n": 18
+ },
+ {
+  "feature": "panel",
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "n": 4
+ },
+ {
+  "feature": "panel",
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "n": 14
+ },
+ {
+  "feature": "progress",
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "n": 14
+ },
+ {
+  "feature": "progress",
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "n": 3
+ },
+ {
+  "feature": "progress",
+  "class": "candidate_bug",
+  "tag": "text_differs",
+  "n": 6
+ },
+ {
+  "feature": "style",
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "n": 14
+ },
+ {
+  "feature": "style",
+  "class": "reference_quirk",
+  "tag": "rich_style_cache",
+  "n": 1
+ },
+ {
+  "feature": "table",
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "n": 3
+ },
+ {
+  "feature": "table",
+  "class": "candidate_bug",
+  "tag": "attrs_on_blank_cells_only",
+  "n": 9
+ },
+ {
+  "feature": "table",
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "n": 10
+ },
+ {
+  "feature": "table",
+  "class": "documented_deviation",
+  "tag": "no_wrap_overflow",
+  "n": 3
+ },
+ {
+  "feature": "tree",
+  "class": "candidate_bug",
+  "tag": "attrs_differ_text_same",
+  "n": 4
+ },
+ {
+  "feature": "tree",
+  "class": "candidate_bug",
+  "tag": "sgr_spelling_only",
+  "n": 19
+ }
+]
